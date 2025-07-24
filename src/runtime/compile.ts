@@ -5,7 +5,7 @@ import {CodeBuilder} from "./builder"
 import {instr} from "./instr"
 import {matchingRule} from "./layout"
 import {IF, IFELSE, IFJMP, IFNOT, IFNOTJMP, PUSHCONT, PUSHCONT_SHORT} from "./types"
-import {StoreOptions} from "./util"
+import type {StoreOptions} from "./util"
 
 export const compileInstructions = (
     b: CodeBuilder,
@@ -115,17 +115,7 @@ const compileNonRefIf = (b: CodeBuilder, instr: Instr, options: StoreOptions) =>
             options,
         )
     }
-    if (instr.$ === "IFREFELSE") {
-        IFELSE.store(
-            b,
-            {
-                $: "IFELSE",
-                loc: instr.loc,
-            },
-            options,
-        )
-    }
-    if (instr.$ === "IFELSEREF") {
+    if (instr.$ === "IFREFELSE" || instr.$ === "IFELSEREF") {
         IFELSE.store(
             b,
             {
