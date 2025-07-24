@@ -232,6 +232,7 @@ describe("tests auto layout", () => {
                 }
                 IF
             `,
+            true,
         ),
     )
 
@@ -249,6 +250,7 @@ describe("tests auto layout", () => {
                 }
                 IFJMP
             `,
+            true,
         ),
     )
 
@@ -267,6 +269,7 @@ describe("tests auto layout", () => {
                     ${PUSHSLICES}
                 }
             `,
+            true,
         ),
     )
 

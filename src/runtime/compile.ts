@@ -168,6 +168,11 @@ const compileNonRefIf = (b: CodeBuilder, instr: Instr, options: StoreOptions) =>
 }
 
 function compileIf(t: Instr, b: CodeBuilder, options: StoreOptions) {
+    if (!options.skipRefs) {
+        // compile as is
+        return false
+    }
+
     if (
         t.$ === "IFREF" ||
         t.$ === "IFREFELSE" ||
