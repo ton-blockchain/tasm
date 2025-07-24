@@ -1,0 +1,260 @@
+import {parse} from "../parse/parse"
+import {$ast} from "../parse/grammar"
+import type {$ast as $astT} from "../../text/grammar"
+import * as $ from "@tonstudio/parser-runtime"
+import {type Ctx, print, processInstructions} from "../../text"
+import Instruction = $ast.Instruction
+
+// eslint-disable-next-line @typescript-eslint/require-await
+const main = async () => {
+    const code = `
+    "Asm.fif" include
+    // automatically generated from 1.tolk
+    PROGRAM{
+      0 DECLMETHOD onInternalMessage()
+      onInternalMessage() PROC:<{
+        11 PUSHINT
+        INMSG_BOUNCED
+        0 THROWIF
+        x{1} SDBEGINSQ
+        IFJMP:<{
+          256 PLDI
+          THROWANY
+        }>
+        x{2} SDBEGINSQ
+        IFJMP:<{
+          256 LDSLICE
+          DROP
+          HASHSU
+          THROWANY
+        }>
+        3 THROW
+      }>
+    }END>c
+    `
+    const result = parse("test.fift", code)
+
+    if (result.$ === "ParseFailure") {
+        throw result.error
+    }
+
+    console.log(result.ast)
+
+    for (const def of result.ast.program.definitions) {
+        const instructions = def.def.instructions.flatMap(it => compileInstruction(it))
+        console.log(instructions)
+
+        const ctx: Ctx = {lines: [], filepath: ""}
+        const instrs = processInstructions(ctx, instructions)
+
+        console.log(print(instrs))
+    }
+}
+
+function compileInstruction(raw: Instruction): $astT.Instruction[] {
+    const instr = raw.instr
+    switch (instr.$) {
+        case "AsmExpression": {
+            const args = instr.arguments?.primitives.map(it => convertPrimitive(it)) ?? []
+
+            if (instr.name.value === "PUSHINT") {
+                const arg = args[0]
+                if (!arg) throw new Error("invalid arguments")
+
+                if (arg.expression.$ === "IntegerLiteral") {
+                    let name = "PUSHINT_4"
+                    const value = BigInt(arg.expression.value.digits)
+                    if (value > 10) {
+                        name = "PUSHINT_16"
+                    }
+
+                    return [
+                        {
+                            $: "Instruction",
+                            args,
+                            name: {
+                                $: "Id",
+                                name,
+                                loc: $.emptyLoc(0),
+                            },
+                            loc: $.emptyLoc(0),
+                        },
+                    ]
+                }
+            }
+
+            return [
+                {
+                    $: "Instruction",
+                    args,
+                    name: {
+                        $: "Id",
+                        name: instr.name.value,
+                        loc: $.emptyLoc(0),
+                    },
+                    loc: $.emptyLoc(0),
+                },
+            ]
+        }
+        case "IfStatement": {
+            throw new Error('Not implemented yet: "IfStatement" case')
+        }
+        case "IfjmpStatement": {
+            const IFJMP: $astT.Instruction = {
+                $: "Instruction",
+                name: {
+                    $: "Id",
+                    name: "IFJMP",
+                    loc: $.emptyLoc(0),
+                },
+                args: [],
+                loc: $.emptyLoc(0),
+            }
+            const PUSHCONT: $astT.Instruction = {
+                $: "Instruction",
+                name: {
+                    $: "Id",
+                    name: "PUSHCONT",
+                    loc: $.emptyLoc(0),
+                },
+                args: [
+                    {
+                        $: "Argument",
+                        expression: {
+                            $: "Code",
+                            instructions: instr.instructions.flatMap(it => compileInstruction(it)),
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ],
+                loc: $.emptyLoc(0),
+            }
+            return [PUSHCONT, IFJMP]
+        }
+        case "WhileStatement": {
+            throw new Error('Not implemented yet: "WhileStatement" case')
+        }
+        case "RepeatStatement": {
+            throw new Error('Not implemented yet: "RepeatStatement" case')
+        }
+        case "UntilStatement": {
+            throw new Error('Not implemented yet: "UntilStatement" case')
+        }
+    }
+
+    throw new Error("Unexpected error")
+}
+
+function convertPrimitive(raw: $ast.AsmPrimitive): $astT.Argument {
+    const primitive = raw.prim
+    switch (primitive.$) {
+        case "InstructionBlock":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "Code",
+                    instructions: primitive.instructions.flatMap(it => compileInstruction(it)),
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "String":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "DataLiteral",
+                    value: {
+                        $: "StringLiteral",
+                        value: primitive.content,
+                        loc: $.emptyLoc(0),
+                    },
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "HexBitString":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "DataLiteral",
+                    value: {
+                        $: "HexLiteral",
+                        content: primitive.content,
+                        loc: $.emptyLoc(0),
+                    },
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "BinBitString":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "DataLiteral",
+                    value: {
+                        $: "BinLiteral",
+                        content: primitive.content,
+                        loc: $.emptyLoc(0),
+                    },
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "BocHex":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "DataLiteral",
+                    value: {
+                        $: "BocLiteral",
+                        content: primitive.content,
+                        loc: $.emptyLoc(0),
+                    },
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "StackRegister":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "StackElement",
+                    value: primitive.value,
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "ControlRegister":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "ControlRegister",
+                    value: primitive.value,
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "Integer":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "IntegerLiteral",
+                    value: {
+                        $: "IntegerLiteralDec",
+                        digits: primitive.value,
+                        loc: $.emptyLoc(0),
+                    },
+                    op: undefined,
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
+        case "ArgIdentifier":
+            throw new Error("Not implemented yet: ArgIdentifier")
+    }
+
+    throw new Error("Unexpected error")
+}
+
+void main()
