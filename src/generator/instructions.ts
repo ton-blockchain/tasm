@@ -1249,6 +1249,22 @@ export const instructions: Record<string, Opcode> = {
     PSEUDO_PUSHSLICE: cat("cell_const", mkfixedpseudo(0, seq(slice(refs(1), uint(0, range(0n, 0n)), 0)))),
     PSEUDO_EXOTIC: cat("cell_const", mkfixedpseudo(0, seq(exoticCell))),
 
+    // TVM 11 instructions
+    GETPARAMLONG: cat("config", mkfixedrangen(0xf88100, 0xf88111, 24, 8, seq(uint8), `exec_get_var_param_long`)),
+    INMSGPARAMS: cat("config", mksimple(0xf88111, 24, `exec_get_param`)),
+    GETPARAMLONG2: cat("config", mkfixedrangen(0xf88112, 0xf881ff, 24, 8, seq(uint8), `exec_get_var_param_long`)),
+    INMSG_BOUNCE: cat("config", mksimple(0xf890, 16, `exec_get_in_msg_param`)),
+    INMSG_BOUNCED: cat("config", mksimple(0xf891, 16, `exec_get_in_msg_param`)),
+    INMSG_SRC: cat("config", mksimple(0xf892, 16, `exec_get_in_msg_param`)),
+    INMSG_FWDFEE: cat("config", mksimple(0xf893, 16, `exec_get_in_msg_param`)),
+    INMSG_LT: cat("config", mksimple(0xf894, 16, `exec_get_in_msg_param`)),
+    INMSG_UTIME: cat("config", mksimple(0xf895, 16, `exec_get_in_msg_param`)),
+    INMSG_ORIGVALUE: cat("config", mksimple(0xf896, 16, `exec_get_in_msg_param`)),
+    INMSG_VALUE: cat("config", mksimple(0xf897, 16, `exec_get_in_msg_param`)),
+    INMSG_VALUEEXTRA: cat("config", mksimple(0xf898, 16, `exec_get_in_msg_param`)),
+    INMSG_STATEINIT: cat("config", mksimple(0xf899, 16, `exec_get_in_msg_param`)),
+    INMSGPARAM: cat("config", mkfixedrangen(0xf89a, 0xf8a0, 16, 4, seq(uint4), `exec_get_var_in_msg_param`)),
+
     DEBUGMARK: cat("int_const", mkfixedn(0xF955, 16, 16, seq(uint(16, range(0n, 0n))), `exec_push_pow2dec`)),
 }
 

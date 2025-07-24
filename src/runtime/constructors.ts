@@ -7683,6 +7683,124 @@ export type PSEUDO_EXOTIC = {
     arg0: $.ExoticCell
     loc: $.Loc | undefined
 }
+export const GETPARAMLONG = (arg0: number, loc?: $.Loc): GETPARAMLONG => ({
+    $: "GETPARAMLONG",
+    arg0,
+    loc,
+})
+export type GETPARAMLONG = {
+    $: "GETPARAMLONG"
+    arg0: number
+    loc: $.Loc | undefined
+}
+export const INMSGPARAMS = (loc?: $.Loc): INMSGPARAMS => ({
+    $: "INMSGPARAMS",
+    loc,
+})
+export type INMSGPARAMS = {
+    $: "INMSGPARAMS"
+    loc: $.Loc | undefined
+}
+export const GETPARAMLONG2 = (arg0: number, loc?: $.Loc): GETPARAMLONG2 => ({
+    $: "GETPARAMLONG2",
+    arg0,
+    loc,
+})
+export type GETPARAMLONG2 = {
+    $: "GETPARAMLONG2"
+    arg0: number
+    loc: $.Loc | undefined
+}
+export const INMSG_BOUNCE = (loc?: $.Loc): INMSG_BOUNCE => ({
+    $: "INMSG_BOUNCE",
+    loc,
+})
+export type INMSG_BOUNCE = {
+    $: "INMSG_BOUNCE"
+    loc: $.Loc | undefined
+}
+export const INMSG_BOUNCED = (loc?: $.Loc): INMSG_BOUNCED => ({
+    $: "INMSG_BOUNCED",
+    loc,
+})
+export type INMSG_BOUNCED = {
+    $: "INMSG_BOUNCED"
+    loc: $.Loc | undefined
+}
+export const INMSG_SRC = (loc?: $.Loc): INMSG_SRC => ({
+    $: "INMSG_SRC",
+    loc,
+})
+export type INMSG_SRC = {
+    $: "INMSG_SRC"
+    loc: $.Loc | undefined
+}
+export const INMSG_FWDFEE = (loc?: $.Loc): INMSG_FWDFEE => ({
+    $: "INMSG_FWDFEE",
+    loc,
+})
+export type INMSG_FWDFEE = {
+    $: "INMSG_FWDFEE"
+    loc: $.Loc | undefined
+}
+export const INMSG_LT = (loc?: $.Loc): INMSG_LT => ({
+    $: "INMSG_LT",
+    loc,
+})
+export type INMSG_LT = {
+    $: "INMSG_LT"
+    loc: $.Loc | undefined
+}
+export const INMSG_UTIME = (loc?: $.Loc): INMSG_UTIME => ({
+    $: "INMSG_UTIME",
+    loc,
+})
+export type INMSG_UTIME = {
+    $: "INMSG_UTIME"
+    loc: $.Loc | undefined
+}
+export const INMSG_ORIGVALUE = (loc?: $.Loc): INMSG_ORIGVALUE => ({
+    $: "INMSG_ORIGVALUE",
+    loc,
+})
+export type INMSG_ORIGVALUE = {
+    $: "INMSG_ORIGVALUE"
+    loc: $.Loc | undefined
+}
+export const INMSG_VALUE = (loc?: $.Loc): INMSG_VALUE => ({
+    $: "INMSG_VALUE",
+    loc,
+})
+export type INMSG_VALUE = {
+    $: "INMSG_VALUE"
+    loc: $.Loc | undefined
+}
+export const INMSG_VALUEEXTRA = (loc?: $.Loc): INMSG_VALUEEXTRA => ({
+    $: "INMSG_VALUEEXTRA",
+    loc,
+})
+export type INMSG_VALUEEXTRA = {
+    $: "INMSG_VALUEEXTRA"
+    loc: $.Loc | undefined
+}
+export const INMSG_STATEINIT = (loc?: $.Loc): INMSG_STATEINIT => ({
+    $: "INMSG_STATEINIT",
+    loc,
+})
+export type INMSG_STATEINIT = {
+    $: "INMSG_STATEINIT"
+    loc: $.Loc | undefined
+}
+export const INMSGPARAM = (arg0: number, loc?: $.Loc): INMSGPARAM => ({
+    $: "INMSGPARAM",
+    arg0,
+    loc,
+})
+export type INMSGPARAM = {
+    $: "INMSGPARAM"
+    arg0: number
+    loc: $.Loc | undefined
+}
 export const DEBUGMARK = (arg0: number, loc?: $.Loc): DEBUGMARK => ({
     $: "DEBUGMARK",
     arg0,

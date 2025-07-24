@@ -2344,6 +2344,40 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             p.append(instr.arg0.toString())
             return
+        case "GETPARAMLONG":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "INMSGPARAMS":
+            return
+        case "GETPARAMLONG2":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "INMSG_BOUNCE":
+            return
+        case "INMSG_BOUNCED":
+            return
+        case "INMSG_SRC":
+            return
+        case "INMSG_FWDFEE":
+            return
+        case "INMSG_LT":
+            return
+        case "INMSG_UTIME":
+            return
+        case "INMSG_ORIGVALUE":
+            return
+        case "INMSG_VALUE":
+            return
+        case "INMSG_VALUEEXTRA":
+            return
+        case "INMSG_STATEINIT":
+            return
+        case "INMSGPARAM":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
         case "DEBUGMARK":
             p.append(" ")
             p.append(instr.arg0.toString())

@@ -8306,6 +8306,135 @@ export const SETCP_SHORT: $.Type<c.SETCP_SHORT> = {
         $.delta(-256, $.uint(8)).store(b, val.arg0)
     },
 }
+export const GETPARAMLONG: $.Type<c.GETPARAMLONG> = {
+    load: s => {
+        s.skip(16)
+        return c.GETPARAMLONG($.uint(8).load(s))
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(16285952 >> 8, 16, val)
+        $.uint(8).store(b, val.arg0)
+    },
+}
+export const INMSGPARAMS: $.Type<c.INMSGPARAMS> = {
+    load: s => {
+        s.skip(24)
+        return c.INMSGPARAMS()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(16285969, 24, val)
+    },
+}
+export const GETPARAMLONG2: $.Type<c.GETPARAMLONG2> = {
+    load: s => {
+        s.skip(16)
+        return c.GETPARAMLONG2($.uint(8).load(s))
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(16285970 >> 8, 16, val)
+        $.uint(8).store(b, val.arg0)
+    },
+}
+export const INMSG_BOUNCE: $.Type<c.INMSG_BOUNCE> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_BOUNCE()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63632, 16, val)
+    },
+}
+export const INMSG_BOUNCED: $.Type<c.INMSG_BOUNCED> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_BOUNCED()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63633, 16, val)
+    },
+}
+export const INMSG_SRC: $.Type<c.INMSG_SRC> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_SRC()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63634, 16, val)
+    },
+}
+export const INMSG_FWDFEE: $.Type<c.INMSG_FWDFEE> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_FWDFEE()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63635, 16, val)
+    },
+}
+export const INMSG_LT: $.Type<c.INMSG_LT> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_LT()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63636, 16, val)
+    },
+}
+export const INMSG_UTIME: $.Type<c.INMSG_UTIME> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_UTIME()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63637, 16, val)
+    },
+}
+export const INMSG_ORIGVALUE: $.Type<c.INMSG_ORIGVALUE> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_ORIGVALUE()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63638, 16, val)
+    },
+}
+export const INMSG_VALUE: $.Type<c.INMSG_VALUE> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_VALUE()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63639, 16, val)
+    },
+}
+export const INMSG_VALUEEXTRA: $.Type<c.INMSG_VALUEEXTRA> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_VALUEEXTRA()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63640, 16, val)
+    },
+}
+export const INMSG_STATEINIT: $.Type<c.INMSG_STATEINIT> = {
+    load: s => {
+        s.skip(16)
+        return c.INMSG_STATEINIT()
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63641, 16, val)
+    },
+}
+export const INMSGPARAM: $.Type<c.INMSGPARAM> = {
+    load: s => {
+        s.skip(12)
+        return c.INMSGPARAM($.uint(4).load(s))
+    },
+    store: (b, val) => {
+        b.storeInstructionPrefix(63642 >> 4, 12, val)
+        $.uint(4).store(b, val.arg0)
+    },
+}
 export const DEBUGMARK: $.Type<c.DEBUGMARK> = {
     load: s => {
         s.skip(16)

@@ -3884,6 +3884,65 @@ export const SETCP_SHORT: $.Convert = (ctx, instr, loc) => {
     const args = $.singleIntegerArg(instr)
     return c.SETCP_SHORT(args, loc)
 }
+export const GETPARAMLONG: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.GETPARAMLONG(args, loc)
+}
+export const INMSGPARAMS: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSGPARAMS(loc)
+}
+export const GETPARAMLONG2: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.GETPARAMLONG2(args, loc)
+}
+export const INMSG_BOUNCE: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_BOUNCE(loc)
+}
+export const INMSG_BOUNCED: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_BOUNCED(loc)
+}
+export const INMSG_SRC: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_SRC(loc)
+}
+export const INMSG_FWDFEE: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_FWDFEE(loc)
+}
+export const INMSG_LT: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_LT(loc)
+}
+export const INMSG_UTIME: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_UTIME(loc)
+}
+export const INMSG_ORIGVALUE: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_ORIGVALUE(loc)
+}
+export const INMSG_VALUE: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_VALUE(loc)
+}
+export const INMSG_VALUEEXTRA: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_VALUEEXTRA(loc)
+}
+export const INMSG_STATEINIT: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.INMSG_STATEINIT(loc)
+}
+export const INMSGPARAM: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.INMSGPARAM(args, loc)
+}
 export const DEBUGMARK: $.Convert = (ctx, instr, loc) => {
     u.assertSingleArgs(instr, loc)
     const args = $.singleIntegerArg(instr)
@@ -5680,6 +5739,34 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return SETCPX(ctx, instr, loc)
         case "SETCP_SHORT":
             return SETCP_SHORT(ctx, instr, loc)
+        case "GETPARAMLONG":
+            return GETPARAMLONG(ctx, instr, loc)
+        case "INMSGPARAMS":
+            return INMSGPARAMS(ctx, instr, loc)
+        case "GETPARAMLONG2":
+            return GETPARAMLONG2(ctx, instr, loc)
+        case "INMSG_BOUNCE":
+            return INMSG_BOUNCE(ctx, instr, loc)
+        case "INMSG_BOUNCED":
+            return INMSG_BOUNCED(ctx, instr, loc)
+        case "INMSG_SRC":
+            return INMSG_SRC(ctx, instr, loc)
+        case "INMSG_FWDFEE":
+            return INMSG_FWDFEE(ctx, instr, loc)
+        case "INMSG_LT":
+            return INMSG_LT(ctx, instr, loc)
+        case "INMSG_UTIME":
+            return INMSG_UTIME(ctx, instr, loc)
+        case "INMSG_ORIGVALUE":
+            return INMSG_ORIGVALUE(ctx, instr, loc)
+        case "INMSG_VALUE":
+            return INMSG_VALUE(ctx, instr, loc)
+        case "INMSG_VALUEEXTRA":
+            return INMSG_VALUEEXTRA(ctx, instr, loc)
+        case "INMSG_STATEINIT":
+            return INMSG_STATEINIT(ctx, instr, loc)
+        case "INMSGPARAM":
+            return INMSGPARAM(ctx, instr, loc)
         case "DEBUGMARK":
             return DEBUGMARK(ctx, instr, loc)
     }

@@ -900,6 +900,20 @@ export type Instr =
     | c.PSEUDO_PUSHREF
     | c.PSEUDO_PUSHSLICE
     | c.PSEUDO_EXOTIC
+    | c.GETPARAMLONG
+    | c.INMSGPARAMS
+    | c.GETPARAMLONG2
+    | c.INMSG_BOUNCE
+    | c.INMSG_BOUNCED
+    | c.INMSG_SRC
+    | c.INMSG_FWDFEE
+    | c.INMSG_LT
+    | c.INMSG_UTIME
+    | c.INMSG_ORIGVALUE
+    | c.INMSG_VALUE
+    | c.INMSG_VALUEEXTRA
+    | c.INMSG_STATEINIT
+    | c.INMSGPARAM
     | c.DEBUGMARK
 export const rangeToType = [
     {
@@ -5373,6 +5387,76 @@ export const rangeToType = [
         load: types.SETCP_SHORT.load,
     },
     {
+        min: 16285952,
+        max: 16285969,
+        load: types.GETPARAMLONG.load,
+    },
+    {
+        min: 16285969,
+        max: 16285970,
+        load: types.INMSGPARAMS.load,
+    },
+    {
+        min: 16285970,
+        max: 16286207,
+        load: types.GETPARAMLONG2.load,
+    },
+    {
+        min: 16289792,
+        max: 16290048,
+        load: types.INMSG_BOUNCE.load,
+    },
+    {
+        min: 16290048,
+        max: 16290304,
+        load: types.INMSG_BOUNCED.load,
+    },
+    {
+        min: 16290304,
+        max: 16290560,
+        load: types.INMSG_SRC.load,
+    },
+    {
+        min: 16290560,
+        max: 16290816,
+        load: types.INMSG_FWDFEE.load,
+    },
+    {
+        min: 16290816,
+        max: 16291072,
+        load: types.INMSG_LT.load,
+    },
+    {
+        min: 16291072,
+        max: 16291328,
+        load: types.INMSG_UTIME.load,
+    },
+    {
+        min: 16291328,
+        max: 16291584,
+        load: types.INMSG_ORIGVALUE.load,
+    },
+    {
+        min: 16291584,
+        max: 16291840,
+        load: types.INMSG_VALUE.load,
+    },
+    {
+        min: 16291840,
+        max: 16292096,
+        load: types.INMSG_VALUEEXTRA.load,
+    },
+    {
+        min: 16292096,
+        max: 16292352,
+        load: types.INMSG_STATEINIT.load,
+    },
+    {
+        min: 16292352,
+        max: 16293888,
+        load: types.INMSGPARAM.load,
+    },
+    {
         min: 16340224,
         max: 16340480,
         load: types.DEBUGMARK.load,
@@ -6273,4 +6357,18 @@ storeMapping.set("STSLICECONST", types.STSLICECONST.store)
 storeMapping.set("SETCP", types.SETCP.store)
 storeMapping.set("SETCPX", types.SETCPX.store)
 storeMapping.set("SETCP_SHORT", types.SETCP_SHORT.store)
+storeMapping.set("GETPARAMLONG", types.GETPARAMLONG.store)
+storeMapping.set("INMSGPARAMS", types.INMSGPARAMS.store)
+storeMapping.set("GETPARAMLONG2", types.GETPARAMLONG2.store)
+storeMapping.set("INMSG_BOUNCE", types.INMSG_BOUNCE.store)
+storeMapping.set("INMSG_BOUNCED", types.INMSG_BOUNCED.store)
+storeMapping.set("INMSG_SRC", types.INMSG_SRC.store)
+storeMapping.set("INMSG_FWDFEE", types.INMSG_FWDFEE.store)
+storeMapping.set("INMSG_LT", types.INMSG_LT.store)
+storeMapping.set("INMSG_UTIME", types.INMSG_UTIME.store)
+storeMapping.set("INMSG_ORIGVALUE", types.INMSG_ORIGVALUE.store)
+storeMapping.set("INMSG_VALUE", types.INMSG_VALUE.store)
+storeMapping.set("INMSG_VALUEEXTRA", types.INMSG_VALUEEXTRA.store)
+storeMapping.set("INMSG_STATEINIT", types.INMSG_STATEINIT.store)
+storeMapping.set("INMSGPARAM", types.INMSGPARAM.store)
 storeMapping.set("DEBUGMARK", types.DEBUGMARK.store)
