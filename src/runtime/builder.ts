@@ -125,15 +125,6 @@ export class CodeBuilder extends Builder {
         return this
     }
 
-    public storeCodeBuilder(builder: CodeBuilder): this {
-        this.storeBuilder(builder)
-        this.instructions.push(...builder.instructions)
-        this.subMappings.push(...builder.subMappings)
-        this.dictionaryInfo.push(...builder.dictionaryInfo)
-        this.debugSectionId = builder.debugSectionId
-        return this
-    }
-
     public reinitFrom(other: CodeBuilder): this {
         // @ts-expect-error hack
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -146,9 +137,5 @@ export class CodeBuilder extends Builder {
         this.dictionaryInfo.push(...other.dictionaryInfo)
         this.debugSectionId = other.debugSectionId
         return this
-    }
-
-    public clone(): this {
-        return structuredClone(this)
     }
 }

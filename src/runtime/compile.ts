@@ -186,7 +186,8 @@ function compileIf(t: Instr, b: CodeBuilder, options: StoreOptions) {
         compileNonRefIf(b2, t, options)
 
         if (b2.bits + b.bits <= 1023 && b2.refs + b.refs <= 4) {
-            b.storeCodeBuilder(b2)
+            compilePushcont(b, t.arg0, t.loc, options)
+            compileNonRefIf(b, t, options)
             return true
         }
     }
