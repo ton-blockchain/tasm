@@ -155,8 +155,8 @@ export const parseExotic = (cell: G.Cell): Instr => {
 
 export const DEFAULT_STORE_OPTIONS: StoreOptions = {skipRefs: false}
 
-export const compile = (instructions: Instr[], opts?: StoreOptions): Buffer => {
-    return compileCell(instructions, opts).toBoc()
+export const compile = (instructions: Instr[], options?: StoreOptions): Buffer => {
+    return compileCell(instructions, options).toBoc()
 }
 
 export const compileCell = (

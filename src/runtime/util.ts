@@ -33,7 +33,7 @@ export type Loc = {
 export const Loc = (file: string, line: number) => ({file, line})
 
 export type StoreOptions = {
-    skipRefs: boolean
+    readonly skipRefs: boolean
 }
 
 export type Store<T> = (b: CodeBuilder, t: T, options: StoreOptions) => void
