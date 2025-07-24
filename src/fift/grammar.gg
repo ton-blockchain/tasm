@@ -1,0 +1,91 @@
+SourceFile = include:IncludeDirective? program:Program;
+
+IncludeDirective = "\"" path:$[^"]+ "\"" "include";
+
+Program = keyword<"PROGRAM{"> declarations:Declaration* definitions:Definition* keyword<"}END>c">;
+
+Declaration = 
+      decl:(ProcDeclaration
+    / MethodDeclaration
+    / GlobalVar);
+
+ProcDeclaration = keyword<"DECLPROC"> name:Identifier;
+MethodDeclaration = method_id:Number keyword<"DECLMETHOD"> name:Identifier;
+
+GlobalVar = keyword<"DECLGLOBVAR"> name:Identifier;
+
+Definition = 
+      def:(ProcDefinition
+    / ProcInlineDefinition
+    / ProcRefDefinition
+    / MethodDefinition);
+
+ProcDefinition = name:Identifier keyword<"PROC:<{"> instructions:Instruction* keyword<"}>">;
+ProcInlineDefinition = name:Identifier keyword<"PROCINLINE:<{"> instructions:Instruction* keyword<"}>">;
+ProcRefDefinition = name:Identifier keyword<"PROCREF:<{"> instructions:Instruction* keyword<"}>">;
+MethodDefinition = name:Identifier keyword<"METHOD:<{"> instructions:Instruction* keyword<"}>">;
+
+Instruction = 
+      NegativeIdentifier
+    / Number
+    / String
+    / IfStatement
+    / IfjmpStatement
+    / WhileStatement
+    / RepeatStatement
+    / UntilStatement
+    / ProcCall
+    / SliceLiteral
+    / HexLiteral
+    / StackRef
+    / StackOp
+    / InstructionBlock
+    / Identifier;
+
+IfStatement = "IF:<{" instructions:Instruction* "}>" else_block:("ELSE<{" instructions:Instruction* "}>")?;
+
+IfjmpStatement = "IFJMP:<{" instructions:Instruction* "}>";
+
+WhileStatement = "WHILE:<{" condition:Instruction* "}>DO<{" body:Instruction* "}>";
+
+RepeatStatement = "REPEAT:<{" instructions:Instruction* "}>";
+
+UntilStatement = "UNTIL:<{" instructions:Instruction* "}>";
+
+ProcCall = proc:Identifier call_type:(keyword<"CALLDICT"> / keyword<"INLINECALLDICT">);
+
+InstructionBlock = "<{" instructions:Instruction* "}>";
+
+SliceLiteral = 
+      ("b{" content:$[01]+ "}")
+    / ("x{" content:$[0-9a-fA-F_]+ "}")
+    / ("B{" content:$[0-9a-fA-F_]+ "}");
+
+HexLiteral = $("0" [xX] [0-9a-fA-F]+);
+
+idPart "identifier character" = [a-zA-Z0-9$_%?];
+Identifier "identifier" = name:#$(!reservedWord [a-zA-Z$_%?] idPart*);
+
+NegativeIdentifier = "-" identifier:Identifier;
+
+Number = $("-"? [0-9]+);
+
+StackRef = "s(" index:$("-"? [0-9]+) ")";
+
+StackOp = first:StackIndex second:StackIndex operation:Identifier;
+
+StackIndex = "s" index:$[0-9]+;
+
+String = "\"" content:$[^"]* "\"";
+
+keyword<T> = #(@T !idPart);
+
+reservedWord "reserved word" = keyword<(
+    "PROGRAM" / "END>c" / "DECLPROC" / "DECLMETHOD" / "DECLGLOBVAR" / 
+    "PROC:<{" / "PROCINLINE:<{" / "PROCREF:<{" / "METHOD:<{" /
+    "IF:<{" / "ELSE<{" / "IFJMP:<{" / "WHILE:<{" / "DO<{" / 
+    "REPEAT:<{" / "UNTIL:<{" / "CALLDICT" / "INLINECALLDICT"
+)>;
+
+space "space" = [ \t\r\n] / comment;
+comment = "//" $[^\r\n]*; 
