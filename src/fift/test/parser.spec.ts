@@ -1,4 +1,5 @@
 import {parse} from "../parse"
+import * as fs from "node:fs"
 
 describe("Fift Parser", () => {
     it("should parse basic program", () => {
@@ -20,17 +21,19 @@ describe("Fift Parser", () => {
         if (result.$ === "ParseSuccess") {
             expect(result.ast.program.declarations).toHaveLength(1)
             expect(result.ast.program.definitions).toHaveLength(1)
+
+            expect(result.ast).toMatchSnapshot()
         }
     })
 
     it("should parse program with include", () => {
         const code = `"Asm.fif" include
-        PROGRAM{
-            DECLPROC test
-            test PROC:<{
-                SWAP
-            }>
-    }END>c`
+            PROGRAM{
+                DECLPROC test
+                test PROC:<{
+                    SWAP
+                }>
+        }END>c`
 
         const result = parse("test.fift", code)
 
@@ -38,6 +41,8 @@ describe("Fift Parser", () => {
         if (result.$ === "ParseSuccess") {
             expect(result.ast.include).toBeDefined()
             expect(result.ast.include?.path).toBe("Asm.fif")
+
+            expect(result.ast).toMatchSnapshot()
         }
     })
 
@@ -56,6 +61,28 @@ describe("Fift Parser", () => {
             expect(result.ast.program.declarations).toHaveLength(1)
             const decl = result.ast.program.declarations[0]
             expect(decl?.decl.$).toBe("MethodDeclaration")
+
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
+    it("should parse method declaration with name with ()", () => {
+        const code = `PROGRAM{
+            85143 DECLMETHOD seqno()
+            seqno() METHOD:<{
+                1 GETPARAM
+            }>
+        }END>c`
+
+        const result = parse("test.fift", code)
+
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast.program.declarations).toHaveLength(1)
+            const decl = result.ast.program.declarations[0]
+            expect(decl?.decl.$).toBe("MethodDeclaration")
+
+            expect(result.ast).toMatchSnapshot()
         }
     })
 
@@ -74,6 +101,9 @@ describe("Fift Parser", () => {
         const result = parse("test.fift", code)
 
         expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
     })
 
     it("should parse while statement", () => {
@@ -91,6 +121,9 @@ describe("Fift Parser", () => {
         const result = parse("test.fift", code)
 
         expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
     })
 
     it("should parse slice literals", () => {
@@ -106,6 +139,9 @@ describe("Fift Parser", () => {
         const result = parse("test.fift", code)
 
         expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
     })
 
     it("should parse stack operations", () => {
@@ -120,6 +156,9 @@ describe("Fift Parser", () => {
         const result = parse("test.fift", code)
 
         expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
     })
 
     it("should parse complex example", () => {
@@ -166,6 +205,9 @@ describe("Fift Parser", () => {
         const result = parse("test.fift", code)
 
         expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
     })
 
     it("should parse real world example", () => {
@@ -229,6 +271,37 @@ describe("Fift Parser", () => {
         const result = parse("test.fift", code)
 
         expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
+    it("should parse real world FunC example", () => {
+        const code = fs.readFileSync(`${__dirname}/testdata/JettonWallet.00-FunC.fif`, "utf8")
+
+        const result = parse("test.fift", code)
+
+        if (result.$ === "ParseFailure") {
+            console.log(result.error)
+        }
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
+    it("should parse real world Tolk example", () => {
+        const code = fs.readFileSync(`${__dirname}/testdata/JettonWallet.00-Tolk.fif`, "utf8")
+
+        const result = parse("test.fift", code)
+
+        if (result.$ === "ParseFailure") {
+            console.log(result.error)
+        }
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
     })
 
     it("should handle parse errors", () => {
