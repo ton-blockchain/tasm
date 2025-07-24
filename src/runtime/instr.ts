@@ -7,6 +7,7 @@ import {rangeToType, storeMapping} from "./instr-gen"
 import type {Mapping} from "./builder"
 import {CodeBuilder} from "./builder"
 import {compileInstructions} from "./compile"
+import type {StoreOptions} from "./util"
 
 export const instr: $.Type<Instr> = {
     store: (b, t, options) => {
@@ -152,15 +153,11 @@ export const parseExotic = (cell: G.Cell): Instr => {
     return PSEUDO_EXOTIC($.exotic.load(slice))
 }
 
-export interface CompileOpts {
-    readonly skipRefs: boolean
+export const compile = (instructions: Instr[], opts?: StoreOptions): Buffer => {
+    return compileCell(instructions, opts).toBoc()
 }
 
-export const compile = (instructions: Instr[]): Buffer => {
-    return compileCell(instructions).toBoc()
-}
-
-export const compileCell = (instructions: Instr[], opts?: CompileOpts): G.Cell => {
+export const compileCell = (instructions: Instr[], opts?: StoreOptions): G.Cell => {
     const b = new CodeBuilder()
     codeType().store(b, instructions, {skipRefs: opts?.skipRefs ?? false})
     return b.asCell()
@@ -168,7 +165,7 @@ export const compileCell = (instructions: Instr[], opts?: CompileOpts): G.Cell =
 
 export const compileCellWithMapping = (
     instructions: Instr[],
-    opts?: CompileOpts,
+    opts?: StoreOptions,
 ): [G.Cell, Mapping] => {
     const b = new CodeBuilder()
     codeType().store(b, instructions, {skipRefs: opts?.skipRefs ?? false})

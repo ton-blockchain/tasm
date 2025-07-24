@@ -98,9 +98,7 @@ export const codeSlice = (refs: Type<number>, bits: Type<number>): Type<Code> =>
             // TODO: extract logic of serialization to codeType
 
             if (code.$ === "Instructions") {
-                const [cell, mapping] = compileCellWithMapping(code.instructions, {
-                    skipRefs: options.skipRefs,
-                })
+                const [cell, mapping] = compileCellWithMapping(code.instructions, options)
 
                 const slice = cell.asSlice()
                 refs.store(b, slice.remainingRefs, options)
@@ -156,9 +154,7 @@ export const codeSlice = (refs: Type<number>, bits: Type<number>): Type<Code> =>
 export const refCodeSlice: Type<Code> = {
     store: (b, code, options) => {
         if (code.$ === "Instructions") {
-            const [cell, mapping] = compileCellWithMapping(code.instructions, {
-                skipRefs: options.skipRefs,
-            })
+            const [cell, mapping] = compileCellWithMapping(code.instructions, options)
             b.storeRef(cell)
 
             b.pushMappings(mapping)
@@ -197,9 +193,7 @@ export const inlineCodeSlice = (bits: Type<number>): Type<Code> => {
                 bits.store(b, y, options)
                 b.storeSlice(slice)
             } else {
-                const [cell, mapping] = compileCellWithMapping(code.instructions, {
-                    skipRefs: options.skipRefs,
-                })
+                const [cell, mapping] = compileCellWithMapping(code.instructions, options)
                 const slice = cell.asSlice()
 
                 const length = slice.remainingBits
@@ -382,9 +376,7 @@ export const dictionary = (keyLength: number): Type<Dict> => {
                 )
                 for (const method of dict.methods) {
                     const {id, instructions} = method
-                    const [cell, mapping] = compileCellWithMapping(instructions, {
-                        skipRefs: options.skipRefs,
-                    })
+                    const [cell, mapping] = compileCellWithMapping(instructions, options)
                     dictMappings.push(mapping)
                     dictionary.set(id, cell)
                 }
@@ -599,6 +591,7 @@ export const PSEUDO_PUSHREF: Type<c.PSEUDO_PUSHREF> = {
             b.storeRef(val.arg0.slice.asCell())
         } else {
             if (options.skipRefs) {
+                // compile instructions without ref at all in place
                 compileInstructions(b, val.arg0.instructions, options)
                 return
             }
@@ -615,9 +608,7 @@ export const PSEUDO_PUSHREF_ALWAYS: Type<c.PSEUDO_PUSHREF> = {
         if (val.arg0.$ === "Raw") {
             b.storeRef(val.arg0.slice.asCell())
         } else {
-            const [cell, mapping] = compileCellWithMapping(val.arg0.instructions, {
-                skipRefs: options.skipRefs,
-            })
+            const [cell, mapping] = compileCellWithMapping(val.arg0.instructions, options)
 
             // implicit JMPREF
             mapping.instructions.splice(0, 0, {
