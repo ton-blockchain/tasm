@@ -1,2 +1,2 @@
-export type * as ast from "./grammar"
-export * from "./parse"
+export type * as ast from "./parse/grammar"
+export * from "./parse/parse"
