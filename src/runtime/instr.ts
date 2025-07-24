@@ -7,19 +7,20 @@ import {rangeToType, storeMapping} from "./instr-gen"
 import type {Mapping} from "./builder"
 import {CodeBuilder} from "./builder"
 import {compileInstructions} from "./compile"
+import type {StoreOptions} from "./util"
 
 export const instr: $.Type<Instr> = {
-    store: (b, t) => {
+    store: (b, t, options) => {
         if (t.$ === "PSEUDO_PUSHREF") {
-            $.PSEUDO_PUSHREF.store(b, t)
+            $.PSEUDO_PUSHREF.store(b, t, options)
             return
         }
         if (t.$ === "PSEUDO_PUSHSLICE") {
-            $.PSEUDO_PUSHSLICE.store(b, t)
+            $.PSEUDO_PUSHSLICE.store(b, t, options)
             return
         }
         if (t.$ === "PSEUDO_EXOTIC") {
-            $.PSEUDO_EXOTIC.store(b, t)
+            $.PSEUDO_EXOTIC.store(b, t, options)
             return
         }
 
@@ -27,7 +28,7 @@ export const instr: $.Type<Instr> = {
         if (!store) {
             throw new Error("unknown instruction")
         }
-        store(b, t)
+        store(b, t, options)
     },
     load: getLoadInstr<Instr>(rangeToType),
 }
@@ -64,8 +65,8 @@ export const codeType = (): $.Type<codeType> => {
 
             return arr
         },
-        store(b, t) {
-            compileInstructions(b, t)
+        store(b, t, options) {
+            compileInstructions(b, t, options)
         },
     }
 }
@@ -152,19 +153,30 @@ export const parseExotic = (cell: G.Cell): Instr => {
     return PSEUDO_EXOTIC($.exotic.load(slice))
 }
 
-export const compile = (instructions: Instr[]): Buffer => {
-    return compileCell(instructions).toBoc()
+export const DEFAULT_STORE_OPTIONS: StoreOptions = {skipRefs: false}
+
+export const compile = (
+    instructions: Instr[],
+    options: StoreOptions = DEFAULT_STORE_OPTIONS,
+): Buffer => {
+    return compileCell(instructions, options).toBoc()
 }
 
-export const compileCell = (instructions: Instr[]): G.Cell => {
+export const compileCell = (
+    instructions: Instr[],
+    options: StoreOptions = DEFAULT_STORE_OPTIONS,
+): G.Cell => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions)
+    codeType().store(b, instructions, options)
     return b.asCell()
 }
 
-export const compileCellWithMapping = (instructions: Instr[]): [G.Cell, Mapping] => {
+export const compileCellWithMapping = (
+    instructions: Instr[],
+    options: StoreOptions = DEFAULT_STORE_OPTIONS,
+): [G.Cell, Mapping] => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions)
+    codeType().store(b, instructions, options)
     return b.build()
 }
 
