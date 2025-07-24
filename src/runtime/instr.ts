@@ -161,19 +161,19 @@ export const compile = (instructions: Instr[], opts?: StoreOptions): Buffer => {
 
 export const compileCell = (
     instructions: Instr[],
-    opts: StoreOptions = DEFAULT_STORE_OPTIONS,
+    options: StoreOptions = DEFAULT_STORE_OPTIONS,
 ): G.Cell => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions, opts)
+    codeType().store(b, instructions, options)
     return b.asCell()
 }
 
 export const compileCellWithMapping = (
     instructions: Instr[],
-    opts: StoreOptions = DEFAULT_STORE_OPTIONS,
+    options: StoreOptions = DEFAULT_STORE_OPTIONS,
 ): [G.Cell, Mapping] => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions, opts)
+    codeType().store(b, instructions, options)
     return b.build()
 }
 
