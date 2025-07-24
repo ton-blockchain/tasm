@@ -9,17 +9,17 @@ import {CodeBuilder} from "./builder"
 import {compileInstructions} from "./compile"
 
 export const instr: $.Type<Instr> = {
-    store: (b, t) => {
+    store: (b, t, options) => {
         if (t.$ === "PSEUDO_PUSHREF") {
-            $.PSEUDO_PUSHREF.store(b, t)
+            $.PSEUDO_PUSHREF.store(b, t, options)
             return
         }
         if (t.$ === "PSEUDO_PUSHSLICE") {
-            $.PSEUDO_PUSHSLICE.store(b, t)
+            $.PSEUDO_PUSHSLICE.store(b, t, options)
             return
         }
         if (t.$ === "PSEUDO_EXOTIC") {
-            $.PSEUDO_EXOTIC.store(b, t)
+            $.PSEUDO_EXOTIC.store(b, t, options)
             return
         }
 
@@ -27,7 +27,7 @@ export const instr: $.Type<Instr> = {
         if (!store) {
             throw new Error("unknown instruction")
         }
-        store(b, t)
+        store(b, t, options)
     },
     load: getLoadInstr<Instr>(rangeToType),
 }
@@ -64,8 +64,8 @@ export const codeType = (): $.Type<codeType> => {
 
             return arr
         },
-        store(b, t) {
-            compileInstructions(b, t)
+        store(b, t, options) {
+            compileInstructions(b, t, options)
         },
     }
 }
@@ -152,19 +152,26 @@ export const parseExotic = (cell: G.Cell): Instr => {
     return PSEUDO_EXOTIC($.exotic.load(slice))
 }
 
+export interface CompileOpts {
+    readonly skipRefs: boolean
+}
+
 export const compile = (instructions: Instr[]): Buffer => {
     return compileCell(instructions).toBoc()
 }
 
-export const compileCell = (instructions: Instr[]): G.Cell => {
+export const compileCell = (instructions: Instr[], opts?: CompileOpts): G.Cell => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions)
+    codeType().store(b, instructions, {skipRefs: opts?.skipRefs ?? false})
     return b.asCell()
 }
 
-export const compileCellWithMapping = (instructions: Instr[]): [G.Cell, Mapping] => {
+export const compileCellWithMapping = (
+    instructions: Instr[],
+    opts?: CompileOpts,
+): [G.Cell, Mapping] => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions)
+    codeType().store(b, instructions, {skipRefs: opts?.skipRefs ?? false})
     return b.build()
 }
 

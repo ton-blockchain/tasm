@@ -4,13 +4,13 @@ import {normalizeIndentation} from "./utils"
 import {Cell} from "@ton/core"
 import {runTolkCompiler} from "@ton/tolk-js"
 
-const test = (code: string, expected: string): (() => void) => {
+const test = (code: string, expected: string, skipRefs?: boolean): (() => void) => {
     return () => {
         const res = parse("asm.tasm", normalizeIndentation(code))
         if (res.$ === "ParseFailure") {
             throw new Error(res.error.message)
         }
-        const compiled = compileCell(res.instructions)
+        const compiled = compileCell(res.instructions, {skipRefs: skipRefs ?? false})
         const disasn = decompileCell(compiled)
         const disasnRes = print(disasn)
         const normalizedExpected = normalizeIndentation(expected)
@@ -522,27 +522,23 @@ describe("tests auto layout", () => {
                         IFJMP
                         SDBEGINSQ x{3A752F06}
                         NIP
-                        ref {
-                            PUSHCONT {
-                                DROP
-                                PUSHCTR c4
-                                CTOS
-                                LDSLICE 32
-                                DROP
-                                NEWC
-                                STSLICE
-                                STSLICECONST x{00000000}
-                                ENDC
-                                POPCTR c4
-                            }
-                            IFJMP
-                            ref {
-                                PUSHPOW2DEC 16
-                                SWAP
-                                SEMPTY
-                                THROWANYIFNOT
-                            }
+                        PUSHCONT {
+                            DROP
+                            PUSHCTR c4
+                            CTOS
+                            LDSLICE 32
+                            DROP
+                            NEWC
+                            STSLICE
+                            STSLICECONST x{00000000}
+                            ENDC
+                            POPCTR c4
                         }
+                        IFJMP
+                        PUSHPOW2DEC 16
+                        SWAP
+                        SEMPTY
+                        THROWANYIFNOT
                     }
                     1 => {
                         PUSHINT_4 -1
@@ -566,6 +562,7 @@ describe("tests auto layout", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
+            true,
         ),
     )
 
@@ -863,7 +860,7 @@ describe("tests auto layout", () => {
         if (res.$ === "ParseFailure") {
             throw new Error(res.error.message)
         }
-        const compiled = compileCell(res.instructions)
+        const compiled = compileCell(res.instructions, {skipRefs: true})
         const disasn = decompileCell(compiled)
         const disasmText = print(disasn)
 
@@ -872,6 +869,81 @@ describe("tests auto layout", () => {
 
         expect(disasmText).toEqual(originalText)
     })
+})
+
+describe("skipRef", () => {
+    it(
+        "should skip explicit refs in skipRef mode",
+        test(
+            `
+                ref { PUSHINT_4 1 }
+                ref { PUSHINT_4 1 }
+                ref { PUSHINT_4 1 }
+                ref { PUSHINT_4 1 }
+                ref { PUSHINT_4 1 }
+                ref { PUSHINT_4 1 }
+            `,
+            `
+                PUSHINT_4 1
+                PUSHINT_4 1
+                PUSHINT_4 1
+                PUSHINT_4 1
+                PUSHINT_4 1
+                PUSHINT_4 1
+            `,
+            true,
+        ),
+    )
+
+    it(
+        "should skip explicit refs in skipRef mode but add new one if needed",
+        test(
+            `
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                
+                ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
+                ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
+                
+                ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
+            `,
+            `
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                ref {
+                    PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                }
+            `,
+            true,
+        ),
+    )
+
+    it(
+        "should skip explicit refs in skipRef mode but add new one if needed 2",
+        test(
+            `
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                
+                ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
+                ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
+                
+                ref {
+                    PUSHINT_4 10
+                    PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                }
+            `,
+            `
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                PUSHINT_4 10
+                ref {
+                    PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                }
+            `,
+            true,
+        ),
+    )
 })
 
 const compile = async (code: string): Promise<Cell> => {

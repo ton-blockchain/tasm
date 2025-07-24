@@ -9,6 +9,7 @@ import type {DictionaryValue} from "../dict/Dictionary"
 import {Dictionary} from "../dict/Dictionary"
 import {JMPREF} from "./constructors"
 import {rangeToName} from "./instr-mapping-gen"
+import {compileInstructions} from "./compile"
 
 // TODO: split:
 // 1. like `constructors.ts`
@@ -31,7 +32,11 @@ export type Loc = {
 
 export const Loc = (file: string, line: number) => ({file, line})
 
-export type Store<T> = (b: CodeBuilder, t: T) => void
+export type StoreOptions = {
+    skipRefs: boolean
+}
+
+export type Store<T> = (b: CodeBuilder, t: T, options: StoreOptions) => void
 export type Load<T> = (s: Slice) => T
 
 export type Type<T> = {
@@ -41,13 +46,13 @@ export type Type<T> = {
 
 export function uint(bits: number): Type<number> {
     return {
-        store: (b, t) => b.storeUint(t, bits),
+        store: (b, t, _options) => b.storeUint(t, bits),
         load: s => s.loadUint(bits),
     }
 }
 
 export const int = (bits: number): Type<number> => ({
-    store: (b, t) => b.storeInt(t, bits),
+    store: (b, t, _options) => b.storeInt(t, bits),
     load: s => s.loadInt(bits),
 })
 
@@ -89,18 +94,20 @@ const processMappingInstructions = (mapping: Mapping, b: CodeBuilder) =>
 
 export const codeSlice = (refs: Type<number>, bits: Type<number>): Type<Code> => {
     return {
-        store: (b, code) => {
+        store: (b, code, options) => {
             // TODO: extract logic of serialization to codeType
 
             if (code.$ === "Instructions") {
-                const [cell, mapping] = compileCellWithMapping(code.instructions)
+                const [cell, mapping] = compileCellWithMapping(code.instructions, {
+                    skipRefs: options.skipRefs,
+                })
 
                 const slice = cell.asSlice()
-                refs.store(b, slice.remainingRefs)
+                refs.store(b, slice.remainingRefs, options)
 
                 const length = slice.remainingBits
                 const y = Math.ceil(length / 8)
-                bits.store(b, y)
+                bits.store(b, y, options)
 
                 const instructions = processMappingInstructions(mapping, b)
                 b.pushInstructions(...instructions)
@@ -113,11 +120,11 @@ export const codeSlice = (refs: Type<number>, bits: Type<number>): Type<Code> =>
 
             const slice = code.slice
 
-            refs.store(b, slice.remainingRefs)
+            refs.store(b, slice.remainingRefs, options)
 
             const length = slice.remainingBits
             const y = Math.ceil(length / 8)
-            bits.store(b, y)
+            bits.store(b, y, options)
             b.storeSlice(slice)
         },
         load: s => {
@@ -147,9 +154,11 @@ export const codeSlice = (refs: Type<number>, bits: Type<number>): Type<Code> =>
 
 // TODO: ref(code) === ^code
 export const refCodeSlice: Type<Code> = {
-    store: (b, code) => {
+    store: (b, code, options) => {
         if (code.$ === "Instructions") {
-            const [cell, mapping] = compileCellWithMapping(code.instructions)
+            const [cell, mapping] = compileCellWithMapping(code.instructions, {
+                skipRefs: options.skipRefs,
+            })
             b.storeRef(cell)
 
             b.pushMappings(mapping)
@@ -180,20 +189,22 @@ const processCell = (cell: Cell): Instr[] => {
 
 export const inlineCodeSlice = (bits: Type<number>): Type<Code> => {
     return {
-        store: (b, code) => {
+        store: (b, code, options) => {
             if (code.$ === "Raw") {
                 const slice = code.slice
                 const length = slice.remainingBits
                 const y = Math.ceil(length / 8)
-                bits.store(b, y)
+                bits.store(b, y, options)
                 b.storeSlice(slice)
             } else {
-                const [cell, mapping] = compileCellWithMapping(code.instructions)
+                const [cell, mapping] = compileCellWithMapping(code.instructions, {
+                    skipRefs: options.skipRefs,
+                })
                 const slice = cell.asSlice()
 
                 const length = slice.remainingBits
                 const y = Math.ceil(length / 8)
-                bits.store(b, y)
+                bits.store(b, y, options)
 
                 const instructions = processMappingInstructions(mapping, b)
                 b.pushInstructions(...instructions)
@@ -228,13 +239,13 @@ export const slice = (
     pad: number,
 ): Type<Slice> => {
     return {
-        store: (b, slice) => {
+        store: (b, slice, options) => {
             if (typeof refs !== "number") {
-                refs.store(b, slice.remainingRefs)
+                refs.store(b, slice.remainingRefs, options)
             }
             const length = slice.remainingBits + 1
             const y = Math.ceil((length - pad) / 8)
-            bits.store(b, y)
+            bits.store(b, y, options)
             b.storeSlice(slice)
             b.storeUint(0x1, 1)
             const realLength = y * 8 + pad
@@ -358,7 +369,7 @@ export const dictionary = (keyLength: number): Type<Dict> => {
 
             return decompiledDict(methods)
         },
-        store: (b, dict) => {
+        store: (b, dict, options) => {
             if (dict.$ === "RawDict") {
                 b.storeRef(dict.slice.asCell())
             }
@@ -371,7 +382,9 @@ export const dictionary = (keyLength: number): Type<Dict> => {
                 )
                 for (const method of dict.methods) {
                     const {id, instructions} = method
-                    const [cell, mapping] = compileCellWithMapping(instructions)
+                    const [cell, mapping] = compileCellWithMapping(instructions, {
+                        skipRefs: options.skipRefs,
+                    })
                     dictMappings.push(mapping)
                     dictionary.set(id, cell)
                 }
@@ -403,9 +416,9 @@ export const dictpush: Type<[number, Dict]> = {
 
         return [keyLength, rawDict(dictCell.beginParse(true))]
     },
-    store(b, [keyLength, dict]) {
+    store(b, [keyLength, dict], options) {
         b.storeUint(keyLength, 10)
-        dictionary(keyLength).store(b, dict)
+        dictionary(keyLength).store(b, dict, options)
     },
 }
 
@@ -447,11 +460,11 @@ const uint8 = uint(8)
 const uint12 = uint(12)
 
 export const control: Type<number> = {
-    store: (b, t) => {
+    store: (b, t, options) => {
         if (t === 6) {
             throw new Error("c6 doesn't exist")
         }
-        uint4.store(b, t)
+        uint4.store(b, t, options)
     },
     load: s => {
         const r = uint4.load(s)
@@ -463,25 +476,25 @@ export const control: Type<number> = {
 }
 
 export const plduzArg: Type<number> = {
-    store: (b, t) => {
-        uint3.store(b, ((t >> 5) - 1) & 7)
+    store: (b, t, options) => {
+        uint3.store(b, ((t >> 5) - 1) & 7, options)
     },
     load: s => ((uint3.load(s) & 7) + 1) << 5,
 }
 
 // special case: [-5, 10]
 export const tinyInt: Type<number> = {
-    store: (b, t) => {
+    store: (b, t, options) => {
         if (t < -5 || t > 10) {
             throw new Error(`Number must be in range [-5, 10]: ${t}`)
         }
-        uint4.store(b, (t + 16) & 15)
+        uint4.store(b, (t + 16) & 15, options)
     },
     load: s => ((uint4.load(s) + 5) & 15) - 5,
 }
 
 export const largeInt: Type<bigint> = {
-    store: (b, t) => {
+    store: (b, t, options) => {
         const len = t === 0n ? 1 : t.toString(2).length + (t < 0n ? 0 : 1)
         const len2 = Math.trunc((len + 7) / 8) - 2
         if (len2 <= 0 || len2 >= 32) {
@@ -490,7 +503,7 @@ export const largeInt: Type<bigint> = {
             return
         }
         const countBits = Math.ceil((len - 19) / 8)
-        uint5.store(b, countBits)
+        uint5.store(b, countBits, options)
         const intCountBits = 8 * countBits + 19
         b.storeInt(t, intCountBits)
     },
@@ -511,15 +524,15 @@ export const largeInt: Type<bigint> = {
 export type RunVmArg = number
 
 export const runvmArg: Type<RunVmArg> = {
-    store: (b, t) => {
-        uint12.store(b, t)
+    store: (b, t, options) => {
+        uint12.store(b, t, options)
     },
     load: s => uint12.load(s),
 }
 
 // special case: CALLXARGS $ -1
 export const minusOne: Type<number> = {
-    store: (_b, t) => {
+    store: (_b, t, _options) => {
         if (t !== -1) {
             throw new Error("This opcode only takes -1")
         }
@@ -528,7 +541,7 @@ export const minusOne: Type<number> = {
 }
 
 export const s1: Type<number> = {
-    store: (_b, t) => {
+    store: (_b, t, _options) => {
         if (t !== 1) {
             throw new Error("This opcode only takes s1")
         }
@@ -537,25 +550,25 @@ export const s1: Type<number> = {
 }
 
 export const setcpArg: Type<number> = {
-    store: (b, t) => {
+    store: (b, t, options) => {
         if (t < -15 || t > 239) {
             throw new Error(`Number must be in range [-15, 239]: ${t}`)
         }
-        uint4.store(b, (t + 0x10) & 0xff)
+        uint4.store(b, (t + 0x10) & 0xff, options)
     },
     load: s => ((uint4.load(s) + 0x10) & 0xff) - 0x10,
 }
 
 export const delta = (n: number, ty: Type<number>): Type<number> => ({
-    store: (b, t) => {
-        ty.store(b, t - n)
+    store: (b, t, options) => {
+        ty.store(b, t - n, options)
     },
     load: s => ty.load(s) + n,
 })
 
 export const hash: Type<Hash> = {
-    store: (b, t) => {
-        uint8.store(b, t)
+    store: (b, t, options) => {
+        uint8.store(b, t, options)
     },
     load: s => {
         const r = uint8.load(s)
@@ -581,11 +594,30 @@ export const PSEUDO_PUSHREF: Type<c.PSEUDO_PUSHREF> = {
     load: _s => {
         throw new Error("unexpected PSEUDO_PUSHREF")
     },
-    store: (b, val) => {
+    store: (b, val, options) => {
         if (val.arg0.$ === "Raw") {
             b.storeRef(val.arg0.slice.asCell())
         } else {
-            const [cell, mapping] = compileCellWithMapping(val.arg0.instructions)
+            if (options.skipRefs) {
+                compileInstructions(b, val.arg0.instructions, options)
+                return
+            }
+            PSEUDO_PUSHREF_ALWAYS.store(b, val, options)
+        }
+    },
+}
+
+export const PSEUDO_PUSHREF_ALWAYS: Type<c.PSEUDO_PUSHREF> = {
+    load: _s => {
+        throw new Error("unexpected PSEUDO_PUSHREF")
+    },
+    store: (b, val, options) => {
+        if (val.arg0.$ === "Raw") {
+            b.storeRef(val.arg0.slice.asCell())
+        } else {
+            const [cell, mapping] = compileCellWithMapping(val.arg0.instructions, {
+                skipRefs: options.skipRefs,
+            })
 
             // implicit JMPREF
             mapping.instructions.splice(0, 0, {
@@ -604,8 +636,8 @@ export const PSEUDO_EXOTIC: Type<c.PSEUDO_EXOTIC> = {
     load: _s => {
         throw new Error("unexpected PSEUDO_EXOTIC")
     },
-    store: (b, val) => {
-        exotic.store(b, val.arg0)
+    store: (b, val, options) => {
+        exotic.store(b, val.arg0, options)
     },
 }
 
@@ -685,7 +717,7 @@ export const exotic: Type<ExoticCell> = {
         }
         return DefaultExoticCell(cell)
     },
-    store: (b, t) => {
+    store: (b, t, _options) => {
         if (t.$ === "DefaultExoticCell") {
             b.storeSlice(t.cell.asSlice())
             return
