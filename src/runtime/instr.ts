@@ -153,22 +153,27 @@ export const parseExotic = (cell: G.Cell): Instr => {
     return PSEUDO_EXOTIC($.exotic.load(slice))
 }
 
+export const DEFAULT_STORE_OPTIONS: StoreOptions = {skipRefs: false}
+
 export const compile = (instructions: Instr[], opts?: StoreOptions): Buffer => {
     return compileCell(instructions, opts).toBoc()
 }
 
-export const compileCell = (instructions: Instr[], opts?: StoreOptions): G.Cell => {
+export const compileCell = (
+    instructions: Instr[],
+    opts: StoreOptions = DEFAULT_STORE_OPTIONS,
+): G.Cell => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions, {skipRefs: opts?.skipRefs ?? false})
+    codeType().store(b, instructions, opts)
     return b.asCell()
 }
 
 export const compileCellWithMapping = (
     instructions: Instr[],
-    opts?: StoreOptions,
+    opts: StoreOptions = DEFAULT_STORE_OPTIONS,
 ): [G.Cell, Mapping] => {
     const b = new CodeBuilder()
-    codeType().store(b, instructions, {skipRefs: opts?.skipRefs ?? false})
+    codeType().store(b, instructions, opts)
     return b.build()
 }
 
