@@ -4,6 +4,7 @@ import type {Instr} from "./instr-gen"
 import {CodeBuilder} from "./builder"
 import {instr} from "./instr"
 import {matchingRule} from "./layout"
+import {IF, IFELSE, IFJMP, IFNOT, IFNOTJMP, PUSHCONT, PUSHCONT_SHORT} from "./types"
 
 export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructions: Instr[]) => {
     for (let index = 0; index < instructions.length; index++) {
@@ -54,7 +55,96 @@ export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructio
     }
 }
 
+const compilePushcont = (b: CodeBuilder, code: $.Code, loc: $.Loc | undefined) => {
+    const b2 = new CodeBuilder()
+    PUSHCONT.store(b2, {
+        $: "PUSHCONT",
+        arg0: code,
+        loc,
+    })
+
+    if (b2.bits - 16 > 15) {
+        PUSHCONT.store(b, {
+            $: "PUSHCONT",
+            arg0: code,
+            loc,
+        })
+    } else {
+        PUSHCONT_SHORT.store(b, {
+            $: "PUSHCONT_SHORT",
+            arg0: code,
+            loc,
+        })
+    }
+}
+
+const compileNonRefIf = (b: CodeBuilder, instr: Instr) => {
+    if (instr.$ === "IFREF") {
+        IF.store(b, {
+            $: "IF",
+            loc: instr.loc,
+        })
+    }
+    if (instr.$ === "IFREFELSE") {
+        IFELSE.store(b, {
+            $: "IFELSE",
+            loc: instr.loc,
+        })
+    }
+    if (instr.$ === "IFELSEREF") {
+        IFELSE.store(b, {
+            $: "IFELSE",
+            loc: instr.loc,
+        })
+    }
+    if (instr.$ === "IFNOTREF") {
+        IFNOT.store(b, {
+            $: "IFNOT",
+            loc: instr.loc,
+        })
+    }
+    if (instr.$ === "IFJMPREF") {
+        IFJMP.store(b, {
+            $: "IFJMP",
+            loc: instr.loc,
+        })
+    }
+    if (instr.$ === "IFNOTJMPREF") {
+        IFNOTJMP.store(b, {
+            $: "IFNOTJMP",
+            loc: instr.loc,
+        })
+    }
+}
+
+function compileIf(t: Instr, b: CodeBuilder) {
+    if (
+        t.$ === "IFREF" ||
+        t.$ === "IFREFELSE" ||
+        t.$ === "IFELSEREF" ||
+        t.$ === "IFNOTREF" ||
+        t.$ === "IFJMPREF" ||
+        t.$ === "IFNOTJMPREF"
+    ) {
+        const b2 = new CodeBuilder()
+        compilePushcont(b2, t.arg0, t.loc)
+        compileNonRefIf(b2, t)
+
+        if (b2.bits + b.bits <= 1023 && b2.refs + b.refs <= 4) {
+            b.storeCodeBuilder(b2)
+            return true
+        }
+    }
+
+    return false
+}
+
 const safeStore = (b: CodeBuilder, t: Instr): boolean => {
+    const inlined = compileIf(t, b)
+    if (inlined) {
+        return false
+    }
+
     try {
         instr.store(b, t)
         if (b.bits >= 1023) {
