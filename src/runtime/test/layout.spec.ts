@@ -592,7 +592,7 @@ describe("tests auto layout", () => {
                     DEBUGMARK 17
                     DEBUGMARK 18
                     CALLDICT 1
-                    PUSHCONT {
+                    PUSHCONT_SHORT {
                         DEBUGMARK 19
                         CALLDICT 2
                         DEBUGMARK 20
@@ -605,8 +605,6 @@ describe("tests auto layout", () => {
                     }
                     IFELSE
                     PUSHCONT_SHORT {
-                        DEBUGMARK 23
-                        DROP2
                         DEBUGMARK 24
                         DEBUGMARK 25
                         THROW_SHORT 20

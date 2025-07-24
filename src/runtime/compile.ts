@@ -81,7 +81,8 @@ const compilePushcont = (
         options,
     )
 
-    if (b2.bits - 16 > 15) {
+    const pushcontWithoutCodeWidth = 16
+    if (b2.bits - pushcontWithoutCodeWidth > 15) {
         PUSHCONT.store(
             b,
             {
