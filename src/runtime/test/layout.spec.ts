@@ -515,9 +515,7 @@ describe("tests auto layout", () => {
                             STSLICE
                             STU 32
                             ENDC
-                            ref {
-                                POPCTR c4
-                            }
+                            POPCTR c4
                         }
                         IFJMP
                         SDBEGINSQ x{3A752F06}
