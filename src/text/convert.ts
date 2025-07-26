@@ -3948,6 +3948,11 @@ export const DEBUGMARK: $.Convert = (ctx, instr, loc) => {
     const args = $.singleIntegerArg(instr)
     return c.DEBUGMARK(args, loc)
 }
+export const fPUSHINT: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleBigIntArg(instr)
+    return c.fPUSHINT(args, loc)
+}
 export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.util.Loc) => {
     const name = instr.name.name
     switch (name) {
@@ -5769,6 +5774,8 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return INMSGPARAM(ctx, instr, loc)
         case "DEBUGMARK":
             return DEBUGMARK(ctx, instr, loc)
+        case "fPUSHINT":
+            return fPUSHINT(ctx, instr, loc)
     }
     throw new Error(`Unexpected instruction: ${name}`)
 }

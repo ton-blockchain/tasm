@@ -272,4 +272,18 @@ describe("assembly-parser", () => {
 
         expect(print(res.instructions)).toMatchSnapshot()
     })
+
+    it("should parse fift instruction", () => {
+        const code = `
+            fPUSHINT 10
+            fPUSHINT 999
+            ADD
+        `
+        const res = parse("test.asm", code)
+        if (res.$ === "ParseFailure") {
+            throw new Error("unexpected parser error")
+        }
+
+        expect(print(res.instructions)).toMatchSnapshot()
+    })
 })

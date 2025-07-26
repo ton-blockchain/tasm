@@ -1,11 +1,13 @@
 import {writeFileSync} from "node:fs"
 import * as t from "@babel/types"
 import generateTs from "@babel/generator"
-import {instructionList, pseudoInstructions} from "./instructions"
+import {fiftInstructionList, instructionList, pseudoInstructions} from "./instructions"
 
 const CONSTRUCTORS_QUALIFIER = t.identifier("c")
+const FIFT_CONSTRUCTORS_QUALIFIER = t.identifier("cf")
 const UTIL_QUALIFIER = t.identifier("$")
 const TYPES_QUALIFIER = t.identifier("types")
+const FIFT_TYPES_QUALIFIER = t.identifier("ftypes")
 
 const main = () => {
     writeFileSync(`${__dirname}/../runtime/instr-gen.ts`, generate())
@@ -22,27 +24,43 @@ const generate = (): string => {
         t.stringLiteral("./constructors"),
     )
 
+    const importFiftConstructors = t.importDeclaration(
+        [t.importNamespaceSpecifier(FIFT_CONSTRUCTORS_QUALIFIER)],
+        t.stringLiteral("./fift-instr-constructors"),
+    )
+
     const importType = t.importDeclaration(
         [t.importNamespaceSpecifier(TYPES_QUALIFIER)],
         t.stringLiteral("./types"),
     )
 
+    const importFiftTypes = t.importDeclaration(
+        [t.importNamespaceSpecifier(FIFT_TYPES_QUALIFIER)],
+        t.stringLiteral("./fift-instr"),
+    )
+
     // export type Instr = c.CALLREF | c.ABS | c.PUSH | c.PUSHCONT | c.IF // all
     const instructions = instructionList()
+    const fiftInstructions = fiftInstructionList()
 
     const exportType = t.exportNamedDeclaration(
         t.tsTypeAliasDeclaration(
             t.identifier("Instr"),
             undefined,
-            t.tsUnionType(
-                instructions.map(([rawName]) => {
+            t.tsUnionType([
+                ...instructions.map(([rawName]) => {
                     const realName = rawName.startsWith("2") ? rawName.slice(1) + "2" : rawName
                     const name = realName.replace("#", "_")
                     return t.tsTypeReference(
                         t.tsQualifiedName(CONSTRUCTORS_QUALIFIER, t.identifier(name)),
                     )
                 }),
-            ),
+                ...fiftInstructions.map(([name]) => {
+                    return t.tsTypeReference(
+                        t.tsQualifiedName(FIFT_CONSTRUCTORS_QUALIFIER, t.identifier(name)),
+                    )
+                }),
+            ]),
         ),
     )
 
@@ -101,29 +119,46 @@ const generate = (): string => {
 
     // storeMapping.set("PUSHNAN", types.PUSHNAN.store)
     // storeMapping.set("ADD", types.ADD.store)
-    const storeMappingEntries = instructions.flatMap(([name]) => {
-        if (pseudoInstructions.has(name)) {
-            return []
-        }
+    const storeMappingEntries = [
+        ...instructions.flatMap(([name]) => {
+            if (pseudoInstructions.has(name)) {
+                return []
+            }
 
-        return [
-            t.expressionStatement(
-                t.callExpression(t.memberExpression(storeMappingIdent, t.identifier("set")), [
-                    t.stringLiteral(name),
-                    t.memberExpression(
-                        t.memberExpression(TYPES_QUALIFIER, t.identifier(name)),
-                        t.identifier("store"),
-                    ),
-                ]),
-            ),
-        ]
-    })
+            return [
+                t.expressionStatement(
+                    t.callExpression(t.memberExpression(storeMappingIdent, t.identifier("set")), [
+                        t.stringLiteral(name),
+                        t.memberExpression(
+                            t.memberExpression(TYPES_QUALIFIER, t.identifier(name)),
+                            t.identifier("store"),
+                        ),
+                    ]),
+                ),
+            ]
+        }),
+        ...fiftInstructions.flatMap(([name]) => {
+            return [
+                t.expressionStatement(
+                    t.callExpression(t.memberExpression(storeMappingIdent, t.identifier("set")), [
+                        t.stringLiteral(name),
+                        t.memberExpression(
+                            t.memberExpression(FIFT_TYPES_QUALIFIER, t.identifier(name)),
+                            t.identifier("store"),
+                        ),
+                    ]),
+                ),
+            ]
+        }),
+    ]
 
     const file = t.file(
         t.program([
             importUtil,
             importConstructors,
+            importFiftConstructors,
             importType,
+            importFiftTypes,
             exportType,
             rangeToTypeConst,
             storeMapping,

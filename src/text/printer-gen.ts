@@ -2382,6 +2382,10 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             p.append(instr.arg0.toString())
             return
+        case "fPUSHINT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
         default:
     }
 }

@@ -37,7 +37,11 @@ export const delta = (delta: number, arg: arg): delta => ({$: "delta", delta, ar
 
 export type stack = {$: "stack", len: number, range: range}
 export const stack = (len: number): stack => ({$: "stack", len, range: range(0n, BigInt(Math.pow(2, len) - 1))})
-export const stack2 = (len: number, start: bigint ): stack => ({$: "stack", len, range: range(start, BigInt(Math.pow(2, len) - 1))})
+export const stack2 = (len: number, start: bigint): stack => ({
+    $: "stack",
+    len,
+    range: range(start, BigInt(Math.pow(2, len) - 1)),
+})
 
 export type control = {$: "control", range: range}
 export const control: control = {$: "control", range: range(0n, 15n)}
@@ -275,7 +279,7 @@ const mkextrange = (
 }
 
 const int8range = range(-128n, 127n)
-const int16range = range(BigInt(-Math.pow(2, 16)), BigInt(Math.pow(2, 16) - 1))
+const int16range = range(BigInt(-Math.pow(2, 15)), BigInt(Math.pow(2, 15) - 1))
 
 const uint8range = range(0n, 255n)
 const uint4range = range(0n, 15n)
@@ -1280,6 +1284,13 @@ export const instructionList = (): [string, Opcode][] => {
         const normalizedHashes = normalizedNumbers.replace("#", "_")
         return [normalizedHashes, opcode]
     })
+}
+
+export const fiftInstructionList = (): [string, Opcode][] => {
+    return [
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHINT", infoOf("PUSHINT_LONG")!],
+    ]
 }
 
 export const infoOf = (name: string): Opcode | undefined => {
