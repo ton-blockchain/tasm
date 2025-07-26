@@ -51,6 +51,23 @@ const main = async () => {
     }
 }
 
+function integerArgument(value: number): $astT.Argument {
+    return {
+        $: "Argument",
+        expression: {
+            $: "IntegerLiteral",
+            value: {
+                $: "IntegerLiteralDec",
+                digits: value.toString(),
+                loc: $.emptyLoc(0),
+            },
+            op: undefined,
+            loc: $.emptyLoc(0),
+        },
+        loc: $.emptyLoc(0),
+    }
+}
+
 function compileInstruction(raw: Instruction): $astT.Instruction[] {
     const instr = raw.instr
     switch (instr.$) {
@@ -63,7 +80,18 @@ function compileInstruction(raw: Instruction): $astT.Instruction[] {
                 instr.name.value === "POP" ||
                 instr.name.value === "PUSHSLICE" ||
                 instr.name.value === "PUSHCONT" ||
-                instr.name.value === "STSLICECONST"
+                instr.name.value === "STSLICECONST" ||
+                instr.name.value === "XCHG" ||
+                instr.name.value === "PUSHINTX" ||
+                instr.name.value === "SDBEGINS" ||
+                instr.name.value === "SDBEGINSQ" ||
+                instr.name.value === "CALLXARGS" ||
+                instr.name.value === "CALLDICT" ||
+                instr.name.value === "JMPDICT" ||
+                instr.name.value === "PREPAREDICT" ||
+                instr.name.value === "THROW" ||
+                instr.name.value === "THROWIF" ||
+                instr.name.value === "THROWIFNOT"
             ) {
                 return [
                     {
@@ -72,6 +100,66 @@ function compileInstruction(raw: Instruction): $astT.Instruction[] {
                         name: {
                             $: "Id",
                             name: `f${instr.name.value}`,
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "-ROLL") {
+                return [
+                    {
+                        $: "Instruction",
+                        args: [...args, integerArgument(0)],
+                        name: {
+                            $: "Id",
+                            name: "BLKSWAP",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "ROLL") {
+                return [
+                    {
+                        $: "Instruction",
+                        args: [integerArgument(0), ...args],
+                        name: {
+                            $: "Id",
+                            name: "BLKSWAP",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "FALSE") {
+                return [
+                    {
+                        $: "Instruction",
+                        args: [integerArgument(0)],
+                        name: {
+                            $: "Id",
+                            name: "PUSHINT_4",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "TRUE") {
+                return [
+                    {
+                        $: "Instruction",
+                        args: [integerArgument(-1)],
+                        name: {
+                            $: "Id",
+                            name: "PUSHINT_4",
                             loc: $.emptyLoc(0),
                         },
                         loc: $.emptyLoc(0),

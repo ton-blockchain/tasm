@@ -613,7 +613,7 @@ export const fPUSHINTX: $.Type<c.fPUSHINTX> = {
                 b,
                 {
                     ...val,
-                    arg0: Number(powers),
+                    arg0: powers,
                     $: "PUSHPOW2",
                 },
                 options,
@@ -627,7 +627,7 @@ export const fPUSHINTX: $.Type<c.fPUSHINTX> = {
                 b,
                 {
                     ...val,
-                    arg0: Number(powers),
+                    arg0: powers,
                     $: "PUSHNEGPOW2",
                 },
                 options,
@@ -643,7 +643,7 @@ export const fPUSHINTX: $.Type<c.fPUSHINTX> = {
                 b,
                 {
                     ...val,
-                    arg0: Number(powersPlus),
+                    arg0: powersPlus,
                     $: "PUSHPOW2DEC",
                 },
                 options,
@@ -679,7 +679,7 @@ export const fPUSHINTX: $.Type<c.fPUSHINTX> = {
                 b,
                 {
                     $: "LSHIFT",
-                    arg0: Number(powers),
+                    arg0: powers,
                     loc: val.loc,
                 },
                 options,
