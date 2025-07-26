@@ -30,6 +30,7 @@ export default tseslint.config(
             "src/runtime/constructors.ts",
             "src/runtime/instr-gen.ts",
             "src/runtime/types.ts",
+            "src/runtime/walker.ts",
             "src/text/grammar.ts",
             "src/text/convert.ts",
             "src/text/printer-gen.ts",

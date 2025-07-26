@@ -1,8 +1,12 @@
+import type {Instr} from "../index"
 import {compileCell, decompileCell} from "../index"
 import {parse, print} from "../../text"
 import {normalizeIndentation} from "./utils"
 import {Cell} from "@ton/core"
 import {runTolkCompiler} from "@ton/tolk-js"
+import {walk} from "../walker-util"
+import {execSync} from "node:child_process"
+import {readFileSync, rmSync, writeFileSync} from "node:fs"
 
 const test = (code: string, expected: string, skipRefs?: boolean): (() => void) => {
     return () => {
@@ -957,3 +961,195 @@ const compile = async (code: string): Promise<Cell> => {
     }
     return Cell.fromBase64(res.codeBoc64)
 }
+
+describe("tests", () => {
+    it("should 1", async () => {
+        const tolkCode = `
+            tolk 1.0
+            
+            struct Storage {
+                id: uint32
+                counter: uint32
+            }
+            
+            fun Storage.load() {
+                return Storage.fromCell(contract.getData());
+            }
+            
+            fun Storage.save(self) {
+                contract.setData(self.toCell());
+            }
+            
+            struct (0x7e8764ef) IncreaseCounter {
+                queryId: uint64
+                increaseBy: uint32
+            }
+            
+            struct (0x3a752f06) ResetCounter {
+                queryId: uint64
+            }
+            
+            type AllowedMessage = IncreaseCounter | ResetCounter
+            
+            // the main entrypoint: called when a contract receives an message from other contracts
+            fun onInternalMessage(in: InMessage) {
+                val msg = lazy AllowedMessage.fromSlice(in.body);
+            
+                match (msg) {
+                    IncreaseCounter => {
+                        var storage = lazy Storage.load();
+            
+                        storage.counter += msg.increaseBy;
+                        storage.save();
+                    }
+            
+                    ResetCounter => {
+                        var storage = lazy Storage.load();
+            
+                        storage.counter = 0;
+                        storage.save();
+                    }
+            
+                    else => {
+                        assert (in.body.isEmpty()) throw 0xFFFF;
+                    }
+                }
+            }
+            
+            fun onBouncedMessage(in: InMessageBounced) {}
+            
+            get fun currentCounter(): int {
+                val storage = lazy Storage.load();
+                return storage.counter;
+            }
+            
+            get fun initialId(): int {
+                val storage = lazy Storage.load();
+                return storage.id;
+            }
+        `
+
+        const compiledCode = await compile(tolkCode)
+        const decompiledCode = decompileCell(compiledCode)
+
+        const decompiledCodeString = print(decompiledCode)
+        console.log(decompiledCodeString)
+
+        for (const instr of decompiledCode) {
+            walk(instr, (instr, arg, _argName, _argIndex) => {
+                if (arg.$ === "code") {
+                    // console.log(`find code arg of ${instr.$}`)
+
+                    if (instr.$ === "PUSHCONT_SHORT") return
+
+                    if (arg.value.$ === "Instructions") {
+                        const countInstructions = arg.value.instructions.length
+                        let addedCount = 0
+                        for (let i = 0; i < countInstructions; i++) {
+                            arg.value.instructions.splice(i + addedCount, 0, {
+                                $: "DEBUGMARK",
+                                arg0: addedCount,
+                                loc: {file: "", line: 0},
+                            } satisfies Instr)
+                            addedCount++
+                        }
+                    }
+                }
+            })
+        }
+
+        console.log(print(decompiledCode))
+
+        // const code = `
+        // PUSHCONT {
+        //     PUSHINT_4 1
+        //     PUSHINT_4 2
+        // }
+        // ref {
+        //     EXECUTE
+        //     ADD
+        // }
+        // `
+        //
+        // const res = parse("asm.tasm", normalizeIndentation(code))
+        // if (res.$ === "ParseFailure") {
+        //     throw new Error(res.error.message)
+        // }
+        // const compiled = compileCell(res.instructions, {skipRefs: true})
+        //
+        // console.log(compiled.toString())
+
+        const withDebugMarks = compileCell(decompiledCode, {
+            skipRefs: false,
+            compileDebugMarks: true,
+        })
+        const instructionsWithDebugMarks = decompileCell(withDebugMarks)
+        console.log(print(instructionsWithDebugMarks))
+
+        const withoutDebugMarksCell = compileCell(instructionsWithDebugMarks, {
+            skipRefs: true,
+        })
+        const instructionsWithoutDebugMarks = decompileCell(withoutDebugMarksCell)
+        console.log(print(instructionsWithoutDebugMarks))
+
+        expect(print(instructionsWithoutDebugMarks)).toEqual(decompiledCodeString)
+    })
+
+    it("should 2", () => {
+        const code = `
+        "Asm.fif" include
+        "FiftExt.fif" include
+
+        PROGRAM{
+          0 DECLMETHOD main()
+          1 DECLMETHOD foo()
+          foo() PROC:<{
+            // 10 PUSHINT
+            // 10 PUSHINT
+            // ADD
+            
+            NOP NOP NOP NOP NOP NOP NOP NOP // 64
+            NOP NOP NOP NOP NOP NOP NOP NOP // 128
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP // 256
+
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP // 512
+
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP // 768
+
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP NOP NOP NOP NOP NOP
+            NOP NOP NOP                     // 1024 - 40
+            
+            if{ 1 PUSHINT }then{
+                SUB
+            }
+          }>
+          main() PROC:<{
+            foo() INLINECALLDICT
+          }>
+        }END>c
+
+        boc>B "out.boc" B>file
+        `
+        writeFileSync(`${__dirname}/test.fif`, code)
+
+        const res = execSync(
+            `/Users/petrmakhnev/ton-for-tolk/cmake-build-debug/crypto/fift -I /Users/petrmakhnev/ton-for-tolk/crypto/fift/lib ${__dirname}/test.fif`,
+        )
+        console.log(res)
+
+        const cell = Cell.fromBoc(readFileSync("out.boc"))[0] ?? new Cell()
+        const decompiled = decompileCell(cell)
+        console.log(print(decompiled))
+
+        rmSync("out.boc")
+    })
+})

@@ -17,7 +17,8 @@ export const compileInstructions = (
         if (!instruction) break
         const builderBefore = new CodeBuilder().storeBuilder(b)
 
-        const overflow = safeStore(b, instruction, options)
+        const isLast = index === instructions.length - 1
+        const overflow = safeStore(b, instruction, isLast, options)
         if (!overflow) {
             // fast path
             continue
@@ -40,7 +41,7 @@ export const compileInstructions = (
         // IFREF { ... }
         // ...
         const match = matchingRule(remainingInstructions)
-        if (match) {
+        if (match && builderBefore.canFit(/* IFREF length */ 16)) {
             const instr = match.rule.ctor(match.body)
             match.rule.type.store(builderBefore, instr, options)
             b.reinitFrom(builderBefore)
@@ -186,7 +187,12 @@ function compileIf(t: Instr, b: CodeBuilder, options: StoreOptions) {
     return false
 }
 
-const safeStore = (b: CodeBuilder, t: Instr, options: StoreOptions): boolean => {
+const safeStore = (
+    b: CodeBuilder,
+    t: Instr,
+    isLastInstruction: boolean,
+    options: StoreOptions,
+): boolean => {
     const inlined = compileIf(t, b, options)
     if (inlined) {
         return false
@@ -196,6 +202,13 @@ const safeStore = (b: CodeBuilder, t: Instr, options: StoreOptions): boolean => 
         instr.store(b, t, options)
         if (b.bits >= 1023) {
             return true
+        }
+
+        if (!isLastInstruction) {
+            if (b.bits >= 1023 - 8) {
+                // we need room for PUSHREF
+                return true
+            }
         }
 
         if (b.refs >= 4) {

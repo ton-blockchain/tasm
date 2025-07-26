@@ -16,7 +16,11 @@ const SUFFIX = `export const DEBUGMARK: $.Type<c.DEBUGMARK> = {
         s.skip(16)
         return c.DEBUGMARK($.uint(16).load(s))
     },
-    store: (b, val) => {
+    store: (b, val, options) => {
+        if (options.compileDebugMarks) {
+            b.storeInstructionPrefix(0xF955, 16, val)
+            $.uint(16).store(b, val.arg0, options)
+        }
         b.startDebugSection(val.arg0)
     },
 }

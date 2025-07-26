@@ -125,6 +125,10 @@ export class CodeBuilder extends Builder {
         return this
     }
 
+    public canFit(length: number): boolean {
+        return this.bits + length <= 1023
+    }
+
     public reinitFrom(other: CodeBuilder): this {
         // @ts-expect-error hack
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -2,7 +2,7 @@ import type {Slice} from "@ton/core"
 import {Cell} from "@ton/core"
 import type {Instr} from "./instr-gen"
 import * as c from "./constructors"
-import {codeType, compileCellWithMapping} from "./instr"
+import {codeType, compileCellWithMapping, decompileCell} from "./instr"
 import type {InstructionWithOffset, Mapping} from "./builder"
 import {CodeBuilder} from "./builder"
 import type {DictionaryValue} from "../dict/Dictionary"
@@ -10,6 +10,7 @@ import {Dictionary} from "../dict/Dictionary"
 import {JMPREF} from "./constructors"
 import {rangeToName} from "./instr-mapping-gen"
 import {compileInstructions} from "./compile"
+import {print} from "../text"
 
 // TODO: split:
 // 1. like `constructors.ts`
@@ -34,6 +35,7 @@ export const Loc = (file: string, line: number) => ({file, line})
 
 export type StoreOptions = {
     readonly skipRefs: boolean
+    readonly compileDebugMarks?: boolean
 }
 
 export type Store<T> = (b: CodeBuilder, t: T, options: StoreOptions) => void
@@ -383,6 +385,11 @@ export const dictionary = (keyLength: number): Type<Dict> => {
 
                 b.pushMappings(...dictMappings)
                 const codeBuilder = new CodeBuilder()
+
+                for (const [_key, value] of dictionary) {
+                    console.log(print(decompileCell(value)))
+                }
+
                 b.storeRef(codeBuilder.storeDictionaryDirect(dictionary).endCell())
                 b.pushDictionaryInfo(...codeBuilder.getDictionaryInfo())
             }
