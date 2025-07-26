@@ -10,6 +10,8 @@ import {
     fPOP,
     fXCHG,
     fPUSHINTX,
+    fSDBEGINS,
+    fSDBEGINSQ,
     fCALLXARGS,
     fCALLDICT,
     fJMPDICT,
@@ -521,6 +523,17 @@ describe("Test XCHG Fift instruction", () => {
             `,
         ),
     )
+    it(
+        "with large indices -> triple XCHG_01_LONG sequence",
+        test(
+            [fXCHG(5, 20)],
+            `
+                XCHG_01_LONG s5
+                XCHG_01_LONG s20
+                XCHG_01_LONG s5
+            `,
+        ),
+    )
     it("with same indices -> NOP (empty)", test([fXCHG(5, 5)], ""))
 })
 
@@ -561,8 +574,58 @@ describe("Test PUSHINTX Fift instruction", () => {
             `,
         ),
     )
+    it(
+        "with large power of 2 -> PUSHINT + LSHIFT",
+        test(
+            [fPUSHINTX(100663296n)], // 3 * 2^25
+            `
+                PUSHINT_4 3
+                LSHIFT 25
+            `,
+        ),
+    )
     it("should throw for 256", () => {
         expect(() => compileCell([fPUSHINTX(256n)])).toThrow("use PUSHNAN instead of 256 PUSHPOW2")
+    })
+})
+
+describe("Test SDBEGINS Fift instruction", () => {
+    it(
+        "with slice without references -> SDBEGINS",
+        test(
+            [fSDBEGINS(beginCell().storeUint(1, 32).asSlice())],
+            `
+                SDBEGINS x{00000001}
+            `,
+        ),
+    )
+
+    it("should throw with references", () => {
+        expect(() =>
+            compileCell([
+                fSDBEGINS(beginCell().storeUint(1, 32).storeRef(beginCell().endCell()).asSlice()),
+            ]),
+        ).toThrow("no references allowed in slice")
+    })
+})
+
+describe("Test SDBEGINSQ Fift instruction", () => {
+    it(
+        "with slice without references -> SDBEGINSQ",
+        test(
+            [fSDBEGINSQ(beginCell().storeUint(1, 32).asSlice())],
+            `
+                SDBEGINSQ x{00000001}
+            `,
+        ),
+    )
+
+    it("should throw with references", () => {
+        expect(() =>
+            compileCell([
+                fSDBEGINSQ(beginCell().storeUint(1, 32).storeRef(beginCell().endCell()).asSlice()),
+            ]),
+        ).toThrow("no references allowed in slice")
     })
 })
 
@@ -606,6 +669,17 @@ describe("Test CALLDICT Fift instruction", () => {
             `,
         ),
     )
+    it(
+        "with very large value -> fallback to PUSHINT + c3 PUSH + EXECUTE",
+        test(
+            [fCALLDICT(20000)],
+            `
+                PUSHINT_16 20000
+                PUSHCTR c3
+                EXECUTE
+            `,
+        ),
+    )
 })
 
 describe("Test JMPDICT Fift instruction", () => {
@@ -618,6 +692,17 @@ describe("Test JMPDICT Fift instruction", () => {
             `,
         ),
     )
+    it(
+        "with very large value -> fallback to PUSHINT + c3 PUSH + JMPX",
+        test(
+            [fJMPDICT(20000)],
+            `
+                PUSHINT_16 20000
+                PUSHCTR c3
+                JMPX
+            `,
+        ),
+    )
 })
 
 describe("Test PREPAREDICT Fift instruction", () => {
@@ -627,6 +712,16 @@ describe("Test PREPAREDICT Fift instruction", () => {
             [fPREPAREDICT(456)],
             `
                 PREPAREDICT 456
+            `,
+        ),
+    )
+    it(
+        "with very large value -> fallback to PUSHINT + c3 PUSH",
+        test(
+            [fPREPAREDICT(20000)],
+            `
+                PUSHINT_16 20000
+                PUSHCTR c3
             `,
         ),
     )
