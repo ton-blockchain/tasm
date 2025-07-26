@@ -2404,6 +2404,10 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             $.printCode(p, instr.arg0)
             return
+        case "fSTSLICECONST":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
         default:
     }
 }

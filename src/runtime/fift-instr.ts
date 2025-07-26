@@ -18,6 +18,8 @@ import {
     PUSHSLICE,
     PUSHSLICE_LONG,
     PUSHSLICE_REFS,
+    STSLICECONST,
+    STSLICER,
 } from "./types"
 import {instr} from "./instr"
 import {codeSlice, rawCode, uint} from "./util"
@@ -352,6 +354,74 @@ export const fPUSHCONT: $.Type<c.fPUSHCONT> = {
                 ...val,
                 arg0: arg,
                 $: "PUSHCONT",
+            },
+            options,
+        )
+    },
+}
+
+export const fSTSLICECONST: $.Type<c.fSTSLICECONST> = {
+    load: s => {
+        const loaded = instr.load(s)
+        if (loaded.$ === "STSLICECONST") {
+            return {
+                $: "fSTSLICECONST",
+                arg0: loaded.arg0,
+                loc: loaded.loc,
+            }
+        }
+
+        throw new Error("unexpected STSLICECONST variant")
+    },
+    store: (b, val, options) => {
+        const arg = val.arg0
+
+        if (!b.canFit(arg.remainingBits + 22)) {
+            // cannot place slice and instruction inline
+            fPUSHSLICE.store(
+                b,
+                {
+                    ...val,
+                    $: "fPUSHSLICE",
+                },
+                options,
+            )
+            STSLICER.store(
+                b,
+                {
+                    $: "STSLICER",
+                    loc: val.loc,
+                },
+                options,
+            )
+            return
+        }
+
+        if (arg.remainingBits <= 57 && arg.remainingRefs <= 3) {
+            STSLICECONST.store(
+                b,
+                {
+                    ...val,
+                    $: "STSLICECONST",
+                },
+                options,
+            )
+            return
+        }
+
+        fPUSHSLICE.store(
+            b,
+            {
+                ...val,
+                $: "fPUSHSLICE",
+            },
+            options,
+        )
+        STSLICER.store(
+            b,
+            {
+                $: "STSLICER",
+                loc: val.loc,
             },
             options,
         )

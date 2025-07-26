@@ -60,7 +60,10 @@ function compileInstruction(raw: Instruction): $astT.Instruction[] {
             if (
                 instr.name.value === "PUSHINT" ||
                 instr.name.value === "PUSH" ||
-                instr.name.value === "POP"
+                instr.name.value === "POP" ||
+                instr.name.value === "PUSHSLICE" ||
+                instr.name.value === "PUSHCONT" ||
+                instr.name.value === "STSLICECONST"
             ) {
                 return [
                     {

@@ -1277,6 +1277,7 @@ export const instructions: Record<string, Opcode> = {
     fPOP: cat("int_const", mkfixedn(0, 0, 0, seq(stack(4)), "")),
     fPUSHSLICE: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
     fPUSHCONT: cat("int_const", mkfixedn(0, 0, 0, seq(codeSlice(uint4, uint4)), "")),
+    fSTSLICECONST: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint2, uint3, 2)), "")),
 }
 
 export const pseudoInstructions = new Set([
@@ -1305,6 +1306,8 @@ export const fiftInstructionList = (): [string, Opcode][] => {
         ["fPUSHSLICE", infoOf("fPUSHSLICE")!],
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ["fPUSHCONT", infoOf("fPUSHCONT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fSTSLICECONST", infoOf("fSTSLICECONST")!],
     ]
 }
 

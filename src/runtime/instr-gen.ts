@@ -922,6 +922,7 @@ export type Instr =
     | cf.fPOP
     | cf.fPUSHSLICE
     | cf.fPUSHCONT
+    | cf.fSTSLICECONST
 export const rangeToType = [
     {
         min: 8650496,
@@ -6384,3 +6385,4 @@ storeMapping.set("fPUSH", ftypes.fPUSH.store)
 storeMapping.set("fPOP", ftypes.fPOP.store)
 storeMapping.set("fPUSHSLICE", ftypes.fPUSHSLICE.store)
 storeMapping.set("fPUSHCONT", ftypes.fPUSHCONT.store)
+storeMapping.set("fSTSLICECONST", ftypes.fSTSLICECONST.store)

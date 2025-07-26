@@ -211,15 +211,15 @@ const safeStore = (
             }
         }
 
-        if (b.refs >= 4) {
+        if (b.refs >= 4 && !isLastInstruction) {
             if (t.$ === "PSEUDO_PUSHREF" && b.refs === 4) {
                 // In the case where the compiler itself has set the necessary `ref {}`,
                 // we do not try to predict in advance whether there may be an overflow further,
                 // since the compiler has already decomposed everything into correct refs
                 return false
             }
-            // In case of other instructions that push references, we cannot be sure, s
-            // o we handle this case explicitly.
+            // In case of other instructions that push references, we cannot be sure, so
+            // we handle this case explicitly.
             return true
         }
     } catch (error: unknown) {

@@ -3973,6 +3973,11 @@ export const fPUSHCONT: $.Convert = (ctx, instr, loc) => {
     const args = $.codeSliceArg(ctx, instr)
     return c.fPUSHCONT(args, loc)
 }
+export const fSTSLICECONST: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.sliceArg(instr)
+    return c.fSTSLICECONST(args, loc)
+}
 export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.util.Loc) => {
     const name = instr.name.name
     switch (name) {
@@ -5804,6 +5809,8 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return fPUSHSLICE(ctx, instr, loc)
         case "fPUSHCONT":
             return fPUSHCONT(ctx, instr, loc)
+        case "fSTSLICECONST":
+            return fSTSLICECONST(ctx, instr, loc)
     }
     throw new Error(`Unexpected instruction: ${name}`)
 }

@@ -59,3 +59,14 @@ export type fPUSHCONT = {
     arg0: $.Code
     loc: $.Loc | undefined
 }
+
+export const fSTSLICECONST = (arg0: Slice, loc?: $.Loc): fSTSLICECONST => ({
+    $: "fSTSLICECONST",
+    arg0,
+    loc,
+})
+export type fSTSLICECONST = {
+    $: "fSTSLICECONST"
+    arg0: Slice
+    loc: $.Loc | undefined
+}

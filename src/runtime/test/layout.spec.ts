@@ -210,9 +210,7 @@ describe("tests auto layout", () => {
                     PUSHREF {}
                     PUSHREF {}
                     PUSHREF {}
-                    ref {
-                        PUSHREF {}
-                    }
+                    PUSHREF {}
                 }
             `,
         ),

@@ -1,9 +1,10 @@
-import {fPUSHCONT, Instr, NOP, PUSHSLICE_LONG} from "../index"
+import type {Instr} from "../index"
+import {fPUSHCONT, fSTSLICECONST, NOP, PUSHSLICE_LONG} from "../index"
 import {fPUSHSLICE} from "../index"
 import {compileCell, decompileCell, fPUSHINT, fPUSH, fPOP} from "../index"
 import {print} from "../../text"
 import {normalizeIndentation} from "./utils"
-import {beginCell} from "@ton/core"
+import {beginCell, Cell} from "@ton/core"
 import {code} from "../util"
 
 const test =
@@ -417,6 +418,58 @@ describe("Test fPUSHCONT Fift instruction", () => {
                     NOP
                     NOP
                 }
+            `,
+        ),
+    )
+})
+
+describe("Test STSLICECONST Fift instruction", () => {
+    it(
+        "with no references and body bits < 57",
+        test(
+            [fSTSLICECONST(beginCell().storeUint(1, 32).asSlice())],
+            `
+                STSLICECONST x{00000001}
+            `,
+        ),
+    )
+    it(
+        "with no references and body bits > 57",
+        test(
+            [fSTSLICECONST(beginCell().storeUint(1, 58).asSlice())],
+            `
+                PUSHSLICE x{000000000000006_}
+                STSLICER
+            `,
+        ),
+    )
+    it(
+        "with no references and body bits = 200",
+        test(
+            [fSTSLICECONST(beginCell().storeUint(1, 200).asSlice())],
+            `
+                PUSHSLICE_LONG x{00000000000000000000000000000000000000000000000001}
+                STSLICER
+            `,
+        ),
+    )
+    it(
+        "with 4 references and body bits = 200",
+        test(
+            [
+                fSTSLICECONST(
+                    beginCell()
+                        .storeUint(1, 200)
+                        .storeRef(new Cell())
+                        .storeRef(new Cell())
+                        .storeRef(new Cell())
+                        .storeRef(new Cell())
+                        .asSlice(),
+                ),
+            ],
+            `
+                PUSHSLICE_LONG boc{b5ee9c7241010201002100043200000000000000000000000000000000000000000000000001010101010000a0af672e}
+                STSLICER
             `,
         ),
     )
