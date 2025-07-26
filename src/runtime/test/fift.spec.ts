@@ -1,7 +1,25 @@
 import type {Instr} from "../index"
-import {fPUSHCONT, fSTSLICECONST, NOP, PUSHSLICE_LONG} from "../index"
-import {fPUSHSLICE} from "../index"
-import {compileCell, decompileCell, fPUSHINT, fPUSH, fPOP} from "../index"
+import {
+    fPUSHCONT,
+    fSTSLICECONST,
+    NOP,
+    PUSHSLICE_LONG,
+    fPUSHSLICE,
+    fPUSHINT,
+    fPUSH,
+    fPOP,
+    fXCHG,
+    fPUSHINTX,
+    fCALLXARGS,
+    fCALLDICT,
+    fJMPDICT,
+    fPREPAREDICT,
+    fTHROW,
+    fTHROWIF,
+    fTHROWIFNOT,
+    compileCell,
+    decompileCell,
+} from "../index"
 import {print} from "../../text"
 import {normalizeIndentation} from "./utils"
 import {beginCell, Cell} from "@ton/core"
@@ -473,4 +491,215 @@ describe("Test STSLICECONST Fift instruction", () => {
             `,
         ),
     )
+})
+
+describe("Test XCHG Fift instruction", () => {
+    it(
+        "with s1, s2 -> XCHG_IJ",
+        test(
+            [fXCHG(1, 2)],
+            `
+                XCHG_IJ s1 s2
+            `,
+        ),
+    )
+    it(
+        "with s0, s5 -> XCHG_0I",
+        test(
+            [fXCHG(0, 5)],
+            `
+                XCHG_0I s5
+            `,
+        ),
+    )
+    it(
+        "with s0, s16 -> XCHG_01_LONG",
+        test(
+            [fXCHG(0, 16)],
+            `
+                XCHG_01_LONG s16
+            `,
+        ),
+    )
+    it("with same indices -> NOP (empty)", test([fXCHG(5, 5)], ""))
+})
+
+describe("Test PUSHINTX Fift instruction", () => {
+    it(
+        "with small value -> PUSHINT_4",
+        test(
+            [fPUSHINTX(5n)],
+            `
+                PUSHINT_4 5
+            `,
+        ),
+    )
+    it(
+        "with power of 2 -> PUSHPOW2",
+        test(
+            [fPUSHINTX(16n)],
+            `
+                PUSHPOW2 4
+            `,
+        ),
+    )
+    it(
+        "with 2^n - 1 -> PUSHPOW2DEC",
+        test(
+            [fPUSHINTX(15n)],
+            `
+                PUSHPOW2DEC 4
+            `,
+        ),
+    )
+    it(
+        "with negative power of 2 -> PUSHNEGPOW2",
+        test(
+            [fPUSHINTX(-16n)],
+            `
+                PUSHNEGPOW2 4
+            `,
+        ),
+    )
+    it("should throw for 256", () => {
+        expect(() => compileCell([fPUSHINTX(256n)])).toThrow("use PUSHNAN instead of 256 PUSHPOW2")
+    })
+})
+
+describe("Test CALLXARGS Fift instruction", () => {
+    it(
+        "with -1 -> CALLXARGS",
+        test(
+            [fCALLXARGS(2, -1)],
+            `
+                CALLXARGS 2 -1
+            `,
+        ),
+    )
+    it(
+        "with other value -> CALLXARGS_1",
+        test(
+            [fCALLXARGS(2, 3)],
+            `
+                CALLXARGS_1 2 3
+            `,
+        ),
+    )
+})
+
+describe("Test CALLDICT Fift instruction", () => {
+    it(
+        "with small value -> CALLDICT",
+        test(
+            [fCALLDICT(42)],
+            `
+                CALLDICT 42
+            `,
+        ),
+    )
+    it(
+        "with large value -> CALLDICT_LONG",
+        test(
+            [fCALLDICT(1000)],
+            `
+                CALLDICT_LONG 1000
+            `,
+        ),
+    )
+})
+
+describe("Test JMPDICT Fift instruction", () => {
+    it(
+        "with valid value -> JMPDICT",
+        test(
+            [fJMPDICT(123)],
+            `
+                JMPDICT 123
+            `,
+        ),
+    )
+})
+
+describe("Test PREPAREDICT Fift instruction", () => {
+    it(
+        "with valid value -> PREPAREDICT",
+        test(
+            [fPREPAREDICT(456)],
+            `
+                PREPAREDICT 456
+            `,
+        ),
+    )
+})
+
+describe("Test THROW Fift instruction", () => {
+    it(
+        "with small value -> THROW_SHORT",
+        test(
+            [fTHROW(42)],
+            `
+                THROW_SHORT 42
+            `,
+        ),
+    )
+    it(
+        "with large value -> THROW",
+        test(
+            [fTHROW(1000)],
+            `
+                THROW 1000
+            `,
+        ),
+    )
+    it("should throw for out of range", () => {
+        expect(() => compileCell([fTHROW(2048)])).toThrow("THROW argument out of range")
+    })
+})
+
+describe("Test THROWIF Fift instruction", () => {
+    it(
+        "with small value -> THROWIF_SHORT",
+        test(
+            [fTHROWIF(35)],
+            `
+                THROWIF_SHORT 35
+            `,
+        ),
+    )
+    it(
+        "with large value -> THROWIF",
+        test(
+            [fTHROWIF(500)],
+            `
+                THROWIF 500
+            `,
+        ),
+    )
+    it("should throw for out of range", () => {
+        expect(() => compileCell([fTHROWIF(2048)])).toThrow("THROWIF argument out of range")
+    })
+})
+
+describe("Test THROWIFNOT Fift instruction", () => {
+    it(
+        "with small value -> THROWIFNOT_SHORT",
+        test(
+            [fTHROWIFNOT(20)],
+            `
+                THROWIFNOT_SHORT 20
+            `,
+        ),
+    )
+    it(
+        "with large value -> THROWIFNOT",
+        test(
+            [fTHROWIFNOT(800)],
+            `
+                THROWIFNOT 800
+            `,
+        ),
+    )
+    it("should throw for out of range", () => {
+        expect(() => compileCell([fTHROWIFNOT(2048)])).toThrow("THROWIFNOT argument out of range")
+    })
 })

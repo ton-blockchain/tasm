@@ -3978,6 +3978,67 @@ export const fSTSLICECONST: $.Convert = (ctx, instr, loc) => {
     const args = $.sliceArg(instr)
     return c.fSTSLICECONST(args, loc)
 }
+export const fXCHG: $.Convert = (ctx, instr, loc) => {
+    const argsLen = instr.args
+    if (argsLen.length !== 2) {
+        throw new $.ParseError(loc, "Expected 2 arguments")
+    }
+    const args = $.twoIntegerArgs(instr)
+    return c.fXCHG(args[0], args[1], loc)
+}
+export const fPUSHINTX: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleBigIntArg(instr)
+    return c.fPUSHINTX(args, loc)
+}
+export const fSDBEGINS: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.sliceArg(instr)
+    return c.fSDBEGINS(args, loc)
+}
+export const fSDBEGINSQ: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.sliceArg(instr)
+    return c.fSDBEGINSQ(args, loc)
+}
+export const fCALLXARGS: $.Convert = (ctx, instr, loc) => {
+    const argsLen = instr.args
+    if (argsLen.length !== 2) {
+        throw new $.ParseError(loc, "Expected 2 arguments")
+    }
+    const args = $.twoIntegerArgs(instr)
+    return c.fCALLXARGS(args[0], args[1], loc)
+}
+export const fCALLDICT: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.fCALLDICT(args, loc)
+}
+export const fJMPDICT: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.fJMPDICT(args, loc)
+}
+export const fPREPAREDICT: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.fPREPAREDICT(args, loc)
+}
+export const fTHROW: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.fTHROW(args, loc)
+}
+export const fTHROWIF: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.fTHROWIF(args, loc)
+}
+export const fTHROWIFNOT: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleIntegerArg(instr)
+    return c.fTHROWIFNOT(args, loc)
+}
 export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.util.Loc) => {
     const name = instr.name.name
     switch (name) {
@@ -5811,6 +5872,28 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return fPUSHCONT(ctx, instr, loc)
         case "fSTSLICECONST":
             return fSTSLICECONST(ctx, instr, loc)
+        case "fXCHG":
+            return fXCHG(ctx, instr, loc)
+        case "fPUSHINTX":
+            return fPUSHINTX(ctx, instr, loc)
+        case "fSDBEGINS":
+            return fSDBEGINS(ctx, instr, loc)
+        case "fSDBEGINSQ":
+            return fSDBEGINSQ(ctx, instr, loc)
+        case "fCALLXARGS":
+            return fCALLXARGS(ctx, instr, loc)
+        case "fCALLDICT":
+            return fCALLDICT(ctx, instr, loc)
+        case "fJMPDICT":
+            return fJMPDICT(ctx, instr, loc)
+        case "fPREPAREDICT":
+            return fPREPAREDICT(ctx, instr, loc)
+        case "fTHROW":
+            return fTHROW(ctx, instr, loc)
+        case "fTHROWIF":
+            return fTHROWIF(ctx, instr, loc)
+        case "fTHROWIFNOT":
+            return fTHROWIFNOT(ctx, instr, loc)
     }
     throw new Error(`Unexpected instruction: ${name}`)
 }

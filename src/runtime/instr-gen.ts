@@ -923,6 +923,17 @@ export type Instr =
     | cf.fPUSHSLICE
     | cf.fPUSHCONT
     | cf.fSTSLICECONST
+    | cf.fXCHG
+    | cf.fPUSHINTX
+    | cf.fSDBEGINS
+    | cf.fSDBEGINSQ
+    | cf.fCALLXARGS
+    | cf.fCALLDICT
+    | cf.fJMPDICT
+    | cf.fPREPAREDICT
+    | cf.fTHROW
+    | cf.fTHROWIF
+    | cf.fTHROWIFNOT
 export const rangeToType = [
     {
         min: 8650496,
@@ -6386,3 +6397,14 @@ storeMapping.set("fPOP", ftypes.fPOP.store)
 storeMapping.set("fPUSHSLICE", ftypes.fPUSHSLICE.store)
 storeMapping.set("fPUSHCONT", ftypes.fPUSHCONT.store)
 storeMapping.set("fSTSLICECONST", ftypes.fSTSLICECONST.store)
+storeMapping.set("fXCHG", ftypes.fXCHG.store)
+storeMapping.set("fPUSHINTX", ftypes.fPUSHINTX.store)
+storeMapping.set("fSDBEGINS", ftypes.fSDBEGINS.store)
+storeMapping.set("fSDBEGINSQ", ftypes.fSDBEGINSQ.store)
+storeMapping.set("fCALLXARGS", ftypes.fCALLXARGS.store)
+storeMapping.set("fCALLDICT", ftypes.fCALLDICT.store)
+storeMapping.set("fJMPDICT", ftypes.fJMPDICT.store)
+storeMapping.set("fPREPAREDICT", ftypes.fPREPAREDICT.store)
+storeMapping.set("fTHROW", ftypes.fTHROW.store)
+storeMapping.set("fTHROWIF", ftypes.fTHROWIF.store)
+storeMapping.set("fTHROWIFNOT", ftypes.fTHROWIFNOT.store)

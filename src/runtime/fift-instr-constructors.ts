@@ -70,3 +70,139 @@ export type fSTSLICECONST = {
     arg0: Slice
     loc: $.Loc | undefined
 }
+
+export const fXCHG = (arg0: number, arg1: number, loc?: $.Loc): fXCHG => ({
+    $: "fXCHG",
+    arg0,
+    arg1,
+    loc,
+})
+export type fXCHG = {
+    $: "fXCHG"
+    arg0: number
+    arg1: number
+    loc: $.Loc | undefined
+}
+
+export const fPUSHINTX = (arg0: bigint, loc?: $.Loc): fPUSHINTX => ({
+    $: "fPUSHINTX",
+    arg0,
+    loc,
+})
+export type fPUSHINTX = {
+    $: "fPUSHINTX"
+    arg0: bigint
+    loc: $.Loc | undefined
+}
+
+export const fPLDUZ = (arg0: number, loc?: $.Loc): fPLDUZ => ({
+    $: "fPLDUZ",
+    arg0,
+    loc,
+})
+export type fPLDUZ = {
+    $: "fPLDUZ"
+    arg0: number
+    loc: $.Loc | undefined
+}
+
+export const fSDBEGINS = (arg0: Slice, loc?: $.Loc): fSDBEGINS => ({
+    $: "fSDBEGINS",
+    arg0,
+    loc,
+})
+export type fSDBEGINS = {
+    $: "fSDBEGINS"
+    arg0: Slice
+    loc: $.Loc | undefined
+}
+
+export const fSDBEGINSQ = (arg0: Slice, loc?: $.Loc): fSDBEGINSQ => ({
+    $: "fSDBEGINSQ",
+    arg0,
+    loc,
+})
+export type fSDBEGINSQ = {
+    $: "fSDBEGINSQ"
+    arg0: Slice
+    loc: $.Loc | undefined
+}
+
+export const fCALLXARGS = (arg0: number, arg1: number, loc?: $.Loc): fCALLXARGS => ({
+    $: "fCALLXARGS",
+    arg0,
+    arg1,
+    loc,
+})
+export type fCALLXARGS = {
+    $: "fCALLXARGS"
+    arg0: number
+    arg1: number
+    loc: $.Loc | undefined
+}
+
+export const fCALLDICT = (arg0: number, loc?: $.Loc): fCALLDICT => ({
+    $: "fCALLDICT",
+    arg0,
+    loc,
+})
+export type fCALLDICT = {
+    $: "fCALLDICT"
+    arg0: number
+    loc: $.Loc | undefined
+}
+
+export const fJMPDICT = (arg0: number, loc?: $.Loc): fJMPDICT => ({
+    $: "fJMPDICT",
+    arg0,
+    loc,
+})
+export type fJMPDICT = {
+    $: "fJMPDICT"
+    arg0: number
+    loc: $.Loc | undefined
+}
+
+export const fPREPAREDICT = (arg0: number, loc?: $.Loc): fPREPAREDICT => ({
+    $: "fPREPAREDICT",
+    arg0,
+    loc,
+})
+export type fPREPAREDICT = {
+    $: "fPREPAREDICT"
+    arg0: number
+    loc: $.Loc | undefined
+}
+
+export const fTHROW = (arg0: number, loc?: $.Loc): fTHROW => ({
+    $: "fTHROW",
+    arg0,
+    loc,
+})
+export type fTHROW = {
+    $: "fTHROW"
+    arg0: number
+    loc: $.Loc | undefined
+}
+
+export const fTHROWIF = (arg0: number, loc?: $.Loc): fTHROWIF => ({
+    $: "fTHROWIF",
+    arg0,
+    loc,
+})
+export type fTHROWIF = {
+    $: "fTHROWIF"
+    arg0: number
+    loc: $.Loc | undefined
+}
+
+export const fTHROWIFNOT = (arg0: number, loc?: $.Loc): fTHROWIFNOT => ({
+    $: "fTHROWIFNOT",
+    arg0,
+    loc,
+})
+export type fTHROWIFNOT = {
+    $: "fTHROWIFNOT"
+    arg0: number
+    loc: $.Loc | undefined
+}

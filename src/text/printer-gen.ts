@@ -2408,6 +2408,54 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             $.printSlice(p, instr.arg0)
             return
+        case "fXCHG":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            p.append(" ")
+            p.append(instr.arg1.toString())
+            return
+        case "fPUSHINTX":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fSDBEGINS":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
+        case "fSDBEGINSQ":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
+        case "fCALLXARGS":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            p.append(" ")
+            p.append(instr.arg1.toString())
+            return
+        case "fCALLDICT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fJMPDICT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fPREPAREDICT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fTHROW":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fTHROWIF":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fTHROWIFNOT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
         default:
     }
 }

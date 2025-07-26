@@ -1,5 +1,3 @@
-import {fPUSHCONT} from "../runtime/fift-instr"
-
 export type arg =
     | uint
     | int
@@ -1278,6 +1276,17 @@ export const instructions: Record<string, Opcode> = {
     fPUSHSLICE: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
     fPUSHCONT: cat("int_const", mkfixedn(0, 0, 0, seq(codeSlice(uint4, uint4)), "")),
     fSTSLICECONST: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint2, uint3, 2)), "")),
+    fXCHG: cat("int_const", mkfixedn(0, 0, 0, seq(uint(8, range(0n, 255n)), uint(8, range(0n, 255n))), "")),
+    fPUSHINTX: cat("int_const", mkfixedn(0, 0, 0, seq(largeInt), "")),
+    fSDBEGINS: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
+    fSDBEGINSQ: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
+    fCALLXARGS: cat("int_const", mkfixedn(0, 0, 0, seq(uint4, int(8, range(-1n, 15n))), "")),
+    fCALLDICT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 16383n))), "")),
+    fJMPDICT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 16383n))), "")),
+    fPREPAREDICT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 16383n))), "")),
+    fTHROW: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
+    fTHROWIF: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
+    fTHROWIFNOT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
 }
 
 export const pseudoInstructions = new Set([
@@ -1308,6 +1317,28 @@ export const fiftInstructionList = (): [string, Opcode][] => {
         ["fPUSHCONT", infoOf("fPUSHCONT")!],
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ["fSTSLICECONST", infoOf("fSTSLICECONST")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fXCHG", infoOf("fXCHG")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHINTX", infoOf("fPUSHINTX")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fSDBEGINS", infoOf("fSDBEGINS")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fSDBEGINSQ", infoOf("fSDBEGINSQ")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fCALLXARGS", infoOf("fCALLXARGS")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fCALLDICT", infoOf("fCALLDICT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fJMPDICT", infoOf("fJMPDICT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPREPAREDICT", infoOf("fPREPAREDICT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fTHROW", infoOf("fTHROW")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fTHROWIF", infoOf("fTHROWIF")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fTHROWIFNOT", infoOf("fTHROWIFNOT")!],
     ]
 }
 
