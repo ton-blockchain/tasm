@@ -918,6 +918,10 @@ export type Instr =
     | c.INMSGPARAM
     | c.DEBUGMARK
     | cf.fPUSHINT
+    | cf.fPUSH
+    | cf.fPOP
+    | cf.fPUSHSLICE
+    | cf.fPUSHCONT
 export const rangeToType = [
     {
         min: 8650496,
@@ -6376,3 +6380,7 @@ storeMapping.set("INMSG_STATEINIT", types.INMSG_STATEINIT.store)
 storeMapping.set("INMSGPARAM", types.INMSGPARAM.store)
 storeMapping.set("DEBUGMARK", types.DEBUGMARK.store)
 storeMapping.set("fPUSHINT", ftypes.fPUSHINT.store)
+storeMapping.set("fPUSH", ftypes.fPUSH.store)
+storeMapping.set("fPOP", ftypes.fPOP.store)
+storeMapping.set("fPUSHSLICE", ftypes.fPUSHSLICE.store)
+storeMapping.set("fPUSHCONT", ftypes.fPUSHCONT.store)

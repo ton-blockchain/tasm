@@ -57,30 +57,23 @@ function compileInstruction(raw: Instruction): $astT.Instruction[] {
         case "AsmExpression": {
             const args = instr.arguments?.primitives.map(it => convertPrimitive(it)) ?? []
 
-            if (instr.name.value === "PUSHINT") {
-                const arg = args[0]
-                if (!arg) throw new Error("invalid arguments")
-
-                if (arg.expression.$ === "IntegerLiteral") {
-                    let name = "PUSHINT_4"
-                    const value = BigInt(arg.expression.value.digits)
-                    if (value > 10) {
-                        name = "PUSHINT_16"
-                    }
-
-                    return [
-                        {
-                            $: "Instruction",
-                            args,
-                            name: {
-                                $: "Id",
-                                name,
-                                loc: $.emptyLoc(0),
-                            },
+            if (
+                instr.name.value === "PUSHINT" ||
+                instr.name.value === "PUSH" ||
+                instr.name.value === "POP"
+            ) {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: `f${instr.name.value}`,
                             loc: $.emptyLoc(0),
                         },
-                    ]
-                }
+                        loc: $.emptyLoc(0),
+                    },
+                ]
             }
 
             return [

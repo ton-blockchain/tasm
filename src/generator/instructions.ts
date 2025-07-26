@@ -1,3 +1,5 @@
+import {fPUSHCONT} from "../runtime/fift-instr"
+
 export type arg =
     | uint
     | int
@@ -1270,6 +1272,11 @@ export const instructions: Record<string, Opcode> = {
     INMSGPARAM: cat("config", mkfixedrangen(0xf89a, 0xf8a0, 16, 4, seq(uint4), `exec_get_var_in_msg_param`)),
 
     DEBUGMARK: cat("int_const", mkfixedn(0xF955, 16, 16, seq(uint(16, range(0n, 0n))), `exec_push_pow2dec`)),
+
+    fPUSH: cat("int_const", mkfixedn(0, 0, 0, seq(stack(4)), "")),
+    fPOP: cat("int_const", mkfixedn(0, 0, 0, seq(stack(4)), "")),
+    fPUSHSLICE: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
+    fPUSHCONT: cat("int_const", mkfixedn(0, 0, 0, seq(codeSlice(uint4, uint4)), "")),
 }
 
 export const pseudoInstructions = new Set([
@@ -1279,7 +1286,7 @@ export const pseudoInstructions = new Set([
 ])
 
 export const instructionList = (): [string, Opcode][] => {
-    return Object.entries(instructions).map(([rawName, opcode]) => {
+    return Object.entries(instructions).filter(([name]) => !name.startsWith("f")).map(([rawName, opcode]) => {
         const normalizedNumbers = rawName.startsWith("2") ? rawName.slice(1) + "2" : rawName
         const normalizedHashes = normalizedNumbers.replace("#", "_")
         return [normalizedHashes, opcode]
@@ -1290,6 +1297,14 @@ export const fiftInstructionList = (): [string, Opcode][] => {
     return [
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ["fPUSHINT", infoOf("PUSHINT_LONG")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSH", infoOf("fPUSH")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPOP", infoOf("fPOP")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHSLICE", infoOf("fPUSHSLICE")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHCONT", infoOf("fPUSHCONT")!],
     ]
 }
 

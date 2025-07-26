@@ -3953,6 +3953,26 @@ export const fPUSHINT: $.Convert = (ctx, instr, loc) => {
     const args = $.singleBigIntArg(instr)
     return c.fPUSHINT(args, loc)
 }
+export const fPUSH: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleStackArg(instr)
+    return c.fPUSH("stack", args, loc)
+}
+export const fPOP: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.singleStackArg(instr)
+    return c.fPOP("stack", args, loc)
+}
+export const fPUSHSLICE: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.sliceArg(instr)
+    return c.fPUSHSLICE(args, loc)
+}
+export const fPUSHCONT: $.Convert = (ctx, instr, loc) => {
+    u.assertSingleArgs(instr, loc)
+    const args = $.codeSliceArg(ctx, instr)
+    return c.fPUSHCONT(args, loc)
+}
 export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.util.Loc) => {
     const name = instr.name.name
     switch (name) {
@@ -5776,6 +5796,14 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return DEBUGMARK(ctx, instr, loc)
         case "fPUSHINT":
             return fPUSHINT(ctx, instr, loc)
+        case "fPUSH":
+            return fPUSH(ctx, instr, loc)
+        case "fPOP":
+            return fPOP(ctx, instr, loc)
+        case "fPUSHSLICE":
+            return fPUSHSLICE(ctx, instr, loc)
+        case "fPUSHCONT":
+            return fPUSHCONT(ctx, instr, loc)
     }
     throw new Error(`Unexpected instruction: ${name}`)
 }

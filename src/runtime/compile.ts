@@ -11,7 +11,8 @@ export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructio
         if (!instruction) break
         const builderBefore = new CodeBuilder().storeBuilder(b)
 
-        const overflow = safeStore(b, instruction)
+        const isLast = index === instructions.length - 1
+        const overflow = safeStore(b, instruction, isLast)
         if (!overflow) {
             // fast path
             continue
@@ -34,7 +35,7 @@ export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructio
         // IFREF { ... }
         // ...
         const match = matchingRule(remainingInstructions)
-        if (match) {
+        if (match && builderBefore.canFit(/* IFREF length */ 16)) {
             const instr = match.rule.ctor(match.body)
             match.rule.type.store(builderBefore, instr)
             b.reinitFrom(builderBefore)
@@ -54,11 +55,18 @@ export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructio
     }
 }
 
-const safeStore = (b: CodeBuilder, t: Instr): boolean => {
+const safeStore = (b: CodeBuilder, t: Instr, isLastInstruction: boolean): boolean => {
     try {
         instr.store(b, t)
         if (b.bits >= 1023) {
             return true
+        }
+
+        if (!isLastInstruction) {
+            if (b.bits >= 1023 - 8) {
+                // we need room for PUSHREF
+                return true
+            }
         }
 
         if (b.refs >= 4) {

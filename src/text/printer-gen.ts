@@ -2386,6 +2386,24 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             p.append(instr.arg0.toString())
             return
+        case "fPUSH":
+            p.append(" ")
+            p.append("s")
+            p.append(instr.arg0.toString())
+            return
+        case "fPOP":
+            p.append(" ")
+            p.append("s")
+            p.append(instr.arg0.toString())
+            return
+        case "fPUSHSLICE":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
+        case "fPUSHCONT":
+            p.append(" ")
+            $.printCode(p, instr.arg0)
+            return
         default:
     }
 }
