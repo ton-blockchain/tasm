@@ -13,6 +13,9 @@
 .pnp.*
 node_modules
 
+.idea/
+.eslintcache
+
 src/testing/out/
 
 dist/

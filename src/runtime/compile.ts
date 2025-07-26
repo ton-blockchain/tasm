@@ -4,15 +4,21 @@ import type {Instr} from "./instr-gen"
 import {CodeBuilder} from "./builder"
 import {instr} from "./instr"
 import {matchingRule} from "./layout"
+import {IF, IFELSE, IFJMP, IFNOT, IFNOTJMP, PUSHCONT, PUSHCONT_SHORT} from "./types"
+import type {StoreOptions} from "./util"
 
-export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructions: Instr[]) => {
+export const compileInstructions = (
+    b: CodeBuilder,
+    instructions: Instr[],
+    options: StoreOptions,
+) => {
     for (let index = 0; index < instructions.length; index++) {
         const instruction = instructions[index]
         if (!instruction) break
         const builderBefore = new CodeBuilder().storeBuilder(b)
 
         const isLast = index === instructions.length - 1
-        const overflow = safeStore(b, instruction, isLast)
+        const overflow = safeStore(b, instruction, isLast, options)
         if (!overflow) {
             // fast path
             continue
@@ -37,7 +43,7 @@ export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructio
         const match = matchingRule(remainingInstructions)
         if (match && builderBefore.canFit(/* IFREF length */ 16)) {
             const instr = match.rule.ctor(match.body)
-            match.rule.type.store(builderBefore, instr)
+            match.rule.type.store(builderBefore, instr, options)
             b.reinitFrom(builderBefore)
             index++ // advance to not store instruction once again
 
@@ -47,7 +53,11 @@ export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructio
         }
 
         // Create a new ref and compile the remaining instruction to it
-        $.PSEUDO_PUSHREF.store(builderBefore, c.PSEUDO_PUSHREF($.code(remainingInstructions)))
+        $.PSEUDO_PUSHREF_ALWAYS.store(
+            builderBefore,
+            c.PSEUDO_PUSHREF($.code(remainingInstructions)),
+            options,
+        )
         b.reinitFrom(builderBefore)
         // All remaining instructions already processed in PSEUDO_PUSHREF,
         // so we need to return here
@@ -55,14 +65,146 @@ export const compileInstructions: $.Store<Instr[]> = (b: CodeBuilder, instructio
     }
 }
 
-const safeStore = (b: CodeBuilder, t: Instr, isLastInstruction: boolean): boolean => {
+const compilePushcont = (
+    b: CodeBuilder,
+    code: $.Code,
+    loc: $.Loc | undefined,
+    options: StoreOptions,
+) => {
+    const b2 = new CodeBuilder()
+    PUSHCONT.store(
+        b2,
+        {
+            $: "PUSHCONT",
+            arg0: code,
+            loc,
+        },
+        options,
+    )
+
+    const pushcontWithoutCodeWidth = 16
+    if (b2.bits - pushcontWithoutCodeWidth > 15) {
+        PUSHCONT.store(
+            b,
+            {
+                $: "PUSHCONT",
+                arg0: code,
+                loc,
+            },
+            options,
+        )
+    } else {
+        PUSHCONT_SHORT.store(
+            b,
+            {
+                $: "PUSHCONT_SHORT",
+                arg0: code,
+                loc,
+            },
+            options,
+        )
+    }
+}
+
+const compileNonRefIf = (b: CodeBuilder, instr: Instr, options: StoreOptions) => {
+    if (instr.$ === "IFREF") {
+        IF.store(
+            b,
+            {
+                $: "IF",
+                loc: instr.loc,
+            },
+            options,
+        )
+    }
+    if (instr.$ === "IFREFELSE" || instr.$ === "IFELSEREF") {
+        IFELSE.store(
+            b,
+            {
+                $: "IFELSE",
+                loc: instr.loc,
+            },
+            options,
+        )
+    }
+    if (instr.$ === "IFNOTREF") {
+        IFNOT.store(
+            b,
+            {
+                $: "IFNOT",
+                loc: instr.loc,
+            },
+            options,
+        )
+    }
+    if (instr.$ === "IFJMPREF") {
+        IFJMP.store(
+            b,
+            {
+                $: "IFJMP",
+                loc: instr.loc,
+            },
+            options,
+        )
+    }
+    if (instr.$ === "IFNOTJMPREF") {
+        IFNOTJMP.store(
+            b,
+            {
+                $: "IFNOTJMP",
+                loc: instr.loc,
+            },
+            options,
+        )
+    }
+}
+
+function compileIf(t: Instr, b: CodeBuilder, options: StoreOptions) {
+    if (!options.skipRefs) {
+        // compile as is
+        return false
+    }
+
+    if (
+        t.$ === "IFREF" ||
+        t.$ === "IFREFELSE" ||
+        t.$ === "IFELSEREF" ||
+        t.$ === "IFNOTREF" ||
+        t.$ === "IFJMPREF" ||
+        t.$ === "IFNOTJMPREF"
+    ) {
+        const b2 = new CodeBuilder()
+        compilePushcont(b2, t.arg0, t.loc, options)
+        compileNonRefIf(b2, t, options)
+
+        if (b2.bits + b.bits <= 1023 && b2.refs + b.refs <= 4) {
+            compilePushcont(b, t.arg0, t.loc, options)
+            compileNonRefIf(b, t, options)
+            return true
+        }
+    }
+
+    return false
+}
+
+const safeStore = (
+    b: CodeBuilder,
+    t: Instr,
+    isLastInstruction: boolean,
+    options: StoreOptions,
+): boolean => {
+    const inlined = compileIf(t, b, options)
+    if (inlined) {
+        return false
+    }
+
     try {
-        instr.store(b, t)
+        instr.store(b, t, options)
         if (b.bits >= 1023) {
             return true
         }
 
-        if (!isLastInstruction) {
+        if (!isLastInstruction && options.skipRefs) {
             if (b.bits >= 1023 - 8) {
                 // we need room for PUSHREF
                 return true

@@ -1,5 +1,5 @@
 {
-    "name": "@tact-lang/ton-assembly",
+    "name": "@ton/ton-assembly",
     "version": "0.0.1",
     "description": "TON assembler and disassembler",
     "keywords": [
