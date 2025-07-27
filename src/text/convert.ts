@@ -3983,7 +3983,7 @@ export const fXCHG: $.Convert = (ctx, instr, loc) => {
     if (argsLen.length !== 2) {
         throw new $.ParseError(loc, "Expected 2 arguments")
     }
-    const args = $.twoIntegerArgs(instr)
+    const args = $.twoStackArgs(instr)
     return c.fXCHG(args[0], args[1], loc)
 }
 export const fPUSHINTX: $.Convert = (ctx, instr, loc) => {

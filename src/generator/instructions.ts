@@ -1276,7 +1276,7 @@ export const instructions: Record<string, Opcode> = {
     fPUSHSLICE: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
     fPUSHCONT: cat("int_const", mkfixedn(0, 0, 0, seq(codeSlice(uint4, uint4)), "")),
     fSTSLICECONST: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint2, uint3, 2)), "")),
-    fXCHG: cat("int_const", mkfixedn(0, 0, 0, seq(uint(8, range(0n, 255n)), uint(8, range(0n, 255n))), "")),
+    fXCHG: cat("int_const", mkfixedn(0, 0, 0, seq(stack(4), stack(4)), "")),
     fPUSHINTX: cat("int_const", mkfixedn(0, 0, 0, seq(largeInt), "")),
     fSDBEGINS: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
     fSDBEGINSQ: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),

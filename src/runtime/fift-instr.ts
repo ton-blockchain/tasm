@@ -45,10 +45,12 @@ import {
     SDBEGINSQ,
     EXECUTE,
     JMPX,
+    XCHG_1I,
 } from "./types"
 import {instr} from "./instr"
 import {codeSlice, rawCode, uint} from "./util"
 import {CodeBuilder} from "./builder"
+import {compileInstructions} from "./compile"
 
 const fits = (val: bigint, bits: number) =>
     val >= BigInt(-Math.pow(2, bits - 1)) && val <= BigInt(Math.pow(2, bits - 1) - 1)
@@ -344,7 +346,13 @@ export const fPUSHCONT: $.Type<c.fPUSHCONT> = {
         const arg = val.arg0
 
         const b2 = new CodeBuilder()
-        codeSlice(uint(2), uint(7)).store(b2, arg, options)
+
+        if (arg.$ === "Instructions") {
+            compileInstructions(b2, arg.instructions, options)
+        } else {
+            codeSlice(uint(2), uint(7)).store(b2, arg, options)
+        }
+
         const codeAsSlice = b2.asSlice()
 
         if (!b.canFit(codeAsSlice.remainingBits)) {
@@ -517,6 +525,21 @@ export const fXCHG: $.Type<c.fXCHG> = {
                 )
                 return
             }
+        }
+
+        // XCHG s1 s2
+        if (arg0 === 1 && arg1 < 16) {
+            XCHG_1I.store(
+                b,
+                {
+                    ...val,
+                    arg0: arg0,
+                    arg1: arg1,
+                    $: "XCHG_1I",
+                },
+                options,
+            )
+            return
         }
 
         // XCHG si, sj where both i,j > 0

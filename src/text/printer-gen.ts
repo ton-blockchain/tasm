@@ -2410,8 +2410,10 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             return
         case "fXCHG":
             p.append(" ")
+            p.append("s")
             p.append(instr.arg0.toString())
             p.append(" ")
+            p.append("s")
             p.append(instr.arg1.toString())
             return
         case "fPUSHINTX":

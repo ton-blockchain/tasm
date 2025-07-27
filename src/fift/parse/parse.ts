@@ -28,7 +28,9 @@ const failure = (error: ParseError): ParseFailure => ({$: "ParseFailure", error}
 
 export function parse(_filepath: string, code: string): ParseResult {
     try {
-        const ast = $.parse(code, {startRule: "SourceFile"}) as G.$ast.SourceFile
+        const ast = $.parse(code.replaceAll("2DROP", "DROP2"), {
+            startRule: "SourceFile",
+        }) as G.$ast.SourceFile
         return success(ast)
     } catch (error) {
         if (error instanceof Error) {

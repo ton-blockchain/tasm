@@ -1,5 +1,105 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Fift Parser should parse 2DROP 1`] = `
+{
+  "$": "SourceFile",
+  "include": {
+    "$": "IncludeDirective",
+    "path": "Asm.fif",
+  },
+  "program": {
+    "$": "Program",
+    "declarations": [
+      {
+        "$": "Declaration",
+        "decl": {
+          "$": "ProcDeclaration",
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+    "definitions": [
+      {
+        "$": "Definition",
+        "def": {
+          "$": "ProcDefinition",
+          "instructions": [
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": null,
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "DROP2",
+                },
+              },
+            },
+          ],
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`Fift Parser should parse PLDREF 1`] = `
+{
+  "$": "SourceFile",
+  "include": {
+    "$": "IncludeDirective",
+    "path": "Asm.fif",
+  },
+  "program": {
+    "$": "Program",
+    "declarations": [
+      {
+        "$": "Declaration",
+        "decl": {
+          "$": "ProcDeclaration",
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+    "definitions": [
+      {
+        "$": "Definition",
+        "def": {
+          "$": "ProcDefinition",
+          "instructions": [
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": null,
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "PLDREF",
+                },
+              },
+            },
+          ],
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
 exports[`Fift Parser should parse basic program 1`] = `
 {
   "$": "SourceFile",
@@ -16282,6 +16382,35 @@ exports[`Fift Parser should parse stack operations 1`] = `
                 "name": {
                   "$": "TvmInstruction",
                   "value": "XCHG",
+                },
+              },
+            },
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": {
+                  "$": "AsmArgumentList",
+                  "primitives": [
+                    {
+                      "$": "AsmPrimitive",
+                      "prim": {
+                        "$": "StackRegister",
+                        "value": "s5",
+                      },
+                    },
+                    {
+                      "$": "AsmPrimitive",
+                      "prim": {
+                        "$": "StackRegister",
+                        "value": "s(-1)",
+                      },
+                    },
+                  ],
+                },
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "PUXC",
                 },
               },
             },

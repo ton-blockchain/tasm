@@ -26,6 +26,54 @@ describe("Fift Parser", () => {
         }
     })
 
+    it("should parse 2DROP", () => {
+        const code = `"Asm.fif" include
+        PROGRAM{
+            DECLPROC test
+            test PROC:<{
+                2DROP
+            }>
+        }END>c`
+
+        const result = parse("test.fift", code)
+
+        if (result.$ === "ParseFailure") {
+            console.log("Parse error:", result.error.message)
+        }
+
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast.program.declarations).toHaveLength(1)
+            expect(result.ast.program.definitions).toHaveLength(1)
+
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
+    it("should parse PLDREF", () => {
+        const code = `"Asm.fif" include
+        PROGRAM{
+            DECLPROC test
+            test PROC:<{
+                PLDREF
+            }>
+        }END>c`
+
+        const result = parse("test.fift", code)
+
+        if (result.$ === "ParseFailure") {
+            console.log("Parse error:", result.error.message)
+        }
+
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast.program.declarations).toHaveLength(1)
+            expect(result.ast.program.definitions).toHaveLength(1)
+
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
     it("should parse program with include", () => {
         const code = `"Asm.fif" include
             PROGRAM{
@@ -150,6 +198,7 @@ describe("Fift Parser", () => {
             test PROC:<{
                 s(-1) XCHG
                 s0 s1 XCHG
+                s5 s(-1) PUXC
             }>
         }END>c`
 

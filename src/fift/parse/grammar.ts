@@ -109,6 +109,7 @@ export namespace $ast {
 
     export type IfStatement = {
         readonly $: "IfStatement"
+        readonly kind: "IF:<{" | "IFNOT:<{"
         readonly instructions: readonly Instruction[]
         readonly else_block:
             | {
@@ -119,6 +120,7 @@ export namespace $ast {
 
     export type IfjmpStatement = {
         readonly $: "IfjmpStatement"
+        readonly kind: "IFJMP:<{" | "IFNOTJMP:<{"
         readonly instructions: readonly Instruction[]
     }
 

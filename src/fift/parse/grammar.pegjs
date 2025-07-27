@@ -81,13 +81,13 @@ AsmPrimitive
   }
 
 IfStatement
-  = "IF:<{" space* instructions:Instruction* "}>" else_block:("ELSE<{" space* else_instructions:Instruction* "}>" { return { instructions: else_instructions }; })? {
-    return { $: 'IfStatement', instructions, else_block };
+  = kind:("IF:<{" / "IFNOT:<{") space* instructions:Instruction* "}>" else_block:("ELSE<{" space* else_instructions:Instruction* "}>" { return { instructions: else_instructions }; })? {
+    return { $: 'IfStatement', kind, instructions, else_block: else_block ?? undefined };
   }
 
 IfjmpStatement
-  = "IFJMP:<{" space* instructions:Instruction* "}>" {
-    return { $: 'IfjmpStatement', instructions };
+  = kind:("IFJMP:<{" / "IFNOTJMP:<{") space* instructions:Instruction* "}>" {
+    return { $: 'IfjmpStatement', kind, instructions };
   }
 
 WhileStatement
@@ -183,8 +183,10 @@ reservedWord
   / "PROCREF:<{"
   / "METHOD:<{"
   / "IF:<{"
+  / "IFNOT:<{"
   / "ELSE<{"
   / "IFJMP:<{"
+  / "IFNOTJMP:<{"
   / "WHILE:<{"
   / "DO<{"
   / "REPEAT:<{"
