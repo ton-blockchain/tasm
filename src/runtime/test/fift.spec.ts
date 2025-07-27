@@ -7,8 +7,6 @@ import {
     PUSHINT_4,
     fPUSHSLICE,
     fPUSHINT,
-    fPUSH,
-    fPOP,
     fXCHG,
     fPUSHINTX,
     fSDBEGINS,
@@ -180,130 +178,6 @@ describe("Test PUSHINT Fift instruction", () => {
                 [fPUSHINT(-99999999999999999n)],
                 `
                     PUSHINT_LONG -99999999999999999
-                `,
-            ),
-        )
-    })
-})
-
-describe("Test PUSH Fift instruction", () => {
-    describe("PUSH s", () => {
-        it(
-            "with s2",
-            test(
-                [fPUSH("stack", 2)],
-                `
-                    PUSH s2
-                `,
-            ),
-        )
-        it(
-            "with s15",
-            test(
-                [fPUSH("stack", 15)],
-                `
-                    PUSH s15
-                `,
-            ),
-        )
-        it(
-            "with s16",
-            test(
-                [fPUSH("stack", 16)],
-                `
-                    PUSH_LONG s16
-                `,
-            ),
-        )
-        it(
-            "with s99",
-            test(
-                [fPUSH("stack", 99)],
-                `
-                    PUSH_LONG s99
-                `,
-            ),
-        )
-    })
-
-    describe("PUSH c", () => {
-        it(
-            "with c1",
-            test(
-                [fPUSH("control", 1)],
-                `
-                    PUSHCTR c1
-                `,
-            ),
-        )
-        it(
-            "with c7",
-            test(
-                [fPUSH("control", 7)],
-                `
-                    PUSHCTR c7
-                `,
-            ),
-        )
-    })
-})
-
-describe("Test POP Fift instruction", () => {
-    describe("POP s", () => {
-        it(
-            "with s2",
-            test(
-                [fPOP("stack", 2)],
-                `
-                    POP s2
-                `,
-            ),
-        )
-        it(
-            "with s15",
-            test(
-                [fPOP("stack", 15)],
-                `
-                    POP s15
-                `,
-            ),
-        )
-        it(
-            "with s16",
-            test(
-                [fPOP("stack", 16)],
-                `
-                    POP_LONG s16
-                `,
-            ),
-        )
-        it(
-            "with s99",
-            test(
-                [fPOP("stack", 99)],
-                `
-                    POP_LONG s99
-                `,
-            ),
-        )
-    })
-
-    describe("POP c", () => {
-        it(
-            "with c1",
-            test(
-                [fPOP("control", 1)],
-                `
-                    POPCTR c1
-                `,
-            ),
-        )
-        it(
-            "with c7",
-            test(
-                [fPOP("control", 7)],
-                `
-                    POPCTR c7
                 `,
             ),
         )

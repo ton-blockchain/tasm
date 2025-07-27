@@ -3956,16 +3956,6 @@ export const fPUSHINT: $.Convert = (ctx, instr, loc) => {
     const args = $.singleBigIntArg(instr)
     return c.fPUSHINT(args, loc)
 }
-export const fPUSH: $.Convert = (ctx, instr, loc) => {
-    u.assertSingleArgs(instr, loc)
-    const args = $.singleStackArg(instr)
-    return c.fPUSH("stack", args, loc)
-}
-export const fPOP: $.Convert = (ctx, instr, loc) => {
-    u.assertSingleArgs(instr, loc)
-    const args = $.singleStackArg(instr)
-    return c.fPOP("stack", args, loc)
-}
 export const fPUSHSLICE: $.Convert = (ctx, instr, loc) => {
     u.assertSingleArgs(instr, loc)
     const args = $.sliceArg(instr)
@@ -5897,10 +5887,6 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return DEBUGMARK(ctx, instr, loc)
         case "fPUSHINT":
             return fPUSHINT(ctx, instr, loc)
-        case "fPUSH":
-            return fPUSH(ctx, instr, loc)
-        case "fPOP":
-            return fPOP(ctx, instr, loc)
         case "fPUSHSLICE":
             return fPUSHSLICE(ctx, instr, loc)
         case "fPUSHCONT":
@@ -5911,8 +5897,6 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return fXCHG(ctx, instr, loc)
         case "fPUSHINTX":
             return fPUSHINTX(ctx, instr, loc)
-        case "fIF":
-            return fIF(ctx, instr, loc)
         case "fSDBEGINS":
             return fSDBEGINS(ctx, instr, loc)
         case "fSDBEGINSQ":
@@ -5931,6 +5915,8 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return fTHROWIF(ctx, instr, loc)
         case "fTHROWIFNOT":
             return fTHROWIFNOT(ctx, instr, loc)
+        case "fIF":
+            return fIF(ctx, instr, loc)
     }
     throw new Error(`Unexpected instruction: ${name}`)
 }

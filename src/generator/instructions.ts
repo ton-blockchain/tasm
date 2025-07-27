@@ -1271,8 +1271,6 @@ export const instructions: Record<string, Opcode> = {
 
     DEBUGMARK: cat("int_const", mkfixedn(0xF955, 16, 16, seq(uint(16, range(0n, 0n))), `exec_push_pow2dec`)),
 
-    fPUSH: cat("int_const", mkfixedn(0, 0, 0, seq(stack(4)), "")),
-    fPOP: cat("int_const", mkfixedn(0, 0, 0, seq(stack(4)), "")),
     fPUSHSLICE: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
     fPUSHCONT: cat("int_const", mkfixedn(0, 0, 0, seq(codeSlice(uint4, uint4)), "")),
     fSTSLICECONST: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint2, uint3, 2)), "")),
@@ -1308,10 +1306,6 @@ export const fiftInstructionList = (): [string, Opcode][] => {
     return [
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ["fPUSHINT", infoOf("PUSHINT_LONG")!],
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        ["fPUSH", infoOf("fPUSH")!],
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        ["fPOP", infoOf("fPOP")!],
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ["fPUSHSLICE", infoOf("fPUSHSLICE")!],
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
