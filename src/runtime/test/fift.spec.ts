@@ -273,7 +273,7 @@ describe("Test fPUSHCONT Fift instruction", () => {
                 ),
             ],
             `
-                PUSHCONT {
+                PUSHCONT_SHORT {
                     NOP
                     NOP
                     NOP
@@ -373,11 +373,11 @@ describe("Test STSLICECONST Fift instruction", () => {
 
 describe("Test XCHG Fift instruction", () => {
     it(
-        "with s1, s2 -> XCHG_IJ",
+        "with s1, s2 -> XCHG_1I",
         test(
             [fXCHG(1, 2)],
             `
-                XCHG_IJ s1 s2
+                XCHG_1I s1 s2
             `,
         ),
     )
