@@ -174,8 +174,10 @@ export const compileCell = (
 export const compileCellWithMapping = (
     instructions: Instr[],
     options: StoreOptions = DEFAULT_STORE_OPTIONS,
+    isDictionaryCell: boolean = false,
+    offset: number = 0,
 ): [G.Cell, Mapping] => {
-    const b = new CodeBuilder()
+    const b = new CodeBuilder(isDictionaryCell, offset)
     codeType().store(b, instructions, options)
     return b.build()
 }

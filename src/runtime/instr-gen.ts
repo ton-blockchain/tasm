@@ -934,6 +934,7 @@ export type Instr =
     | cf.fTHROW
     | cf.fTHROWIF
     | cf.fTHROWIFNOT
+    | cf.fIF
 export const rangeToType = [
     {
         min: 8650496,
@@ -6408,3 +6409,4 @@ storeMapping.set("fPREPAREDICT", ftypes.fPREPAREDICT.store)
 storeMapping.set("fTHROW", ftypes.fTHROW.store)
 storeMapping.set("fTHROWIF", ftypes.fTHROWIF.store)
 storeMapping.set("fTHROWIFNOT", ftypes.fTHROWIFNOT.store)
+storeMapping.set("fIF", ftypes.fIF.store)

@@ -196,13 +196,35 @@ export type fTHROWIF = {
     loc: $.Loc | undefined
 }
 
+export interface fTHROWIFNOT {
+    readonly $: "fTHROWIFNOT"
+    readonly arg0: number
+    readonly loc?: $.Loc
+}
+
 export const fTHROWIFNOT = (arg0: number, loc?: $.Loc): fTHROWIFNOT => ({
     $: "fTHROWIFNOT",
     arg0,
     loc,
 })
-export type fTHROWIFNOT = {
-    $: "fTHROWIFNOT"
-    arg0: number
-    loc: $.Loc | undefined
+
+export interface fIF {
+    readonly $: "fIF"
+    readonly kind: "IF" | "IFNOT" | "IFJMP" | "IFNOTJMP" | "IFELSE"
+    readonly trueBranch: $.Code
+    readonly falseBranch?: $.Code // только для IFELSE
+    readonly loc?: $.Loc
 }
+
+export const fIF = (
+    kind: "IF" | "IFNOT" | "IFJMP" | "IFNOTJMP" | "IFELSE",
+    trueBranch: $.Code,
+    falseBranch?: $.Code,
+    loc?: $.Loc,
+): fIF => ({
+    $: "fIF",
+    kind,
+    trueBranch,
+    falseBranch,
+    loc,
+})

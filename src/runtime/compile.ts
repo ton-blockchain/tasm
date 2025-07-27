@@ -200,7 +200,7 @@ const safeStore = (
 
     try {
         instr.store(b, t, options)
-        if (b.bits >= 1023) {
+        if (b.bits >= 1023 - (b.isDictionaryCell ? b.offset : 0)) {
             return true
         }
 

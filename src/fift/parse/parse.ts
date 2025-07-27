@@ -28,13 +28,15 @@ const failure = (error: ParseError): ParseFailure => ({$: "ParseFailure", error}
 
 export function parse(_filepath: string, code: string): ParseResult {
     try {
-        const ast = $.parse(code.replaceAll("2DROP", "DROP2"), {
+        const normalizedCode = code.replaceAll("2DROP", "DROP2").replaceAll("}>CONT", "}> PUSHCONT")
+        const ast = $.parse(normalizedCode, {
             startRule: "SourceFile",
         }) as G.$ast.SourceFile
         return success(ast)
     } catch (error) {
         if (error instanceof Error) {
             const pegError = error as $.SyntaxError
+            console.log(pegError)
             return failure(new ParseError(pegError.message))
         }
         return failure(new ParseError("Unknown parse error"))

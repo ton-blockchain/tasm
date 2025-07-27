@@ -376,7 +376,14 @@ export const dictionary = (keyLength: number): Type<Dict> => {
                 )
                 for (const method of dict.methods) {
                     const {id, instructions} = method
-                    const [cell, mapping] = compileCellWithMapping(instructions, options)
+                    const [cell, mapping] = compileCellWithMapping(
+                        instructions,
+                        {
+                            ...options,
+                        },
+                        true,
+                        16,
+                    )
                     dictMappings.push(mapping)
                     dictionary.set(id, cell)
                 }

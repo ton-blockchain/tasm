@@ -4,6 +4,7 @@ import {
     fSTSLICECONST,
     NOP,
     PUSHSLICE_LONG,
+    PUSHINT_4,
     fPUSHSLICE,
     fPUSHINT,
     fPUSH,
@@ -19,6 +20,7 @@ import {
     fTHROW,
     fTHROWIF,
     fTHROWIFNOT,
+    fIF,
     compileCell,
     decompileCell,
 } from "../index"
@@ -796,5 +798,147 @@ describe("Test THROWIFNOT Fift instruction", () => {
     )
     it("should throw for out of range", () => {
         expect(() => compileCell([fTHROWIFNOT(2048)])).toThrow("THROWIFNOT argument out of range")
+    })
+})
+
+describe("Test IF Fift instruction", () => {
+    it(
+        "simple IF -> PUSHCONT + IF",
+        test(
+            [fIF("IF", {$: "Instructions", instructions: [NOP()]})],
+            `
+                PUSHCONT_SHORT {
+                    NOP
+                }
+                IF
+            `,
+        ),
+    )
+
+    it(
+        "simple IFNOT -> PUSHCONT + IFNOT",
+        test(
+            [fIF("IFNOT", {$: "Instructions", instructions: [NOP()]})],
+            `
+                PUSHCONT_SHORT {
+                    NOP
+                }
+                IFNOT
+            `,
+        ),
+    )
+
+    it(
+        "simple IFJMP -> PUSHCONT + IFJMP",
+        test(
+            [fIF("IFJMP", {$: "Instructions", instructions: [NOP()]})],
+            `
+                PUSHCONT_SHORT {
+                    NOP
+                }
+                IFJMP
+            `,
+        ),
+    )
+
+    it(
+        "simple IFNOTJMP -> PUSHCONT + IFNOTJMP",
+        test(
+            [fIF("IFNOTJMP", {$: "Instructions", instructions: [NOP()]})],
+            `
+                PUSHCONT_SHORT {
+                    NOP
+                }
+                IFNOTJMP
+            `,
+        ),
+    )
+
+    it(
+        "IFELSE -> PUSHCONT + PUSHCONT + IFELSE",
+        test(
+            [
+                fIF(
+                    "IFELSE",
+                    {$: "Instructions", instructions: [PUSHINT_4(1)]},
+                    {$: "Instructions", instructions: [PUSHINT_4(2)]},
+                ),
+            ],
+            `
+                PUSHCONT_SHORT {
+                    PUSHINT_4 1
+                }
+                PUSHCONT_SHORT {
+                    PUSHINT_4 2
+                }
+                IFELSE
+            `,
+        ),
+    )
+
+    it("empty IF -> no output", test([fIF("IF", {$: "Instructions", instructions: []})], ""))
+
+    it(
+        "empty IFJMP -> IFRET",
+        test(
+            [fIF("IFJMP", {$: "Instructions", instructions: []})],
+            `
+            IFRET
+        `,
+        ),
+    )
+
+    it(
+        "empty IFNOTJMP -> IFNOTRET",
+        test(
+            [fIF("IFNOTJMP", {$: "Instructions", instructions: []})],
+            `
+            IFNOTRET
+        `,
+        ),
+    )
+
+    it(
+        "IFELSE with empty true branch -> IFNOT",
+        test(
+            [
+                fIF(
+                    "IFELSE",
+                    {$: "Instructions", instructions: []},
+                    {$: "Instructions", instructions: [NOP()]},
+                ),
+            ],
+            `
+                PUSHCONT_SHORT {
+                    NOP
+                }
+                IFNOT
+            `,
+        ),
+    )
+
+    it(
+        "IFELSE with empty false branch -> IF",
+        test(
+            [
+                fIF(
+                    "IFELSE",
+                    {$: "Instructions", instructions: [NOP()]},
+                    {$: "Instructions", instructions: []},
+                ),
+            ],
+            `
+                PUSHCONT_SHORT {
+                    NOP
+                }
+                IF
+            `,
+        ),
+    )
+
+    it("should throw for IFELSE without false branch", () => {
+        expect(() =>
+            compileCell([fIF("IFELSE", {$: "Instructions", instructions: [NOP()]})]),
+        ).toThrow("IFELSE requires falseBranch")
     })
 })

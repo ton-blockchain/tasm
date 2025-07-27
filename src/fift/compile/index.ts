@@ -73,7 +73,7 @@ const main = async () => {
     }END>c
     `
 
-    const code = readFileSync("wallet_v5.now.fif", "utf8")
+    const code = readFileSync("NotcoinJettonMinter.00-FunC.fif", "utf8")
 
     const result = parse("test.fift", code)
     if (result.$ === "ParseFailure") {
@@ -90,6 +90,36 @@ const main = async () => {
     for (const decl of result.ast.program.declarations) {
         const name = decl.decl.name.name
         if (decl.decl.$ === "ProcDeclaration") {
+            if (name === "recv_internal") {
+                functions.set(name, 0)
+                usedFunctions.set(name, 1)
+                continue
+            }
+
+            if (name === "recv_external") {
+                functions.set(name, -1)
+                usedFunctions.set(name, 1)
+                continue
+            }
+
+            if (name === "run_ticktock") {
+                functions.set(name, -2)
+                usedFunctions.set(name, 1)
+                continue
+            }
+
+            if (name === "split_prepare") {
+                functions.set(name, -3)
+                usedFunctions.set(name, 1)
+                continue
+            }
+
+            if (name === "split_install") {
+                functions.set(name, -4)
+                usedFunctions.set(name, 1)
+                continue
+            }
+
             functions.set(name, functionIdx)
             functionIdx++
         }
@@ -138,6 +168,8 @@ const main = async () => {
         THROWARG(11),
     ]
 
+    console.log("Raw compiled fift:")
+    console.log(print(toplevel))
     const cell = compileCell(toplevel)
 
     const text = print(decompileCell(cell))
@@ -342,11 +374,26 @@ function compileInstruction(ctx: CompilationContext, raw: Instruction): $astT.In
                 ]
             }
 
+            if (instr.name.value === "-ROT") {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: "ROTREV",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
             if (instr.name.value === "-ROLL") {
                 return [
                     {
                         $: "Instruction",
-                        args: [...args, integerArgument(0)],
+                        args: [...args, integerArgument(1)],
                         name: {
                             $: "Id",
                             name: "BLKSWAP",
@@ -361,7 +408,7 @@ function compileInstruction(ctx: CompilationContext, raw: Instruction): $astT.In
                 return [
                     {
                         $: "Instruction",
-                        args: [integerArgument(0), ...args],
+                        args: [integerArgument(1), ...args],
                         name: {
                             $: "Id",
                             name: "BLKSWAP",
@@ -507,6 +554,111 @@ function compileInstruction(ctx: CompilationContext, raw: Instruction): $astT.In
                 ]
             }
 
+            if (instr.name.value === "SETCONTMANY") {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: "SETCONTCTRMANY",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "COMPOSALT") {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: "BOOLOR",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "COMPOS") {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: "BOOLAND",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "LDVARUINT16") {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: "LDGRAMS",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "STVARUINT16") {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: "STGRAMS",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "NEWDICT") {
+                return [
+                    {
+                        $: "Instruction",
+                        args,
+                        name: {
+                            $: "Id",
+                            name: "PUSHNULL",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
+            if (instr.name.value === "PAIR" || instr.name.value === "CONS") {
+                return [
+                    {
+                        $: "Instruction",
+                        args: [integerArgument(2)],
+                        name: {
+                            $: "Id",
+                            name: "TUPLE",
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ]
+            }
+
             if (instr.name.value.startsWith("HASHEXT_")) {
                 const hashName = instr.name.value.slice("HASHEXT_".length)
 
@@ -554,110 +706,116 @@ function compileInstruction(ctx: CompilationContext, raw: Instruction): $astT.In
             const hasElse = instr.else_block !== undefined
             const negated = instr.kind === "IFNOT:<{"
 
+            const trueBranchCode: $astT.Code = {
+                $: "Code",
+                instructions: instr.instructions.flatMap(it => compileInstruction(ctx, it)),
+                loc: $.emptyLoc(0),
+            }
+
+            let falseBranchCode: $astT.Code | undefined = undefined
+            if (instr.else_block) {
+                falseBranchCode = {
+                    $: "Code",
+                    instructions: instr.else_block.instructions.flatMap(it =>
+                        compileInstruction(ctx, it),
+                    ),
+                    loc: $.emptyLoc(0),
+                }
+            }
+
+            const kind = hasElse ? "IFELSE" : negated ? "IFNOT" : "IF"
+
+            const bodies: $astT.Argument[] = [
+                {
+                    $: "Argument",
+                    expression: trueBranchCode,
+                    loc: $.emptyLoc(0),
+                },
+                ...(falseBranchCode
+                    ? [
+                          {
+                              $: "Argument" as const,
+                              expression: falseBranchCode,
+                              loc: $.emptyLoc(0),
+                          },
+                      ]
+                    : []),
+            ]
+
+            if (instr.kind === "IFNOT:<{" && hasElse) {
+                // For IFNOT:<{ true }>ELSE<{ false }> we need to swap the branches
+                // and change kind to IFELSE
+                bodies.reverse()
+            }
+
             const IF: $astT.Instruction = {
                 $: "Instruction",
                 name: {
                     $: "Id",
-                    name: hasElse ? "IFELSE" : negated ? "IFNOT" : "IF",
-                    loc: $.emptyLoc(0),
-                },
-                args: [],
-                loc: $.emptyLoc(0),
-            }
-            const trueBranch: $astT.Instruction = {
-                $: "Instruction",
-                name: {
-                    $: "Id",
-                    name: "fPUSHCONT",
+                    name: "fIF",
                     loc: $.emptyLoc(0),
                 },
                 args: [
                     {
                         $: "Argument",
                         expression: {
-                            $: "Code",
-                            instructions: instr.instructions.flatMap(it =>
-                                compileInstruction(ctx, it),
-                            ),
-                            loc: $.emptyLoc(0),
-                        },
-                        loc: $.emptyLoc(0),
-                    },
-                ],
-                loc: $.emptyLoc(0),
-            }
-            const bodies = [trueBranch]
-            if (instr.else_block) {
-                const falseBranch: $astT.Instruction = {
-                    $: "Instruction",
-                    name: {
-                        $: "Id",
-                        name: "fPUSHCONT",
-                        loc: $.emptyLoc(0),
-                    },
-                    args: [
-                        {
-                            $: "Argument",
-                            expression: {
-                                $: "Code",
-                                instructions: instr.else_block.instructions.flatMap(it =>
-                                    compileInstruction(ctx, it),
-                                ),
+                            $: "DataLiteral",
+                            value: {
+                                $: "StringLiteral",
+                                value: kind,
                                 loc: $.emptyLoc(0),
                             },
                             loc: $.emptyLoc(0),
                         },
-                    ],
-                    loc: $.emptyLoc(0),
-                }
-                bodies.push(falseBranch)
+                        loc: $.emptyLoc(0),
+                    },
+                    ...bodies,
+                ],
+                loc: $.emptyLoc(0),
             }
 
-            if (instr.kind === "IFNOT:<{") {
-                // IFNOT:<{ 1 }>ELSE<{ 2 }>
-                // bodies: [1, 2]
-                // ->
-                // [2, 1] IFELSE
-                bodies.reverse()
-            }
-
-            return [...bodies, IF]
+            return [IF]
         }
         case "IfjmpStatement": {
             const negated = instr.kind === "IFNOTJMP:<{"
+            const kind = negated ? "IFNOTJMP" : "IFJMP"
+
+            const trueBranchCode: $astT.Code = {
+                $: "Code",
+                instructions: instr.instructions.flatMap(it => compileInstruction(ctx, it)),
+                loc: $.emptyLoc(0),
+            }
+
             const IFJMP: $astT.Instruction = {
                 $: "Instruction",
                 name: {
                     $: "Id",
-                    name: negated ? "IFNOTJMP" : "IFJMP",
-                    loc: $.emptyLoc(0),
-                },
-                args: [],
-                loc: $.emptyLoc(0),
-            }
-            const PUSHCONT: $astT.Instruction = {
-                $: "Instruction",
-                name: {
-                    $: "Id",
-                    name: "fPUSHCONT",
+                    name: "fIF",
                     loc: $.emptyLoc(0),
                 },
                 args: [
                     {
                         $: "Argument",
                         expression: {
-                            $: "Code",
-                            instructions: instr.instructions.flatMap(it =>
-                                compileInstruction(ctx, it),
-                            ),
+                            $: "DataLiteral",
+                            value: {
+                                $: "StringLiteral",
+                                value: kind,
+                                loc: $.emptyLoc(0),
+                            },
                             loc: $.emptyLoc(0),
                         },
+                        loc: $.emptyLoc(0),
+                    },
+                    {
+                        $: "Argument",
+                        expression: trueBranchCode,
                         loc: $.emptyLoc(0),
                     },
                 ],
                 loc: $.emptyLoc(0),
             }
-            return [PUSHCONT, IFJMP]
+            return [IFJMP]
         }
         case "WhileStatement": {
             const WHILE: $astT.Instruction = {
@@ -718,7 +876,39 @@ function compileInstruction(ctx: CompilationContext, raw: Instruction): $astT.In
             throw new Error('Not implemented yet: "RepeatStatement" case')
         }
         case "UntilStatement": {
-            throw new Error('Not implemented yet: "UntilStatement" case')
+            const UNTIL: $astT.Instruction = {
+                $: "Instruction",
+                name: {
+                    $: "Id",
+                    name: "UNTIL",
+                    loc: $.emptyLoc(0),
+                },
+                args: [],
+                loc: $.emptyLoc(0),
+            }
+            const body: $astT.Instruction = {
+                $: "Instruction",
+                name: {
+                    $: "Id",
+                    name: "fPUSHCONT",
+                    loc: $.emptyLoc(0),
+                },
+                args: [
+                    {
+                        $: "Argument",
+                        expression: {
+                            $: "Code",
+                            instructions: instr.instructions.flatMap(it =>
+                                compileInstruction(ctx, it),
+                            ),
+                            loc: $.emptyLoc(0),
+                        },
+                        loc: $.emptyLoc(0),
+                    },
+                ],
+                loc: $.emptyLoc(0),
+            }
+            return [body, UNTIL]
         }
     }
 
@@ -780,6 +970,20 @@ function convertPrimitive(ctx: CompilationContext, raw: $ast.AsmPrimitive): $ast
                 },
                 loc: $.emptyLoc(0),
             }
+        case "FiftAddressNone":
+            return {
+                $: "Argument",
+                expression: {
+                    $: "DataLiteral",
+                    value: {
+                        $: "BinLiteral",
+                        content: "00",
+                        loc: $.emptyLoc(0),
+                    },
+                    loc: $.emptyLoc(0),
+                },
+                loc: $.emptyLoc(0),
+            }
         case "BocHex":
             return {
                 $: "Argument",
@@ -820,7 +1024,13 @@ function convertPrimitive(ctx: CompilationContext, raw: $ast.AsmPrimitive): $ast
                 expression: {
                     $: "IntegerLiteral",
                     value: {
-                        $: "IntegerLiteralDec",
+                        $: primitive.value.startsWith("0b")
+                            ? "IntegerLiteralBin"
+                            : primitive.value.startsWith("0x")
+                              ? "IntegerLiteralHex"
+                              : primitive.value.startsWith("0o")
+                                ? "IntegerLiteralOct"
+                                : "IntegerLiteralDec",
                         digits: primitive.value,
                         loc: $.emptyLoc(0),
                     },

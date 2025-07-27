@@ -1287,6 +1287,7 @@ export const instructions: Record<string, Opcode> = {
     fTHROW: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
     fTHROWIF: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
     fTHROWIFNOT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
+    fIF: cat("int_const", mkfixedn(0, 0, 0, seq(largeInt, codeSlice(uint4, uint4), codeSlice(uint4, uint4)), "")),
 }
 
 export const pseudoInstructions = new Set([
@@ -1339,6 +1340,8 @@ export const fiftInstructionList = (): [string, Opcode][] => {
         ["fTHROWIF", infoOf("fTHROWIF")!],
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ["fTHROWIFNOT", infoOf("fTHROWIFNOT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fIF", infoOf("fIF")!],
     ]
 }
 

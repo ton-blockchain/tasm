@@ -3,6 +3,9 @@ import * as $ from "./util"
 import * as c from "../runtime"
 import {$ast} from "./grammar"
 import * as u from "./convert-util"
+import {Code, decompiledCode} from "../runtime/util"
+import {processInstructions} from "./util"
+
 export const PUSHNAN: $.Convert = (ctx, instr, loc) => {
     u.assertZeroArgs(instr, loc)
     return c.PUSHNAN(loc)
@@ -3991,6 +3994,38 @@ export const fPUSHINTX: $.Convert = (ctx, instr, loc) => {
     const args = $.singleBigIntArg(instr)
     return c.fPUSHINTX(args, loc)
 }
+export const fIF: $.Convert = (ctx, instr, loc) => {
+    const argsLen = instr.args
+    if (argsLen.length < 2 || argsLen.length > 3) {
+        throw new $.ParseError(loc, "Expected 2 or 3 arguments")
+    }
+
+    // First argument: kind (string in DataLiteral)
+    const kindArg = instr.args[0]?.expression
+    if (kindArg?.$ !== "DataLiteral" || kindArg.value.$ !== "StringLiteral") {
+        throw new $.ParseError(loc, "First argument must be a string literal")
+    }
+    const kind = kindArg.value.value as "IF" | "IFNOT" | "IFJMP" | "IFNOTJMP" | "IFELSE"
+
+    // Second argument: trueBranch (code)
+    const trueBranchArg = instr.args[1]?.expression
+    if (trueBranchArg?.$ !== "Code") {
+        throw new $.ParseError(loc, "Second argument must be code")
+    }
+    const trueBranch = decompiledCode(processInstructions(ctx, trueBranchArg.instructions))
+
+    // Third argument: falseBranch (code, optional)
+    let falseBranch: Code | undefined = undefined
+    if (argsLen.length === 3) {
+        const falseBranchArg = instr.args[2]?.expression
+        if (falseBranchArg?.$ !== "Code") {
+            throw new $.ParseError(loc, "Third argument must be code")
+        }
+        falseBranch = decompiledCode(processInstructions(ctx, falseBranchArg.instructions))
+    }
+
+    return c.fIF(kind, trueBranch, falseBranch, loc)
+}
 export const fSDBEGINS: $.Convert = (ctx, instr, loc) => {
     u.assertSingleArgs(instr, loc)
     const args = $.sliceArg(instr)
@@ -5876,6 +5911,8 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return fXCHG(ctx, instr, loc)
         case "fPUSHINTX":
             return fPUSHINTX(ctx, instr, loc)
+        case "fIF":
+            return fIF(ctx, instr, loc)
         case "fSDBEGINS":
             return fSDBEGINS(ctx, instr, loc)
         case "fSDBEGINSQ":

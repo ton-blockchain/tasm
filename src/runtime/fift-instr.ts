@@ -46,8 +46,23 @@ import {
     EXECUTE,
     JMPX,
     XCHG_1I,
+    IF,
+    IFNOT,
+    IFJMP,
+    IFNOTJMP,
+    IFELSE,
+    IFREF,
+    IFNOTREF,
+    IFJMPREF,
+    IFNOTJMPREF,
+    IFREFELSE,
+    IFELSEREF,
+    IFREFELSEREF,
+    IFRET,
+    IFNOTRET,
 } from "./types"
 import {instr} from "./instr"
+import type {StoreOptions} from "./util"
 import {codeSlice, rawCode, uint} from "./util"
 import {CodeBuilder} from "./builder"
 import {compileInstructions} from "./compile"
@@ -1128,8 +1143,9 @@ export const fTHROWIFNOT: $.Type<c.fTHROWIFNOT> = {
             THROWIFNOT_SHORT.store(
                 b,
                 {
-                    ...val,
                     $: "THROWIFNOT_SHORT",
+                    arg0: arg,
+                    loc: val.loc,
                 },
                 options,
             )
@@ -1137,13 +1153,251 @@ export const fTHROWIFNOT: $.Type<c.fTHROWIFNOT> = {
             THROWIFNOT.store(
                 b,
                 {
-                    ...val,
                     $: "THROWIFNOT",
+                    arg0: arg,
+                    loc: val.loc,
                 },
                 options,
             )
         } else {
             throw new Error("THROWIFNOT argument out of range")
+        }
+    },
+}
+
+const isCodeEmpty = (code: $.Code): boolean => {
+    if (code.$ === "Instructions") {
+        return code.instructions.length === 0
+    }
+    return code.slice.remainingBits === 0 && code.slice.remainingRefs === 0
+}
+
+const canCodeFit = (b: CodeBuilder, code: $.Code, options: StoreOptions): boolean => {
+    if (isCodeEmpty(code)) {
+        return true
+    }
+
+    const b2 = new CodeBuilder()
+    if (code.$ === "Instructions") {
+        compileInstructions(b2, code.instructions, options)
+    } else {
+        codeSlice(uint(2), uint(7)).store(b2, code, options)
+    }
+    const codeAsSlice = b2.asSlice()
+
+    return b.canFit(codeAsSlice.remainingBits + 16) && b.refs + codeAsSlice.remainingRefs <= 4
+}
+
+const canCodesFit = (b: CodeBuilder, code: $.Code, code2: $.Code, options?: any): boolean => {
+    const b2 = new CodeBuilder()
+    if (code.$ === "Instructions") {
+        compileInstructions(b2, code.instructions, options)
+    } else {
+        codeSlice(uint(2), uint(7)).store(b2, code, options)
+    }
+    if (code2.$ === "Instructions") {
+        compileInstructions(b2, code2.instructions, options)
+    } else {
+        codeSlice(uint(2), uint(7)).store(b2, code2, options)
+    }
+    const codeAsSlice = b2.asSlice()
+
+    return b.canFit(codeAsSlice.remainingBits + 16) && b.refs + codeAsSlice.remainingRefs <= 4
+}
+
+const canCodeFitAsRef = (b: CodeBuilder): boolean => {
+    // Check if we have space for reference (16 + 1 bits for ref header)
+    return b.canFit(17)
+}
+
+export const fIF: $.Type<c.fIF> = {
+    load: _s => {
+        throw new Error("fIF load is not implemented - use specific IF instructions")
+    },
+    store: (b, val, options) => {
+        const {kind, trueBranch, falseBranch, loc} = val
+
+        if (kind === "IFELSE") {
+            if (!falseBranch) {
+                throw new Error("IFELSE requires falseBranch")
+            }
+
+            // Handle IFELSE with complex logic from IFELSE-cont2
+            const trueEmpty = isCodeEmpty(trueBranch)
+            const falseEmpty = isCodeEmpty(falseBranch)
+
+            if (trueEmpty) {
+                // Simplify to IFNOT
+                fIF.store(
+                    b,
+                    {...val, kind: "IFNOT", trueBranch: falseBranch, falseBranch: undefined},
+                    options,
+                )
+                return
+            }
+
+            if (falseEmpty) {
+                // Simplify to IF
+                fIF.store(b, {...val, kind: "IF", falseBranch: undefined}, options)
+                return
+            }
+
+            const trueFits = canCodeFit(b, trueBranch, options)
+            const falseFits = canCodeFit(b, falseBranch, options)
+            const bothFits = canCodesFit(b, trueBranch, falseBranch, options)
+
+            if (bothFits) {
+                // Both fit inline - use PUSHCONT + PUSHCONT + IFELSE
+                fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: trueBranch, loc}, options)
+                fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: falseBranch, loc}, options)
+                IFELSE.store(b, {$: "IFELSE", loc}, options)
+                return
+            }
+
+            if (trueFits && falseFits && !bothFits && canCodeFitAsRef(b)) {
+                fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: falseBranch, loc}, options)
+                IFREFELSE.store(
+                    b,
+                    {
+                        $: "IFREFELSE",
+                        arg0: trueBranch,
+                        loc,
+                    },
+                    options,
+                )
+                return
+            }
+
+            if (!trueFits && falseFits && canCodeFitAsRef(b)) {
+                // True as ref, false inline - use IFREFELSE
+                // falseBranch will be inline, trueBranch as ref
+                fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: falseBranch, loc}, options)
+                IFREFELSE.store(
+                    b,
+                    {
+                        $: "IFREFELSE",
+                        arg0: trueBranch,
+                        loc,
+                    },
+                    options,
+                )
+                return
+            }
+
+            if (trueFits && !falseFits && canCodeFitAsRef(b)) {
+                // True inline, false as ref - use IFELSEREF
+                // trueBranch will be inline, falseBranch as ref
+                fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: trueBranch, loc}, options)
+                IFELSEREF.store(
+                    b,
+                    {
+                        $: "IFELSEREF",
+                        arg0: falseBranch,
+                        loc,
+                    },
+                    options,
+                )
+                return
+            }
+
+            if (!trueFits && !falseFits && canCodeFitAsRef(b) && canCodeFitAsRef(b)) {
+                // Both as refs - use IFREFELSEREF
+                IFREFELSEREF.store(
+                    b,
+                    {
+                        $: "IFREFELSEREF",
+                        arg0: trueBranch,
+                        arg1: falseBranch,
+                        loc,
+                    },
+                    options,
+                )
+                return
+            }
+
+            // PSEUDO_PUSHREF_ALWAYS.store(
+            //     b,
+            //     PSEUDO_PUSHREF(code([{$: "fIF", kind, trueBranch, falseBranch, loc}])),
+            //     options,
+            // )
+
+            fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: trueBranch, loc}, options)
+            fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: falseBranch, loc}, options)
+            IFELSE.store(b, {$: "IFELSE", loc}, options)
+            return
+        }
+
+        // Handle simple IF/IFNOT/IFJMP/IFNOTJMP
+        const isEmpty = isCodeEmpty(trueBranch)
+
+        if (isEmpty) {
+            // Empty continuation optimizations
+            if (kind === "IFJMP") {
+                IFRET.store(b, {$: "IFRET", loc}, options)
+                return
+            }
+            if (kind === "IFNOTJMP") {
+                IFNOTRET.store(b, {$: "IFNOTRET", loc}, options)
+                return
+            }
+            // For IF/IFNOT with empty continuation, do nothing
+            return
+        }
+
+        const fits = canCodeFit(b, trueBranch, options)
+
+        if (fits) {
+            // Fits inline - use PUSHCONT + instruction
+            fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: trueBranch, loc}, options)
+
+            switch (kind) {
+                case "IF":
+                    IF.store(b, {$: "IF", loc}, options)
+                    break
+                case "IFNOT":
+                    IFNOT.store(b, {$: "IFNOT", loc}, options)
+                    break
+                case "IFJMP":
+                    IFJMP.store(b, {$: "IFJMP", loc}, options)
+                    break
+                case "IFNOTJMP":
+                    IFNOTJMP.store(b, {$: "IFNOTJMP", loc}, options)
+                    break
+            }
+        } else if (canCodeFitAsRef(b)) {
+            // Use reference version
+            switch (kind) {
+                case "IF":
+                    IFREF.store(b, {$: "IFREF", arg0: trueBranch, loc}, options)
+                    break
+                case "IFNOT":
+                    IFNOTREF.store(b, {$: "IFNOTREF", arg0: trueBranch, loc}, options)
+                    break
+                case "IFJMP":
+                    IFJMPREF.store(b, {$: "IFJMPREF", arg0: trueBranch, loc}, options)
+                    break
+                case "IFNOTJMP":
+                    IFNOTJMPREF.store(b, {$: "IFNOTJMPREF", arg0: trueBranch, loc}, options)
+                    break
+            }
+        } else {
+            // Fallback - force PUSHCONT even if it doesn't fit well
+            fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: trueBranch, loc}, options)
+
+            switch (kind) {
+                case "IF":
+                    IF.store(b, {$: "IF", loc}, options)
+                    break
+                case "IFNOT":
+                    IFNOT.store(b, {$: "IFNOT", loc}, options)
+                    break
+                case "IFJMP":
+                    IFJMP.store(b, {$: "IFJMP", loc}, options)
+                    break
+                case "IFNOTJMP":
+                    IFNOTJMP.store(b, {$: "IFNOTJMP", loc}, options)
+                    break
+            }
         }
     },
 }

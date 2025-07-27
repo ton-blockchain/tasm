@@ -105,6 +105,7 @@ export namespace $ast {
             | ControlRegister
             | Integer
             | ArgIdentifier
+            | FiftAddressNone
     }
 
     export type IfStatement = {
@@ -153,6 +154,10 @@ export namespace $ast {
     export type BinBitString = {
         readonly $: "BinBitString"
         readonly content: string
+    }
+
+    export type FiftAddressNone = {
+        readonly $: "FiftAddressNone"
     }
 
     export type BocHex = {
