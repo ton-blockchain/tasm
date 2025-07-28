@@ -4673,9 +4673,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ton-assembly-dev-test@workspace:.":
+"ton-assembly@workspace:.":
   version: 0.0.0-use.local
-  resolution: "ton-assembly-dev-test@workspace:."
+  resolution: "ton-assembly@workspace:."
   dependencies:
     "@ton-community/func-js": "npm:^0.9.1"
     "@ton/core": "npm:^0.60.1"
