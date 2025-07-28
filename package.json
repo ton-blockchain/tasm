@@ -1,6 +1,6 @@
 {
-    "name": "@ton/ton-assembly",
-    "version": "0.0.1",
+    "name": "ton-assembly",
+    "version": "0.1.0",
     "description": "TON assembler and disassembler",
     "keywords": [
         "ton",
@@ -11,6 +11,7 @@
         "blockchain",
         "smart-contracts"
     ],
+    "main": "dist/index.js",
     "scripts": {
         "build": "tsc --declaration",
         "lint": "eslint --cache .",
