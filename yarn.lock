@@ -1091,6 +1091,7 @@ __metadata:
   bin:
     tasm: ./dist/cli/assembler.js
     tdisasm: ./dist/cli/disassembler.js
+    tfift: ./dist/cli/fift-compiler.js
   languageName: unknown
   linkType: soft
 
