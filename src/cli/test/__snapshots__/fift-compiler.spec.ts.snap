@@ -30,8 +30,6 @@ Options:
 
 exports[`Fift assembly compiler CLI should show verbose output 1`] = `
 "Reading file: /Users/petrmakhnev/tasm-new/src/cli/test/temp/test.fif
-Parsed 1 definitions
-Compiled 4 top-level instructions
 b5ee9c72410102010012000114ff00f4a413f4bcf2c80b010006d3713036345caf
 "
 `;
