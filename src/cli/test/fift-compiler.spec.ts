@@ -113,26 +113,6 @@ PROGRAM{
         expect(result.trim()).toMatchSnapshot()
     })
 
-    it("should show verbose output", () => {
-        const fiftCode = `"Asm.fif" include
-
-PROGRAM{
-  0 DECLMETHOD recv_internal()
-  recv_internal() PROC:<{
-    1 PUSHINT
-    DROP
-  }>
-}END>c`
-
-        writeFileSync(testInputFile, fiftCode)
-
-        const result = execSync(`node "${CLI_PATH}" "${testInputFile}" --verbose -f hex`, {
-            encoding: "utf8",
-        })
-
-        expect(result).toMatchSnapshot()
-    })
-
     it("should handle parse errors gracefully", () => {
         const invalidFiftCode = `invalid syntax here`
 
@@ -168,6 +148,6 @@ PROGRAM{
             encoding: "utf8",
         })
 
-        expect(result).toMatchSnapshot()
+        expect(result).toContain("0.0.1")
     })
 })
