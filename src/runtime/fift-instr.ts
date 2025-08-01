@@ -1192,7 +1192,7 @@ const canCodesFit = (
     b: CodeBuilder,
     code: $.Code,
     code2: $.Code,
-    options?: StoreOptions,
+    options: StoreOptions,
 ): boolean => {
     const b2 = new CodeBuilder()
     if (code.$ === "Instructions") {
