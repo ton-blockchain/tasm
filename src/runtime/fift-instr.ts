@@ -1188,7 +1188,12 @@ const canCodeFit = (b: CodeBuilder, code: $.Code, options: StoreOptions): boolea
     return b.canFit(codeAsSlice.remainingBits + 16) && b.refs + codeAsSlice.remainingRefs <= 4
 }
 
-const canCodesFit = (b: CodeBuilder, code: $.Code, code2: $.Code, options?: any): boolean => {
+const canCodesFit = (
+    b: CodeBuilder,
+    code: $.Code,
+    code2: $.Code,
+    options?: StoreOptions,
+): boolean => {
     const b2 = new CodeBuilder()
     if (code.$ === "Instructions") {
         compileInstructions(b2, code.instructions, options)
@@ -1254,7 +1259,7 @@ export const fIF: $.Type<c.fIF> = {
                 return
             }
 
-            if (trueFits && falseFits && !bothFits && canCodeFitAsRef(b)) {
+            if (trueFits && falseFits && canCodeFitAsRef(b)) {
                 fPUSHCONT.store(b, {$: "fPUSHCONT", arg0: falseBranch, loc}, options)
                 IFREFELSE.store(
                     b,
