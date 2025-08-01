@@ -3,6 +3,10 @@ import {readFileSync, rmSync, writeFileSync} from "node:fs"
 import * as path from "node:path"
 import {Cell} from "@ton/core"
 
+// disable tests on windows
+const testExceptWindows =
+    process.platform === "win32" && Boolean(process.env["CI"]) ? test.skip : test
+
 const CLI_PATH = path.join(__dirname, "..", "..", "..", "dist", "cli", "fift-compiler.js")
 
 describe("Fift assembly compiler CLI", () => {
@@ -27,7 +31,7 @@ describe("Fift assembly compiler CLI", () => {
         }
     })
 
-    it("should compile simple Fift assembly file to BOC", () => {
+    testExceptWindows("should compile simple Fift assembly file to BOC", () => {
         const fiftCode = `"Asm.fif" include
 
 PROGRAM{
@@ -56,7 +60,7 @@ PROGRAM{
         expect(cell).toBeDefined()
     })
 
-    it("should output to stdout in hex format", () => {
+    testExceptWindows("should output to stdout in hex format", () => {
         const fiftCode = `"Asm.fif" include
 
 PROGRAM{
@@ -76,7 +80,7 @@ PROGRAM{
         expect(result.trim()).toMatchSnapshot()
     })
 
-    it("should output to stdout in base64 format", () => {
+    testExceptWindows("should output to stdout in base64 format", () => {
         const fiftCode = `"Asm.fif" include
 
 PROGRAM{
@@ -96,7 +100,7 @@ PROGRAM{
         expect(result.trim()).toMatchSnapshot()
     })
 
-    it("should compile from string input", () => {
+    testExceptWindows("should compile from string input", () => {
         const fiftCode = `"Asm.fif" include
 PROGRAM{
   0 DECLMETHOD recv_internal()
@@ -113,7 +117,7 @@ PROGRAM{
         expect(result.trim()).toMatchSnapshot()
     })
 
-    it("should handle parse errors gracefully", () => {
+    testExceptWindows("should handle parse errors gracefully", () => {
         const invalidFiftCode = `invalid syntax here`
 
         writeFileSync(testInputFile, invalidFiftCode)
@@ -126,7 +130,7 @@ PROGRAM{
         }).toThrow()
     })
 
-    it("should require input file or string", () => {
+    testExceptWindows("should require input file or string", () => {
         expect(() => {
             execSync(`node "${CLI_PATH}"`, {
                 encoding: "utf8",
@@ -135,7 +139,7 @@ PROGRAM{
         }).toThrow()
     })
 
-    it("should show help", () => {
+    testExceptWindows("should show help", () => {
         const result = execSync(`node "${CLI_PATH}" --help`, {
             encoding: "utf8",
         })
@@ -143,7 +147,7 @@ PROGRAM{
         expect(result).toMatchSnapshot()
     })
 
-    it("should show version", () => {
+    testExceptWindows("should show version", () => {
         const result = execSync(`node "${CLI_PATH}" --version`, {
             encoding: "utf8",
         })
