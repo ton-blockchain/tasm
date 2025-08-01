@@ -27,14 +27,3 @@ Options:
   -v, --version          Display version number 
 "
 `;
-
-exports[`Fift assembly compiler CLI should show verbose output 1`] = `
-"Reading file: /Users/petrmakhnev/tasm-new/src/cli/test/temp/test.fif
-b5ee9c72410102010012000114ff00f4a413f4bcf2c80b010006d3713036345caf
-"
-`;
-
-exports[`Fift assembly compiler CLI should show version 1`] = `
-"tfift/0.0.1 darwin-arm64 node-v24.1.0
-"
-`;
