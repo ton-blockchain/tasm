@@ -91,6 +91,7 @@
     "packageManager": "yarn@4.6.0",
     "bin": {
         "tasm": "./dist/cli/assembler.js",
-        "tdisasm": "./dist/cli/disassembler.js"
+        "tdisasm": "./dist/cli/disassembler.js",
+        "tfift": "./dist/cli/fift-compiler.js"
     }
 }
