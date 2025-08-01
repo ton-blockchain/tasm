@@ -1803,6 +1803,17 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             $.printCode(p, instr.arg1)
             return
+        case "fIF":
+            p.append(" ")
+            p.append(`"` + instr.kind + `"`)
+            p.append(" ")
+            $.printCode(p, instr.trueBranch)
+
+            if (instr.falseBranch !== undefined) {
+                p.append(" ")
+                $.printCode(p, instr.falseBranch)
+            }
+            return
         case "IFBITJMPREF":
             p.append(" ")
             p.append(instr.arg0.toString())
@@ -2379,6 +2390,72 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(instr.arg0.toString())
             return
         case "DEBUGMARK":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fPUSHINT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fPUSHSLICE":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
+        case "fPUSHCONT":
+            p.append(" ")
+            $.printCode(p, instr.arg0)
+            return
+        case "fSTSLICECONST":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
+        case "fXCHG":
+            p.append(" ")
+            p.append("s")
+            p.append(instr.arg0.toString())
+            p.append(" ")
+            p.append("s")
+            p.append(instr.arg1.toString())
+            return
+        case "fPUSHINTX":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fSDBEGINS":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
+        case "fSDBEGINSQ":
+            p.append(" ")
+            $.printSlice(p, instr.arg0)
+            return
+        case "fCALLXARGS":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            p.append(" ")
+            p.append(instr.arg1.toString())
+            return
+        case "fCALLDICT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fJMPDICT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fPREPAREDICT":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fTHROW":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fTHROWIF":
+            p.append(" ")
+            p.append(instr.arg0.toString())
+            return
+        case "fTHROWIFNOT":
             p.append(" ")
             p.append(instr.arg0.toString())
             return

@@ -1,6 +1,6 @@
 # TON Assembly CLI Tools
 
-This package contains CLI utilities for working with TON Assembly:
+This package contains CLI utilities for working with TON and Fift assembly:
 
 ## 📦 Assembler (tasm)
 
@@ -98,10 +98,63 @@ tdisasm -s "te6cckEBAgEAJwABFP8AjoP0pBPtQ9kBAC+mTOc7UTQ0gDTH9If0//0BFVAbBUhbFGDs
 tdisasm -s "b5ee9c72410102010027000114ff008e83f4a413ed43d901002fa64ce73b5134348034c7f487f4fffd0115501b05485b1460ec17065c" -f hex
 ```
 
+## ⚡ Fift Assembly Compiler (tfift)
+
+Compiles Fift assembly smart contract source files (from FunC or Tolk) into binary BOC format.
+
+### Usage
+
+```bash
+# Via yarn
+yarn fift-compiler contract.fif
+
+# Via ts-node directly
+ts-node src/cli/fift-compiler.ts contract.fif
+
+# Via npm binary (when installed globally)
+tfift contract.fif
+```
+
+### Options
+
+- `-o, --output <file>` - Output file path
+- `-f, --format <format>` - Output format: `binary` (default), `hex`, `base64`
+- `-s, --string <data>` - Input Fift assembly code as a string instead of file
+- `--verbose` - Verbose output
+- `-h, --help` - Show help
+- `-v, --version` - Show version
+
+### Examples
+
+```bash
+# Compile to binary BOC file
+tfift contract.fif -o contract.boc
+
+# Compile with hex output format
+tfift contract.fif -f hex -o contract.hex
+
+# Compile with verbose output
+tfift contract.fif --verbose
+
+# Output to stdout (hex)
+tfift contract.fif -f hex
+
+# Compile from string directly
+tfift -s '"Asm.fif" include
+PROGRAM{
+  0 DECLMETHOD recv_internal()
+  recv_internal() PROC:<{
+    42 PUSHINT
+  }>
+}END>c' -f hex
+```
+
 ## 🔄 Full Conversion Cycle
 
 The library supports complete conversion cycle:
 `Text -> Internal representation -> Cells -> BoC -> Cells -> Internal representation -> Text`
+
+### TASM Assembly Cycle
 
 ```bash
 # Assemble
@@ -116,6 +169,19 @@ tasm decompiled.tasm -o recompiled.boc
 # Files compiled.boc and recompiled.boc should be identical!
 ```
 
+### Fift Assembly Compilation
+
+```bash
+# Compile Fift assembly to BOC
+tfift contract.fif -o contract.boc
+
+# Disassemble to TASM
+tdisasm contract.boc -o contract.tasm
+
+# View the generated assembly
+cat contract.tasm
+```
+
 ## 📝 File Formats
 
 ### Input Formats
@@ -125,6 +191,11 @@ tasm decompiled.tasm -o recompiled.boc
 - `.tasm` - TVM Assembly text files
 - `string` - TASM assembly provided as a string argument
 
+**Fift Assembly Compiler:**
+
+- `.fif` - Fift assembly smart contract source files
+- `string` - Fift assembly code provided as a string argument
+
 **Disassembler:**
 
 - `binary` - Binary BOC files (default)
@@ -133,7 +204,7 @@ tasm decompiled.tasm -o recompiled.boc
 
 ### Output Formats
 
-**Assembler:**
+**Assembler & Fift Assembly Compiler:**
 
 - `binary` - Binary BOC file (default)
 - `hex` - BOC in hex encoding

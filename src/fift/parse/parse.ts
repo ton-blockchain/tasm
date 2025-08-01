@@ -14,9 +14,9 @@ export type ParseFailure = {
 }
 
 export class ParseError extends Error {
-    public readonly position?: number
+    public readonly position?: PegLocation
 
-    public constructor(message: string, position?: number) {
+    public constructor(message: string, position?: PegLocation) {
         super(message)
         this.name = "ParseError"
         this.position = position
@@ -26,14 +26,35 @@ export class ParseError extends Error {
 const success = (ast: G.$ast.SourceFile): ParseSuccess => ({$: "ParseSuccess", ast})
 const failure = (error: ParseError): ParseFailure => ({$: "ParseFailure", error})
 
+export type PegPosition = {
+    readonly offset: number
+    readonly line: number
+    readonly column: number
+}
+
+export type PegLocation = {
+    readonly source?: string
+    readonly start: PegPosition
+    readonly end: PegPosition
+}
+
+export type PegParseError = {
+    readonly message: string
+    readonly location: PegLocation
+}
+
 export function parse(_filepath: string, code: string): ParseResult {
     try {
-        const ast = $.parse(code, {startRule: "SourceFile"}) as G.$ast.SourceFile
+        const normalizedCode = code.replaceAll("2DROP", "DROP2").replaceAll("}>CONT", "}> PUSHCONT")
+        const ast = $.parse(normalizedCode, {
+            startRule: "SourceFile",
+        }) as G.$ast.SourceFile
         return success(ast)
     } catch (error) {
         if (error instanceof Error) {
-            const pegError = error as $.SyntaxError
-            return failure(new ParseError(pegError.message))
+            const pegError = error as unknown as PegParseError
+            const message = pegError.message.slice(0, -1) // trim trailing `.`
+            return failure(new ParseError(message, pegError.location))
         }
         return failure(new ParseError("Unknown parse error"))
     }

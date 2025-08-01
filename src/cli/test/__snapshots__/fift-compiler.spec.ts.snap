@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fift assembly compiler CLI should compile from string input 1`] = `"b5ee9c72410102010012000114ff00f4a413f4bcf2c80b010006d3713036345caf"`;
+
+exports[`Fift assembly compiler CLI should output to stdout in base64 format 1`] = `"te6cckEBAgEAEgABFP8A9KQT9LzyyAsBAAbTcTA2NFyv"`;
+
+exports[`Fift assembly compiler CLI should output to stdout in hex format 1`] = `"b5ee9c72410102010012000114ff00f4a413f4bcf2c80b010006d3713036345caf"`;
+
+exports[`Fift assembly compiler CLI should show help 1`] = `
+"tfift/0.0.1
+
+Usage:
+  $ tfift [file]
+
+Commands:
+  [file]  Compile a Fift assembly file or string to BOC
+
+For more info, run any command with the \`--help\` flag:
+  $ tfift --help
+
+Options:
+  -o, --output <file>    Output file path 
+  -f, --format <format>  Output format (binary|hex|base64) (default: binary)
+  -s, --string <data>    Input Fift assembly code as a string instead of file 
+  --verbose              Verbose output 
+  -h, --help             Display this message 
+  -v, --version          Display version number 
+"
+`;

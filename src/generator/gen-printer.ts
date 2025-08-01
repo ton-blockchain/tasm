@@ -2,6 +2,7 @@ import {writeFileSync} from "node:fs"
 import * as t from "@babel/types"
 import type * as $ from "./instructions"
 import type {Opcode} from "./instructions"
+import {fiftInstructionList} from "./instructions"
 import {instructionList, pseudoInstructions} from "./instructions"
 import generateTs from "@babel/generator"
 
@@ -23,7 +24,7 @@ const generate = (): string => {
         t.stringLiteral("../runtime"),
     )
 
-    const convertorFunc = generatePrintFunction(instructionList())
+    const convertorFunc = generatePrintFunction(instructionList(), fiftInstructionList())
 
     const file = t.file(t.program([importUtil, importConstructors, convertorFunc]))
     t.addComment(
@@ -35,7 +36,10 @@ const generate = (): string => {
     return generateTs(file).code
 }
 
-function generatePrintFunction(instructions: [string, Opcode][]): t.ExportNamedDeclaration {
+function generatePrintFunction(
+    instructions: [string, Opcode][],
+    fiftInstructions: [string, Opcode][],
+): t.ExportNamedDeclaration {
     const nameIdent = t.identifier("printInstruction")
 
     const printerParam = t.identifier("p")
@@ -50,24 +54,40 @@ function generatePrintFunction(instructions: [string, Opcode][]): t.ExportNamedD
 
     const params = [printerParam, instrParam]
 
-    const cases = instructions.flatMap(([name, opcode]) => {
-        if (pseudoInstructions.has(name)) {
-            return []
-        }
+    const cases = [
+        ...instructions.flatMap(([name, opcode]) => {
+            if (pseudoInstructions.has(name)) {
+                return []
+            }
 
-        const args = opcode.args
-        const countArgs = argsLen(args)
+            const args = opcode.args
+            const countArgs = argsLen(args)
 
-        const statements: t.Statement[] = []
+            const statements: t.Statement[] = []
 
-        if (countArgs !== 0) {
-            statements.push(writeAppend(" "))
-        }
+            if (countArgs !== 0) {
+                statements.push(writeAppend(" "))
+            }
 
-        statements.push(...generateArgs(args), t.returnStatement())
+            statements.push(...generateArgs(args), t.returnStatement())
 
-        return [t.switchCase(t.stringLiteral(name), statements)]
-    })
+            return [t.switchCase(t.stringLiteral(name), statements)]
+        }),
+        ...fiftInstructions.flatMap(([name, opcode]) => {
+            const args = opcode.args
+            const countArgs = argsLen(args)
+
+            const statements: t.Statement[] = []
+
+            if (countArgs !== 0) {
+                statements.push(writeAppend(" "))
+            }
+
+            statements.push(...generateArgs(args), t.returnStatement())
+
+            return [t.switchCase(t.stringLiteral(name), statements)]
+        }),
+    ]
 
     const body = t.blockStatement([
         t.expressionStatement(

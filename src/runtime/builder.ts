@@ -73,6 +73,13 @@ export class CodeBuilder extends Builder {
     private readonly dictionaryInfo: DictionaryInfo[] = []
     private debugSectionId: number = -1
 
+    public constructor(
+        public readonly isDictionaryCell: boolean = false,
+        public readonly offset: number = 0,
+    ) {
+        super()
+    }
+
     public storeInstructionPrefix(value: bigint | number, bits: number, instr: Instr): this {
         this.instructions.push({instr, offset: this.bits, debugSection: this.debugSectionId})
         return super.storeUint(value, bits)
@@ -123,6 +130,11 @@ export class CodeBuilder extends Builder {
     public storeDictionaryDirect<K extends DictionaryKeyTypes, V>(dict: Dictionary<K, V>) {
         dict.storeDirect(this)
         return this
+    }
+
+    public canFit(bits: number): boolean {
+        const maxBits = 1023 - (this.isDictionaryCell ? this.offset : 0)
+        return this.bits + bits <= maxBits
     }
 
     public reinitFrom(other: CodeBuilder): this {

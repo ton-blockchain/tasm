@@ -76,6 +76,13 @@ ADD
 "
 `;
 
+exports[`assembly-parser should parse fift instruction 1`] = `
+"fPUSHINT 10
+fPUSHINT 999
+ADD
+"
+`;
+
 exports[`assembly-parser should parse hex number 1`] = `
 "PUSHINT_16 4095
 PUSHINT_16 -4095

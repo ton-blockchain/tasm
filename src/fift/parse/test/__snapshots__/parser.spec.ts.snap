@@ -1,5 +1,176 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Fift Parser should parse 2DROP 1`] = `
+{
+  "$": "SourceFile",
+  "include": {
+    "$": "IncludeDirective",
+    "path": "Asm.fif",
+  },
+  "program": {
+    "$": "Program",
+    "declarations": [
+      {
+        "$": "Declaration",
+        "decl": {
+          "$": "ProcDeclaration",
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+    "definitions": [
+      {
+        "$": "Definition",
+        "def": {
+          "$": "ProcDefinition",
+          "instructions": [
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": null,
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "DROP2",
+                },
+              },
+            },
+          ],
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`Fift Parser should parse Foo.bar() CALLDICT 1`] = `
+{
+  "$": "SourceFile",
+  "include": {
+    "$": "IncludeDirective",
+    "path": "Asm.fif",
+  },
+  "program": {
+    "$": "Program",
+    "declarations": [
+      {
+        "$": "Declaration",
+        "decl": {
+          "$": "ProcDeclaration",
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+      {
+        "$": "Declaration",
+        "decl": {
+          "$": "ProcDeclaration",
+          "name": {
+            "$": "Identifier",
+            "name": "Foo.bar()",
+          },
+        },
+      },
+    ],
+    "definitions": [
+      {
+        "$": "Definition",
+        "def": {
+          "$": "ProcDefinition",
+          "instructions": [
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": {
+                  "$": "AsmArgumentList",
+                  "primitives": [
+                    {
+                      "$": "AsmPrimitive",
+                      "prim": {
+                        "$": "ArgIdentifier",
+                        "name": "Foo.bar()",
+                      },
+                    },
+                  ],
+                },
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "CALLDICT",
+                },
+              },
+            },
+          ],
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`Fift Parser should parse PLDREF 1`] = `
+{
+  "$": "SourceFile",
+  "include": {
+    "$": "IncludeDirective",
+    "path": "Asm.fif",
+  },
+  "program": {
+    "$": "Program",
+    "declarations": [
+      {
+        "$": "Declaration",
+        "decl": {
+          "$": "ProcDeclaration",
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+    "definitions": [
+      {
+        "$": "Definition",
+        "def": {
+          "$": "ProcDefinition",
+          "instructions": [
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": null,
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "PLDREF",
+                },
+              },
+            },
+          ],
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
 exports[`Fift Parser should parse basic program 1`] = `
 {
   "$": "SourceFile",
@@ -320,6 +491,7 @@ exports[`Fift Parser should parse complex example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
           ],
@@ -412,6 +584,84 @@ exports[`Fift Parser should parse complex example 1`] = `
 }
 `;
 
+exports[`Fift Parser should parse fift address none 1`] = `
+{
+  "$": "SourceFile",
+  "include": null,
+  "program": {
+    "$": "Program",
+    "declarations": [
+      {
+        "$": "Declaration",
+        "decl": {
+          "$": "ProcDeclaration",
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+    "definitions": [
+      {
+        "$": "Definition",
+        "def": {
+          "$": "ProcDefinition",
+          "instructions": [
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": {
+                  "$": "AsmArgumentList",
+                  "primitives": [
+                    {
+                      "$": "AsmPrimitive",
+                      "prim": {
+                        "$": "FiftAddressNone",
+                      },
+                    },
+                  ],
+                },
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "PUSHSLICE",
+                },
+              },
+            },
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": {
+                  "$": "AsmArgumentList",
+                  "primitives": [
+                    {
+                      "$": "AsmPrimitive",
+                      "prim": {
+                        "$": "FiftAddressNone",
+                      },
+                    },
+                  ],
+                },
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "PUSHSLICE",
+                },
+              },
+            },
+          ],
+          "name": {
+            "$": "Identifier",
+            "name": "test",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
 exports[`Fift Parser should parse if statement 1`] = `
 {
   "$": "SourceFile",
@@ -468,6 +718,7 @@ exports[`Fift Parser should parse if statement 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
           ],
@@ -3453,6 +3704,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
           ],
@@ -3732,6 +3984,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
             {
@@ -3810,6 +4063,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
             {
@@ -3888,6 +4142,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
             {
@@ -4313,6 +4568,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
             {
@@ -6708,6 +6964,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
             {
@@ -7236,6 +7493,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
             {
@@ -8676,6 +8934,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -8922,6 +9181,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -9073,6 +9333,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -9191,6 +9452,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -9282,6 +9544,7 @@ exports[`Fift Parser should parse real world FunC example 1`] = `
               "instr": {
                 "$": "IfjmpStatement",
                 "instructions": [],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -10316,12 +10579,32 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                           {
                             "$": "Instruction",
                             "instr": {
-                              "$": "AsmExpression",
-                              "arguments": null,
-                              "name": {
-                                "$": "TvmInstruction",
-                                "value": "IFNOTJMP:",
-                              },
+                              "$": "IfjmpStatement",
+                              "instructions": [
+                                {
+                                  "$": "Instruction",
+                                  "instr": {
+                                    "$": "AsmExpression",
+                                    "arguments": {
+                                      "$": "AsmArgumentList",
+                                      "primitives": [
+                                        {
+                                          "$": "AsmPrimitive",
+                                          "prim": {
+                                            "$": "Integer",
+                                            "value": "63",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    "name": {
+                                      "$": "TvmInstruction",
+                                      "value": "THROW",
+                                    },
+                                  },
+                                },
+                              ],
+                              "kind": "IFNOTJMP:<{",
                             },
                           },
                           {
@@ -10331,36 +10614,6 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                               "arguments": {
                                 "$": "AsmArgumentList",
                                 "primitives": [
-                                  {
-                                    "$": "AsmPrimitive",
-                                    "prim": {
-                                      "$": "InstructionBlock",
-                                      "instructions": [
-                                        {
-                                          "$": "Instruction",
-                                          "instr": {
-                                            "$": "AsmExpression",
-                                            "arguments": {
-                                              "$": "AsmArgumentList",
-                                              "primitives": [
-                                                {
-                                                  "$": "AsmPrimitive",
-                                                  "prim": {
-                                                    "$": "Integer",
-                                                    "value": "63",
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                            "name": {
-                                              "$": "TvmInstruction",
-                                              "value": "THROW",
-                                            },
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
                                   {
                                     "$": "AsmPrimitive",
                                     "prim": {
@@ -10468,6 +10721,7 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                           },
                         },
                       ],
+                      "kind": "IF:<{",
                     },
                   },
                   {
@@ -10632,6 +10886,7 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -10913,544 +11168,534 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                   {
                     "$": "Instruction",
                     "instr": {
-                      "$": "AsmExpression",
-                      "arguments": null,
-                      "name": {
-                        "$": "TvmInstruction",
-                        "value": "IFNOT:",
-                      },
-                    },
-                  },
-                  {
-                    "$": "Instruction",
-                    "instr": {
-                      "$": "AsmExpression",
-                      "arguments": {
-                        "$": "AsmArgumentList",
-                        "primitives": [
+                      "$": "IfStatement",
+                      "else_block": {
+                        "instructions": [
                           {
-                            "$": "AsmPrimitive",
-                            "prim": {
-                              "$": "InstructionBlock",
-                              "instructions": [
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "INMSG_SRC",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "MYCODE",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "StackRegister",
-                                            "value": "s8",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "PUSH",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "NEWC",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "HexBitString",
-                                            "content": "0",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STSLICECONST",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STSLICE",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "StackRegister",
-                                            "value": "s1",
-                                          },
-                                        },
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "StackRegister",
-                                            "value": "s3",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "XCHG",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STSLICE",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "ENDC",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "StackRegister",
-                                            "value": "s1",
-                                          },
-                                        },
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "StackRegister",
-                                            "value": "s2",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "XCHG",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "DUP2",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "HASHCU",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "SWAP",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "HASHCU",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "SWAP2",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "CDEPTH",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "SWAP",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "CDEPTH",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "NEWC",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "HexBitString",
-                                            "content": "020134",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STSLICECONST",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "Integer",
-                                            "value": "16",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STU",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "Integer",
-                                            "value": "16",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STU",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "Integer",
-                                            "value": "256",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STU",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "Integer",
-                                            "value": "256",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "STU",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "ONE",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "HASHEXT_SHA256",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "SWAP",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "REWRITESTDADDR",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "ROT",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "EQUAL",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "SWAP",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "Integer",
-                                            "value": "0",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "EQINT",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "AND",
-                                    },
-                                  },
-                                },
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": {
-                                      "$": "AsmArgumentList",
-                                      "primitives": [
-                                        {
-                                          "$": "AsmPrimitive",
-                                          "prim": {
-                                            "$": "Integer",
-                                            "value": "707",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "THROWIFNOT",
-                                    },
-                                  },
-                                },
-                              ],
+                            "$": "Instruction",
+                            "instr": {
+                              "$": "AsmExpression",
+                              "arguments": null,
+                              "name": {
+                                "$": "TvmInstruction",
+                                "value": "DROP",
+                              },
                             },
                           },
                         ],
                       },
-                      "name": {
-                        "$": "TvmInstruction",
-                        "value": "ELSE",
-                      },
+                      "instructions": [
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "INMSG_SRC",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "MYCODE",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "StackRegister",
+                                    "value": "s8",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "PUSH",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "NEWC",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "HexBitString",
+                                    "content": "0",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STSLICECONST",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STSLICE",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "StackRegister",
+                                    "value": "s1",
+                                  },
+                                },
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "StackRegister",
+                                    "value": "s3",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "XCHG",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STSLICE",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "ENDC",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "StackRegister",
+                                    "value": "s1",
+                                  },
+                                },
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "StackRegister",
+                                    "value": "s2",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "XCHG",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "DUP2",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "HASHCU",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "SWAP",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "HASHCU",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "SWAP2",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "CDEPTH",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "SWAP",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "CDEPTH",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "NEWC",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "HexBitString",
+                                    "content": "020134",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STSLICECONST",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "Integer",
+                                    "value": "16",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STU",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "Integer",
+                                    "value": "16",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STU",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "Integer",
+                                    "value": "256",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STU",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "Integer",
+                                    "value": "256",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "STU",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "ONE",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "HASHEXT_SHA256",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "SWAP",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "REWRITESTDADDR",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "ROT",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "EQUAL",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "SWAP",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "Integer",
+                                    "value": "0",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "EQINT",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": null,
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "AND",
+                            },
+                          },
+                        },
+                        {
+                          "$": "Instruction",
+                          "instr": {
+                            "$": "AsmExpression",
+                            "arguments": {
+                              "$": "AsmArgumentList",
+                              "primitives": [
+                                {
+                                  "$": "AsmPrimitive",
+                                  "prim": {
+                                    "$": "Integer",
+                                    "value": "707",
+                                  },
+                                },
+                              ],
+                            },
+                            "name": {
+                              "$": "TvmInstruction",
+                              "value": "THROWIFNOT",
+                            },
+                          },
+                        },
+                      ],
+                      "kind": "IFNOT:<{",
                     },
                   },
                   {
@@ -11460,25 +11705,6 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                       "arguments": {
                         "$": "AsmArgumentList",
                         "primitives": [
-                          {
-                            "$": "AsmPrimitive",
-                            "prim": {
-                              "$": "InstructionBlock",
-                              "instructions": [
-                                {
-                                  "$": "Instruction",
-                                  "instr": {
-                                    "$": "AsmExpression",
-                                    "arguments": null,
-                                    "name": {
-                                      "$": "TvmInstruction",
-                                      "value": "DROP",
-                                    },
-                                  },
-                                },
-                              ],
-                            },
-                          },
                           {
                             "$": "AsmPrimitive",
                             "prim": {
@@ -11797,21 +12023,10 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                             "$": "Instruction",
                             "instr": {
                               "$": "AsmExpression",
-                              "arguments": {
-                                "$": "AsmArgumentList",
-                                "primitives": [
-                                  {
-                                    "$": "AsmPrimitive",
-                                    "prim": {
-                                      "$": "Integer",
-                                      "value": "2",
-                                    },
-                                  },
-                                ],
-                              },
+                              "arguments": null,
                               "name": {
                                 "$": "TvmInstruction",
-                                "value": "DROP",
+                                "value": "DROP2",
                               },
                             },
                           },
@@ -12385,6 +12600,7 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                           },
                         },
                       ],
+                      "kind": "IF:<{",
                     },
                   },
                   {
@@ -12694,9 +12910,11 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                           },
                         },
                       ],
+                      "kind": "IF:<{",
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -14486,6 +14704,7 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -15255,6 +15474,7 @@ exports[`Fift Parser should parse real world Tolk example 1`] = `
                     },
                   },
                 ],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -15707,6 +15927,7 @@ exports[`Fift Parser should parse real world example 1`] = `
                     },
                   },
                 ],
+                "kind": "IF:<{",
               },
             },
           ],
@@ -16072,6 +16293,7 @@ exports[`Fift Parser should parse real world example 1`] = `
               "instr": {
                 "$": "IfjmpStatement",
                 "instructions": [],
+                "kind": "IFJMP:<{",
               },
             },
             {
@@ -16282,6 +16504,35 @@ exports[`Fift Parser should parse stack operations 1`] = `
                 "name": {
                   "$": "TvmInstruction",
                   "value": "XCHG",
+                },
+              },
+            },
+            {
+              "$": "Instruction",
+              "instr": {
+                "$": "AsmExpression",
+                "arguments": {
+                  "$": "AsmArgumentList",
+                  "primitives": [
+                    {
+                      "$": "AsmPrimitive",
+                      "prim": {
+                        "$": "StackRegister",
+                        "value": "s5",
+                      },
+                    },
+                    {
+                      "$": "AsmPrimitive",
+                      "prim": {
+                        "$": "StackRegister",
+                        "value": "s(-1)",
+                      },
+                    },
+                  ],
+                },
+                "name": {
+                  "$": "TvmInstruction",
+                  "value": "PUXC",
                 },
               },
             },

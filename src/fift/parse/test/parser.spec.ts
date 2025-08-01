@@ -26,6 +26,79 @@ describe("Fift Parser", () => {
         }
     })
 
+    it("should parse 2DROP", () => {
+        const code = `"Asm.fif" include
+        PROGRAM{
+            DECLPROC test
+            test PROC:<{
+                2DROP
+            }>
+        }END>c`
+
+        const result = parse("test.fift", code)
+
+        if (result.$ === "ParseFailure") {
+            console.log("Parse error:", result.error.message)
+        }
+
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast.program.declarations).toHaveLength(1)
+            expect(result.ast.program.definitions).toHaveLength(1)
+
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
+    it("should parse Foo.bar() CALLDICT", () => {
+        const code = `"Asm.fif" include
+        PROGRAM{
+            DECLPROC test
+            DECLPROC Foo.bar()
+            test PROC:<{
+                Foo.bar() CALLDICT
+            }>
+        }END>c`
+
+        const result = parse("test.fift", code)
+
+        if (result.$ === "ParseFailure") {
+            console.log("Parse error:", result.error.message)
+        }
+
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast.program.declarations).toHaveLength(2)
+            expect(result.ast.program.definitions).toHaveLength(1)
+
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
+    it("should parse PLDREF", () => {
+        const code = `"Asm.fif" include
+        PROGRAM{
+            DECLPROC test
+            test PROC:<{
+                PLDREF
+            }>
+        }END>c`
+
+        const result = parse("test.fift", code)
+
+        if (result.$ === "ParseFailure") {
+            console.log("Parse error:", result.error.message)
+        }
+
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast.program.declarations).toHaveLength(1)
+            expect(result.ast.program.definitions).toHaveLength(1)
+
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
     it("should parse program with include", () => {
         const code = `"Asm.fif" include
             PROGRAM{
@@ -144,12 +217,30 @@ describe("Fift Parser", () => {
         }
     })
 
+    it("should parse fift address none", () => {
+        const code = `PROGRAM{
+            DECLPROC test
+            test PROC:<{
+                <b 0 2 u, b> <s PUSHSLICE
+                <b   0   2 u,   b>  <s   PUSHSLICE
+            }>
+        }END>c`
+
+        const result = parse("test.fift", code)
+
+        expect(result.$).toBe("ParseSuccess")
+        if (result.$ === "ParseSuccess") {
+            expect(result.ast).toMatchSnapshot()
+        }
+    })
+
     it("should parse stack operations", () => {
         const code = `PROGRAM{
             DECLPROC test
             test PROC:<{
                 s(-1) XCHG
                 s0 s1 XCHG
+                s5 s(-1) PUXC
             }>
         }END>c`
 

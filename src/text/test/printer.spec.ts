@@ -1,4 +1,4 @@
-import {ADD, decompileCell, PUSHINT_4} from "../../runtime"
+import {ADD, decompileCell, PUSHINT_4, fPUSHINT} from "../../runtime"
 import {print} from "../printer"
 import {readFileSync} from "node:fs"
 import {boc} from "../../runtime/util"
@@ -18,6 +18,12 @@ describe("assembly-printer", () => {
                 ).toString("hex"),
             ).asCell(),
         )
+
+        expect(print(instructions)).toMatchSnapshot()
+    })
+
+    it("should print simple assembly with fift instruction", () => {
+        const instructions = [fPUSHINT(10n), fPUSHINT(999n), ADD()]
 
         expect(print(instructions)).toMatchSnapshot()
     })

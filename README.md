@@ -29,7 +29,7 @@ for runtime debugging with TVM since TVM itself provides only integer opcodes.
 
 ## CLI Tools
 
-This package includes two command-line utilities for working with TON Assembly:
+This package includes three command-line utilities for working with TON and Fift assembly:
 
 ### Assembler
 
@@ -58,7 +58,22 @@ tdisasm contract.boc -o contract.tasm
 yarn disassembler contract.boc -o contract.tasm
 ```
 
-Both tools support multiple output formats (binary, hex, base64) and provide verbose output options.
+### Fift Assembly Compiler
+
+Compile Fift assembly smart contract source files (from FunC or Tolk) to BoC format:
+
+```bash
+# Use the Fift assembly compiler
+tfift contract.fif -o contract.boc
+
+# Or via yarn scripts
+yarn fift-compiler contract.fif -o contract.boc
+```
+
+Note: Currently, tfift does not support Fift constructions like `<b b> s>`. In the future, we will add support for most common used constructions to be able to compile more FunC and Tolk code.
+
+All three tools support multiple output formats (binary, hex, base64) and provide verbose output options.
+All three tools support input from a string.
 
 #### Example Usage
 
@@ -68,6 +83,9 @@ tasm contract.tasm -o contract.boc --verbose
 
 # Disassemble BOC back to assembly
 tdisasm contract.boc -o decompiled.tasm --verbose
+
+# Compile Fift assembly to BOC
+tfift contract.fif -o contract.boc --verbose
 
 # Full round-trip test
 tasm decompiled.tasm -o recompiled.boc

@@ -105,10 +105,12 @@ export namespace $ast {
             | ControlRegister
             | Integer
             | ArgIdentifier
+            | FiftAddressNone
     }
 
     export type IfStatement = {
         readonly $: "IfStatement"
+        readonly kind: "IF:<{" | "IFNOT:<{"
         readonly instructions: readonly Instruction[]
         readonly else_block:
             | {
@@ -119,6 +121,7 @@ export namespace $ast {
 
     export type IfjmpStatement = {
         readonly $: "IfjmpStatement"
+        readonly kind: "IFJMP:<{" | "IFNOTJMP:<{"
         readonly instructions: readonly Instruction[]
     }
 
@@ -151,6 +154,10 @@ export namespace $ast {
     export type BinBitString = {
         readonly $: "BinBitString"
         readonly content: string
+    }
+
+    export type FiftAddressNone = {
+        readonly $: "FiftAddressNone"
     }
 
     export type BocHex = {

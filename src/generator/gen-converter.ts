@@ -2,6 +2,7 @@ import {writeFileSync} from "node:fs"
 import * as t from "@babel/types"
 import type * as $ from "./instructions"
 import type {Opcode} from "./instructions"
+import {fiftInstructionList} from "./instructions"
 import {instructionList, pseudoInstructions} from "./instructions"
 import generateTs from "@babel/generator"
 
@@ -35,14 +36,16 @@ const generate = (): string => {
         t.stringLiteral("./convert-util"),
     )
 
-    const stmts = instructionList().flatMap(([name, instruction]) => {
-        if (pseudoInstructions.has(name)) {
-            return []
-        }
-        return generateInstr(name, instruction)
-    })
+    const stmts = [...instructionList(), ...fiftInstructionList()].flatMap(
+        ([name, instruction]) => {
+            if (pseudoInstructions.has(name)) {
+                return []
+            }
+            return generateInstr(name, instruction)
+        },
+    )
 
-    const convertorFunc = generateConvertorFunction(instructionList())
+    const convertorFunc = generateConvertorFunction(instructionList(), fiftInstructionList())
 
     const file = t.file(
         t.program([
@@ -64,7 +67,10 @@ const generate = (): string => {
     return generateTs(file).code
 }
 
-function generateConvertorFunction(instructions: [string, Opcode][]): t.ExportNamedDeclaration {
+function generateConvertorFunction(
+    instructions: [string, Opcode][],
+    fiftInstructions: [string, Opcode][],
+): t.ExportNamedDeclaration {
     const nameIdent = t.identifier("convertInstruction")
 
     const instrParam = t.identifier("instr")
@@ -107,7 +113,7 @@ function generateConvertorFunction(instructions: [string, Opcode][]): t.ExportNa
 
         t.switchStatement(
             t.identifier("name"),
-            instructions.flatMap(([name]) => {
+            [...instructions, ...fiftInstructions].flatMap(([name]) => {
                 if (pseudoInstructions.has(name)) {
                     return []
                 }

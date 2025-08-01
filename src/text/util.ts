@@ -440,7 +440,14 @@ const parseDataLiteral = (literal: $ast.DataLiteral): Slice => {
     return bin(arg.content)
 }
 
-const parseStackElement = (arg: $ast.StackElement) => Number.parseInt(arg.value.slice(1))
+const parseStackElement = (arg: $ast.StackElement) => {
+    const number = arg.value.slice(1)
+    if (number.startsWith("(")) {
+        // (-1)
+        return Number.parseInt(number.slice(1, -1))
+    }
+    return Number.parseInt(number)
+}
 
 const parseNumber = (literal: $ast.IntegerLiteral) => {
     const bigNum = parseBigNum(literal)

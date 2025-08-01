@@ -37,7 +37,11 @@ export const delta = (delta: number, arg: arg): delta => ({$: "delta", delta, ar
 
 export type stack = {$: "stack", len: number, range: range}
 export const stack = (len: number): stack => ({$: "stack", len, range: range(0n, BigInt(Math.pow(2, len) - 1))})
-export const stack2 = (len: number, start: bigint ): stack => ({$: "stack", len, range: range(start, BigInt(Math.pow(2, len) - 1))})
+export const stack2 = (len: number, start: bigint): stack => ({
+    $: "stack",
+    len,
+    range: range(start, BigInt(Math.pow(2, len) - 1)),
+})
 
 export type control = {$: "control", range: range}
 export const control: control = {$: "control", range: range(0n, 15n)}
@@ -275,7 +279,7 @@ const mkextrange = (
 }
 
 const int8range = range(-128n, 127n)
-const int16range = range(BigInt(-Math.pow(2, 16)), BigInt(Math.pow(2, 16) - 1))
+const int16range = range(BigInt(-Math.pow(2, 15)), BigInt(Math.pow(2, 15) - 1))
 
 const uint8range = range(0n, 255n)
 const uint4range = range(0n, 15n)
@@ -1266,6 +1270,22 @@ export const instructions: Record<string, Opcode> = {
     INMSGPARAM: cat("config", mkfixedrangen(0xf89a, 0xf8a0, 16, 4, seq(uint4), `exec_get_var_in_msg_param`)),
 
     DEBUGMARK: cat("int_const", mkfixedn(0xF955, 16, 16, seq(uint(16, range(0n, 0n))), `exec_push_pow2dec`)),
+
+    fPUSHSLICE: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
+    fPUSHCONT: cat("int_const", mkfixedn(0, 0, 0, seq(codeSlice(uint4, uint4)), "")),
+    fSTSLICECONST: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint2, uint3, 2)), "")),
+    fXCHG: cat("int_const", mkfixedn(0, 0, 0, seq(stack(4), stack(4)), "")),
+    fPUSHINTX: cat("int_const", mkfixedn(0, 0, 0, seq(largeInt), "")),
+    fSDBEGINS: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
+    fSDBEGINSQ: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
+    fCALLXARGS: cat("int_const", mkfixedn(0, 0, 0, seq(uint4, int(8, range(-1n, 15n))), "")),
+    fCALLDICT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 16383n))), "")),
+    fJMPDICT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 16383n))), "")),
+    fPREPAREDICT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 16383n))), "")),
+    fTHROW: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
+    fTHROWIF: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
+    fTHROWIFNOT: cat("int_const", mkfixedn(0, 0, 0, seq(uint(16, range(0n, 2047n))), "")),
+    fIF: cat("int_const", mkfixedn(0, 0, 0, seq(largeInt, codeSlice(uint4, uint4), codeSlice(uint4, uint4)), "")),
 }
 
 export const pseudoInstructions = new Set([
@@ -1275,11 +1295,48 @@ export const pseudoInstructions = new Set([
 ])
 
 export const instructionList = (): [string, Opcode][] => {
-    return Object.entries(instructions).map(([rawName, opcode]) => {
+    return Object.entries(instructions).filter(([name]) => !name.startsWith("f")).map(([rawName, opcode]) => {
         const normalizedNumbers = rawName.startsWith("2") ? rawName.slice(1) + "2" : rawName
         const normalizedHashes = normalizedNumbers.replace("#", "_")
         return [normalizedHashes, opcode]
     })
+}
+
+export const fiftInstructionList = (): [string, Opcode][] => {
+    return [
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHINT", infoOf("PUSHINT_LONG")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHSLICE", infoOf("fPUSHSLICE")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHCONT", infoOf("fPUSHCONT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fSTSLICECONST", infoOf("fSTSLICECONST")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fXCHG", infoOf("fXCHG")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPUSHINTX", infoOf("fPUSHINTX")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fSDBEGINS", infoOf("fSDBEGINS")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fSDBEGINSQ", infoOf("fSDBEGINSQ")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fCALLXARGS", infoOf("fCALLXARGS")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fCALLDICT", infoOf("fCALLDICT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fJMPDICT", infoOf("fJMPDICT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fPREPAREDICT", infoOf("fPREPAREDICT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fTHROW", infoOf("fTHROW")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fTHROWIF", infoOf("fTHROWIF")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fTHROWIFNOT", infoOf("fTHROWIFNOT")!],
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ["fIF", infoOf("fIF")!],
+    ]
 }
 
 export const infoOf = (name: string): Opcode | undefined => {

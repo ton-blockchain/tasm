@@ -76,18 +76,18 @@ AsmArgumentList
   }
 
 AsmPrimitive
-  = space* prim:(InstructionBlock / String / HexBitString / BinBitString / BocHex / StackRegister / ControlRegister / Integer / ArgIdentifier) space* {
+  = space* prim:(InstructionBlock / String / HexBitString / BinBitString / BocHex / FiftAddressNone / StackRegister / ControlRegister / Integer / ArgIdentifier) space* {
     return { $: 'AsmPrimitive', prim };
   }
 
 IfStatement
-  = "IF:<{" space* instructions:Instruction* "}>" else_block:("ELSE<{" space* else_instructions:Instruction* "}>" { return { instructions: else_instructions }; })? {
-    return { $: 'IfStatement', instructions, else_block };
+  = kind:("IF:<{" / "IFNOT:<{") space* instructions:Instruction* "}>" else_block:("ELSE<{" space* else_instructions:Instruction* "}>" { return { instructions: else_instructions }; })? {
+    return { $: 'IfStatement', kind, instructions, else_block: else_block ?? undefined };
   }
 
 IfjmpStatement
-  = "IFJMP:<{" space* instructions:Instruction* "}>" {
-    return { $: 'IfjmpStatement', instructions };
+  = kind:("IFJMP:<{" / "IFNOTJMP:<{") space* instructions:Instruction* "}>" {
+    return { $: 'IfjmpStatement', kind, instructions };
   }
 
 WhileStatement
@@ -125,18 +125,23 @@ BocHex
     return { $: 'BocHex', content };
   }
 
+FiftAddressNone
+  = "<b" space* "0" space* "2" space* "u," space* "b>" space* "<s" {
+    return { $: 'FiftAddressNone' };
+  }
+
 Identifier
   = name:$(!reservedWord [a-zA-Z~$_%?.] [a-zA-Z0-9$_%?()~.]*) {
     return { $: 'Identifier', name };
   }
 
 ArgIdentifier
-  = name:$(!reservedWord [a-z$_%?~.] [a-zA-Z0-9$_%?()~.]*) {
+  = name:$(!reservedWord (([A-Z] [a-z]) / [a-z$_%?~.]) [a-zA-Z0-9$_%?()~.]*) {
     return { $: 'ArgIdentifier', name };
   }
 
 TvmInstruction
-  = instr:$("-"? [A-Z0-9_#:]+ "l"?) {
+  = instr:$("-"? [A-Z0-9_#:] [A-Z0-9_#:]+ "l"?) {
     return { $: 'TvmInstruction', value: instr };
   }
 
@@ -183,12 +188,15 @@ reservedWord
   / "PROCREF:<{"
   / "METHOD:<{"
   / "IF:<{"
+  / "IFNOT:<{"
   / "ELSE<{"
   / "IFJMP:<{"
+  / "IFNOTJMP:<{"
   / "WHILE:<{"
   / "DO<{"
   / "REPEAT:<{"
   / "UNTIL:<{"
+  / "<b 0 2 u, b>"
   / "CALLDICT" !idChar
   / "INLINECALLDICT" !idChar
 

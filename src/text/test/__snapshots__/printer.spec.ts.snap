@@ -3599,3 +3599,10 @@ PUSHINT_4 5
 ADD
 "
 `;
+
+exports[`assembly-printer should print simple assembly with fift instruction 1`] = `
+"fPUSHINT 10
+fPUSHINT 999
+ADD
+"
+`;
