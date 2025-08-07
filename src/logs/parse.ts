@@ -142,7 +142,7 @@ const processVmLine = (line: G.$ast.vmLine): VmLine => {
     }
 }
 
-const parseStack = (line: string) => {
+export const parseStack = (line: string) => {
     const res = tryParseStack(line)
     if (res) return res
 
@@ -171,7 +171,7 @@ const tryParseStack = (line: string) => {
     }
 }
 
-const processStack = (stack: VmParsedStack): StackElement[] => {
+export const processStack = (stack: VmParsedStack): StackElement[] => {
     return stack.values.map(it => processStackElement(it))
 }
 
