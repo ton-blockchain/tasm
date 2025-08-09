@@ -3,20 +3,20 @@
 exports[`asm coverage dictionary 1`] = `
 "Coverage Summary:
 Lines: 4/8 (50.00%)
-Total Gas: 283
+Total Gas: 296
 Total Hits: 4
 
 Instruction Stats:
-  DICTIGETJMPZ    | 226 gas | 1 hits | 226 avg gas | 79.86%
-  DICTPUSHCONST   | 34 gas | 1 hits | 34 avg gas | 12.01%
-  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 6.36%
-  INC             | 5 gas | 1 hits | 5 avg gas | 1.77%
+  DICTIGETJMPZ    | 226 gas | 1 hits | 226 avg gas | 76.35%
+  DICTPUSHCONST   | 34 gas | 1 hits | 34 avg gas | 11.49%
+  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 6.08%
+  INC             | 18 gas | 1 hits | 18 avg gas | 6.08%
 
 Annotated Code:
  1 ✓ | DICTPUSHCONST 19 [                       | gas:34    | hits:1
  2   |     0 => {                               |           |
  3 ✓ |         PUSHINT_4 10                     | gas:18    | hits:1
- 4 ✓ |         INC                              | gas:5     | hits:1
+ 4 ✓ |         INC                              | gas:18    | hits:1
  5   |     }                                    |           |
  6   |     2 => {                               |           |
  7 ✗ |         PUSHINT_4 5                      |           |
@@ -31,14 +31,14 @@ Annotated Code:
 exports[`asm coverage dictionary 2 1`] = `
 "Coverage Summary:
 Lines: 4/8 (50.00%)
-Total Gas: 283
+Total Gas: 296
 Total Hits: 4
 
 Instruction Stats:
-  DICTIGETJMPZ    | 226 gas | 1 hits | 226 avg gas | 79.86%
-  DICTPUSHCONST   | 34 gas | 1 hits | 34 avg gas | 12.01%
-  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 6.36%
-  INC             | 5 gas | 1 hits | 5 avg gas | 1.77%
+  DICTIGETJMPZ    | 226 gas | 1 hits | 226 avg gas | 76.35%
+  DICTPUSHCONST   | 34 gas | 1 hits | 34 avg gas | 11.49%
+  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 6.08%
+  INC             | 18 gas | 1 hits | 18 avg gas | 6.08%
 
 Annotated Code:
  1 ✓ | DICTPUSHCONST 19 [                       | gas:34    | hits:1
@@ -48,7 +48,7 @@ Annotated Code:
  5   |     }                                    |           |
  6   |     2 => {                               |           |
  7 ✓ |         PUSHINT_4 5                      | gas:18    | hits:1
- 8 ✓ |         INC                              | gas:5     | hits:1
+ 8 ✓ |         INC                              | gas:18    | hits:1
  9   |     }                                    |           |
 10 ✗ | ]                                        |           |
 11 ✓ | DICTIGETJMPZ                             | gas:226   | hits:1
@@ -80,15 +80,15 @@ Annotated Code:
 exports[`asm coverage nested try with rethrow 1`] = `
 "Coverage Summary:
 Lines: 9/9 (100.00%)
-Total Gas: 321
+Total Gas: 334
 Total Hits: 9
 
 Instruction Stats:
-  PUSHCONT        | 104 gas | 4 hits | 26 avg gas | 32.40%
-  THROW           | 84 gas | 1 hits | 84 avg gas | 26.17%
-  THROWANY        | 76 gas | 1 hits | 76 avg gas | 23.68%
-  TRY             | 52 gas | 2 hits | 26 avg gas | 16.20%
-  PUSHINT_4       | 5 gas | 1 hits | 5 avg gas | 1.56%
+  PUSHCONT        | 104 gas | 4 hits | 26 avg gas | 31.14%
+  THROW           | 84 gas | 1 hits | 84 avg gas | 25.15%
+  THROWANY        | 76 gas | 1 hits | 76 avg gas | 22.75%
+  TRY             | 52 gas | 2 hits | 26 avg gas | 15.57%
+  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 5.39%
 
 Annotated Code:
  1 ✓ | PUSHCONT {                               | gas:26    | hits:1
@@ -101,7 +101,7 @@ Annotated Code:
  8 ✓ |     TRY                                  | gas:26    | hits:1
  9   | }                                        |           |
 10 ✓ | PUSHCONT {                               | gas:26    | hits:1
-11 ✓ |     PUSHINT_4 2                          | gas:5     | hits:1
+11 ✓ |     PUSHINT_4 2                          | gas:18    | hits:1
 12   | }                                        |           |
 13 ✓ | TRY                                      | gas:26    | hits:1
 14   |                                          |           |"
@@ -110,13 +110,13 @@ Annotated Code:
 exports[`asm coverage simple if 1`] = `
 "Coverage Summary:
 Lines: 4/7 (57.14%)
-Total Gas: 67
+Total Gas: 80
 Total Hits: 4
 
 Instruction Stats:
-  PUSHINT_4       | 36 gas | 2 hits | 18 avg gas | 53.73%
-  PUSHCONT        | 26 gas | 1 hits | 26 avg gas | 38.81%
-  IF              | 5 gas | 1 hits | 5 avg gas | 7.46%
+  PUSHINT_4       | 36 gas | 2 hits | 18 avg gas | 45.00%
+  PUSHCONT        | 26 gas | 1 hits | 26 avg gas | 32.50%
+  IF              | 18 gas | 1 hits | 18 avg gas | 22.50%
 
 Annotated Code:
 1 ✓ | PUSHINT_4 0                              | gas:18    | hits:1
@@ -126,27 +126,27 @@ Annotated Code:
 5 ✗ |     INC                                  |           |
 6 ✗ |     INC                                  |           |
 7   | }                                        |           |
-8 ✓ | IF                                       | gas:5     | hits:1
+8 ✓ | IF                                       | gas:18    | hits:1
 9   |                                          |           |"
 `;
 
 exports[`asm coverage simple if-else 1`] = `
 "Coverage Summary:
 Lines: 6/7 (85.71%)
-Total Gas: 111
+Total Gas: 124
 Total Hits: 6
 
 Instruction Stats:
-  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 46.85%
-  PUSHINT_4       | 36 gas | 2 hits | 18 avg gas | 32.43%
-  IFELSE          | 18 gas | 1 hits | 18 avg gas | 16.22%
-  INC             | 5 gas | 1 hits | 5 avg gas | 4.50%
+  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 41.94%
+  PUSHINT_4       | 36 gas | 2 hits | 18 avg gas | 29.03%
+  INC             | 18 gas | 1 hits | 18 avg gas | 14.52%
+  IFELSE          | 18 gas | 1 hits | 18 avg gas | 14.52%
 
 Annotated Code:
  1 ✓ | PUSHINT_4 0                              | gas:18    | hits:1
  2 ✓ | PUSHINT_4 -1                             | gas:18    | hits:1
  3 ✓ | PUSHCONT {                               | gas:26    | hits:1
- 4 ✓ |     INC                                  | gas:5     | hits:1
+ 4 ✓ |     INC                                  | gas:18    | hits:1
  5   | }                                        |           |
  6 ✓ | PUSHCONT {                               | gas:26    | hits:1
  7 ✗ |     DEC                                  |           |
@@ -158,15 +158,15 @@ Annotated Code:
 exports[`asm coverage try with throw 1`] = `
 "Coverage Summary:
 Lines: 6/6 (100.00%)
-Total Gas: 185
+Total Gas: 198
 Total Hits: 6
 
 Instruction Stats:
-  THROW           | 84 gas | 1 hits | 84 avg gas | 45.41%
-  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 28.11%
-  TRY             | 26 gas | 1 hits | 26 avg gas | 14.05%
-  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 9.73%
-  SUB             | 5 gas | 1 hits | 5 avg gas | 2.70%
+  THROW           | 84 gas | 1 hits | 84 avg gas | 42.42%
+  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 26.26%
+  TRY             | 26 gas | 1 hits | 26 avg gas | 13.13%
+  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 9.09%
+  SUB             | 18 gas | 1 hits | 18 avg gas | 9.09%
 
 Annotated Code:
 1 ✓ | PUSHINT_4 10                             | gas:18    | hits:1
@@ -174,7 +174,7 @@ Annotated Code:
 3 ✓ |     THROW 10                             | gas:84    | hits:1
 4   | }                                        |           |
 5 ✓ | PUSHCONT {                               | gas:26    | hits:1
-6 ✓ |     SUB                                  | gas:5     | hits:1
+6 ✓ |     SUB                                  | gas:18    | hits:1
 7   | }                                        |           |
 8 ✓ | TRY                                      | gas:26    | hits:1
 9   |                                          |           |"
@@ -183,19 +183,19 @@ Annotated Code:
 exports[`asm coverage try without throw 1`] = `
 "Coverage Summary:
 Lines: 5/6 (83.33%)
-Total Gas: 101
+Total Gas: 114
 Total Hits: 5
 
 Instruction Stats:
-  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 51.49%
-  TRY             | 26 gas | 1 hits | 26 avg gas | 25.74%
-  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 17.82%
-  INC             | 5 gas | 1 hits | 5 avg gas | 4.95%
+  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 45.61%
+  TRY             | 26 gas | 1 hits | 26 avg gas | 22.81%
+  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 15.79%
+  INC             | 18 gas | 1 hits | 18 avg gas | 15.79%
 
 Annotated Code:
 1 ✓ | PUSHINT_4 10                             | gas:18    | hits:1
 2 ✓ | PUSHCONT {                               | gas:26    | hits:1
-3 ✓ |     INC                                  | gas:5     | hits:1
+3 ✓ |     INC                                  | gas:18    | hits:1
 4   | }                                        |           |
 5 ✓ | PUSHCONT {                               | gas:26    | hits:1
 6 ✗ |     DEC                                  |           |
@@ -207,30 +207,30 @@ Annotated Code:
 exports[`asm coverage while loop with break 1`] = `
 "Coverage Summary:
 Lines: 10/10 (100.00%)
-Total Gas: 756
+Total Gas: 1002
 Total Hits: 45
 
 Instruction Stats:
-  DUP             | 252 gas | 14 hits | 18 avg gas | 33.33%
-  LESSINT         | 182 gas | 7 hits | 26 avg gas | 24.07%
-  IFRETALT        | 161 gas | 7 hits | 23 avg gas | 21.30%
-  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 6.88%
-  GTINT           | 35 gas | 7 hits | 5 avg gas | 4.63%
-  DEC             | 30 gas | 6 hits | 5 avg gas | 3.97%
-  WHILEBRK        | 26 gas | 1 hits | 26 avg gas | 3.44%
-  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 2.38%
+  DUP             | 252 gas | 14 hits | 18 avg gas | 25.15%
+  GTINT           | 182 gas | 7 hits | 26 avg gas | 18.16%
+  LESSINT         | 182 gas | 7 hits | 26 avg gas | 18.16%
+  IFRETALT        | 182 gas | 7 hits | 26 avg gas | 18.16%
+  DEC             | 108 gas | 6 hits | 18 avg gas | 10.78%
+  PUSHCONT        | 52 gas | 2 hits | 26 avg gas | 5.19%
+  WHILEBRK        | 26 gas | 1 hits | 26 avg gas | 2.59%
+  PUSHINT_4       | 18 gas | 1 hits | 18 avg gas | 1.80%
 
 Annotated Code:
  1 ✓ | PUSHINT_4 10                             | gas:18    | hits:1
  2 ✓ | PUSHCONT {                               | gas:26    | hits:1
  3 ✓ |     DUP                                  | gas:126   | hits:7
- 4 ✓ |     GTINT 0                              | gas:35    | hits:7
+ 4 ✓ |     GTINT 0                              | gas:182   | hits:7
  5   | }                                        |           |
  6 ✓ | PUSHCONT {                               | gas:26    | hits:1
  7 ✓ |     DUP                                  | gas:126   | hits:7
  8 ✓ |     LESSINT 5                            | gas:182   | hits:7
- 9 ✓ |     IFRETALT                             | gas:161   | hits:7
-10 ✓ |     DEC                                  | gas:30    | hits:6
+ 9 ✓ |     IFRETALT                             | gas:182   | hits:7
+10 ✓ |     DEC                                  | gas:108   | hits:6
 11   | }                                        |           |
 12 ✓ | WHILEBRK                                 | gas:26    | hits:1
 13   |                                          |           |"
