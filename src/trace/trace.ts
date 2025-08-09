@@ -106,6 +106,18 @@ export const createTraceInfoPerTransaction = (
                     ? funcMapping.locations[instr.debugSection]
                     : undefined
 
+            if (stepInfo.implicit) {
+                steps.push({
+                    loc: undefined,
+                    instructionName: "implicit RET",
+                    stack: stepInfo.stack,
+                    gas: stepInfo.gas,
+                    gasCost: stepInfo.gasCost,
+                    funcLoc: funcLoc,
+                })
+                continue
+            }
+
             steps.push({
                 loc: instr.loc,
                 instructionName: instr.name,

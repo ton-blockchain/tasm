@@ -9,6 +9,7 @@ export type LogEntry = {
     readonly offset: number
     readonly stack: readonly StackElement[]
     readonly gas: number
+    readonly implicit: boolean
     gasCost: number
 }
 
@@ -35,9 +36,21 @@ export function parseLogs(log: string): LogEntry[][] {
                 offset: vmLine.offset,
                 stack: currentStack,
                 gas: currentGas,
+                implicit: false,
                 gasCost: 0,
             })
             currentStack = []
+        }
+
+        if (vmLine.$ === "VmExecute" && vmLine.instr === "implicit RET") {
+            const lastEntry = entries.at(-1)
+            if (lastEntry) {
+                entries.push({
+                    ...lastEntry,
+                    implicit: true,
+                    gasCost: 5,
+                })
+            }
         }
 
         if (vmLine.$ === "VmGasRemaining") {
