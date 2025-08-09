@@ -1,0 +1,472 @@
+"Asm.fif" include
+// automatically generated from nft-collection-contract.tolk, errors.tolk, storage.tolk, messages.tolk
+PROGRAM{
+  DECLPROC NftItemStorageMaybeNotInitialized.isInitialized()
+  DECLPROC NftItemStorageMaybeNotInitialized.parseNotInitialized()
+  DECLPROC NftItemStorageMaybeNotInitialized.parseInitialized()
+  DECLPROC startLoadingNftItemStorage()
+  DECLPROC NftItemStorage.save()
+  0 DECLMETHOD onInternalMessage()
+  102491 DECLMETHOD get_collection_data()
+  92067 DECLMETHOD get_nft_address_by_index()
+  85719 DECLMETHOD royalty_params()
+  68445 DECLMETHOD get_nft_content()
+  // 6 functions inlined in-place:
+  // - SnakeString.unpackFromSlice (0 calls)
+  // - SnakeString.packToBuilder (0 calls)
+  // - NftCollectionStorage.load (8 calls)
+  // - NftCollectionStorage.save (3 calls)
+  // - calcDeployedNftItem (2 calls)
+  // - deployNftItem (2 calls)
+  // storage.tolk:70  (note: function never called!)
+  NftItemStorageMaybeNotInitialized.isInitialized() PROC:<{	//  self
+    // 71: val hasContent = self.contractData.remainingRefsCount()
+    SREFS                   	//  hasContent
+  }>
+  // storage.tolk:75  (note: function never called!)
+  NftItemStorageMaybeNotInitialized.parseNotInitialized() PROC:<{	//  self
+//  s
+    // 76: return NftItemStorageNotInitialized.fromSlice(self.contractData)
+    64 LDU                  	//  '5 s
+    LDMSGADDR               	//  '5 '6 s
+    ENDS                    	//  '5 '6
+  }>
+  // storage.tolk:79  (note: function never called!)
+  NftItemStorageMaybeNotInitialized.parseInitialized() PROC:<{	//  self
+//  s
+    // 80: return NftItemStorage.fromSlice(self.contractData)
+    64 LDU                  	//  '5 s
+    LDMSGADDR               	//  '5 '6 s
+    LDMSGADDR               	//  '5 '6 '7 s
+    LDREF                   	//  '5 '6 '7 '8 s
+    ENDS                    	//  '5 '6 '7 '8
+  }>
+  // storage.tolk:83  (note: function never called!)
+  startLoadingNftItemStorage() PROC:<{	// 
+    // 84: return { contractData: contract.getData().beginParse() }
+    c4 PUSH                 	//  '0
+    CTOS                    	//  '1
+  }>
+  // storage.tolk:87  (note: function never called!)
+  NftItemStorage.save() PROC:<{	//  self.itemIndex self.collectionAddress self.ownerAddress self.content
+    // 88: contract.setData(self.toCell())
+    s0 s3 XCHG
+    NEWC                    	//  self.content self.collectionAddress self.ownerAddress self.itemIndex b
+    64 STU                  	//  self.content self.collectionAddress self.ownerAddress b
+    s1 s2 XCHG              	//  self.content self.ownerAddress self.collectionAddress b
+    STSLICE                 	//  self.content self.ownerAddress b
+    STSLICE                 	//  self.content b
+    STREF                   	//  b
+    ENDC                    	//  '7
+    c4 POP                  	// 
+  }>
+  // nft-collection-contract.tolk:27
+  onInternalMessage() PROC:<{ 	//  in.body
+    // 27: fun onInternalMessage(in: InMessage)
+    c2 SAVE
+    SAMEALTSAVE
+    INMSG_BOUNCED           	//  in.body '1
+    0 THROWIF               	//  in.body
+    // 28: val msg = lazy AllowedMessageToNftCollection.fromSlice(in.body)
+    DUP                     	//  in.body lazyS
+    // 30: match (msg)
+    x{00000001} SDBEGINSQ   	//  in.body lazyS '14
+    IFJMP:<{                	//  in.body lazyS
+      // 52: return NftCollectionStorage.fromCell(contract.getData())
+      NIP                   	//  lazyS
+      c4 PUSH               	//  lazyS '23
+      // 32: var storage = lazy NftCollectionStorage.load()
+      CTOS                  	//  lazyS lazyS
+      // 33: assert (in.senderAddress == storage.adminAddress) throw ERROR_NOT_FROM_ADMIN
+      LDMSGADDR             	//  lazyS storage.adminAddress lazyS
+      64 LDU                	//  lazyS storage.adminAddress storage.nextItemIndex lazyS
+      DUP                   	//  lazyS storage.adminAddress storage.nextItemIndex '30 lazyS
+      LDREF                 	//  lazyS storage.adminAddress storage.nextItemIndex '30 '31 lazyS
+      NIP                   	//  lazyS storage.adminAddress storage.nextItemIndex '30 lazyS
+      PLDREF                	//  lazyS storage.adminAddress storage.nextItemIndex '30 storage.nftItemCode
+      INMSG_SRC             	//  lazyS storage.adminAddress storage.nextItemIndex '30 storage.nftItemCode '34
+      s4 PUSH               	//  lazyS storage.adminAddress storage.nextItemIndex '30 storage.nftItemCode '34 storage.adminAddress
+      SDEQ                  	//  lazyS storage.adminAddress storage.nextItemIndex '30 storage.nftItemCode '36
+      401 THROWIFNOT        	//  lazyS storage.adminAddress storage.nextItemIndex '30 storage.nftItemCode
+      // 34: assert (msg.itemIndex <= storage.nextItemIndex) throw ERROR_INVALID_ITEM_INDEX
+      s0 s4 XCHG            	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 lazyS
+      64 LDU
+      NIP                   	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 lazyS
+      64 LDU                	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 lazyS
+      LDGRAMS               	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 msg.USlot3 lazyS
+      PLDREF                	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 msg.USlot3 msg.USlot4
+      s2 s4 PUSH2           	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 msg.USlot3 msg.USlot4 msg.USlot2 storage.nextItemIndex
+      LEQ                   	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 msg.USlot3 msg.USlot4 '44
+      402 THROWIFNOT        	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 msg.USlot3 msg.USlot4
+      s2 s4 PUSH2           	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 msg.USlot3 msg.USlot4 msg.USlot2 storage.nextItemIndex
+      // 36: var isLast = msg.itemIndex == storage.nextItemIndex
+      EQUAL                 	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 msg.USlot2 msg.USlot3 msg.USlot4 isLast
+      // 14: dest: calcDeployedNftItem(itemIndex, contract.getAddress(), nftItemCode)
+      MYADDR                	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 emptyNftItemStorage.itemIndex msg.USlot3 msg.USlot4 isLast emptyNftItemStorage.collectionAddress
+      // 94: return { stateInit: { code: nftItemCode, data: emptyNftItemStorage.toCell() } }
+      s0 s4 XCHG
+      NEWC                  	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 emptyNftItemStorage.collectionAddress msg.USlot3 msg.USlot4 isLast emptyNftItemStorage.itemIndex b
+      64 STU                	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 emptyNftItemStorage.collectionAddress msg.USlot3 msg.USlot4 isLast b
+      s1 s4 XCHG            	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 isLast msg.USlot3 msg.USlot4 emptyNftItemStorage.collectionAddress b
+      STSLICE               	//  storage.nftItemCode storage.adminAddress storage.nextItemIndex '30 isLast msg.USlot3 msg.USlot4 b
+      ENDC                  	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot2 '84 'USlot3
+      // 12: val deployMsg = createMessage(
+      NEWC                  	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot2 '84 'USlot3 b
+      b{01100010000000000} STSLICECONST	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot2 '84 'USlot3 b
+      s8 s1 PUSH2           	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot2 '84 'USlot3 b 'USlot2 'USlot3
+                       // code data
+          DUP2            // code data code data
+          HASHCU
+          SWAP
+          HASHCU          // code data dataHash codeHash
+          SWAP2           // dataHash codeHash code data
+          CDEPTH
+          SWAP
+          CDEPTH          // dataHash codeHash dataDepth codeDepth
+          NEWC
+          x{020134} STSLICECONST // store refs_descriptor | bits_descriptor | data
+          16 STU                 // store codeDepth
+          16 STU                 // store dataDepth
+          256 STU                // store codeHash
+          256 STU                // store dataHash
+          ONE HASHEXT_SHA256	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot2 '84 'USlot3 b '106
+      256 STUR              	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot2 '84 'USlot3 b
+      s0 s3 XCHG2           	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot3 '84 b 'USlot2
+      STGRAMS               	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot3 '84 b
+      141 PUSHINT
+      113 STUR              	//  'USlot2 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot3 '84 b
+      s1 s7 XCHG            	//  '84 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot3 'USlot2 b
+      STREF                 	//  '84 storage.adminAddress storage.nextItemIndex '30 isLast 'USlot3 b
+      STREF                 	//  '84 storage.adminAddress storage.nextItemIndex '30 isLast b
+      s1 s5 XCHG            	//  isLast storage.adminAddress storage.nextItemIndex '30 '84 b
+      STREF                 	//  isLast storage.adminAddress storage.nextItemIndex '30 b
+      ENDC                  	//  isLast storage.adminAddress storage.nextItemIndex '30 deployMsg
+      // 18: deployMsg.send(SEND_MODE_PAY_FEES_SEPARATELY)
+      1 PUSHINT             	//  isLast storage.adminAddress storage.nextItemIndex '30 deployMsg '134=1
+      SENDRAWMSG            	//  isLast storage.adminAddress storage.nextItemIndex '30
+      // 38: if (isLast)
+      s0 s3 XCHG            	//  '30 storage.adminAddress storage.nextItemIndex isLast
+      IF:<{                 	//  '30 storage.adminAddress storage.nextItemIndex
+        // 39: storage.nextItemIndex += 1
+        INC                 	//  '30 storage.adminAddress storage.nextItemIndex
+        // 56: contract.setData(self.toCell())
+        SWAP
+        NEWC                	//  '30 storage.nextItemIndex storage.adminAddress b
+        STSLICE             	//  '30 storage.nextItemIndex b
+        64 STU              	//  '30 b
+        STSLICE             	//  b
+        ENDC                	//  '140
+        c4 POP              	// 
+      }>ELSE<{
+        3 BLKDROP           	// 
+      }>
+    }>                      	//  in.body lazyS
+    // 30: match (msg)
+    x{693d3950} SDBEGINSQ   	//  in.body lazyS '14
+    IFJMP:<{                	//  in.body lazyS
+      // 52: return NftCollectionStorage.fromCell(contract.getData())
+      NIP                   	//  lazyS
+      c4 PUSH               	//  lazyS '149
+      // 45: val storage = lazy NftCollectionStorage.load()
+      CTOS                  	//  lazyS lazyS
+      // 46: val respondMsg = createMessage(
+      SWAP                  	//  lazyS lazyS
+      64 PLDU               	//  lazyS msg.USlot4
+      SWAP                  	//  msg.USlot4 lazyS
+      LDREF                 	//  msg.USlot4 '155 lazyS
+      NIP                   	//  msg.USlot4 lazyS
+      LDREF                 	//  msg.USlot4 '156 lazyS
+      NIP                   	//  msg.USlot4 lazyS
+      PLDREF                	//  msg.USlot4 storage.royaltyParams
+      // 48: dest: in.senderAddress
+      INMSG_SRC             	//  msg.USlot4 storage.royaltyParams '163
+      // 52: royaltyParams: storage.royaltyParams.load()
+      SWAP                  	//  msg.USlot4 '163 storage.royaltyParams
+      CTOS                  	//  msg.USlot4 '163 s
+      16 LDU                	//  msg.USlot4 '163 '176 s
+      16 LDU                	//  msg.USlot4 '163 '176 '178 s
+      LDMSGADDR             	//  msg.USlot4 '163 '176 '178 '179 s
+      ENDS                  	//  msg.USlot4 '163 '176 '178 '179
+      // 46: val respondMsg = createMessage(
+      NEWC                  	//  msg.USlot4 '163 '176 '178 '179 b
+      b{010000} STSLICECONST	//  msg.USlot4 '163 '176 '178 '179 b
+      s1 s4 XCHG            	//  msg.USlot4 '179 '176 '178 '163 b
+      STSLICE               	//  msg.USlot4 '179 '176 '178 b
+      2831876269 PUSHINT
+      143 STUR              	//  msg.USlot4 '179 '176 '178 b
+      s1 s4 XCHG            	//  '178 '179 '176 msg.USlot4 b
+      64 STU                	//  '178 '179 '176 b
+      16 STU                	//  '178 '179 b
+      s1 s2 XCHG            	//  '179 '178 b
+      16 STU                	//  '179 b
+      STSLICE               	//  b
+      ENDC                  	//  respondMsg
+      // 55: respondMsg.send(SEND_MODE_CARRY_ALL_REMAINING_MESSAGE_VALUE)
+      64 PUSHINT            	//  respondMsg '234=64
+      SENDRAWMSG            	// 
+    }>                      	//  in.body lazyS
+    // 30: match (msg)
+    x{00000002} SDBEGINSQ   	//  in.body lazyS '14
+    IFJMP:<{                	//  in.body lazyS
+      // 52: return NftCollectionStorage.fromCell(contract.getData())
+      NIP                   	//  lazyS
+      c4 PUSH               	//  lazyS '243
+      // 59: var storage = lazy NftCollectionStorage.load()
+      CTOS                  	//  lazyS lazyS
+      // 60: assert (in.senderAddress == storage.adminAddress) throw ERROR_NOT_FROM_ADMIN
+      LDMSGADDR             	//  lazyS storage.adminAddress lazyS
+      64 LDU                	//  lazyS storage.adminAddress storage.nextItemIndex lazyS
+      DUP                   	//  lazyS storage.adminAddress storage.nextItemIndex '250 lazyS
+      LDREF                 	//  lazyS storage.adminAddress storage.nextItemIndex '250 '251 lazyS
+      NIP                   	//  lazyS storage.adminAddress storage.nextItemIndex '250 lazyS
+      PLDREF                	//  lazyS storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode
+      INMSG_SRC             	//  lazyS storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode '254
+      s4 PUSH               	//  lazyS storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode '254 storage.adminAddress
+      SDEQ                  	//  lazyS storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode '256
+      401 THROWIFNOT        	//  lazyS storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode
+      // 62: var counter = 0
+      0 PUSHINT             	//  lazyS storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode counter=0
+      // 63: var deployList = msg.deployList
+      s0 s5 XCHG            	//  counter=0 storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode lazyS
+      64 LDU
+      NIP                   	//  counter=0 storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode lazyS
+      PLDOPTREF             	//  counter=0 storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList
+      // 64: while (true)
+      AGAINEND
+      // 65: var (itemIndex, valueSlice, found) = deployList.uDictDeleteFirstAndGet(64)
+      64 PUSHINT            	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList '267=64
+      DICTUREMMIN
+      NULLSWAPIFNOT2        	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice itemIndex found
+      // 66: if (!found)
+      IFNOTJMP:<{           	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice itemIndex
+        4 BLKDROP           	//  counter storage.adminAddress storage.nextItemIndex '250
+        // 231: skipBitsNValidation: bool = false
+        s3 POP              	//  '250 storage.adminAddress storage.nextItemIndex
+        // 56: contract.setData(self.toCell())
+        SWAP
+        NEWC                	//  '250 storage.nextItemIndex storage.adminAddress b
+        STSLICE             	//  '250 storage.nextItemIndex b
+        64 STU              	//  '250 b
+        STSLICE             	//  b
+        ENDC                	//  '278
+        c4 POP              	// 
+        // 68: return
+        RETALT
+      }>                    	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice itemIndex
+      // 72: counter += 1
+      s0 s7 XCHG            	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter
+      INC                   	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter
+      // 74: counter < 250
+      DUP
+      250 PUSHINT           	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter counter '282=250
+      LESS                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter '283
+      // 73: assert (
+      399 THROWIFNOT        	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter
+      // 77: assert (itemIndex <= storage.nextItemIndex) throw ERROR_NOT_FROM_ADMIN + counter
+      401 PUSHINT           	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter '285=401
+      OVER                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter '285=401 counter
+      ADD                   	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter '286
+      s8 s6 PUSH2           	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter '286 itemIndex storage.nextItemIndex
+      LEQ                   	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList valueSlice counter '286 '287
+      THROWANYIFNOT         	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList s counter
+      // 78: val dictItem = BatchDeployDictItem.fromSlice(valueSlice!)
+      SWAP                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter s
+      LDGRAMS               	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter '294 s
+      LDREF                 	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter '294 '295 s
+      ENDS                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter dictItem.attachTonAmount dictItem.initParams
+      // 14: dest: calcDeployedNftItem(itemIndex, contract.getAddress(), nftItemCode)
+      MYADDR                	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter dictItem.attachTonAmount dictItem.initParams '298
+      // 92: val emptyNftItemStorage: NftItemStorageNotInitialized = { itemIndex, collectionAddress }
+      s9 PUSH               	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter dictItem.attachTonAmount dictItem.initParams emptyNftItemStorage.collectionAddress emptyNftItemStorage.itemIndex
+      // 94: return { stateInit: { code: nftItemCode, data: emptyNftItemStorage.toCell() } }
+      NEWC                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter dictItem.attachTonAmount dictItem.initParams emptyNftItemStorage.collectionAddress emptyNftItemStorage.itemIndex b
+      64 STU                	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter dictItem.attachTonAmount dictItem.initParams emptyNftItemStorage.collectionAddress b
+      STSLICE               	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter dictItem.attachTonAmount dictItem.initParams b
+      ENDC                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter dictItem.attachTonAmount dictItem.initParams '312
+      s5 PUSH               	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 'USlot2
+      // 12: val deployMsg = createMessage(
+      NEWC                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 'USlot2 b
+      b{01100010000000000} STSLICECONST	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 'USlot2 b
+      s1 s2 PUSH2           	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 'USlot2 b 'USlot2 'USlot3
+                       // code data
+          DUP2            // code data code data
+          HASHCU
+          SWAP
+          HASHCU          // code data dataHash codeHash
+          SWAP2           // dataHash codeHash code data
+          CDEPTH
+          SWAP
+          CDEPTH          // dataHash codeHash dataDepth codeDepth
+          NEWC
+          x{020134} STSLICECONST // store refs_descriptor | bits_descriptor | data
+          16 STU                 // store codeDepth
+          16 STU                 // store dataDepth
+          256 STU                // store codeHash
+          256 STU                // store dataHash
+          ONE HASHEXT_SHA256	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 'USlot2 b '354
+      256 STUR              	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 'USlot2 b
+      s0 s4 XCHG2           	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 b 'USlot2
+      STGRAMS               	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 b
+      141 PUSHINT
+      113 STUR              	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot2 '332 'USlot3 b
+      s1 s3 XCHG            	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot3 '332 'USlot2 b
+      STREF                 	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter 'USlot3 '332 b
+      s1 s2 XCHG            	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter '332 'USlot3 b
+      STREF                 	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter '332 b
+      STREF                 	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter b
+      ENDC                  	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter deployMsg
+      // 18: deployMsg.send(SEND_MODE_PAY_FEES_SEPARATELY)
+      1 PUSHINT             	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter deployMsg '382=1
+      SENDRAWMSG            	//  itemIndex storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList counter
+      s6 s4 XCPU            	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList itemIndex storage.nextItemIndex
+      // 85: if (itemIndex == storage.nextItemIndex)
+      EQUAL                 	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList '383
+      IF:<{                 	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList
+        // 86: storage.nextItemIndex += 1
+        s0 s3 XCHG          	//  counter storage.adminAddress deployList '250 storage.nftItemCode storage.nextItemIndex
+        INC                 	//  counter storage.adminAddress deployList '250 storage.nftItemCode storage.nextItemIndex
+        // 85: if (itemIndex == storage.nextItemIndex)
+        s0 s3 XCHG          	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList
+      }>                    	//  counter storage.adminAddress storage.nextItemIndex '250 storage.nftItemCode deployList
+    }>                      	//  in.body lazyS
+    // 30: match (msg)
+    x{00000003} SDBEGINSQ   	//  in.body lazyS '14
+    IFJMP:<{                	//  in.body lazyS
+      // 52: return NftCollectionStorage.fromCell(contract.getData())
+      NIP                   	//  lazyS
+      c4 PUSH               	//  lazyS '394
+      // 92: var storage = lazy NftCollectionStorage.load()
+      CTOS                  	//  lazyS lazyS
+      // 93: assert (in.senderAddress == storage.adminAddress) throw ERROR_NOT_FROM_ADMIN
+      LDMSGADDR             	//  lazyS storage.adminAddress '399
+      INMSG_SRC             	//  lazyS storage.adminAddress '399 '401
+      ROT                   	//  lazyS '399 '401 storage.adminAddress
+      SDEQ                  	//  lazyS '399 '403
+      401 THROWIFNOT        	//  lazyS '399
+      // 94: storage.adminAddress = msg.newAdminAddress
+      SWAP                  	//  '399 lazyS
+      64 LDU
+      NIP                   	//  '399 lazyS
+      LDMSGADDR             	//  '399 '406 lazyS
+      DROP                  	//  '399 storage.adminAddress
+      // 56: contract.setData(self.toCell())
+      NEWC                  	//  '399 storage.adminAddress b
+      STSLICE               	//  '399 b
+      STSLICE               	//  b
+      ENDC                  	//  '409
+      c4 POP                	// 
+    }>                      	//  in.body lazyS
+    // 100: assert (in.body.isEmpty()) throw 0xFFFF
+    DROP                    	//  in.body
+    16 PUSHPOW2DEC          	//  in.body '410=65535
+    SWAP                    	//  '410=65535 in.body
+    SEMPTY                  	//  '410=65535 '411
+    THROWANYIFNOT           	// 
+  }>
+  // nft-collection-contract.tolk:115:5
+  get_collection_data() PROC:<{	// 
+    // 52: return NftCollectionStorage.fromCell(contract.getData())
+    c4 PUSH                 	//  '6
+    // 116: val storage = lazy NftCollectionStorage.load()
+    CTOS                    	//  lazyS
+    // 117: val content = lazy storage.content.load()
+    LDMSGADDR               	//  storage.adminAddress lazyS
+    64 LDU                  	//  storage.adminAddress storage.nextItemIndex lazyS
+    PLDREF                  	//  storage.adminAddress storage.nextItemIndex storage.content
+    CTOS                    	//  storage.adminAddress storage.nextItemIndex lazyS
+    // 119: return
+    PLDREF                  	//  storage.adminAddress storage.nextItemIndex content.collectionMetadata
+    ROT                     	//  storage.nextItemIndex content.collectionMetadata storage.adminAddress
+  }>
+  // nft-collection-contract.tolk:126:5
+  get_nft_address_by_index() PROC:<{	//  itemIndex
+    // 52: return NftCollectionStorage.fromCell(contract.getData())
+    c4 PUSH                 	//  itemIndex '7
+    // 127: val storage = lazy NftCollectionStorage.load()
+    CTOS                    	//  itemIndex lazyS
+    // 128: val nftDeployed = calcDeployedNftItem(itemIndex, contract.getAddress(), storage.nftItemCode)
+    LDREF                   	//  itemIndex '11 lazyS
+    NIP                     	//  itemIndex lazyS
+    PLDREF                  	//  itemIndex storage.nftItemCode
+    MYADDR                  	//  emptyNftItemStorage.itemIndex storage.nftItemCode emptyNftItemStorage.collectionAddress
+    // 94: return { stateInit: { code: nftItemCode, data: emptyNftItemStorage.toCell() } }
+    s0 s2 XCHG
+    NEWC                    	//  emptyNftItemStorage.collectionAddress storage.nftItemCode emptyNftItemStorage.itemIndex b
+    64 STU                  	//  emptyNftItemStorage.collectionAddress storage.nftItemCode b
+    s1 s2 XCHG              	//  storage.nftItemCode emptyNftItemStorage.collectionAddress b
+    STSLICE                 	//  storage.nftItemCode b
+    ENDC                    	//  nftDeployed.stateInit.USlot1 nftDeployed.stateInit.USlot2
+    // 129: return address.fromValidBuilder(nftDeployed.buildAddress())
+                     // code data
+        DUP2            // code data code data
+        HASHCU
+        SWAP
+        HASHCU          // code data dataHash codeHash
+        SWAP2           // dataHash codeHash code data
+        CDEPTH
+        SWAP
+        CDEPTH          // dataHash codeHash dataDepth codeDepth
+        NEWC
+        x{020134} STSLICECONST // store refs_descriptor | bits_descriptor | data
+        16 STU                 // store codeDepth
+        16 STU                 // store dataDepth
+        256 STU                // store codeHash
+        256 STU                // store dataHash
+        ONE HASHEXT_SHA256  	//  '44
+    NEWC                    	//  '44 '43
+    b{10000000000} STSLICECONST	//  '44 '43
+    256 STU                 	//  '43
+    ENDC
+    CTOS                    	//  '63
+  }>
+  // nft-collection-contract.tolk:132:5
+  royalty_params() PROC:<{    	// 
+    // 52: return NftCollectionStorage.fromCell(contract.getData())
+    c4 PUSH                 	//  '6
+    // 133: val storage = lazy NftCollectionStorage.load()
+    CTOS                    	//  lazyS
+    // 134: return storage.royaltyParams.load()
+    LDREF                   	//  '10 lazyS
+    NIP                     	//  lazyS
+    LDREF                   	//  '11 lazyS
+    NIP                     	//  lazyS
+    PLDREF                  	//  storage.royaltyParams
+    CTOS                    	//  s
+    16 LDU                  	//  '17 s
+    16 LDU                  	//  '17 '19 s
+    LDMSGADDR               	//  '17 '19 '20 s
+    ENDS                    	//  '17 '19 '20
+  }>
+  // nft-collection-contract.tolk:137:5
+  get_nft_content() PROC:<{   	//  itemIndex individualNftContent
+    // 52: return NftCollectionStorage.fromCell(contract.getData())
+    NIP                     	//  individualNftContent
+    c4 PUSH                 	//  individualNftContent '8
+    // 138: val storage = lazy NftCollectionStorage.load()
+    CTOS                    	//  individualNftContent lazyS
+    // 139: val content = lazy storage.content.load()
+    PLDREF                  	//  individualNftContent storage.content
+    CTOS                    	//  individualNftContent lazyS
+    // 146: return OffchainMetadataReply
+    LDREF                   	//  individualNftContent '19 lazyS
+    NIP                     	//  individualNftContent lazyS
+    PLDREF                  	//  individualNftContent content.commonContent
+    // 147: string: beginCell().storeSlice(content.commonContent.load()) // assume it's short (no refs)
+    CTOS                    	//  individualNftContent '26
+    NEWC                    	//  individualNftContent '26 '29
+    STSLICE                 	//  individualNftContent '29
+    // 148: .storeRef(individualNftContent) // so, it's the first ref (snake encoding)
+    STREF                   	//  '29
+    // 149: .endCell()
+    ENDC                    	//  '32
+    // 150: .beginParse()
+    CTOS                    	//  '33
+    // 152: .toCell()
+    NEWC                    	//  '33 b
+    x{01} STSLICECONST      	//  '33 b
+    // 17: b.storeSlice(self)
+    STSLICE                 	//  b
+    // 152: .toCell()
+    ENDC                    	//  '41
+  }>
+}END>c

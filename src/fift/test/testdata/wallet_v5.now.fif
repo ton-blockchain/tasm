@@ -1,0 +1,506 @@
+"Asm.fif" include
+// automatically generated from wallet_v5.tolk
+PROGRAM{
+  DECLPROC processActions()
+  DECLPROC processSignedRequest()
+  -1 DECLMETHOD onExternalMessage()
+  0 DECLMETHOD onInternalMessage()
+  88459 DECLMETHOD is_signature_allowed()
+  85143 DECLMETHOD seqno()
+  81467 DECLMETHOD get_subwallet_id()
+  78748 DECLMETHOD get_public_key()
+  117729 DECLMETHOD get_extensions()
+  // 6 functions inlined in-place:
+  // - Storage.load (10 calls)
+  // - Storage.save (4 calls)
+  // - ExtensionsDict.exists (1 call)
+  // - ExtensionsDict.tryInsert (1 call)
+  // - ExtensionsDict.tryDelete (1 call)
+  // - cell.verifyC5Actions (1 call)
+  // wallet_v5.tolk:143
+  processActions() PROCREF:<{ 	//  cs isExternal isExtension
+    // 143: fun processActions(cs: slice, isExternal: bool, isExtension: bool)
+    c2 SAVE
+    SAMEALTSAVE
+    // 144: var c5Actions = cs.loadMaybeRef()
+    s0 s2 XCHG              	//  isExtension isExternal cs
+    LDOPTREF                	//  isExtension isExternal c5Actions cs
+    // 145: if (c5Actions != null)
+    OVER                    	//  isExtension isExternal c5Actions cs c5Actions
+    ISNULL                  	//  isExtension isExternal c5Actions cs '7
+    IFNOT:<{                	//  isExtension isExternal c5Actions cs
+      // 96: var (cs: slice, _) = self.beginParseRaw()
+      OVER                  	//  isExtension isExternal c5Actions cs c5Actions
+      XCTOS                 	//  isExtension isExternal c5Actions cs '11 '12
+      DROP                  	//  isExtension isExternal c5Actions cs cs
+      // 98: var count: int = 0
+      0 PUSHINT             	//  isExtension isExternal c5Actions cs cs count=0
+      // 100: while (!cs.isEnd())
+      WHILE:<{
+        OVER                	//  isExtension isExternal c5Actions cs cs count cs
+        SEMPTY              	//  isExtension isExternal c5Actions cs cs count '15
+        NOT                 	//  isExtension isExternal c5Actions cs cs count '16
+      }>DO<{                	//  isExtension isExternal c5Actions cs cs count
+        // 102: cs = cs.enforceAndRemoveActionSendMsgPrefix()
+        SWAP                	//  isExtension isExternal c5Actions cs count cs
+        x{0ec3c86d} SDBEGINS	//  isExtension isExternal c5Actions cs count cs
+        // 104: assert(cs.remainingBitsCount() == 8) throw ERROR_INVALID_C5; // send_mode
+        DUP                 	//  isExtension isExternal c5Actions cs count cs cs
+        SBITS               	//  isExtension isExternal c5Actions cs count cs '19
+        8 EQINT             	//  isExtension isExternal c5Actions cs count cs '21
+        147 THROWIFNOT      	//  isExtension isExternal c5Actions cs count cs
+        // 105: assert(cs.remainingRefsCount() == 2) throw ERROR_INVALID_C5; // next-action-ref and MessageRelaxed ref
+        DUP                 	//  isExtension isExternal c5Actions cs count cs cs
+        SREFS               	//  isExtension isExternal c5Actions cs count cs '24
+        2 EQINT             	//  isExtension isExternal c5Actions cs count cs '26
+        147 THROWIFNOT      	//  isExtension isExternal c5Actions cs count cs
+        // 113: assert(!(isExternal & (countTrailingZeroes(cs.preloadBits(7)) > 0))) throw ERROR_EXTERNAL_SEND_MESSAGE_MUST_HAVE_IGNORE_ERRORS_SEND_MODE
+        DUP                 	//  isExtension isExternal c5Actions cs count cs cs
+        7 PLDSLICE          	//  isExtension isExternal c5Actions cs count cs '30
+        SDCNTTRAIL0         	//  isExtension isExternal c5Actions cs count cs '31
+        0 GTINT             	//  isExtension isExternal c5Actions cs count cs '33
+        s5 s(-1) PUXC       	//  isExtension isExternal c5Actions cs count cs isExternal '33
+        AND                 	//  isExtension isExternal c5Actions cs count cs '34
+        137 THROWIF         	//  isExtension isExternal c5Actions cs count cs
+        // 115: (cs, _) = cs.preloadRef().beginParseRaw()
+        PLDREF              	//  isExtension isExternal c5Actions cs count '37
+        XCTOS               	//  isExtension isExternal c5Actions cs count '38 '39
+        DROP                	//  isExtension isExternal c5Actions cs count cs
+        // 116: count += 1
+        SWAP                	//  isExtension isExternal c5Actions cs cs count
+        INC                 	//  isExtension isExternal c5Actions cs cs count
+      }>                    	//  isExtension isExternal c5Actions cs cs count
+      // 118: assert(count <= 255) throw ERROR_INVALID_C5
+      s4 POP                	//  isExtension count c5Actions cs cs
+      s0 s3 XCHG
+      8 PUSHPOW2DEC         	//  isExtension cs c5Actions cs count '43=255
+      LEQ                   	//  isExtension cs c5Actions cs '44
+      147 THROWIFNOT        	//  isExtension cs c5Actions cs
+      // 119: assert(cs.remainingRefsCount() == 0) throw ERROR_INVALID_C5
+      s0 s2 XCHG            	//  isExtension cs c5Actions cs
+      SREFS                 	//  isExtension cs c5Actions '47
+      0 EQINT               	//  isExtension cs c5Actions '49
+      147 THROWIFNOT        	//  isExtension cs '8
+      // 147: setC5Actions(c5Actions.verifyC5Actions(isExternal))
+      c5 POP                	//  isExtension cs
+    }>ELSE<{
+      2 1 BLKDROP2          	//  isExtension cs
+    }>
+    // 149: val hasOtherActions = cs.loadBool()
+    1 LDI                   	//  isExtension hasOtherActions cs
+    // 150: if (!hasOtherActions)
+    SWAP                    	//  isExtension cs hasOtherActions
+    IFNOTJMP:<{             	//  isExtension cs
+      2DROP                 	// 
+    }>                      	//  isExtension cs
+    // 155: while (true)
+    AGAINEND
+    // 156: val action = lazy ExtraAction.fromSlice(cs)
+    DUP                     	//  isExtension cs lazyS
+    // 157: match (action)
+    x{02} SDBEGINSQ         	//  isExtension cs lazyS '62
+    IF:<{                   	//  isExtension cs lazyS
+      // 159: var (extensionWorkchain: int, extensionAddrHash: int) = action.addr.getWorkchainAndHash()
+      LDMSGADDR             	//  isExtension cs '65 lazyS
+      DROP                  	//  isExtension cs action.USlot1
+      REWRITESTDADDR        	//  isExtension cs extensionWorkchain extensionAddrHash
+      // 160: var myWorkchain = contract.getAddress().getWorkchain()
+      MYADDR                	//  isExtension cs extensionWorkchain extensionAddrHash '71
+      REWRITESTDADDR
+      DROP                  	//  isExtension cs extensionWorkchain extensionAddrHash myWorkchain
+      ROT                   	//  isExtension cs extensionAddrHash myWorkchain extensionWorkchain
+      // 161: assert (myWorkchain == extensionWorkchain) throw ERROR_EXTENSION_WRONG_WORKCHAIN
+      EQUAL                 	//  isExtension cs extensionAddrHash '74
+      145 THROWIFNOT        	//  isExtension cs extensionAddrHash
+      // 16: return Storage.fromCell(contract.getData())
+      c4 PUSH               	//  isExtension cs extensionAddrHash '82
+      // 163: var storage = lazy Storage.load()
+      CTOS                  	//  isExtension cs extensionAddrHash lazyS
+      // 164: val inserted = storage.extensions.tryInsert(extensionAddrHash)
+      321 PUSHINT           	//  isExtension cs extensionAddrHash lazyS '86=321
+      LDSLICEX              	//  isExtension cs extensionAddrHash '87 lazyS
+      LDOPTREF              	//  isExtension cs extensionAddrHash '87 '88 lazyS
+      DROP                  	//  isExtension cs extensionAddrHash '87 self
+      // 30: return self.uDictSetBuilderIfNotExists(SIZE_ADDRESS_HASH, addrHash, beginCell().storeBool(true))
+      8 PUSHPOW2            	//  isExtension cs extensionAddrHash '87 self '93=256
+      1 PUSHINT
+      NEWC
+      1 STU                 	//  isExtension cs extensionAddrHash '87 self '93=256 '95
+      s0 s3 XCHG            	//  isExtension cs extensionAddrHash '95 self '93=256 '87
+      s4 s4 s4 XCHG3        	//  isExtension cs '87 '95 extensionAddrHash self '93=256
+      DICTUADDB             	//  isExtension cs '87 storage.extensions inserted
+      // 165: assert (inserted) throw ERROR_ADD_EXTENSION
+      139 THROWIFNOT        	//  isExtension cs '87 storage.extensions
+      // 20: contract.setData(self.toCell())
+      SWAP
+      NEWC                  	//  isExtension cs storage.extensions '87 b
+      STSLICE               	//  isExtension cs storage.extensions b
+      STOPTREF              	//  isExtension cs b
+      ENDC                  	//  isExtension cs '105
+      c4 POP                	//  isExtension cs
+    }>ELSE<{                	//  isExtension cs lazyS
+      // 157: match (action)
+      x{03} SDBEGINSQ       	//  isExtension cs lazyS '62
+      IF:<{                 	//  isExtension cs lazyS
+        // 170: var (extensionWorkchain: int, extensionAddrHash: int) = action.addr.getWorkchainAndHash()
+        LDMSGADDR           	//  isExtension cs '108 lazyS
+        DROP                	//  isExtension cs action.USlot1
+        REWRITESTDADDR      	//  isExtension cs extensionWorkchain extensionAddrHash
+        // 171: var myWorkchain = contract.getAddress().getWorkchain()
+        MYADDR              	//  isExtension cs extensionWorkchain extensionAddrHash '114
+        REWRITESTDADDR
+        DROP                	//  isExtension cs extensionWorkchain extensionAddrHash myWorkchain
+        ROT                 	//  isExtension cs extensionAddrHash myWorkchain extensionWorkchain
+        // 172: assert (myWorkchain == extensionWorkchain) throw ERROR_EXTENSION_WRONG_WORKCHAIN
+        EQUAL               	//  isExtension cs extensionAddrHash '117
+        145 THROWIFNOT      	//  isExtension cs extensionAddrHash
+        // 16: return Storage.fromCell(contract.getData())
+        c4 PUSH             	//  isExtension cs extensionAddrHash '125
+        // 174: var storage = lazy Storage.load()
+        CTOS                	//  isExtension cs extensionAddrHash lazyS
+        // 175: val removed = storage.extensions.tryDelete(extensionAddrHash)
+        1 LDI               	//  isExtension cs extensionAddrHash storage.isSignatureAllowed lazyS
+        320 PUSHINT         	//  isExtension cs extensionAddrHash storage.isSignatureAllowed lazyS '131=320
+        LDSLICEX            	//  isExtension cs extensionAddrHash storage.isSignatureAllowed '132 lazyS
+        LDOPTREF            	//  isExtension cs extensionAddrHash storage.isSignatureAllowed '132 '133 lazyS
+        DROP                	//  isExtension cs extensionAddrHash storage.isSignatureAllowed '132 self
+        // 34: return self.uDictDelete(SIZE_ADDRESS_HASH, addrHash)
+        s1 s3 XCHG
+        8 PUSHPOW2          	//  isExtension cs '132 storage.isSignatureAllowed extensionAddrHash self '138=256
+        DICTUDEL            	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions removed
+        // 176: assert (removed) throw ERROR_REMOVE_EXTENSION
+        140 THROWIFNOT      	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions
+        // 177: if (!storage.isSignatureAllowed)
+        OVER                	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions storage.isSignatureAllowed
+        IFNOT:<{            	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions
+          // 178: assert (storage.extensions != null) throw ERROR_REMOVE_LAST_EXTENSION_WHEN_SIGNATURE_DISABLED
+          DUP               	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions storage.extensions
+          ISNULL            	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions '146
+          NOT               	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions '146
+          144 THROWIFNOT    	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions
+        }>                  	//  isExtension cs '132 storage.isSignatureAllowed storage.extensions
+        // 20: contract.setData(self.toCell())
+        SWAP
+        NEWC                	//  isExtension cs '132 storage.extensions storage.isSignatureAllowed b
+        1 STI               	//  isExtension cs '132 storage.extensions b
+        s1 s2 XCHG          	//  isExtension cs storage.extensions '132 b
+        STSLICE             	//  isExtension cs storage.extensions b
+        STOPTREF            	//  isExtension cs b
+        ENDC                	//  isExtension cs '150
+        c4 POP              	//  isExtension cs
+      }>ELSE<{              	//  isExtension cs lazyS
+        // 157: match (action)
+        x{04} SDBEGINSQ     	//  isExtension cs lazyS '62
+        IFNOTJMP:<{         	//  isExtension cs lazyS
+          // 195: else => throw ERROR_UNSUPPORTED_ACTION
+          141 THROW
+        }>                  	//  isExtension cs lazyS
+        // 184: assert(isExtension) throw ERROR_ONLY_EXTENSION_CAN_CHANGE_SIGNATURE_MODE
+        s2 PUSH             	//  isExtension cs lazyS isExtension
+        146 THROWIFNOT      	//  isExtension cs lazyS
+        // 16: return Storage.fromCell(contract.getData())
+        c4 PUSH             	//  isExtension cs lazyS '161
+        // 186: var storage = lazy Storage.load()
+        CTOS                	//  isExtension cs lazyS lazyS
+        // 187: assert (storage.isSignatureAllowed != action.allowSignature) throw ERROR_THIS_SIGNATURE_MODE_ALREADY_SET
+        SWAP                	//  isExtension cs lazyS lazyS
+        1 LDI               	//  isExtension cs lazyS '166 lazyS
+        DROP                	//  isExtension cs lazyS action.USlot1
+        SWAP                	//  isExtension cs action.USlot1 lazyS
+        1 LDI               	//  isExtension cs action.USlot1 storage.isSignatureAllowed lazyS
+        DUP                 	//  isExtension cs action.USlot1 storage.isSignatureAllowed '169 lazyS
+        320 PUSHINT
+        SDSKIPFIRST         	//  isExtension cs action.USlot1 storage.isSignatureAllowed '169 lazyS
+        LDOPTREF            	//  isExtension cs action.USlot1 storage.isSignatureAllowed '169 '171 lazyS
+        DROP                	//  isExtension cs action.USlot1 storage.isSignatureAllowed '169 storage.extensions
+        s2 s3 XCPU          	//  isExtension cs action.USlot1 storage.extensions '169 storage.isSignatureAllowed action.USlot1
+        NEQ                 	//  isExtension cs action.USlot1 storage.extensions '169 '173
+        143 THROWIFNOT      	//  isExtension cs action.USlot1 storage.extensions '169
+        // 188: if (!action.allowSignature)
+        s2 PUSH             	//  isExtension cs action.USlot1 storage.extensions '169 action.USlot1
+        IFNOT:<{            	//  isExtension cs action.USlot1 storage.extensions '169
+          // 189: assert (storage.extensions != null) throw ERROR_DISABLE_SIGNATURE_WHEN_EXTENSIONS_IS_EMPTY
+          SWAP              	//  isExtension cs action.USlot1 '169 storage.extensions
+          ISNULL            	//  isExtension cs action.USlot1 '169 '176
+          NOT               	//  isExtension cs action.USlot1 '169 '176
+          142 THROWIFNOT    	//  isExtension cs action.USlot1 '169
+        }>ELSE<{
+          NIP               	//  isExtension cs action.USlot1 '169
+        }>                  	//  isExtension cs storage.isSignatureAllowed '169
+        // 20: contract.setData(self.toCell())
+        SWAP
+        NEWC                	//  isExtension cs '169 storage.isSignatureAllowed b
+        1 STI               	//  isExtension cs '169 b
+        STSLICE             	//  isExtension cs b
+        ENDC                	//  isExtension cs '180
+        c4 POP              	//  isExtension cs
+      }>
+    }>
+    // 197: if (!cs.remainingRefsCount())
+    DUP                     	//  isExtension cs cs
+    SREFS                   	//  isExtension cs '182
+    IFNOTJMP:<{             	//  isExtension cs
+      2DROP                 	// 
+      // 198: return
+      RETALT
+    }>                      	//  isExtension cs
+    // 200: cs = cs.preloadRef().beginParse()
+    PLDREF                  	//  isExtension '183
+    CTOS                    	//  isExtension cs
+  }>
+  // wallet_v5.tolk:207
+  processSignedRequest() PROC:<{	//  inMsgBody isExternal
+    // 208: var signature: slice = inMsgBody.getLastBits(SIZE_SIGNATURE)
+    OVER
+    9 PUSHPOW2              	//  inMsgBody isExternal inMsgBody '3=512
+    SDCUTLAST               	//  inMsgBody isExternal signature
+    // 209: var signedSlice: slice = inMsgBody.removeLastBits(SIZE_SIGNATURE)
+    s0 s2 XCHG
+    9 PUSHPOW2              	//  signature isExternal inMsgBody '6=512
+    SDSKIPLAST              	//  signature isExternal signedSlice
+    // 211: var cs: slice = signedSlice
+    DUP                     	//  signature isExternal signedSlice cs
+    // 212: cs.skipBits(SIZE_MESSAGE_OPERATION_PREFIX); // skip signed_internal or signed_external prefix
+    32 PUSHINT
+    SDSKIPFIRST             	//  signature isExternal signedSlice cs
+    // 213: var (walletId: int, validUntil: int, seqno: int) = (cs.loadUint(SIZE_WALLET_ID), cs.loadUint(SIZE_VALID_UNTIL), cs.loadUint(SIZE_SEQNO))
+    32 LDU                  	//  signature isExternal signedSlice '17 cs
+    32 LDU                  	//  signature isExternal signedSlice '17 '21 cs
+    32 LDU                  	//  signature isExternal signedSlice walletId validUntil seqno cs
+    // 16: return Storage.fromCell(contract.getData())
+    c4 PUSH                 	//  signature isExternal signedSlice walletId validUntil seqno cs '32
+    // 215: var storage = lazy Storage.load()
+    CTOS                    	//  signature isExternal signedSlice walletId validUntil seqno cs lazyS
+    // 224: var isSignatureValid = isSignatureValid(signedSlice.hash(), signature, storage.publicKey)
+    1 LDI                   	//  signature isExternal signedSlice walletId validUntil seqno cs storage.isSignatureAllowed lazyS
+    32 LDU                  	//  signature isExternal signedSlice walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno lazyS
+    DUP                     	//  signature isExternal signedSlice walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 lazyS
+    32 LDU                  	//  signature isExternal signedSlice walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 storage.subwalletId lazyS
+    256 LDU                 	//  signature isExternal signedSlice walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 storage.subwalletId storage.publicKey lazyS
+    LDOPTREF                	//  signature isExternal signedSlice walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 storage.subwalletId storage.publicKey '45 lazyS
+    DROP                    	//  signature isExternal signedSlice walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 storage.subwalletId storage.publicKey storage.extensions
+    s0 s10 XCHG             	//  signature isExternal storage.extensions walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 storage.subwalletId storage.publicKey signedSlice
+    HASHSU                  	//  signature isExternal storage.extensions walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 storage.subwalletId storage.publicKey '47
+    s0 s12 s12 XCHG3        	//  storage.subwalletId isExternal storage.extensions walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 '47 signature storage.publicKey
+    CHKSIGNU                	//  storage.subwalletId isExternal storage.extensions walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40 isSignatureValid
+    // 225: if (!isSignatureValid)
+    IFNOTJMP:<{             	//  storage.subwalletId isExternal storage.extensions walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40
+      s8 s9 XCHG
+      9 BLKDROP             	//  isExternal
+      // 226: if (isExternal)
+      IFJMP:<{              	// 
+        // 227: throw ERROR_INVALID_SIGNATURE
+        135 THROW
+      }>                    	// 
+    }>                      	//  storage.subwalletId isExternal storage.extensions walletId validUntil seqno cs storage.isSignatureAllowed storage.seqno '40
+    // 237: assert(!((~ (storage.isSignatureAllowed as int)) & ((storage.extensions != null) as int))) throw ERROR_SIGNATURE_DISABLED
+    s0 s2 XCHG              	//  storage.subwalletId isExternal storage.extensions walletId validUntil seqno cs '40 storage.seqno storage.isSignatureAllowed
+    NOT                     	//  storage.subwalletId isExternal storage.extensions walletId validUntil seqno cs '40 storage.seqno '51
+    s0 s7 XCHG              	//  storage.subwalletId isExternal '51 walletId validUntil seqno cs '40 storage.seqno storage.extensions
+    ISNULL                  	//  storage.subwalletId isExternal '51 walletId validUntil seqno cs '40 storage.seqno '52
+    NOT                     	//  storage.subwalletId isExternal '51 walletId validUntil seqno cs '40 storage.seqno '52
+    s1 s7 XCHG              	//  storage.subwalletId isExternal storage.seqno walletId validUntil seqno cs '40 '51 '52
+    AND                     	//  storage.subwalletId isExternal storage.seqno walletId validUntil seqno cs '40 '53
+    132 THROWIF             	//  storage.subwalletId isExternal storage.seqno walletId validUntil seqno cs '40
+    s2 s5 XCPU              	//  storage.subwalletId isExternal storage.seqno walletId validUntil '40 cs seqno storage.seqno
+    // 247: assert(seqno == storage.seqno) throw ERROR_INVALID_SEQNO
+    EQUAL                   	//  storage.subwalletId isExternal storage.seqno walletId validUntil '40 cs '56
+    133 THROWIFNOT          	//  storage.subwalletId isExternal storage.seqno walletId validUntil '40 cs
+    s3 s6 XCHG2             	//  cs isExternal storage.seqno '40 validUntil walletId storage.subwalletId
+    // 248: assert(walletId == storage.subwalletId) throw ERROR_INVALID_WALLET_ID
+    EQUAL                   	//  cs isExternal storage.seqno '40 validUntil '59
+    134 THROWIFNOT          	//  cs isExternal storage.seqno '40 validUntil
+    // 249: assert(!(validUntil <= blockchain.now())) throw ERROR_EXPIRED
+    NOW                     	//  cs isExternal storage.seqno '40 validUntil '62
+    LEQ                     	//  cs isExternal storage.seqno '40 '63
+    136 THROWIF             	//  cs isExternal storage.seqno '40
+    // 251: if (isExternal)
+    s2 PUSH                 	//  cs isExternal storage.seqno '40 isExternal
+    IF:<{                   	//  cs isExternal storage.seqno '40
+      // 252: acceptExternalMessage()
+      ACCEPT                	//  cs isExternal storage.seqno '40
+    }>                      	//  cs isExternal storage.seqno '40
+    // 257: storage.seqno += 1
+    SWAP                    	//  cs isExternal '40 storage.seqno
+    INC                     	//  cs isExternal '40 storage.seqno
+    // 20: contract.setData(self.toCell())
+    1 PUSHINT
+    NEWC
+    1 STU                   	//  cs isExternal '40 storage.seqno b
+    32 STU                  	//  cs isExternal '40 b
+    STSLICE                 	//  cs isExternal b
+    ENDC                    	//  cs isExternal '71
+    c4 POP                  	//  cs isExternal
+    // 265: if (isExternal)
+    DUP                     	//  cs isExternal isExternal
+    IF:<{                   	//  cs isExternal
+      // 266: commitContractDataAndActions()
+      COMMIT                	//  cs isExternal
+    }>                      	//  cs isExternal
+    // 269: processActions(cs, isExternal, false)
+    FALSE                   	//  cs isExternal '72
+    processActions() INLINECALLDICT	// 
+  }>
+  // wallet_v5.tolk:273
+  onExternalMessage() PROCINLINE:<{	//  inMsgBody
+    // 274: assert(inMsgBody.preloadUint(SIZE_MESSAGE_OPERATION_PREFIX) == `prefix::signed_external`) throw ERROR_INVALID_MESSAGE_OPERATION
+    DUP                     	//  inMsgBody inMsgBody
+    32 PLDU                 	//  inMsgBody '3
+    1936287598 PUSHINT      	//  inMsgBody '3 '4=1936287598
+    EQUAL                   	//  inMsgBody '5
+    138 THROWIFNOT          	//  inMsgBody
+    // 275: processSignedRequest(inMsgBody, true)
+    TRUE                    	//  inMsgBody '7
+    processSignedRequest() CALLDICT	// 
+  }>
+  // wallet_v5.tolk:281
+  onInternalMessage() PROCINLINE:<{	//  inMsgFull inMsgBody
+    // 282: if (inMsgBody.remainingBitsCount() < SIZE_MESSAGE_OPERATION_PREFIX)
+    DUP                     	//  inMsgFull inMsgBody inMsgBody
+    SBITS                   	//  inMsgFull inMsgBody '2
+    32 LESSINT              	//  inMsgFull inMsgBody '4
+    IF:<{                   	//  inMsgFull inMsgBody
+      2DROP                 	// 
+    }>ELSE<{                	//  inMsgFull inMsgBody
+      // 285: var op: int = inMsgBody.preloadUint(SIZE_MESSAGE_OPERATION_PREFIX)
+      DUP                   	//  inMsgFull inMsgBody inMsgBody
+      32 PLDU               	//  inMsgFull inMsgBody op
+      // 286: if ((op != `prefix::extension_action`) & (op != `prefix::signed_internal`))
+      DUP
+      1702392942 PUSHINT    	//  inMsgFull inMsgBody op op '8=1702392942
+      NEQ                   	//  inMsgFull inMsgBody op '9
+      OVER
+      1936289396 PUSHINT    	//  inMsgFull inMsgBody op '9 op '10=1936289396
+      NEQ                   	//  inMsgFull inMsgBody op '9 '11
+      AND                   	//  inMsgFull inMsgBody op '12
+      IFJMP:<{              	//  inMsgFull inMsgBody op
+        3 BLKDROP           	// 
+      }>                    	//  inMsgFull inMsgBody op
+      // 292: if (op == `prefix::extension_action`)
+      1702392942 PUSHINT    	//  inMsgFull inMsgBody op '13=1702392942
+      EQUAL                 	//  inMsgFull inMsgBody '14
+      IFJMP:<{              	//  inMsgFull inMsgBody
+        // 293: inMsgBody.skipBits(SIZE_MESSAGE_OPERATION_PREFIX)
+        32 PUSHINT
+        SDSKIPFIRST         	//  inMsgFull inMsgBody
+        // 295: var inMsgFullSlice: slice = inMsgFull.beginParse()
+        SWAP                	//  inMsgBody inMsgFull
+        CTOS                	//  inMsgBody inMsgFullSlice
+        // 296: inMsgFullSlice.skipBits(SIZE_MESSAGE_FLAGS)
+        4 PUSHINT
+        SDSKIPFIRST         	//  inMsgBody inMsgFullSlice
+        // 298: var (senderWorkchain: int, senderAddrHash: int) = inMsgFullSlice.loadAddress().getWorkchainAndHash()
+        LDMSGADDR           	//  inMsgBody '24 '23
+        DROP                	//  inMsgBody '25
+        REWRITESTDADDR      	//  inMsgBody senderWorkchain senderAddrHash
+        // 299: var myWorkchain = contract.getAddress().getWorkchain()
+        MYADDR              	//  inMsgBody senderWorkchain senderAddrHash '29
+        REWRITESTDADDR
+        DROP                	//  inMsgBody senderWorkchain senderAddrHash myWorkchain
+        ROT                 	//  inMsgBody senderAddrHash myWorkchain senderWorkchain
+        // 300: if (myWorkchain != senderWorkchain)
+        NEQ                 	//  inMsgBody senderAddrHash '31
+        IFJMP:<{            	//  inMsgBody senderAddrHash
+          2DROP             	// 
+        }>                  	//  inMsgBody senderAddrHash
+        // 16: return Storage.fromCell(contract.getData())
+        c4 PUSH             	//  inMsgBody senderAddrHash '38
+        // 304: val storage = lazy Storage.load()
+        CTOS                	//  inMsgBody senderAddrHash lazyS
+        // 308: if (!storage.extensions.exists(senderAddrHash))
+        321 PUSHINT
+        SDSKIPFIRST         	//  inMsgBody senderAddrHash lazyS
+        LDOPTREF            	//  inMsgBody senderAddrHash '43 lazyS
+        DROP                	//  inMsgBody senderAddrHash storage.extensions
+        // 24: var (_, extensionFound) = self.uDictGet(SIZE_ADDRESS_HASH, addrHash)
+        8 PUSHPOW2          	//  inMsgBody senderAddrHash storage.extensions '47=256
+        DICTUGET
+        NULLSWAPIFNOT       	//  inMsgBody '48 '49
+        NIP                 	//  inMsgBody '44
+        // 308: if (!storage.extensions.exists(senderAddrHash))
+        IFNOTJMP:<{         	//  inMsgBody
+          // 309: return
+          DROP              	// 
+        }>                  	//  inMsgBody
+        // 312: inMsgBody.skipBits(SIZE_QUERY_ID); // skip query_id
+        64 PUSHINT
+        SDSKIPFIRST         	//  inMsgBody
+        // 314: processActions(inMsgBody, false, true)
+        FALSE               	//  inMsgBody '52
+        TRUE                	//  inMsgBody '52 '53
+        processActions() INLINECALLDICT	// 
+      }>                    	//  inMsgFull inMsgBody
+      // 320: if (inMsgBody.remainingBitsCount() < SIZE_MESSAGE_OPERATION_PREFIX + SIZE_WALLET_ID + SIZE_VALID_UNTIL + SIZE_SEQNO + SIZE_SIGNATURE)
+      NIP                   	//  inMsgBody
+      DUP                   	//  inMsgBody inMsgBody
+      SBITS                 	//  inMsgBody '54
+      640 PUSHINT           	//  inMsgBody '54 '63
+      LESS                  	//  inMsgBody '64
+      IFJMP:<{              	//  inMsgBody
+        // 321: return
+        DROP                	// 
+      }>                    	//  inMsgBody
+      // 323: processSignedRequest(inMsgBody, false)
+      FALSE                 	//  inMsgBody '65
+      processSignedRequest() CALLDICT	// 
+    }>
+  }>
+  // wallet_v5.tolk:328
+  is_signature_allowed() PROC:<{	// 
+    // 16: return Storage.fromCell(contract.getData())
+    c4 PUSH                 	//  '6
+    // 329: val storage = lazy Storage.load()
+    CTOS                    	//  lazyS
+    // 330: return storage.isSignatureAllowed
+    1 LDI                   	//  '11 lazyS
+    DROP                    	//  storage.isSignatureAllowed
+  }>
+  // wallet_v5.tolk:333
+  seqno() PROC:<{             	// 
+    // 16: return Storage.fromCell(contract.getData())
+    c4 PUSH                 	//  '6
+    // 334: val storage = lazy Storage.load()
+    CTOS                    	//  lazyS
+    // 335: return storage.seqno
+    1 PUSHINT
+    SDSKIPFIRST             	//  lazyS
+    32 LDU                  	//  '12 lazyS
+    DROP                    	//  storage.seqno
+  }>
+  // wallet_v5.tolk:338
+  get_subwallet_id() PROC:<{  	// 
+    // 16: return Storage.fromCell(contract.getData())
+    c4 PUSH                 	//  '6
+    // 339: val storage = lazy Storage.load()
+    CTOS                    	//  lazyS
+    // 340: return storage.subwalletId
+    33 PUSHINT
+    SDSKIPFIRST             	//  lazyS
+    32 LDU                  	//  '12 lazyS
+    DROP                    	//  storage.subwalletId
+  }>
+  // wallet_v5.tolk:343
+  get_public_key() PROC:<{    	// 
+    // 16: return Storage.fromCell(contract.getData())
+    c4 PUSH                 	//  '6
+    // 344: val storage = lazy Storage.load()
+    CTOS                    	//  lazyS
+    // 345: return storage.publicKey
+    65 PUSHINT
+    SDSKIPFIRST             	//  lazyS
+    256 LDU                 	//  '12 lazyS
+    DROP                    	//  storage.publicKey
+  }>
+  // wallet_v5.tolk:349
+  get_extensions() PROC:<{    	// 
+    // 16: return Storage.fromCell(contract.getData())
+    c4 PUSH                 	//  '6
+    // 350: val storage = lazy Storage.load()
+    CTOS                    	//  lazyS
+    // 351: return storage.extensions
+    321 PUSHINT
+    SDSKIPFIRST             	//  lazyS
+    LDOPTREF                	//  '11 lazyS
+    DROP                    	//  storage.extensions
+  }>
+}END>c
