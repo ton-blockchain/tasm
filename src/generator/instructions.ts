@@ -108,23 +108,100 @@ export const debugstr: debugstr = {$: "debugstr"}
 /// section: effects
 export type Effect = CellLoad | CellCreate | CanThrow | AlwaysThrow | Tuple | ImplicitJumpRef
 
-export type CellLoad = {$: "CellLoad", costs: [100, 25]}
-export const CellLoad = (): CellLoad => ({$: "CellLoad", costs: [100, 25] as const})
+export type CellLoad = {
+    $: "CellLoad",
+    costs: [
+        {value: 100, description: "If cell is loaded for the first time"},
+        {value: 25, description: "If cell is already loaded"}
+    ]
+}
+export const CellLoad = (): CellLoad => ({
+    $: "CellLoad",
+    costs: [
+        {value: 100, description: "If cell is loaded for the first time"},
+        {value: 25, description: "If cell is already loaded"},
+    ] as const,
+})
 
-export type CellCreate = {$: "CellCreate", costs: [500]}
-export const CellCreate = (): CellCreate => ({$: "CellCreate", costs: [500] as const})
+export type CellCreate = {$: "CellCreate", costs: [{value: 500, description: "For Cell creation"}]}
+export const CellCreate = (): CellCreate => ({
+    $: "CellCreate",
+    costs: [{value: 500, description: "For Cell creation"}] as const,
+})
 
-export type CanThrow = {$: "CanThrow", costs: [0, 50]}
-export const CanThrow = (): CanThrow => ({$: "CanThrow", costs: [0, 50] as const})
+export type CanThrow = {
+    $: "CanThrow", costs: [
+        {value: 0, description: "If no exception was thrown"},
+        {value: 50, description: "If exception is thrown"}
+    ]
+}
+export const CanThrow = (): CanThrow => ({
+    $: "CanThrow", costs: [
+        {value: 0, description: "If no exception was thrown"},
+        {value: 50, description: "If exception is thrown"},
+    ] as const,
+})
 
-export type AlwaysThrow = {$: "AlwaysThrow", costs: [50]}
-export const AlwaysThrow = (): AlwaysThrow => ({$: "AlwaysThrow", costs: [50] as const})
+export type AlwaysThrow = {$: "AlwaysThrow", costs: [{value: 50, description: "For exception throw"}]}
+export const AlwaysThrow = (): AlwaysThrow => ({
+    $: "AlwaysThrow", costs: [
+        {value: 50, description: "For exception throw"},
+    ] as const,
+})
 
-export type Tuple = {$: "Tuple", costs: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
-export const Tuple = (): Tuple => ({$: "Tuple", costs: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const})
+export type Tuple = {
+    $: "Tuple", costs: [
+        {value: 0, description: "For 0 elements tuple"},
+        {value: 1, description: "For 1 element tuple"},
+        {value: 2, description: "For 2 elements tuple"},
+        {value: 3, description: "For 3 elements tuple"},
+        {value: 4, description: "For 4 elements tuple"},
+        {value: 5, description: "For 5 elements tuple"},
+        {value: 6, description: "For 6 elements tuple"},
+        {value: 7, description: "For 7 elements tuple"},
+        {value: 8, description: "For 8 elements tuple"},
+        {value: 9, description: "For 9 elements tuple"},
+        {value: 10, description: "For 10 elements tuple"},
+        {value: 11, description: "For 11 elements tuple"},
+        {value: 12, description: "For 12 elements tuple"},
+        {value: 13, description: "For 13 elements tuple"},
+        {value: 14, description: "For 14 elements tuple"},
+        {value: 15, description: "For 15 elements tuple"},
+    ]
+}
+export const Tuple = (): Tuple => ({
+    $: "Tuple", costs: [
+        {value: 0, description: "For 0 elements tuple"},
+        {value: 1, description: "For 1 element tuple"},
+        {value: 2, description: "For 2 elements tuple"},
+        {value: 3, description: "For 3 elements tuple"},
+        {value: 4, description: "For 4 elements tuple"},
+        {value: 5, description: "For 5 elements tuple"},
+        {value: 6, description: "For 6 elements tuple"},
+        {value: 7, description: "For 7 elements tuple"},
+        {value: 8, description: "For 8 elements tuple"},
+        {value: 9, description: "For 9 elements tuple"},
+        {value: 10, description: "For 10 elements tuple"},
+        {value: 11, description: "For 11 elements tuple"},
+        {value: 12, description: "For 12 elements tuple"},
+        {value: 13, description: "For 13 elements tuple"},
+        {value: 14, description: "For 14 elements tuple"},
+        {value: 15, description: "For 15 elements tuple"},
+    ] as const,
+})
 
-export type ImplicitJumpRef = {$: "ImplicitJumpRef", costs: [0, 10]}
-export const ImplicitJumpRef = (): ImplicitJumpRef => ({$: "ImplicitJumpRef", costs: [0, 10] as const})
+export type ImplicitJumpRef = {
+    $: "ImplicitJumpRef", costs: [
+        {value: 0, description: "If reference Cell is already loaded"},
+        {value: 10, description: "If reference Cell is loaded for the first time"},
+    ]
+}
+export const ImplicitJumpRef = (): ImplicitJumpRef => ({
+    $: "ImplicitJumpRef", costs: [
+        {value: 0, description: "If reference Cell is already loaded"},
+        {value: 10, description: "If reference Cell is loaded for the first time"},
+    ] as const,
+})
 /// end section
 
 export type Opcode = {
@@ -1254,20 +1331,20 @@ export const instructions: Record<string, Opcode> = {
     PSEUDO_EXOTIC: cat("cell_const", mkfixedpseudo(0, seq(exoticCell))),
 
     // TVM 11 instructions
-    GETPARAMLONG: cat("config", mkfixedrangen(0xf88100, 0xf88111, 24, 8, seq(uint8), `exec_get_var_param_long`)),
-    INMSGPARAMS: cat("config", mksimple(0xf88111, 24, `exec_get_param`)),
-    GETPARAMLONG2: cat("config", mkfixedrangen(0xf88112, 0xf881ff, 24, 8, seq(uint8), `exec_get_var_param_long`)),
-    INMSG_BOUNCE: cat("config", mksimple(0xf890, 16, `exec_get_in_msg_param`)),
-    INMSG_BOUNCED: cat("config", mksimple(0xf891, 16, `exec_get_in_msg_param`)),
-    INMSG_SRC: cat("config", mksimple(0xf892, 16, `exec_get_in_msg_param`)),
-    INMSG_FWDFEE: cat("config", mksimple(0xf893, 16, `exec_get_in_msg_param`)),
-    INMSG_LT: cat("config", mksimple(0xf894, 16, `exec_get_in_msg_param`)),
-    INMSG_UTIME: cat("config", mksimple(0xf895, 16, `exec_get_in_msg_param`)),
-    INMSG_ORIGVALUE: cat("config", mksimple(0xf896, 16, `exec_get_in_msg_param`)),
-    INMSG_VALUE: cat("config", mksimple(0xf897, 16, `exec_get_in_msg_param`)),
-    INMSG_VALUEEXTRA: cat("config", mksimple(0xf898, 16, `exec_get_in_msg_param`)),
-    INMSG_STATEINIT: cat("config", mksimple(0xf899, 16, `exec_get_in_msg_param`)),
-    INMSGPARAM: cat("config", mkfixedrangen(0xf89a, 0xf8a0, 16, 4, seq(uint4), `exec_get_var_in_msg_param`)),
+    GETPARAMLONG: version(11, cat("config", mkfixedrangen(0xf88100, 0xf88111, 24, 8, seq(uint8), `exec_get_var_param_long`))),
+    INMSGPARAMS: version(11, cat("config", mksimple(0xf88111, 24, `exec_get_param`))),
+    GETPARAMLONG2: version(11, cat("config", mkfixedrangen(0xf88112, 0xf881ff, 24, 8, seq(uint8), `exec_get_var_param_long`))),
+    INMSG_BOUNCE: version(11, cat("config", mksimple(0xf890, 16, `exec_get_in_msg_param`))),
+    INMSG_BOUNCED: version(11, cat("config", mksimple(0xf891, 16, `exec_get_in_msg_param`))),
+    INMSG_SRC: version(11, cat("config", mksimple(0xf892, 16, `exec_get_in_msg_param`))),
+    INMSG_FWDFEE: version(11, cat("config", mksimple(0xf893, 16, `exec_get_in_msg_param`))),
+    INMSG_LT: version(11, cat("config", mksimple(0xf894, 16, `exec_get_in_msg_param`))),
+    INMSG_UTIME: version(11, cat("config", mksimple(0xf895, 16, `exec_get_in_msg_param`))),
+    INMSG_ORIGVALUE: version(11, cat("config", mksimple(0xf896, 16, `exec_get_in_msg_param`))),
+    INMSG_VALUE: version(11, cat("config", mksimple(0xf897, 16, `exec_get_in_msg_param`))),
+    INMSG_VALUEEXTRA: version(11, cat("config", mksimple(0xf898, 16, `exec_get_in_msg_param`))),
+    INMSG_STATEINIT: version(11, cat("config", mksimple(0xf899, 16, `exec_get_in_msg_param`))),
+    INMSGPARAM: version(11, cat("config", mkfixedrangen(0xf89a, 0xf8a0, 16, 4, seq(uint4), `exec_get_var_in_msg_param`))),
 
     DEBUGMARK: cat("int_const", mkfixedn(0xF955, 16, 16, seq(uint(16, range(0n, 0n))), `exec_push_pow2dec`)),
 
@@ -1353,5 +1430,26 @@ export const calculateGasConsumption = (instr: Opcode): number[] => {
     if (!instr.effects || instr.effects.length === 0) {
         return [base]
     }
-    return instr.effects.flatMap(effect => effect.costs.map(it => it + base))
+    return instr.effects.flatMap(effect => effect.costs.map(it => it.value + base))
+}
+
+export type GasConsumptionEntry = {
+    readonly value: number
+    readonly description: string
+}
+
+export const calculateGasConsumptionWithDescription = (instr: Opcode): GasConsumptionEntry[] => {
+    const base = instr.skipLen * COST_PER_BIT + COST_PRELOAD_INSTR
+    if (!instr.effects || instr.effects.length === 0) {
+        return [{
+            value: base,
+            description: "Base gas consumption",
+        }]
+    }
+    return instr.effects.flatMap(effect => {
+        return effect.costs.map(it => ({
+            value: it.value + base,
+            description: it.description,
+        }))
+    })
 }
