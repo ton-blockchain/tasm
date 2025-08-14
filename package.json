@@ -1,6 +1,6 @@
 {
     "name": "ton-assembly",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "TON assembler and disassembler",
     "keywords": [
         "ton",
@@ -83,6 +83,8 @@
         "dist/",
         "!dist/**/test/**",
         "!dist/generator/**",
+        "dist/generator/instructions.js",
+        "dist/generator/instructions.d.ts",
         "!dist/helpers/**",
         "dist/cli/**",
         "!dist/debugger/**",
