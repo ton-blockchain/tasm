@@ -2233,7 +2233,7 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             p.append(instr.arg0.toString())
             return
-        case "XCHG_01_LONG":
+        case "XCHG_0I_LONG":
             p.append(" ")
             p.append("s")
             p.append(instr.arg0.toString())

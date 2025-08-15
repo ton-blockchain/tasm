@@ -1287,7 +1287,7 @@ export const instructions: Record<string, Opcode> = {
     PUSHINT_16: cat("int_const", mkfixedn(0x81, 8, 16, seq(int16), `exec_push_smallint`)),
     PUSHINT_LONG: cat("int_const", mkextrange(0x820 << 1, (0x820 << 1) + 31, 13, 5, seq(largeInt), `exec_push_int`)),
 
-    XCHG_01_LONG: cat("stack", mkfixedn(0x11, 8, 8, seq(stack2(8, 1n)), `exec_xchg0_l`)),
+    XCHG_0I_LONG: cat("stack", mkfixedn(0x11, 8, 8, seq(stack2(8, 1n)), `exec_xchg0_l`)),
     XCHG_0I: cat("stack", mkfixedrangen(0x02, 0x10, 8, 4, seq(stack2(4, 1n)), `exec_xchg0`)),
     XCHG_IJ: cat("stack", mkfixedn(0x10, 8, 8, xchgArgs, `exec_xchg`)),
     XCHG_1I: cat("stack", mkfixedrangen(0x12, 0x20, 8, 4, seq(s1, stack2(4, 2n)), `exec_xchg1`)),

@@ -4338,7 +4338,7 @@ export const rangeToName = [
     {
         min: 1114112,
         max: 1179648,
-        name: "XCHG_01_LONG",
+        name: "XCHG_0I_LONG",
     },
     {
         min: 131072,
