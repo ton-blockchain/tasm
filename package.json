@@ -1,6 +1,6 @@
 {
     "name": "ton-assembly",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "TON assembler and disassembler",
     "keywords": [
         "ton",
