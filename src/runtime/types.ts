@@ -8036,10 +8036,10 @@ export const PUSHINT_LONG: $.Type<c.PUSHINT_LONG> = {
         $.largeInt.store(b, val.arg0, options)
     },
 }
-export const XCHG_01_LONG: $.Type<c.XCHG_01_LONG> = {
+export const XCHG_0I_LONG: $.Type<c.XCHG_0I_LONG> = {
     load: s => {
         s.skip(8)
-        return c.XCHG_01_LONG($.uint(8).load(s))
+        return c.XCHG_0I_LONG($.uint(8).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(17, 8, val)

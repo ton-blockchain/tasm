@@ -7381,13 +7381,13 @@ export type PUSHINT_LONG = {
     arg0: bigint
     loc: $.Loc | undefined
 }
-export const XCHG_01_LONG = (arg0: number, loc?: $.Loc): XCHG_01_LONG => ({
-    $: "XCHG_01_LONG",
+export const XCHG_0I_LONG = (arg0: number, loc?: $.Loc): XCHG_0I_LONG => ({
+    $: "XCHG_0I_LONG",
     arg0,
     loc,
 })
-export type XCHG_01_LONG = {
-    $: "XCHG_01_LONG"
+export type XCHG_0I_LONG = {
+    $: "XCHG_0I_LONG"
     arg0: number
     loc: $.Loc | undefined
 }

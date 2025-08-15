@@ -391,22 +391,22 @@ describe("Test XCHG Fift instruction", () => {
         ),
     )
     it(
-        "with s0, s16 -> XCHG_01_LONG",
+        "with s0, s16 -> XCHG_0I_LONG",
         test(
             [fXCHG(0, 16)],
             `
-                XCHG_01_LONG s16
+                XCHG_0I_LONG s16
             `,
         ),
     )
     it(
-        "with large indices -> triple XCHG_01_LONG sequence",
+        "with large indices -> triple XCHG_0I_LONG sequence",
         test(
             [fXCHG(5, 20)],
             `
-                XCHG_01_LONG s5
-                XCHG_01_LONG s20
-                XCHG_01_LONG s5
+                XCHG_0I_LONG s5
+                XCHG_0I_LONG s20
+                XCHG_0I_LONG s5
             `,
         ),
     )

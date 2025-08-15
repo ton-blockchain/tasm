@@ -872,7 +872,7 @@ export type Instr =
     | c.PUSHINT_8
     | c.PUSHINT_16
     | c.PUSHINT_LONG
-    | c.XCHG_01_LONG
+    | c.XCHG_0I_LONG
     | c.XCHG_0I
     | c.XCHG_IJ
     | c.XCHG_1I
@@ -5272,7 +5272,7 @@ export const rangeToType = [
     {
         min: 1114112,
         max: 1179648,
-        load: types.XCHG_01_LONG.load,
+        load: types.XCHG_0I_LONG.load,
     },
     {
         min: 131072,
@@ -6348,7 +6348,7 @@ storeMapping.set("PUSHINT_4", types.PUSHINT_4.store)
 storeMapping.set("PUSHINT_8", types.PUSHINT_8.store)
 storeMapping.set("PUSHINT_16", types.PUSHINT_16.store)
 storeMapping.set("PUSHINT_LONG", types.PUSHINT_LONG.store)
-storeMapping.set("XCHG_01_LONG", types.XCHG_01_LONG.store)
+storeMapping.set("XCHG_0I_LONG", types.XCHG_0I_LONG.store)
 storeMapping.set("XCHG_0I", types.XCHG_0I.store)
 storeMapping.set("XCHG_IJ", types.XCHG_IJ.store)
 storeMapping.set("XCHG_1I", types.XCHG_1I.store)

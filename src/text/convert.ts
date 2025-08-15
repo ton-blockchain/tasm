@@ -3743,10 +3743,10 @@ export const PUSHINT_LONG: $.Convert = (ctx, instr, loc) => {
     const args = $.singleBigIntArg(instr)
     return c.PUSHINT_LONG(args, loc)
 }
-export const XCHG_01_LONG: $.Convert = (ctx, instr, loc) => {
+export const XCHG_0I_LONG: $.Convert = (ctx, instr, loc) => {
     u.assertSingleArgs(instr, loc)
     const args = $.singleStackArg(instr)
-    return c.XCHG_01_LONG(args, loc)
+    return c.XCHG_0I_LONG(args, loc)
 }
 export const XCHG_0I: $.Convert = (ctx, instr, loc) => {
     u.assertSingleArgs(instr, loc)
@@ -5801,8 +5801,8 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return PUSHINT_16(ctx, instr, loc)
         case "PUSHINT_LONG":
             return PUSHINT_LONG(ctx, instr, loc)
-        case "XCHG_01_LONG":
-            return XCHG_01_LONG(ctx, instr, loc)
+        case "XCHG_0I_LONG":
+            return XCHG_0I_LONG(ctx, instr, loc)
         case "XCHG_0I":
             return XCHG_0I(ctx, instr, loc)
         case "XCHG_IJ":

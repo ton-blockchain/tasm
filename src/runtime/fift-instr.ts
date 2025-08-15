@@ -39,7 +39,7 @@ import {
     THROWIFNOT,
     THROWIFNOT_SHORT,
     XCHG_0I,
-    XCHG_01_LONG,
+    XCHG_0I_LONG,
     XCHG_IJ,
     SDBEGINS,
     SDBEGINSQ,
@@ -479,7 +479,7 @@ export const fSTSLICECONST: $.Type<c.fSTSLICECONST> = {
 export const fXCHG: $.Type<c.fXCHG> = {
     load: s => {
         const loaded = instr.load(s)
-        if (loaded.$ === "XCHG_0I" || loaded.$ === "XCHG_01_LONG") {
+        if (loaded.$ === "XCHG_0I" || loaded.$ === "XCHG_0I_LONG") {
             return {
                 $: "fXCHG",
                 arg0: 0,
@@ -529,12 +529,12 @@ export const fXCHG: $.Type<c.fXCHG> = {
                 )
                 return
             } else {
-                XCHG_01_LONG.store(
+                XCHG_0I_LONG.store(
                     b,
                     {
                         ...val,
                         arg0: arg1,
-                        $: "XCHG_01_LONG",
+                        $: "XCHG_0I_LONG",
                     },
                     options,
                 )
@@ -572,30 +572,30 @@ export const fXCHG: $.Type<c.fXCHG> = {
             return
         }
 
-        // For large indices, we need to emit multiple XCHG_01_LONG operations
-        // XCHG si, sj = XCHG_01_LONG si, XCHG_01_LONG sj, XCHG_01_LONG si
-        XCHG_01_LONG.store(
+        // For large indices, we need to emit multiple XCHG_0I_LONG operations
+        // XCHG si, sj = XCHG_0I_LONG si, XCHG_0I_LONG sj, XCHG_0I_LONG si
+        XCHG_0I_LONG.store(
             b,
             {
-                $: "XCHG_01_LONG",
+                $: "XCHG_0I_LONG",
                 arg0: arg0,
                 loc: val.loc,
             },
             options,
         )
-        XCHG_01_LONG.store(
+        XCHG_0I_LONG.store(
             b,
             {
-                $: "XCHG_01_LONG",
+                $: "XCHG_0I_LONG",
                 arg0: arg1,
                 loc: val.loc,
             },
             options,
         )
-        XCHG_01_LONG.store(
+        XCHG_0I_LONG.store(
             b,
             {
-                $: "XCHG_01_LONG",
+                $: "XCHG_0I_LONG",
                 arg0: arg0,
                 loc: val.loc,
             },
