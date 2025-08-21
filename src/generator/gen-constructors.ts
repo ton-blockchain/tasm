@@ -1,8 +1,8 @@
-import type * as $ from "./instructions"
+import type * as $ from "tvm-specification/dist/instructions/instructions"
 import * as t from "@babel/types"
 import generateTs from "@babel/generator"
 import {writeFileSync} from "node:fs"
-import {instructionList} from "./instructions"
+import {instructionList} from "tvm-specification/dist/instructions/instructions"
 
 type CompiledArgs = [string, t.TSType][]
 

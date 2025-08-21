@@ -1,11 +1,14 @@
 import {compile} from "../compile"
-import {compileCell} from "../../runtime"
+import {compileCell, decompileCell} from "../../runtime"
 import {readFileSync} from "node:fs"
 import path from "node:path"
+import {Cell} from "@ton/core"
 
 const test =
     (fift: string, expectedBoc: string): (() => void) =>
     () => {
+        const res = decompileCell(Cell.fromHex("b5ee9c7241010a010089000114ff00f4a413f4bcf2c80b0102016202070202cb03040067d1b088831c02456f8007434c0cc1c6c244c383c05b4c7f4cfcc4060841fa1d93beea6f4c7cc3e1080683e18bc05f80c2103fcbc20202730506001d3b513434c7c07e1874c7c07e18b46000193e10be107232c7f2c7f27b552002016e0809000db5473e02df0830000db63ffe02df0850db717aee"))
+        console.log(res)
         const fiftCell = compileCell(compile("test.fif", fift))
         expect(fiftCell.toBoc().toString("hex")).toEqual(expectedBoc)
     }

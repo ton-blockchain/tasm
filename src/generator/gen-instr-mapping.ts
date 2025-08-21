@@ -1,7 +1,7 @@
 import {writeFileSync} from "node:fs"
 import * as t from "@babel/types"
 import generateTs from "@babel/generator"
-import {instructionList, pseudoInstructions} from "./instructions"
+import {instructionList, pseudoInstructions} from "tvm-specification/dist/instructions/instructions"
 
 const main = () => {
     writeFileSync(`${__dirname}/../runtime/instr-mapping-gen.ts`, generate())

@@ -1,4 +1,4 @@
-import type {Instr} from "../index"
+import {DEBUG, DEBUG_2, DUMP, DUMPSTK, Instr, PUSHSLICE, STRDUMP} from "../index"
 import {
     ADD,
     compileCell,

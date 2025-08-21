@@ -158,6 +158,7 @@ export type Schema = Record<string, InstructionSignature>
  * Information related to usage of stack and registers by instruction.
  */
 export interface InstructionSignature {
+    stack_string?: string
     inputs?: InstructionInputs
     outputs?: InstructionOutputs
 }

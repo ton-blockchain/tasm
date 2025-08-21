@@ -1,7 +1,11 @@
 import {writeFileSync} from "node:fs"
 import * as t from "@babel/types"
 import generateTs from "@babel/generator"
-import {fiftInstructionList, instructionList, pseudoInstructions} from "./instructions"
+import {
+    fiftInstructionList,
+    instructionList,
+    pseudoInstructions,
+} from "tvm-specification/dist/instructions/instructions"
 
 const CONSTRUCTORS_QUALIFIER = t.identifier("c")
 const FIFT_CONSTRUCTORS_QUALIFIER = t.identifier("cf")

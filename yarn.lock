@@ -4701,6 +4701,7 @@ __metadata:
     prettier: "npm:^3.5.3"
     ts-jest: "npm:^29.3.4"
     ts-node: "npm:^10.9.2"
+    tvm-specification: /Users/petrmakhnev/tvm-specification-new/tvm-specification-0.0.1.tgz
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.33.1"
   peerDependencies:
@@ -4794,6 +4795,13 @@ __metadata:
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
   checksum: 10c0/5f29938489f96982a25ba650b64218e83a3357d76f7bede80195c65ab44ad279c8357264639b7abdd5d7e75fc269a83daa0e9c62fd8637a3def67254ecc9ddc2
+  languageName: node
+  linkType: hard
+
+"tvm-specification@file:/Users/petrmakhnev/tvm-specification-new/tvm-specification-0.0.1.tgz::locator=ton-assembly%40workspace%3A.":
+  version: 0.0.1
+  resolution: "tvm-specification@file:/Users/petrmakhnev/tvm-specification-new/tvm-specification-0.0.1.tgz#/Users/petrmakhnev/tvm-specification-new/tvm-specification-0.0.1.tgz::hash=4d6439&locator=ton-assembly%40workspace%3A."
+  checksum: 10c0/4388c8ec97d25428d3529c3c9fac8fb7e9e00f5e9d722788a8bfd94a48f25da7e519965e201fadeb986ccd65e8f9889f280e0c1cfb876af3edf2ab7c038caa94
   languageName: node
   linkType: hard
 
