@@ -1,7 +1,7 @@
 import type {InstructionInfo, Loc, MappingInfo} from "./mapping"
 import type {LogEntry, StackElement} from "./logs"
 import {parseLogs} from "./logs"
-import type {FuncSourceLoc, FuncMapping} from "./func-mapping"
+import type {SourceMap, SourceMapEntry} from "./source-map"
 
 /**
  * Describes a single step in the trace.
@@ -12,7 +12,7 @@ export type Step = {
     readonly stack: readonly StackElement[]
     readonly gas: number
     readonly gasCost: number
-    readonly funcLoc: undefined | FuncSourceLoc
+    readonly sourceMapEntries: readonly SourceMapEntry[]
 }
 
 /**
@@ -28,7 +28,7 @@ export type TraceInfo = {
 export const createTraceInfo = (
     logs: string,
     mapping: MappingInfo,
-    funcMapping: undefined | FuncMapping,
+    sourceMap: undefined | SourceMap,
 ): TraceInfo => {
     const stepLogInfo = parseLogs(logs).flat()
 
@@ -44,10 +44,9 @@ export const createTraceInfo = (
         const instr = instructions[index]
         if (!instr) return []
 
-        const funcLoc =
-            instr.debugSection !== -1 && funcMapping
-                ? funcMapping.locations[instr.debugSection]
-                : undefined
+        const sourceMapEntries = sourceMap
+            ? instr.debugSections.map(it => sourceMap.locations[it]).filter(it => it !== undefined)
+            : []
 
         return [
             {
@@ -56,7 +55,7 @@ export const createTraceInfo = (
                 stack: stepInfo.stack,
                 gas: stepInfo.gas,
                 gasCost: stepInfo.gasCost,
-                funcLoc,
+                sourceMapEntries,
             },
         ]
     })
@@ -67,7 +66,7 @@ export const createTraceInfo = (
 export const createTraceInfoPerTransaction = (
     logs: string,
     mapping: MappingInfo,
-    funcMapping: undefined | FuncMapping,
+    sourceMap: undefined | SourceMap,
 ): TraceInfo[] => {
     const transactionLogs = parseLogs(logs)
 
@@ -101,19 +100,33 @@ export const createTraceInfoPerTransaction = (
                 offsetZeroCount = 1
             }
 
-            const funcLoc =
-                instr.debugSection !== -1 && funcMapping
-                    ? funcMapping.locations[instr.debugSection]
-                    : undefined
+            const sourceMapEntries = sourceMap
+                ? instr.debugSections
+                      .map(it => sourceMap.locations[it])
+                      .filter(it => it !== undefined)
+                : []
 
             if (stepInfo.implicit) {
+                const actualInstr =
+                    index === -1 && instructions.at(-1)?.name === "RET"
+                        ? (instructions.at(-1) ?? instr)
+                        : instructions.length > index + 1 && instructions[index + 1]?.name === "RET"
+                          ? (instructions[index + 1] ?? instr)
+                          : instr
+
+                const actualSourceMapEntries = sourceMap
+                    ? actualInstr.debugSections
+                          .map(it => sourceMap.locations[it])
+                          .filter(it => it !== undefined)
+                    : []
+
                 steps.push({
-                    loc: undefined,
+                    loc: actualInstr === instr ? undefined : actualInstr.loc,
                     instructionName: "implicit RET",
                     stack: stepInfo.stack,
                     gas: stepInfo.gas,
                     gasCost: stepInfo.gasCost,
-                    funcLoc: funcLoc,
+                    sourceMapEntries: actualSourceMapEntries,
                 })
                 continue
             }
@@ -124,7 +137,7 @@ export const createTraceInfoPerTransaction = (
                 stack: stepInfo.stack,
                 gas: stepInfo.gas,
                 gasCost: stepInfo.gasCost,
-                funcLoc: funcLoc,
+                sourceMapEntries,
             })
         }
 

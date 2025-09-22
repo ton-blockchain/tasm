@@ -25,14 +25,29 @@ export function parseLogs(log: string): LogEntry[][] {
     let currentStack: StackElement[] = []
     let currentGas: number = 1_000_000
 
+    const callStack: string[] = []
+
     for (const vmLine of vmLines) {
         if (vmLine.$ === "VmStack") {
             currentStack = vmLine.stack
         }
 
         if (vmLine.$ === "VmLoc") {
+            const cellHash = vmLine.hash.toLowerCase()
+
+            if (callStack.length === 0) {
+                // first frame
+                callStack.push(cellHash)
+            } else if (callStack.length > 1 && callStack.at(-2) === cellHash) {
+                // return to the previous frame
+                callStack.pop()
+            } else if (callStack.at(-1) !== cellHash) {
+                // new frame
+                callStack.push(cellHash)
+            }
+
             entries.push({
-                hash: vmLine.hash.toLowerCase(),
+                hash: cellHash,
                 offset: vmLine.offset,
                 stack: currentStack,
                 gas: currentGas,
@@ -45,12 +60,21 @@ export function parseLogs(log: string): LogEntry[][] {
         if (vmLine.$ === "VmExecute" && vmLine.instr === "implicit RET") {
             const lastEntry = entries.at(-1)
             if (lastEntry) {
+                // Two subsequent RET share the same location, and this is actually wrong,
+                // so we manually set the correct hash by callstack
+                const actualHash =
+                    lastEntry.implicit && callStack.length > 0
+                        ? (callStack.at(-1) ?? lastEntry.hash)
+                        : lastEntry.hash
+
                 entries.push({
                     ...lastEntry,
+                    hash: actualHash,
                     implicit: true,
                     gasCost: 5,
                 })
             }
+            callStack.pop()
         }
 
         if (vmLine.$ === "VmGasRemaining") {
