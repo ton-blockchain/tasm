@@ -6,35 +6,44 @@ enum FunctionInlineMode {
     NoInline = 4,
 }
 
-export type SourceMapEntry = {
-    readonly idx: number
-    readonly is_entry: boolean
+export type SourceMapLocation = {
+    readonly file: string
+    readonly line: number
+    readonly col: number
+    readonly line_offset: number
+    readonly length: number
+}
 
+export type SourceMapEntryContext = {
     readonly descr?: string
+    readonly is_entry?: boolean
+    readonly ast_kind: string
+    readonly func_name: string
+    readonly inlined_to_func?: string
+    readonly func_inline_mode: FunctionInlineMode
+    readonly before_inlined_function_call?: boolean
+    readonly after_inlined_function_call?: boolean
+}
+
+export type SourceMapDebugInfo = {
     readonly opcode?: string
     readonly line_str?: string
     readonly line_off?: string
+}
 
-    readonly ast_kind: string
-    readonly file: string
-    readonly line: number
-    readonly line_offset: number
-    readonly pos: number
-    readonly length: number
+export type SourceMapEntry = {
+    readonly idx: number
+    readonly loc: SourceMapLocation
     readonly vars: readonly SourceMapVariable[]
-
-    readonly func: string
-    readonly inlined_to_func?: string
-    readonly func_inline_mode: FunctionInlineMode
-    readonly before_inlined_function_call: boolean
-    readonly after_inlined_function_call: boolean
+    readonly context: SourceMapEntryContext
+    readonly debug?: SourceMapDebugInfo
 }
 
 export type SourceMapVariable = {
     readonly name: string
     readonly type: string
+    readonly constant_value?: string
     readonly possible_qualifier_types: readonly string[]
-    readonly value?: string
 }
 
 export type SourceMapGlobalVariable = {
@@ -50,7 +59,6 @@ export type SourceMapFile = {
 
 export type SourceMap = {
     readonly version: string
-    readonly debugCode64?: string
     readonly files: readonly SourceMapFile[]
     readonly globals: readonly SourceMapGlobalVariable[]
     readonly locations: readonly SourceMapEntry[]

@@ -96,7 +96,7 @@ export const buildFuncLineInfo = (traces: TraceInfo[], funcCode: string): Line[]
         const perLineSteps: Map<number, Step[]> = new Map()
         for (const step of trace.steps) {
             if (step.sourceMapEntries.length === 0) continue
-            const line = step.sourceMapEntries[0]?.line ?? 0
+            const line = step.sourceMapEntries[0]?.loc.line ?? 0
 
             perLineSteps.set(line, [...(perLineSteps.get(line) ?? []), step])
         }
