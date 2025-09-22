@@ -67,6 +67,8 @@ export const codeType = (): $.Type<codeType> => {
         },
         store(b, t, options) {
             compileInstructions(b, t, options)
+            b.addImplicitRet()
+            b.clearDebugSectionIds()
         },
     }
 }

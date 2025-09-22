@@ -7,9 +7,9 @@ import type {Dictionary, DictionaryKeyTypes} from "../dict/Dictionary"
  * Describes an instruction with its offset in the parent `Cell`.
  */
 export type InstructionWithOffset = {
-    instr: Instr
-    offset: number
-    debugSection: number
+    readonly instr: Instr
+    readonly offset: number
+    readonly debugSections: readonly number[]
 }
 
 /**
@@ -22,21 +22,21 @@ export type Mapping = {
     /**
      * The hash of the `Cell` that is being mapped.
      */
-    cell: string
+    readonly cell: string
     /**
      * The instructions that are stored in the `Cell`.
      */
-    instructions: InstructionWithOffset[]
+    readonly instructions: InstructionWithOffset[]
     /**
      * Instructions can store references to other cells.
      * These references are stored in this array.
      */
-    subMappings: Mapping[]
+    readonly subMappings: readonly Mapping[]
     /**
      * When we serialize a `Dictionary`, we store additional information
      * about the position of the cell in the dictionary Cell.
      */
-    dictionaryInfo: DictionaryInfo[]
+    readonly dictionaryInfo: readonly DictionaryInfo[]
 }
 
 /**
@@ -53,15 +53,15 @@ export type DictionaryInfo = {
     /**
      * The `CodeBuilder` that builds the Dictionary Cell.
      */
-    builder: CodeBuilder
+    readonly builder: CodeBuilder
     /**
      * The offset of the Cell with instructions in the Dictionary Cell.
      */
-    offset: number
+    readonly offset: number
     /**
      * The `Cell` that contains the instructions.
      */
-    childCell: Cell
+    readonly childCell: Cell
 }
 
 /**
@@ -71,7 +71,7 @@ export class CodeBuilder extends Builder {
     private readonly instructions: InstructionWithOffset[] = []
     private readonly subMappings: Mapping[] = []
     private readonly dictionaryInfo: DictionaryInfo[] = []
-    private debugSectionId: number = -1
+    private debugSectionIds: number[] = []
 
     public constructor(
         public readonly isDictionaryCell: boolean = false,
@@ -81,8 +81,24 @@ export class CodeBuilder extends Builder {
     }
 
     public storeInstructionPrefix(value: bigint | number, bits: number, instr: Instr): this {
-        this.instructions.push({instr, offset: this.bits, debugSection: this.debugSectionId})
+        this.instructions.push({instr, offset: this.bits, debugSections: [...this.debugSectionIds]})
+        this.debugSectionIds = []
         return super.storeUint(value, bits)
+    }
+
+    public addImplicitRet() {
+        const lastInstruction = this.instructions.at(-1)
+        if (!lastInstruction) return
+
+        // This implicit RET instruction is used as an anchor for all trailing DEBUGMARK instructions.
+        this.instructions.push({
+            instr: {
+                $: "RET",
+                loc: lastInstruction.instr.loc,
+            },
+            offset: lastInstruction.offset,
+            debugSections: [...this.debugSectionIds],
+        })
     }
 
     public build(): [Cell, Mapping] {
@@ -98,8 +114,13 @@ export class CodeBuilder extends Builder {
         ]
     }
 
+    public clearDebugSectionIds(): this {
+        this.debugSectionIds = []
+        return this
+    }
+
     public startDebugSection(id: number): this {
-        this.debugSectionId = id
+        this.debugSectionIds.push(id)
         return this
     }
 
@@ -147,7 +168,7 @@ export class CodeBuilder extends Builder {
         this.instructions.push(...other.instructions)
         this.subMappings.push(...other.subMappings)
         this.dictionaryInfo.push(...other.dictionaryInfo)
-        this.debugSectionId = other.debugSectionId
+        this.debugSectionIds = [...other.debugSectionIds]
         return this
     }
 }

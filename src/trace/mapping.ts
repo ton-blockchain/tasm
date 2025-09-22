@@ -44,14 +44,14 @@ export type InstructionInfo = {
     readonly offset: number
 
     /**
-     * Debug section number.
+     * Debug section numbers.
      *
      * Debug sections are used to group instructions together in the code.
      * This way we later can match several instructions to a single statement in the source code.
      *
-     * If instruction is not part of any debug section, this value is -1.
+     * If instruction is not part of any debug section, this value is an empty array.
      */
-    readonly debugSection: number
+    readonly debugSections: readonly number[]
 }
 
 export type CellHash = string
@@ -120,11 +120,11 @@ const processMapping = (mapping: Mapping, cells: CellsMapping) => {
     }
 
     const instructions = mapping.instructions.map(
-        ({instr: {$: name, loc}, offset, debugSection}): InstructionInfo => ({
+        ({instr: {$: name, loc}, offset, debugSections}): InstructionInfo => ({
             name,
             loc: loc ? fromParserLoc(loc) : undefined,
             offset,
-            debugSection,
+            debugSections,
         }),
     )
 

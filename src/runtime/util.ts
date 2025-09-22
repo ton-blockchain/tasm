@@ -85,10 +85,10 @@ export const decompiledCode = (instructions: Instr[]): Instructions => ({
 
 const processMappingInstructions = (mapping: Mapping, b: CodeBuilder) =>
     mapping.instructions.map(
-        ({instr, offset, debugSection}): InstructionWithOffset => ({
+        ({instr, offset, debugSections}): InstructionWithOffset => ({
             instr,
             offset: offset + b.bits,
-            debugSection,
+            debugSections,
         }),
     )
 
@@ -600,6 +600,7 @@ export const PSEUDO_PUSHREF: Type<c.PSEUDO_PUSHREF> = {
             if (options.skipRefs) {
                 // compile instructions without ref at all in place
                 compileInstructions(b, val.arg0.instructions, options)
+                b.clearDebugSectionIds()
                 return
             }
             PSEUDO_PUSHREF_ALWAYS.store(b, val, options)
@@ -621,7 +622,7 @@ export const PSEUDO_PUSHREF_ALWAYS: Type<c.PSEUDO_PUSHREF> = {
             mapping.instructions.splice(0, 0, {
                 offset: 0,
                 instr: JMPREF(val.arg0, val.loc),
-                debugSection: -1,
+                debugSections: [],
             })
 
             b.storeRefWithMapping([cell, mapping])
