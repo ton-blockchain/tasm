@@ -68,6 +68,7 @@ export type HighLevelSourceMap = {
     readonly files: readonly HighLevelSourceMapFile[]
     readonly globals: readonly HighLevelSourceMapGlobalVariable[]
     readonly locations: readonly HighLevelSourceMapEntry[]
+    readonly debugCode64?: string
 }
 
 export const loadSourceMap = (content: string): HighLevelSourceMap => {
