@@ -1,7 +1,7 @@
 import type {InstructionInfo, Loc, MappingInfo} from "./mapping"
 import type {LogEntry, StackElement} from "./logs"
 import {parseLogs} from "./logs"
-import type {SourceMap, SourceMapEntry} from "./source-map"
+import type {HighLevelSourceMap, HighLevelSourceMapEntry} from "./high-level-source-map"
 
 /**
  * Describes a single step in the trace.
@@ -12,7 +12,7 @@ export type Step = {
     readonly stack: readonly StackElement[]
     readonly gas: number
     readonly gasCost: number
-    readonly sourceMapEntries: readonly SourceMapEntry[]
+    readonly sourceMapEntries: readonly HighLevelSourceMapEntry[]
 }
 
 /**
@@ -28,7 +28,7 @@ export type TraceInfo = {
 export const createTraceInfo = (
     logs: string,
     mapping: MappingInfo,
-    sourceMap: undefined | SourceMap,
+    sourceMap: undefined | HighLevelSourceMap,
 ): TraceInfo => {
     const stepLogInfo = parseLogs(logs).flat()
 
@@ -66,7 +66,7 @@ export const createTraceInfo = (
 export const createTraceInfoPerTransaction = (
     logs: string,
     mapping: MappingInfo,
-    sourceMap: undefined | SourceMap,
+    sourceMap: undefined | HighLevelSourceMap,
 ): TraceInfo[] => {
     const transactionLogs = parseLogs(logs)
 
