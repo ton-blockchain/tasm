@@ -1,6 +1,6 @@
 {
     "name": "ton-assembly",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "TON assembler and disassembler",
     "author": "TON Studio & TON Core",
     "repository": {
@@ -11,6 +11,7 @@
     "bugs": {
         "url": "https://github.com/ton-blockchain/tasm/issues"
     },
+    "license": "MIT",
     "engines": {
         "node": ">=18.0.0"
     },
@@ -52,6 +53,11 @@
     },
     "peerDependencies": {
         "@ton/core": ">=0.61.0"
+    },
+    "peerDependenciesMeta": {
+        "@ton/core": {
+            "optional": false
+        }
     },
     "devDependencies": {
         "@ton-community/func-js": "^0.9.1",
@@ -112,6 +118,9 @@
         "!*.d.ts.map",
         "!*.js.map"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "packageManager": "yarn@4.6.0",
     "bin": {
         "tasm": "./dist/cli/assembler.js",
