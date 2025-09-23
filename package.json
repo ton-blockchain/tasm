@@ -1,6 +1,6 @@
 {
     "name": "ton-assembly",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "TON assembler and disassembler",
     "keywords": [
         "ton",
@@ -26,18 +26,18 @@
         "precommit": "yarn build && yarn fmt && yarn lint && yarn test"
     },
     "dependencies": {
-        "@ton/core": "^0.60.1",
+        "@ton/core": "^0.61.0",
         "@tonstudio/parser-runtime": "^0.0.1",
         "cac": "^6.7.14"
     },
     "peerDependencies": {
-        "@ton/core": ">=0.60.1"
+        "@ton/core": ">=0.61.0"
     },
     "devDependencies": {
         "@ton-community/func-js": "^0.9.1",
         "@ton/crypto": "^3.3.0",
-        "@ton/sandbox": "^0.32.1",
-        "@ton/test-utils": "^0.7.0",
+        "@ton/sandbox": "^0.37.1",
+        "@ton/test-utils": "^0.12.0",
         "@ton/tolk-js": "^1.0.0",
         "@tonstudio/pgen": "^0.0.1",
         "@types/diff": "^7.0.1",
