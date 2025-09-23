@@ -2,6 +2,18 @@
     "name": "ton-assembly",
     "version": "0.3.0",
     "description": "TON assembler and disassembler",
+    "author": "TON Studio & TON Core",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ton-blockchain/tasm"
+    },
+    "homepage": "https://github.com/ton-blockchain/tasm#readme",
+    "bugs": {
+        "url": "https://github.com/ton-blockchain/tasm/issues"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
     "keywords": [
         "ton",
         "tvm",
@@ -12,6 +24,14 @@
         "smart-contracts"
     ],
     "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "sideEffects": false,
     "scripts": {
         "build": "tsc --declaration",
         "lint": "eslint --cache .",
@@ -23,6 +43,7 @@
         "gen:grammar:fift": "peggy --dts --format es -o src/fift/parse/grammar.gen.pegjs.ts --allowed-start-rules SourceFile src/fift/parse/grammar.pegjs && sed -i '' '1i\\\n// @ts-nocheck\n' src/fift/parse/grammar.gen.pegjs.ts",
         "gen:grammar:logs": "peggy --dts --format es -o src/logs/grammar.gen.pegjs.ts --allowed-start-rules vmLine,VmParsedStack src/logs/grammar.pegjs",
         "gen:asm": "ts-node src/generator/gen-constructors.ts && ts-node src/generator/gen-converter.ts && ts-node src/generator/gen-instr.ts && ts-node src/generator/gen-printer.ts && ts-node src/generator/gen-types.ts && yarn fmt",
+        "prepare": "yarn precommit",
         "precommit": "yarn build && yarn fmt && yarn lint && yarn test"
     },
     "dependencies": {
