@@ -4763,6 +4763,9 @@ __metadata:
     typescript-eslint: "npm:^8.33.1"
   peerDependencies:
     "@ton/core": ">=0.61.0"
+  peerDependenciesMeta:
+    "@ton/core":
+      optional: false
   bin:
     tasm: ./dist/cli/assembler.js
     tdisasm: ./dist/cli/disassembler.js
