@@ -1,6 +1,6 @@
 {
     "name": "ton-assembly",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "TON assembler and disassembler",
     "author": "TON Studio & TON Core",
     "repository": {
@@ -26,12 +26,6 @@
     ],
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
-        }
-    },
     "sideEffects": false,
     "scripts": {
         "build": "tsc --declaration",

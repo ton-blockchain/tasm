@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compile should compile Vault with skipRefs option enabled 1`] = `"606d59fd3f7551db56c690541e13026a47ed5df8c2c945177aeca543a8449027"`;
+
+exports[`Compile should compile Vault with skipRefs option enabled 2`] = `"606d59fd3f7551db56c690541e13026a47ed5df8c2c945177aeca543a8449027"`;

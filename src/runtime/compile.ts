@@ -7,6 +7,37 @@ import {matchingRule} from "./layout"
 import {IF, IFELSE, IFJMP, IFNOT, IFNOTJMP, PUSHCONT, PUSHCONT_SHORT} from "./types"
 import type {StoreOptions} from "./util"
 
+function isLastInstruction(index: number, instructions: Instr[]) {
+    if (index === instructions.length - 1) {
+        return true
+    }
+
+    if (instructions[index + 1]?.$ !== "DEBUGMARK") {
+        // Fast path, if:
+        // POPCTR
+        // ADD
+        //
+        // instruction is not the last one
+        return false
+    }
+
+    // if:
+    // POPCTR
+    // DEBUGMARK
+    //
+    // check that all remaining instructions are DEBUGMARK
+
+    for (let i = index + 1; i < instructions.length; i++) {
+        const instruction = instructions[i]
+        if (instruction?.$ !== "DEBUGMARK") {
+            // found non DEBUGMARK instruction in the tail, so instruction is not a last
+            return false
+        }
+    }
+
+    return true
+}
+
 export const compileInstructions = (
     b: CodeBuilder,
     instructions: Instr[],
@@ -17,7 +48,7 @@ export const compileInstructions = (
         if (!instruction) break
         const builderBefore = new CodeBuilder().storeBuilder(b)
 
-        const isLast = index === instructions.length - 1
+        const isLast = isLastInstruction(index, instructions)
         const overflow = safeStore(b, instruction, isLast, options)
         if (!overflow) {
             // fast path
@@ -173,14 +204,20 @@ function compileIf(t: Instr, b: CodeBuilder, options: StoreOptions) {
         t.$ === "IFJMPREF" ||
         t.$ === "IFNOTJMPREF"
     ) {
-        const b2 = new CodeBuilder()
-        compilePushcont(b2, t.arg0, t.loc, options)
-        compileNonRefIf(b2, t, options)
+        try {
+            const b2 = new CodeBuilder()
 
-        if (b2.bits + b.bits <= 1023 && b2.refs + b.refs <= 4) {
-            compilePushcont(b, t.arg0, t.loc, options)
-            compileNonRefIf(b, t, options)
-            return true
+            // Try to compile, this code may throw an exception if PUSHCONT and IF doesn't fit into a single cell
+            compilePushcont(b2, t.arg0, t.loc, options)
+            compileNonRefIf(b2, t, options)
+
+            if (b2.bits + b.bits <= 1023 && b2.refs + b.refs <= 4) {
+                compilePushcont(b, t.arg0, t.loc, options)
+                compileNonRefIf(b, t, options)
+                return true
+            }
+        } catch {
+            return false
         }
     }
 

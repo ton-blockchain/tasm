@@ -1,0 +1,3456 @@
+SETCP 0
+DICTPUSHCONST 19 [
+    0 => {
+        DEBUGMARK 1011
+        INMSG_BOUNCED
+        PUSHCONT_SHORT {
+            DEBUGMARK 1012
+            DROP
+            DEBUGMARK 1013
+        }
+        IFJMP
+        DEBUGMARK 1014
+        DEBUGMARK 1015
+        DUP
+        DEBUGMARK 1016
+        DEBUGMARK 1017
+        DEBUGMARK 1018
+        DEBUGMARK 1019
+        DEBUGMARK 1020
+        DEBUGMARK 1021
+        DEBUGMARK 1022
+        PUSHCTR c4
+        DEBUGMARK 1023
+        CTOS
+        DEBUGMARK 1024
+        DEBUGMARK 1025
+        DEBUGMARK 1026
+        DEBUGMARK 1027
+        LDMSGADDR
+        LDGRAMS
+        LDGRAMS
+        LDDICT
+        LDREF
+        PLDREFIDX 0
+        DEBUGMARK 1028
+        XCHG_0I s6
+        SDBEGINSQ x{5A66A4A5}
+        IFJMPREF {
+            DEBUGMARK 1029
+            DEBUGMARK 1030
+            DEBUGMARK 1031
+            DEBUGMARK 1032
+            PUSH s2
+            ISNULL
+            DEBUGMARK 1033
+            THROWIFNOT 2007
+            LDU 64
+            LDGRAMS
+            LDMSGADDR
+            LDGRAMS
+            LDDICT
+            LDDICT
+            PLDDICT
+            DEBUGMARK 1034
+            DEBUGMARK 1035
+            DEBUGMARK 1036
+            DEBUGMARK 1037
+            DEBUGMARK 1038
+            PUSH s5
+            GTINT 0
+            DEBUGMARK 1039
+            THROWIFNOT 2001
+            DEBUGMARK 1040
+            INMSG_VALUE
+            DEBUGMARK 1041
+            DEBUGMARK 1042
+            DEBUGMARK 1043
+            DEBUGMARK 1044
+            PUSHINT_LONG 13000000
+            DEBUGMARK 1045
+            DEBUGMARK 1046
+            DEBUGMARK 1047
+            DEBUGMARK 1048
+            DEBUGMARK 1049
+            DEBUGMARK 1050
+            PUSH2 s7 s0
+            ADD
+            DEBUGMARK 1051
+            ref {
+                PUSHINT_LONG 60000000
+                DEBUGMARK 1052
+                ADD
+                DEBUGMARK 1053
+                PUSH s2
+                LEQ
+                DEBUGMARK 1054
+                THROWIFNOT 2004
+                DEBUGMARK 1055
+                XCPU s1 s7
+                SUB
+                DEBUGMARK 1056
+                SUBR
+                DEBUGMARK 1057
+                DEBUGMARK 1058
+                DEBUGMARK 1059
+                DEBUGMARK 1060
+                INMSG_SRC
+                DEBUGMARK 1061
+                DEBUGMARK 1062
+                DEBUGMARK 1063
+                DEBUGMARK 1064
+                DEBUGMARK 1065
+                DEBUGMARK 1066
+                PUSHNULL
+                PUSHINT_16 129
+                DEBUGMARK 1067
+                PUSHNULL
+                PUSHSLICE x{4465706F736974}
+                DEBUGMARK 1068
+                XCHG_IJ s4 s12
+                XCHG_IJ s4 s11
+                XCHG_IJ s5 s10
+                XCHG_0I s9
+                XCHG_0I_LONG s19
+                XCHG_0I s9
+                PUSH s4
+                XCHG_IJ s4 s9
+                XCHG_IJ s3 s8
+                XCHG_0I s7
+                XCHG_0I s5
+                XCHG_0I_LONG s20
+                XCHG_0I s5
+                ROTREV
+                PREPAREDICT 5
+                CALLXARGS_1 15 1
+                ref {
+                    DEBUGMARK 1069
+                    DEBUGMARK 1070
+                    DEBUGMARK 1071
+                    XCHG_1I s1 s4
+                    ADD
+                    DEBUGMARK 1072
+                    DEBUGMARK 1073
+                    XCHG2 s2 s6
+                    ADD
+                    DEBUGMARK 1074
+                    DEBUGMARK 1075
+                    DEBUGMARK 1076
+                    DEBUGMARK 1077
+                    DEBUGMARK 1078
+                    PUSH s3
+                    NEWC
+                    STSLICE
+                    POP s4
+                    XCPU s3 s5
+                    STGRAMS
+                    POP s5
+                    XCPU s4 s2
+                    STGRAMS
+                    POP s2
+                    PUXC s3 s1
+                    STDICT
+                    POP s3
+                    PUXC s0 s2
+                    STREF
+                    POP s2
+                    PUXC s0 s1
+                    STREF
+                    NIP
+                    ENDC
+                    DEBUGMARK 1079
+                    POPCTR c4
+                    DEBUGMARK 1080
+                    DEBUGMARK 1081
+                }
+            }
+        }
+        DEBUGMARK 1082
+        SDBEGINSQ x{90C2258A}
+        IFJMPREF {
+            DEBUGMARK 1083
+            DEBUGMARK 1084
+            PUSH3 s5 s4 s3
+            PUSH3 s5 s4 s9
+            CALLDICT 3
+            DEBUGMARK 1085
+            DEBUGMARK 1086
+            DEBUGMARK 1087
+            DEBUGMARK 1088
+            DUP
+            ISNULL
+            NOT
+            DEBUGMARK 1089
+            THROWIFNOT 2009
+            DEBUGMARK 1090
+            DEBUGMARK 1091
+            INMSG_VALUEEXTRA
+            DEBUGMARK 1092
+            DEBUGMARK 1093
+            DEBUGMARK 1094
+            DEBUGMARK 1095
+            DEBUGMARK 1096
+            PUSHINT_8 32
+            DEBUGMARK 1097
+            PUSH s2
+            ROTREV
+            DICTUDELGET
+            NULLSWAPIFNOT
+            DEBUGMARK 1098
+            DEBUGMARK 1099
+            DEBUGMARK 1100
+            DEBUGMARK 1101
+            THROWIFNOT 2010
+            DEBUGMARK 1102
+            DEBUGMARK 1103
+            DEBUGMARK 1104
+            DEBUGMARK 1105
+            SWAP
+            ISNULL
+            DEBUGMARK 1106
+            ref {
+                THROWIFNOT 2011
+                DEBUGMARK 1107
+                DEBUGMARK 1108
+                LDVARUINT32
+                DEBUGMARK 1109
+                DROP
+                DEBUGMARK 1110
+                DEBUGMARK 1111
+                DEBUGMARK 1112
+                INMSG_VALUE
+                DEBUGMARK 1113
+                DEBUGMARK 1114
+                DEBUGMARK 1115
+                DEBUGMARK 1116
+                PUSHINT_LONG 13000000
+                DEBUGMARK 1117
+                DEBUGMARK 1118
+                DEBUGMARK 1119
+                DEBUGMARK 1120
+                DEBUGMARK 1121
+                DEBUGMARK 1122
+                DEBUGMARK 1123
+                PUSHINT_LONG 73000000
+                DEBUGMARK 1124
+                PUSH s2
+                LEQ
+                DEBUGMARK 1125
+                THROWIFNOT 2006
+                DEBUGMARK 1126
+                SUB
+                DEBUGMARK 1127
+                DEBUGMARK 1128
+                XCHG_0I s3
+                LDU 64
+                LDMSGADDR
+                LDGRAMS
+                LDDICT
+                LDDICT
+                PLDDICT
+                ref {
+                    DEBUGMARK 1129
+                    DEBUGMARK 1130
+                    INMSG_SRC
+                    DEBUGMARK 1131
+                    DEBUGMARK 1132
+                    DEBUGMARK 1133
+                    DEBUGMARK 1134
+                    DEBUGMARK 1135
+                    DEBUGMARK 1136
+                    PUSHINT_16 133
+                    DEBUGMARK 1137
+                    PUSHNULL
+                    PUSHSLICE x{4465706F736974}
+                    DEBUGMARK 1138
+                    XCHG_IJ s3 s12
+                    XCHG_IJ s9 s11
+                    XCHG_IJ s3 s10
+                    XCHG_0I s9
+                    XCHG_0I_LONG s19
+                    XCHG_0I s9
+                    XCHG_0I s8
+                    XCHG_0I_LONG s19
+                    XCHG_0I s8
+                    PUSH s3
+                    XCHG_IJ s3 s8
+                    XCHG_0I s7
+                    XCHG_0I s6
+                    XCHG_0I_LONG s20
+                    XCHG_0I s6
+                    XCHG_IJ s3 s5
+                    XCHG_0I s4
+                    XCHG_0I_LONG s20
+                    BLKSWAP 3 1
+                    PREPAREDICT 5
+                    CALLXARGS_1 15 1
+                    DEBUGMARK 1139
+                    DEBUGMARK 1140
+                    DEBUGMARK 1141
+                    XCHG_1I s1 s4
+                    ADD
+                    DEBUGMARK 1142
+                    DEBUGMARK 1143
+                    XCHG2 s2 s6
+                    ADD
+                    DEBUGMARK 1144
+                    DEBUGMARK 1145
+                    DEBUGMARK 1146
+                    ref {
+                        DEBUGMARK 1147
+                        DEBUGMARK 1148
+                        PUSH s3
+                        NEWC
+                        STSLICE
+                        POP s4
+                        XCPU s3 s5
+                        STGRAMS
+                        POP s5
+                        XCPU s4 s2
+                        STGRAMS
+                        POP s2
+                        PUXC s3 s1
+                        STDICT
+                        POP s3
+                        PUXC s0 s2
+                        STREF
+                        POP s2
+                        PUXC s0 s1
+                        STREF
+                        NIP
+                        ENDC
+                        DEBUGMARK 1149
+                        POPCTR c4
+                        DEBUGMARK 1150
+                        DEBUGMARK 1151
+                    }
+                }
+            }
+        }
+        DEBUGMARK 1152
+        PUSHREFSLICE {
+            embed x{7362D09C}
+        }
+        SDBEGINSXQ
+        ref {
+            IFJMPREF {
+                DEBUGMARK 1153
+                DEBUGMARK 1154
+                PUSH3 s5 s4 s3
+                PUSH3 s5 s4 s9
+                CALLDICT 2
+                DEBUGMARK 1155
+                DEBUGMARK 1156
+                DEBUGMARK 1157
+                DEBUGMARK 1158
+                EQINT 0
+                NOT
+                DEBUGMARK 1159
+                THROWIFNOT 2008
+                DEBUGMARK 1160
+                DEBUGMARK 1161
+                DEBUGMARK 1162
+                DEBUGMARK 1163
+                INMSG_SRC
+                OVER
+                SDEQ
+                DEBUGMARK 1164
+                THROWIFNOT 1001
+                XCHG_0I s2
+                LDU 64
+                LDGRAMS
+                LDMSGADDR
+                PLDDICT
+                DEBUGMARK 1165
+                DEBUGMARK 1166
+                DEBUGMARK 1167
+                DEBUGMARK 1168
+                DEBUGMARK 1169
+                PUSH s2
+                GTINT 0
+                DEBUGMARK 1170
+                THROWIFNOT 2001
+                DEBUGMARK 1171
+                DEBUGMARK 1172
+                DEBUGMARK 1173
+                DEBUGMARK 1174
+                DUP
+                ISNULL
+                ref {
+                    NOT
+                    DEBUGMARK 1175
+                    THROWIFNOT 2000
+                    DEBUGMARK 1176
+                    DEBUGMARK 1177
+                    DEBUGMARK 1178
+                    INMSG_VALUE
+                    DEBUGMARK 1179
+                    DEBUGMARK 1180
+                    DEBUGMARK 1181
+                    DEBUGMARK 1182
+                    PUSHINT_LONG 13000000
+                    DEBUGMARK 1183
+                    DEBUGMARK 1184
+                    DEBUGMARK 1185
+                    DEBUGMARK 1186
+                    DEBUGMARK 1187
+                    DEBUGMARK 1188
+                    DEBUGMARK 1189
+                    PUSHINT_LONG 73000000
+                    DEBUGMARK 1190
+                    PUSH s2
+                    LEQ
+                    DEBUGMARK 1191
+                    THROWIFNOT 2005
+                    DEBUGMARK 1192
+                    SUB
+                    DEBUGMARK 1193
+                    DEBUGMARK 1194
+                    DEBUGMARK 1195
+                    DEBUGMARK 1196
+                    DEBUGMARK 1197
+                    DEBUGMARK 1198
+                    DEBUGMARK 1199
+                    DEBUGMARK 1200
+                    ref {
+                        DEBUGMARK 1201
+                        DEBUGMARK 1202
+                        DEBUGMARK 1203
+                        DEBUGMARK 1204
+                        DEBUGMARK 1205
+                        DEBUGMARK 1206
+                        DEBUGMARK 1207
+                        SWAP
+                        CTOS
+                        SDBEGINSQ x{B534FE7B}
+                        THROWIFNOT_SHORT 63
+                        LDMSGADDR
+                        LDGRAMS
+                        LDDICT
+                        LDDICT
+                        LDDICT
+                        ENDS
+                        DEBUGMARK 1208
+                        PUSHINT_16 132
+                        PUSHSLICE x{4465706F736974}
+                        DEBUGMARK 1209
+                        XCHG_IJ s8 s12
+                        XCHG_IJ s10 s11
+                        XCHG_IJ s7 s10
+                        XCHG_0I s9
+                        XCHG_0I_LONG s19
+                        XCHG_0I s9
+                        XCHG_1I s1 s7
+                        XCHG_1I s1 s8
+                        PUSH_LONG s19
+                        BLKSWAP 7 1
+                        PREPAREDICT 5
+                        CALLXARGS_1 15 1
+                        DEBUGMARK 1210
+                        DEBUGMARK 1211
+                        DEBUGMARK 1212
+                        XCHG_1I s1 s4
+                        ADD
+                        DEBUGMARK 1213
+                        DEBUGMARK 1214
+                        XCHG2 s2 s6
+                        ADD
+                        DEBUGMARK 1215
+                        DEBUGMARK 1216
+                        ref {
+                            DEBUGMARK 1217
+                            DEBUGMARK 1218
+                            DEBUGMARK 1219
+                            PUSH s3
+                            NEWC
+                            STSLICE
+                            POP s4
+                            XCPU s3 s5
+                            STGRAMS
+                            POP s5
+                            XCPU s4 s2
+                            STGRAMS
+                            POP s2
+                            PUXC s3 s1
+                            STDICT
+                            POP s3
+                            PUXC s0 s2
+                            STREF
+                            POP s2
+                            PUXC s0 s1
+                            STREF
+                            NIP
+                            ENDC
+                            DEBUGMARK 1220
+                            POPCTR c4
+                            DEBUGMARK 1221
+                            DEBUGMARK 1222
+                        }
+                    }
+                }
+            }
+            DEBUGMARK 1223
+            SDBEGINSQ x{7BDD97DE}
+            IFJMPREF {
+                LDU 64
+                LDGRAMS
+                LDMSGADDR
+                LDMSGADDR
+                NIP
+                PLDDICT
+                DEBUGMARK 1224
+                DEBUGMARK 1225
+                DEBUGMARK 1226
+                PUSHINT_16 3000
+                INMSG_SRC
+                DEBUGMARK 1227
+                MYADDR
+                DEBUGMARK 1228
+                DEBUGMARK 1229
+                DEBUGMARK 1230
+                DEBUGMARK 1231
+                DEBUGMARK 1232
+                DEBUGMARK 1233
+                DEBUGMARK 1234
+                DEBUGMARK 1235
+                DEBUGMARK 1236
+                DEBUGMARK 1237
+                DEBUGMARK 1238
+                PUSH s4
+                DEBUGMARK 1239
+                DEBUGMARK 1240
+                DEBUGMARK 1241
+                DEBUGMARK 1242
+                DEBUGMARK 1243
+                DEBUGMARK 1244
+                DEBUGMARK 1245
+                NEWC
+                STSLICECONST x{00}
+                STSLICE
+                STSLICE
+                ENDC
+                DEBUGMARK 1246
+                DEBUGMARK 1247
+                PUSH s7
+                DEBUGMARK 1248
+                ref {
+                    DEBUGMARK 1249
+                    DEBUGMARK 1250
+                    SWAP
+                    DUP2
+                    HASHCU
+                    SWAP
+                    HASHCU
+                    SWAP2
+                    CDEPTH
+                    SWAP
+                    CDEPTH
+                    NEWC
+                    STSLICECONST x{020134}
+                    STU 16
+                    STU 16
+                    STU 256
+                    STU 256
+                    PUSHINT_4 1
+                    HASHEXT 0
+                    SWAP
+                    REWRITESTDADDR
+                    ROT
+                    EQUAL
+                    SWAP
+                    EQINT 0
+                    AND
+                    DEBUGMARK 1251
+                    DEBUGMARK 1252
+                    DEBUGMARK 1253
+                    THROWANYIFNOT
+                    DEBUGMARK 1254
+                    DEBUGMARK 1255
+                    DEBUGMARK 1256
+                    PUSHINT_16 3005
+                    DEBUGMARK 1257
+                    DEBUGMARK 1258
+                    PUSH s3
+                    GTINT 0
+                    DEBUGMARK 1259
+                    THROWANYIFNOT
+                    DEBUGMARK 1260
+                    DEBUGMARK 1261
+                    DEBUGMARK 1262
+                    PUSHINT_16 3001
+                    DEBUGMARK 1263
+                    OVER
+                    ISNULL
+                    NOT
+                    DEBUGMARK 1264
+                    THROWANYIFNOT
+                    DEBUGMARK 1265
+                    ref {
+                        DEBUGMARK 1266
+                        DEBUGMARK 1267
+                        INMSG_VALUE
+                        DEBUGMARK 1268
+                        DEBUGMARK 1269
+                        DEBUGMARK 1270
+                        DEBUGMARK 1271
+                        PUSHINT_LONG 12000000
+                        DEBUGMARK 1272
+                        DEBUGMARK 1273
+                        DEBUGMARK 1274
+                        DEBUGMARK 1275
+                        DEBUGMARK 1276
+                        PUSHINT_16 3004
+                        DEBUGMARK 1277
+                        DEBUGMARK 1278
+                        PUSHINT_LONG 72000000
+                        DEBUGMARK 1279
+                        PUSH s3
+                        LEQ
+                        DEBUGMARK 1280
+                        THROWANYIFNOT
+                        DEBUGMARK 1281
+                        SUB
+                        DEBUGMARK 1282
+                        DEBUGMARK 1283
+                        DEBUGMARK 1284
+                        DEBUGMARK 1285
+                        DEBUGMARK 1286
+                        DEBUGMARK 1287
+                        PUSH3 s9 s8 s7
+                        PUSH3 s9 s8 s13
+                        CALLDICT 1
+                        DEBUGMARK 1288
+                        DEBUGMARK 1289
+                        ref {
+                            DEBUGMARK 1290
+                            DEBUGMARK 1291
+                            DEBUGMARK 1292
+                            DEBUGMARK 1293
+                            XCHG_0I s3
+                            CTOS
+                            SDBEGINSQ x{ECB4D6BF}
+                            THROWIFNOT_SHORT 63
+                            LDMSGADDR
+                            LDGRAMS
+                            LDDICT
+                            LDDICT
+                            LDDICT
+                            ENDS
+                            DEBUGMARK 1294
+                            DEBUGMARK 1295
+                            DEBUGMARK 1296
+                            PUSHINT_16 132
+                            PUSH s8
+                            EQUAL
+                            PUSHCONT {
+                                DEBUGMARK 1297
+                                DEBUGMARK 1298
+                                PUSH3 s15 s14 s13
+                                PUSH2 s15 s14
+                                PUSH_LONG s21
+                                CALLDICT 2
+                                DROP
+                                NIP
+                            }
+                            PUSHCONT_SHORT {
+                                DEBUGMARK 1299
+                                PUSHNULL
+                            }
+                            IFELSE
+                            DEBUGMARK 1300
+                            PUSHSLICE x{5769746864726177}
+                            DEBUGMARK 1301
+                            XCHG_IJ s10 s12
+                            XCHG_IJ s10 s11
+                            XCHG_IJ s8 s10
+                            XCHG_0I s9
+                            XCHG_0I_LONG s19
+                            XCHG_0I s9
+                            XCHG_IJ s7 s8
+                            XCHG_0I s7
+                            XCHG_0I_LONG s19
+                            XCHG_0I s7
+                            PUSH_LONG s19
+                            BLKSWAP 7 1
+                            PREPAREDICT 6
+                            CALLXARGS_1 15 1
+                            ref {
+                                DEBUGMARK 1302
+                                DEBUGMARK 1303
+                                XCHG_0I s7
+                                NEGATE
+                                DEBUGMARK 1304
+                                DEBUGMARK 1305
+                                XCHG_0I s7
+                                NEGATE
+                                DEBUGMARK 1306
+                                DEBUGMARK 1307
+                                DEBUGMARK 1308
+                                XCHG2 s4 s7
+                                ADD
+                                DEBUGMARK 1309
+                                DEBUGMARK 1310
+                                XCHG2 s2 s6
+                                ADD
+                                DEBUGMARK 1311
+                                DEBUGMARK 1312
+                                DEBUGMARK 1313
+                                DEBUGMARK 1314
+                                DEBUGMARK 1315
+                                PUSH s3
+                                NEWC
+                                STSLICE
+                                POP s4
+                                XCPU s3 s5
+                                STGRAMS
+                                POP s5
+                                XCPU s4 s2
+                                STGRAMS
+                                POP s2
+                                PUXC s3 s1
+                                STDICT
+                                POP s3
+                                PUXC s0 s2
+                                STREF
+                                POP s2
+                                PUXC s0 s1
+                                STREF
+                                NIP
+                                ENDC
+                                DEBUGMARK 1316
+                                POPCTR c4
+                                DEBUGMARK 1317
+                                DEBUGMARK 1318
+                            }
+                        }
+                    }
+                }
+            }
+            DEBUGMARK 1319
+            SDBEGINSQ x{C643CC91}
+            IFJMPREF {
+                DEBUGMARK 1320
+                POP s5
+                DROP2
+                POP s3
+                POP s3
+                INMSG_VALUE
+                DEBUGMARK 1321
+                DEBUGMARK 1322
+                DEBUGMARK 1323
+                DEBUGMARK 1324
+                PUSHINT_LONG 10000000
+                DEBUGMARK 1325
+                DEBUGMARK 1326
+                DEBUGMARK 1327
+                DEBUGMARK 1328
+                DEBUGMARK 1329
+                PUSHINT_16 4000
+                DEBUGMARK 1330
+                PUSH2 s2 s1
+                GEQ
+                DEBUGMARK 1331
+                THROWANYIFNOT
+                DEBUGMARK 1332
+                SUB
+                DEBUGMARK 1333
+                DEBUGMARK 1334
+                SWAP
+                LDU 64
+                SKIPDICT
+                LDMSGADDR
+                SKIPDICT
+                PLDDICT
+                DEBUGMARK 1335
+                DEBUGMARK 1336
+                INMSG_SRC
+                DEBUGMARK 1337
+                DEBUGMARK 1338
+                DEBUGMARK 1339
+                DEBUGMARK 1340
+                DEBUGMARK 1341
+                PUSHCTR c4
+                DEBUGMARK 1342
+                ref {
+                    CTOS
+                    DEBUGMARK 1343
+                    DEBUGMARK 1344
+                    DEBUGMARK 1345
+                    DEBUGMARK 1346
+                    LDMSGADDR
+                    NIP
+                    LDGRAMS
+                    NIP
+                    LDGRAMS
+                    DROP
+                    DEBUGMARK 1347
+                    DEBUGMARK 1348
+                    DEBUGMARK 1349
+                    DEBUGMARK 1350
+                    DEBUGMARK 1351
+                    DEBUGMARK 1352
+                    DEBUGMARK 1353
+                    DEBUGMARK 1354
+                    DEBUGMARK 1355
+                    PUSH s3
+                    SDBEGINSQ x{2_}
+                    NIP
+                    PUSH2 s2 s4
+                    CONDSEL
+                    DEBUGMARK 1356
+                    DEBUGMARK 1357
+                    DEBUGMARK 1358
+                    DEBUGMARK 1359
+                    PUSHNULL
+                    DEBUGMARK 1360
+                    NOW
+                    DEBUGMARK 1361
+                    DEBUGMARK 1362
+                    NEWC
+                    STSLICECONST x{68EC31EA}
+                    XCHG_1I s1 s8
+                    STU 64
+                    PUSH s4
+                    STSLICER
+                    STDICT
+                    PUSH s9
+                    STGRAMS
+                    ROT
+                    STGRAMS
+                    XCHG_1I s1 s5
+                    STU 32
+                    XCHG_1I s1 s2
+                    ref {
+                        STDICT
+                        ENDC
+                        NEWC
+                        STSLICECONST x{42_}
+                        XCHG_1I s1 s4
+                        STSLICE
+                        XCHG2 s0 s4
+                        STGRAMS
+                        PUSHINT_4 1
+                        STUR 107
+                        XCHG_1I s1 s2
+                        STREF
+                        ENDC
+                        DEBUGMARK 1363
+                        PUSHINT_4 1
+                        DEBUGMARK 1364
+                        SENDRAWMSG
+                        DEBUGMARK 1365
+                        DEBUGMARK 1366
+                        DEBUGMARK 1367
+                        PUSHNULL
+                        DEBUGMARK 1368
+                        NOW
+                        DEBUGMARK 1369
+                        PUSHNULL
+                        DEBUGMARK 1370
+                        DEBUGMARK 1371
+                        DEBUGMARK 1372
+                        DEBUGMARK 1373
+                        DEBUGMARK 1374
+                        DEBUGMARK 1375
+                        DEBUGMARK 1376
+                        NEWC
+                        STSLICECONST x{B7BFA697}
+                        XCHG_1I s1 s3
+                        STDICT
+                        XCHG_1I s1 s4
+                        STSLICE
+                        XCHG_1I s1 s2
+                        STSLICE
+                        XCHG2 s0 s4
+                        STGRAMS
+                        ROT
+                        STGRAMS
+                        STU 32
+                        STDICT
+                        ENDC
+                        NEWC
+                        STSLICECONST x{C60001_}
+                        PUSHINT_LONG 3082790551
+                        STUR 248
+                        PUSHINT_4 1
+                        ref {
+                            STUR 98
+                            STREF
+                            ENDC
+                            DEBUGMARK 1377
+                            PUSHINT_4 0
+                            DEBUGMARK 1378
+                            SENDRAWMSG
+                            DEBUGMARK 1379
+                        }
+                    }
+                }
+            }
+            DEBUGMARK 1380
+            SDBEGINSQ x{D1735400}
+            ref {
+                IFJMPREF {
+                    POP s7
+                    XCHG_0I s6
+                    LDU 64
+                    NIP
+                    LDMSGADDR
+                    DROP
+                    INMSG_SRC
+                    DEBUGMARK 1381
+                    DEBUGMARK 1382
+                    DEBUGMARK 1383
+                    DEBUGMARK 1384
+                    DEBUGMARK 1385
+                    PUSH s2
+                    ISNULL
+                    NOT
+                    DEBUGMARK 1386
+                    THROWIFNOT 1003
+                    DEBUGMARK 1387
+                    DEBUGMARK 1388
+                    DEBUGMARK 1389
+                    DEBUGMARK 1390
+                    DEBUGMARK 1391
+                    DEBUGMARK 1392
+                    XCHG_0I s2
+                    CTOS
+                    SDBEGINSQ x{1}
+                    PUSHCONT_SHORT {
+                        LDMSGADDR
+                        LDMSGADDR
+                        PUSHINT_16 130
+                    }
+                    PUSHCONT_SHORT {
+                        SDBEGINSQ x{2}
+                        PUSHCONT_SHORT {
+                            THROW_SHORT 63
+                        }
+                        IFNOTJMP
+                        LDU 32
+                        PUSHNULL
+                        ROTREV
+                        PUSHINT_16 131
+                    }
+                    IFELSE
+                    SWAP
+                    ENDS
+                    DEBUGMARK 1393
+                    DEBUGMARK 1394
+                    PUSHINT_16 130
+                    OVER
+                    EQUAL
+                    PUSHCONT_SHORT {
+                        POP s3
+                        POP s3
+                    }
+                    IFREFELSE {
+                        DEBUGMARK 1395
+                        NIP
+                        DEBUGMARK 1396
+                        DEBUGMARK 1397
+                        DEBUGMARK 1398
+                        XCPU s3 s1
+                        SDEQ
+                        DEBUGMARK 1399
+                        THROWIFNOT 1002
+                        DEBUGMARK 1400
+                        XCHG_1I s1 s2
+                    }
+                    DEBUGMARK 1401
+                    DEBUGMARK 1402
+                    DEBUGMARK 1403
+                    ref {
+                        DEBUGMARK 1404
+                        DEBUGMARK 1405
+                        NEWC
+                        PUSHINT_16 130
+                        XCHG2 s0 s3
+                        EQUAL
+                        PUSHCONT_SHORT {
+                            SWAP
+                            STSLICECONST x{1}
+                            STSLICE
+                            STSLICE
+                        }
+                        PUSHCONT_SHORT {
+                            DROP
+                            STSLICECONST x{2}
+                            STU 32
+                        }
+                        IFELSE
+                        ENDC
+                        DEBUGMARK 1406
+                        DEBUGMARK 1407
+                        DEBUGMARK 1408
+                        DEBUGMARK 1409
+                        DEBUGMARK 1410
+                        PUSH s3
+                        NEWC
+                        STSLICE
+                        POP s4
+                        XCPU s3 s2
+                        STGRAMS
+                        BLKDROP2 1 2
+                        OVER
+                        STGRAMS
+                        NIP
+                        PUXC s1 s-1
+                        STDICT
+                        NIP
+                        PUSH s2
+                        STREFR
+                        POP s2
+                        PUXC s0 s1
+                        STREF
+                        NIP
+                        ENDC
+                        DEBUGMARK 1411
+                        POPCTR c4
+                        DEBUGMARK 1412
+                        DEBUGMARK 1413
+                    }
+                }
+                NIP
+                BLKDROP2 2 2
+                POP s3
+                DEBUGMARK 1414
+                XCHG_0I s2
+                SDBEGINSQ x{E43F93A9}
+                PUSHCONT {
+                    DEBUGMARK 1415
+                    POP s3
+                    DEBUGMARK 1416
+                    OVER
+                    ISNULL
+                    PUSHCONT_SHORT {
+                        BLKDROP 3
+                    }
+                    PUSHCONT {
+                        DEBUGMARK 1417
+                        DEBUGMARK 1418
+                        DEBUGMARK 1419
+                        DEBUGMARK 1420
+                        DEBUGMARK 1421
+                        DEBUGMARK 1422
+                        SWAP
+                        CTOS
+                        SDBEGINSQ x{1}
+                        PUSHCONT_SHORT {
+                            LDMSGADDR
+                            LDMSGADDR
+                            NIP
+                            PUSHINT_16 130
+                        }
+                        PUSHCONT_SHORT {
+                            SDBEGINSQ x{2}
+                            PUSHCONT_SHORT {
+                                THROW_SHORT 63
+                            }
+                            IFNOTJMP
+                            LDU 32
+                            PUSHNULL
+                            POP s2
+                            PUSHINT_16 131
+                        }
+                        IFELSE
+                        SWAP
+                        ENDS
+                        DEBUGMARK 1423
+                        DEBUGMARK 1424
+                        PUSHINT_16 130
+                        EQUAL
+                        PUSHCONT_SHORT {
+                            BLKDROP 3
+                        }
+                        IFREFELSE {
+                            DEBUGMARK 1425
+                            DEBUGMARK 1426
+                            DEBUGMARK 1427
+                            DEBUGMARK 1428
+                            INMSG_SRC
+                            ROT
+                            SDEQ
+                            DEBUGMARK 1429
+                            THROWIFNOT 1000
+                            SWAP
+                            PLDU 64
+                            DEBUGMARK 1430
+                            DEBUGMARK 1431
+                            DEBUGMARK 1432
+                            DEBUGMARK 1433
+                            DEBUGMARK 1434
+                            DEBUGMARK 1435
+                            PUSHINT_LONG 50000000
+                            DEBUGMARK 1436
+                            DEBUGMARK 1437
+                            MYADDR
+                            DEBUGMARK 1438
+                            DEBUGMARK 1439
+                            DEBUGMARK 1440
+                            NEWC
+                            STSLICECONST x{42_}
+                            XCHG_1I s1 s4
+                            STSLICE
+                            SWAP
+                            STGRAMS
+                            PUSHINT_LONG 745978227
+                            STUR 139
+                            STU 64
+                            STSLICE
+                            STSLICECONST x{4_}
+                            ENDC
+                            DEBUGMARK 1441
+                            PUSHINT_4 1
+                            DEBUGMARK 1442
+                            SENDRAWMSG
+                            DEBUGMARK 1443
+                        }
+                    }
+                    IFELSE
+                }
+                IFJMP
+                DEBUGMARK 1444
+                BLKDROP 3
+                DEBUGMARK 1445
+                DEBUGMARK 1446
+                ref {
+                    PUSHPOW2DEC 16
+                    DEBUGMARK 1447
+                    SWAP
+                    SEMPTY
+                    DEBUGMARK 1448
+                    THROWANYIFNOT
+                }
+            }
+        }
+    }
+    1 => {
+        DEBUGMARK 11
+        XCHG_IJ s2 s5
+        BLKDROP 5
+        DEBUGMARK 12
+        DEBUGMARK 13
+        DUP
+        ISNULL
+        PUSHCONT {
+            DEBUGMARK 14
+            DROP
+            DEBUGMARK 15
+            DEBUGMARK 16
+            DEBUGMARK 17
+            PUSHNULL
+            PUSHINT_16 129
+            DEBUGMARK 18
+        }
+        IFJMP
+        DEBUGMARK 19
+        DEBUGMARK 20
+        DEBUGMARK 21
+        DEBUGMARK 22
+        DEBUGMARK 23
+        DEBUGMARK 24
+        CTOS
+        SDBEGINSQ x{1}
+        PUSHCONT_SHORT {
+            LDMSGADDR
+            LDMSGADDR
+            PUSHINT_16 130
+        }
+        PUSHCONT_SHORT {
+            SDBEGINSQ x{2}
+            PUSHCONT_SHORT {
+                THROW_SHORT 63
+            }
+            IFNOTJMP
+            LDU 32
+            PUSHNULL
+            ROTREV
+            PUSHINT_16 131
+        }
+        IFELSE
+        SWAP
+        ENDS
+        DEBUGMARK 25
+        DEBUGMARK 26
+        PUSHINT_16 130
+        EQUAL
+        IFREFELSEREF {
+            DEBUGMARK 27
+            DROP
+            DEBUGMARK 28
+            DEBUGMARK 29
+            DEBUGMARK 30
+            PUSHINT_16 132
+        } {
+            DEBUGMARK 31
+            NIP
+            DEBUGMARK 32
+            DEBUGMARK 33
+            DEBUGMARK 34
+            PUSHINT_16 133
+        }
+        DEBUGMARK 35
+    }
+    2 => {
+        DEBUGMARK 36
+        XCHG_IJ s2 s5
+        BLKDROP 5
+        DEBUGMARK 37
+        DEBUGMARK 38
+        DUP
+        ISNULL
+        PUSHCONT_SHORT {
+            DEBUGMARK 39
+            DROP
+            PUSHNULL
+            PUSHNULL
+            PUSHINT_4 0
+            DEBUGMARK 40
+        }
+        IFJMP
+        DEBUGMARK 41
+        DEBUGMARK 42
+        DEBUGMARK 43
+        DEBUGMARK 44
+        DEBUGMARK 45
+        DEBUGMARK 46
+        CTOS
+        SDBEGINSQ x{1}
+        PUSHCONT_SHORT {
+            LDMSGADDR
+            LDMSGADDR
+            PUSHINT_16 130
+        }
+        PUSHCONT_SHORT {
+            SDBEGINSQ x{2}
+            PUSHCONT_SHORT {
+                THROW_SHORT 63
+            }
+            IFNOTJMP
+            LDU 32
+            PUSHNULL
+            ROTREV
+            PUSHINT_16 131
+        }
+        IFELSE
+        SWAP
+        ENDS
+        DEBUGMARK 47
+        DEBUGMARK 48
+        PUSHINT_16 130
+        EQUAL
+        PUSHCONT_SHORT {
+            PUSHINT_16 130
+        }
+        PUSHCONT_SHORT {
+            DEBUGMARK 49
+            DROP2
+            PUSHNULL
+            PUSHNULL
+            PUSHINT_4 0
+        }
+        IFELSE
+        DEBUGMARK 50
+    }
+    3 => {
+        DEBUGMARK 51
+        XCHG_IJ s2 s5
+        BLKDROP 5
+        DEBUGMARK 52
+        DEBUGMARK 53
+        DUP
+        ISNULL
+        PUSHCONT_SHORT {
+            DEBUGMARK 54
+            DROP
+            PUSHNULL
+            DEBUGMARK 55
+        }
+        IFJMP
+        DEBUGMARK 56
+        DEBUGMARK 57
+        DEBUGMARK 58
+        DEBUGMARK 59
+        DEBUGMARK 60
+        DEBUGMARK 61
+        CTOS
+        SDBEGINSQ x{1}
+        PUSHCONT_SHORT {
+            LDMSGADDR
+            NIP
+            LDMSGADDR
+            PUSHINT_16 130
+        }
+        PUSHCONT_SHORT {
+            SDBEGINSQ x{2}
+            PUSHCONT_SHORT {
+                THROW_SHORT 63
+            }
+            IFNOTJMP
+            LDU 32
+            PUSHINT_16 131
+        }
+        IFELSE
+        SWAP
+        ENDS
+        DEBUGMARK 62
+        DEBUGMARK 63
+        PUSHINT_16 131
+        EQUAL
+        DEBUGMARK 64
+        SWAP
+        PUSHNULL
+        CONDSEL
+        DEBUGMARK 65
+    }
+    4 => {
+        DEBUGMARK 75
+        DEBUGMARK 76
+        DEBUGMARK 77
+        DEBUGMARK 78
+        DUP
+        EQINT 0
+        PUSHCONT_SHORT {
+            DEBUGMARK 79
+            DROP
+            DEBUGMARK 80
+            MULDIV
+            DEBUGMARK 81
+        }
+        IFJMP
+        DEBUGMARK 82
+        DEBUGMARK 83
+        DUP
+        EQINT 1
+        PUSHCONT_SHORT {
+            DEBUGMARK 84
+            DROP
+            DEBUGMARK 85
+            MULDIVC
+            DEBUGMARK 86
+        }
+        IFJMP
+        DEBUGMARK 87
+        DEBUGMARK 88
+        EQINT 2
+        PUSHCONT_SHORT {
+            DEBUGMARK 89
+            DEBUGMARK 90
+            MULDIVR
+            DEBUGMARK 91
+        }
+        IFJMP
+        DEBUGMARK 92
+        BLKDROP 3
+        DEBUGMARK 93
+        DEBUGMARK 94
+        THROW 1004
+    }
+    5 => {
+        SAVECTR c2
+        SAMEALTSAVE
+        DEBUGMARK 95
+        POP s4
+        DEBUGMARK 96
+        PUSH s12
+        XCPU s4 s12
+        XCPU s4 s12
+        XCPU s4 s12
+        XCPU s4 s10
+        XCHG_IJ s4 s13
+        XCHG_IJ s3 s12
+        XC2PU s2 s2 s13
+        PUSHREFCONT {
+            DEBUGMARK 255
+            NIP
+            DEBUGMARK 256
+            DEBUGMARK 257
+            PUSH s3
+            ISNULL
+            NOT
+            PUSHCONT {
+                DEBUGMARK 258
+                NIP
+                DEBUGMARK 259
+                DEBUGMARK 260
+                DEBUGMARK 261
+                DEBUGMARK 262
+                XCHG_0I s2
+                CTOS
+                LDI 1
+                LDREF
+                ENDS
+            }
+            PUSHCONT {
+                DEBUGMARK 263
+                POP s3
+                DEBUGMARK 264
+                DEBUGMARK 265
+                PUSHINT_4 0
+                DEBUGMARK 266
+                DEBUGMARK 267
+                PUSHSLICE x{206661696C6564}
+                DEBUGMARK 268
+                DEBUGMARK 269
+                DEBUGMARK 270
+                DEBUGMARK 271
+                NEWC
+                STSLICECONST x{00000000}
+                XCHG_1I s1 s3
+                STSLICE
+                XCHG_1I s1 s2
+                STSLICE
+                ENDC
+                DEBUGMARK 272
+                DEBUGMARK 273
+            }
+            IFELSE
+            DEBUGMARK 274
+            DEBUGMARK 275
+            DEBUGMARK 276
+            ref {
+                DEBUGMARK 277
+                PUSHINT_16 129
+                PUSH s6
+                EQUAL
+                PUSHCONT {
+                    DEBUGMARK 311
+                    PUSHINT_16 132
+                    XCHG2 s0 s6
+                    EQUAL
+                    IFREFELSEREF {
+                        DEBUGMARK 312
+                        POP s5
+                        DEBUGMARK 313
+                        DEBUGMARK 314
+                        DEBUGMARK 315
+                        DEBUGMARK 316
+                        DUP
+                        ISNULL
+                        NOT
+                        DEBUGMARK 317
+                        THROWIFNOT 1006
+                        DEBUGMARK 318
+                        PUSH s8
+                        DEBUGMARK 319
+                        DEBUGMARK 320
+                        DEBUGMARK 321
+                        DEBUGMARK 322
+                        DEBUGMARK 323
+                        PUSH s3
+                        GTINT 0
+                        DEBUGMARK 324
+                        THROWIFNOT 1005
+                        DEBUGMARK 325
+                        DEBUGMARK 326
+                        DEBUGMARK 327
+                        DEBUGMARK 328
+                        DUP
+                        SDBEGINSQ x{2_}
+                        NIP
+                        PUXC s10 s1
+                        CONDSEL
+                        DEBUGMARK 329
+                        DEBUGMARK 330
+                        DEBUGMARK 331
+                        DEBUGMARK 332
+                        DEBUGMARK 333
+                        DEBUGMARK 334
+                        DEBUGMARK 335
+                        PUSHNULL
+                        DEBUGMARK 336
+                        ref {
+                            PUSHINT_LONG 60000000
+                            DEBUGMARK 337
+                            PUSH s9
+                            SUBR
+                            DEBUGMARK 338
+                            DEBUGMARK 339
+                            DEBUGMARK 340
+                            DEBUGMARK 341
+                            DEBUGMARK 342
+                            XCHG_0I s7
+                            PUSHCONT {
+                                DEBUGMARK 343
+                                DEBUGMARK 344
+                                DEBUGMARK 345
+                                DEBUGMARK 346
+                                XCHG_0I s7
+                                NEWC
+                                STSLICE
+                                ENDC
+                            }
+                            PUSHCONT_SHORT {
+                                DEBUGMARK 347
+                                POP s7
+                                PUSHNULL
+                            }
+                            IFELSE
+                            DEBUGMARK 348
+                            PUSH2 s3 s10
+                            DEBUGMARK 349
+                            DEBUGMARK 350
+                            DEBUGMARK 351
+                            DEBUGMARK 352
+                            DEBUGMARK 353
+                            NEWC
+                            STSLICECONST x{B00D7656}
+                            XCHG_1I s1 s2
+                            STU 16
+                            STSLICE
+                            XCHG_1I s1 s6
+                            STDICT
+                            XCHG_1I s1 s5
+                            STDICT
+                            ENDC
+                            DEBUGMARK 354
+                            DEBUGMARK 355
+                            DEBUGMARK 356
+                            DEBUGMARK 357
+                            NEWC
+                            PUSHREFSLICE {
+                                embed x{0F8A7EA5}
+                            }
+                            STSLICER
+                            XCHG_1I s1 s9
+                            ref {
+                                STU 64
+                                XCHG2 s0 s3
+                                STGRAMS
+                                XCHG_1I s1 s3
+                                STSLICE
+                                XCHG_1I s1 s7
+                                STSLICE
+                                XCHG_1I s1 s3
+                                STDICT
+                                SWAP
+                                STGRAMS
+                                XCHG_1I s1 s3
+                                STDICT
+                                ENDC
+                                NEWC
+                                STSLICECONST x{42_}
+                                XCHG_1I s1 s4
+                                STSLICE
+                                SWAP
+                                STGRAMS
+                                PUSHINT_4 1
+                                STUR 107
+                                XCHG_1I s1 s2
+                                STREF
+                                ENDC
+                                DEBUGMARK 358
+                                PUSHINT_4 1
+                                DEBUGMARK 359
+                                SENDRAWMSG
+                                DEBUGMARK 360
+                            }
+                        }
+                    } {
+                        DEBUGMARK 361
+                        NIP
+                        DEBUGMARK 362
+                        DEBUGMARK 363
+                        DEBUGMARK 364
+                        DEBUGMARK 365
+                        DEBUGMARK 366
+                        DEBUGMARK 367
+                        PUSH s2
+                        GTINT 0
+                        DEBUGMARK 368
+                        THROWIFNOT 1005
+                        DEBUGMARK 369
+                        DEBUGMARK 370
+                        PUSHNULL
+                        DEBUGMARK 371
+                        PUSHINT_8 32
+                        DEBUGMARK 372
+                        NEWC
+                        DEBUGMARK 373
+                        XCHG2 s0 s5
+                        STVARUINT32
+                        DEBUGMARK 374
+                        XCHG3 s6 s1 s3
+                        XCHG_0I s4
+                        DICTUSETB
+                        DEBUGMARK 375
+                        DEBUGMARK 376
+                        DEBUGMARK 377
+                        DEBUGMARK 378
+                        DEBUGMARK 379
+                        DEBUGMARK 380
+                        DEBUGMARK 381
+                        DEBUGMARK 382
+                        PUSH s7
+                        SDBEGINSQ x{2_}
+                        NIP
+                        PUSH2 s8 s8
+                        CONDSEL
+                        DEBUGMARK 383
+                        DEBUGMARK 384
+                        ref {
+                            DEBUGMARK 385
+                            DEBUGMARK 386
+                            DEBUGMARK 387
+                            DEBUGMARK 388
+                            XCHG_0I s4
+                            PUSHCONT {
+                                DEBUGMARK 389
+                                DEBUGMARK 390
+                                DEBUGMARK 391
+                                DEBUGMARK 392
+                                XCHG_0I s4
+                                NEWC
+                                STSLICE
+                                ENDC
+                            }
+                            PUSHCONT_SHORT {
+                                DEBUGMARK 393
+                                POP s4
+                                PUSHNULL
+                            }
+                            IFELSE
+                            DEBUGMARK 394
+                            OVER
+                            DEBUGMARK 395
+                            DEBUGMARK 396
+                            DEBUGMARK 397
+                            NEWC
+                            STSLICECONST x{1F9E644B}
+                            XCHG_1I s1 s8
+                            STU 64
+                            XCHG_1I s1 s7
+                            STU 16
+                            XCHG_1I s1 s7
+                            STSLICE
+                            STDICT
+                            XCHG_1I s1 s4
+                            STDICT
+                            ENDC
+                            NEWC
+                            STSLICECONST x{42_}
+                            XCHG_1I s1 s4
+                            STSLICE
+                            ROT
+                            STGRAMS
+                            STDICT
+                            PUSHINT_4 1
+                            STUR 106
+                            STREF
+                            ENDC
+                            DEBUGMARK 398
+                            PUSHINT_4 1
+                            DEBUGMARK 399
+                            SENDRAWMSG
+                            DEBUGMARK 400
+                        }
+                    }
+                }
+                IFREFELSE {
+                    DEBUGMARK 278
+                    POP s2
+                    POP s4
+                    POP s4
+                    DEBUGMARK 279
+                    DEBUGMARK 280
+                    DEBUGMARK 281
+                    DEBUGMARK 282
+                    DEBUGMARK 283
+                    DEBUGMARK 284
+                    OVER
+                    GTINT 0
+                    DEBUGMARK 285
+                    THROWIFNOT 1005
+                    DEBUGMARK 286
+                    DEBUGMARK 287
+                    DEBUGMARK 288
+                    DEBUGMARK 289
+                    XCHG_0I s5
+                    ADD
+                    DEBUGMARK 290
+                    DEBUGMARK 291
+                    DEBUGMARK 292
+                    PUSH s6
+                    SDBEGINSQ x{2_}
+                    NIP
+                    PUSH2 s7 s7
+                    CONDSEL
+                    DEBUGMARK 293
+                    DEBUGMARK 294
+                    DEBUGMARK 295
+                    DEBUGMARK 296
+                    DEBUGMARK 297
+                    DEBUGMARK 298
+                    XCHG_0I s2
+                    PUSHCONT_SHORT {
+                        DEBUGMARK 303
+                        POP s3
+                        PUSHNULL
+                    }
+                    IFREFELSE {
+                        DEBUGMARK 299
+                        DEBUGMARK 300
+                        DEBUGMARK 301
+                        DEBUGMARK 302
+                        XCHG_0I s3
+                        NEWC
+                        STSLICE
+                        ENDC
+                    }
+                    DEBUGMARK 304
+                    PUSH s4
+                    DEBUGMARK 305
+                    DEBUGMARK 306
+                    ref {
+                        DEBUGMARK 307
+                        NEWC
+                        STSLICECONST x{86EBA146}
+                        XCHG_1I s1 s7
+                        STU 64
+                        XCHG_1I s1 s6
+                        STU 16
+                        XCHG_1I s1 s6
+                        STSLICE
+                        STDICT
+                        XCHG_1I s1 s3
+                        STDICT
+                        ENDC
+                        NEWC
+                        STSLICECONST x{62_}
+                        XCHG_1I s1 s4
+                        STSLICE
+                        ROT
+                        STGRAMS
+                        PUSHINT_4 1
+                        STUR 107
+                        XCHG_1I s1 s2
+                        STREF
+                        ENDC
+                        DEBUGMARK 308
+                        PUSHINT_4 1
+                        DEBUGMARK 309
+                        SENDRAWMSG
+                        DEBUGMARK 310
+                    }
+                }
+                DEBUGMARK 401
+                DEBUGMARK 402
+                COMMIT
+                DEBUGMARK 403
+                THROWANY
+            }
+        }
+        SETCONTCTRMANY 187
+        PUSHINT_4 10
+        PUSHINT_4 -1
+        SETCONTVARARGS
+        PUSHREFCONT {
+            DEBUGMARK 97
+            DEBUGMARK 98
+            DEBUGMARK 99
+            DEBUGMARK 100
+            DEBUGMARK 101
+            PUSHPOW2DEC 120
+            DEBUGMARK 102
+            DEBUGMARK 103
+            DEBUGMARK 104
+            DEBUGMARK 105
+            DEBUGMARK 106
+            DEBUGMARK 107
+            PUSH s3
+            GEQ
+            DEBUGMARK 108
+            THROWIFNOT 2002
+            DEBUGMARK 109
+            DEBUGMARK 110
+            DEBUGMARK 111
+            DEBUGMARK 112
+            DEBUGMARK 113
+            PUSHINT_4 0
+            DEBUGMARK 114
+            DEBUGMARK 115
+            DEBUGMARK 116
+            DEBUGMARK 117
+            PUSHCTR c4
+            DEBUGMARK 118
+            CTOS
+            DEBUGMARK 119
+            DEBUGMARK 120
+            DEBUGMARK 121
+            DEBUGMARK 122
+            DEBUGMARK 123
+            DEBUGMARK 124
+            DEBUGMARK 125
+            ref {
+                DEBUGMARK 126
+                DEBUGMARK 127
+                DEBUGMARK 128
+                PUSHCTR c4
+                DEBUGMARK 129
+                CTOS
+                DEBUGMARK 130
+                DEBUGMARK 131
+                DEBUGMARK 132
+                DEBUGMARK 133
+                LDMSGADDR
+                NIP
+                LDGRAMS
+                NIP
+                LDGRAMS
+                DROP
+                DEBUGMARK 134
+                DEBUGMARK 135
+                SWAP
+                LDMSGADDR
+                NIP
+                LDGRAMS
+                DROP
+                DEBUGMARK 136
+                DEBUGMARK 137
+                DEBUGMARK 138
+                OVER
+                EQINT 0
+                PUSHCONT_SHORT {
+                    BLKDROP 3
+                    PUSH s2
+                }
+                PUSHCONT_SHORT {
+                    DEBUGMARK 139
+                    DEBUGMARK 140
+                    PUSH s5
+                    XCHG2 s2 s3
+                    CALLDICT 4
+                }
+                IFELSE
+                DEBUGMARK 141
+                DEBUGMARK 142
+                DEBUGMARK 143
+                DEBUGMARK 144
+                DEBUGMARK 145
+                DEBUGMARK 146
+                DEBUGMARK 147
+                DEBUGMARK 148
+                PUXC s0 s1
+                ref {
+                    GEQ
+                    DEBUGMARK 149
+                    THROWIFNOT 2003
+                    DEBUGMARK 150
+                    DEBUGMARK 151
+                    DEBUGMARK 152
+                    PUSH s3
+                    ISNULL
+                    NOT
+                    PUSHCONT {
+                        DEBUGMARK 153
+                        POP s4
+                        DEBUGMARK 154
+                        DEBUGMARK 155
+                        DEBUGMARK 156
+                        DEBUGMARK 157
+                        XCHG_0I s2
+                        CTOS
+                        LDI 1
+                        LDREF
+                        ENDS
+                    }
+                    PUSHCONT {
+                        DEBUGMARK 158
+                        POP s3
+                        DEBUGMARK 159
+                        DEBUGMARK 160
+                        PUSHINT_4 0
+                        DEBUGMARK 161
+                        DEBUGMARK 162
+                        PUSHSLICE x{207375636365737366756C}
+                        DEBUGMARK 163
+                        DEBUGMARK 164
+                        DEBUGMARK 165
+                        DEBUGMARK 166
+                        NEWC
+                        STSLICECONST x{00000000}
+                        XCHG_1I s1 s6
+                        STSLICE
+                        XCHG_1I s1 s5
+                        STSLICE
+                        ENDC
+                        DEBUGMARK 167
+                        DEBUGMARK 168
+                        XCHG_1I s1 s3
+                        XCHG_1I s1 s4
+                    }
+                    ref {
+                        IFELSE
+                        DEBUGMARK 169
+                        DEBUGMARK 170
+                        DEBUGMARK 171
+                        DEBUGMARK 172
+                        DEBUGMARK 173
+                        DEBUGMARK 174
+                        DEBUGMARK 175
+                        PUSH s4
+                        GTINT 0
+                        DEBUGMARK 176
+                        THROWIFNOT 1005
+                        DEBUGMARK 177
+                        DEBUGMARK 178
+                        DEBUGMARK 179
+                        DEBUGMARK 180
+                        PUSH s3
+                        SDBEGINSQ x{2_}
+                        NIP
+                        XCPUXC s0 s9 s4
+                        CONDSEL
+                        DEBUGMARK 181
+                        DEBUGMARK 182
+                        DEBUGMARK 183
+                        DEBUGMARK 184
+                        DEBUGMARK 185
+                        PUSHCTR c4
+                        DEBUGMARK 186
+                        CTOS
+                        DEBUGMARK 187
+                        DEBUGMARK 188
+                        DEBUGMARK 189
+                        DEBUGMARK 190
+                        DEBUGMARK 191
+                        DEBUGMARK 192
+                        MYADDR
+                        SWAP
+                        LDMSGADDR
+                        NIP
+                        LDGRAMS
+                        NIP
+                        LDGRAMS
+                        ref {
+                            NIP
+                            SKIPDICT
+                            PLDREFIDX 0
+                            DEBUGMARK 193
+                            DEBUGMARK 194
+                            DEBUGMARK 195
+                            DEBUGMARK 196
+                            DEBUGMARK 197
+                            DEBUGMARK 198
+                            DEBUGMARK 199
+                            DEBUGMARK 200
+                            DEBUGMARK 201
+                            DEBUGMARK 202
+                            DEBUGMARK 203
+                            DEBUGMARK 204
+                            PUSH2 s2 s1
+                            DEBUGMARK 205
+                            DEBUGMARK 206
+                            DEBUGMARK 207
+                            DEBUGMARK 208
+                            DEBUGMARK 209
+                            DEBUGMARK 210
+                            DEBUGMARK 211
+                            NEWC
+                            STSLICECONST x{00}
+                            XCHG_1I s1 s2
+                            STSLICE
+                            STSLICE
+                            ENDC
+                            DEBUGMARK 212
+                            DEBUGMARK 213
+                            DEBUGMARK 214
+                            DEBUGMARK 215
+                            DEBUGMARK 216
+                            PUSHINT_LONG 60000000
+                            DEBUGMARK 217
+                            PUSH s10
+                            SUBR
+                            DEBUGMARK 218
+                            ref {
+                                DEBUGMARK 219
+                                DEBUGMARK 220
+                                DEBUGMARK 221
+                                DEBUGMARK 222
+                                XCHG_0I s5
+                                PUSHCONT {
+                                    DEBUGMARK 223
+                                    DEBUGMARK 224
+                                    DEBUGMARK 225
+                                    DEBUGMARK 226
+                                    XCHG_0I s8
+                                    NEWC
+                                    STSLICE
+                                    ENDC
+                                }
+                                PUSHCONT_SHORT {
+                                    DEBUGMARK 227
+                                    POP s8
+                                    PUSHNULL
+                                }
+                                IFELSE
+                                DEBUGMARK 228
+                                PUSH s11
+                                DEBUGMARK 229
+                                DEBUGMARK 230
+                                DEBUGMARK 231
+                                DEBUGMARK 232
+                                DEBUGMARK 233
+                                NEWC
+                                STSLICECONST x{B00D76560000}
+                                STSLICE
+                                XCHG_1I s1 s7
+                                STDICT
+                                XCHG_1I s1 s6
+                                STDICT
+                                ENDC
+                                DEBUGMARK 234
+                                DEBUGMARK 235
+                                DEBUGMARK 236
+                                DEBUGMARK 237
+                                NEWC
+                                STSLICECONST x{178D4519}
+                                XCHG_1I s1 s10
+                                STU 64
+                                PUSH s6
+                                STGRAMS
+                                STSLICE
+                                OVER
+                                STSLICER
+                                ROT
+                                STGRAMS
+                                XCHG_1I s1 s7
+                                ref {
+                                    STDICT
+                                    ENDC
+                                    NEWC
+                                    STSLICECONST x{42004_}
+                                    PUSH2 s3 s5
+                                    DUP2
+                                    HASHCU
+                                    SWAP
+                                    HASHCU
+                                    SWAP2
+                                    CDEPTH
+                                    SWAP
+                                    CDEPTH
+                                    NEWC
+                                    STSLICECONST x{020134}
+                                    STU 16
+                                    STU 16
+                                    STU 256
+                                    STU 256
+                                    PUSHINT_4 1
+                                    HASHEXT 0
+                                    STUR 256
+                                    XCHG2 s0 s6
+                                    STGRAMS
+                                    PUSHINT_16 141
+                                    STUR 113
+                                    XCHG_1I s1 s2
+                                    STREF
+                                    XCHG_1I s1 s3
+                                    STREF
+                                    XCHG_1I s1 s3
+                                    STREF
+                                    ENDC
+                                    DEBUGMARK 238
+                                    PUSHINT_4 1
+                                    DEBUGMARK 239
+                                    SENDRAWMSG
+                                    DEBUGMARK 240
+                                    DEBUGMARK 241
+                                    DEBUGMARK 242
+                                    PUSHNULL
+                                    DEBUGMARK 243
+                                    PUSHNULL
+                                    DEBUGMARK 244
+                                    DEBUGMARK 245
+                                    DEBUGMARK 246
+                                    DEBUGMARK 247
+                                    DEBUGMARK 248
+                                    DEBUGMARK 249
+                                    DEBUGMARK 250
+                                    NEWC
+                                    STSLICECONST x{11475D67}
+                                    XCHG_1I s1 s6
+                                    STSLICE
+                                    XCHG_1I s1 s4
+                                    ref {
+                                        STSLICE
+                                        XCHG_1I s1 s3
+                                        STDICT
+                                        ROT
+                                        STGRAMS
+                                        OVER
+                                        STGRAMS
+                                        XCHG_1I s1 s2
+                                        STDICT
+                                        ENDC
+                                        NEWC
+                                        STSLICECONST x{C60001_}
+                                        PUSHINT_LONG 289889639
+                                        STUR 248
+                                        PUSHINT_4 1
+                                        STUR 98
+                                        STREF
+                                        ENDC
+                                        DEBUGMARK 251
+                                        PUSHINT_4 0
+                                        DEBUGMARK 252
+                                        SENDRAWMSG
+                                        DEBUGMARK 253
+                                        DEBUGMARK 254
+                                        RETALT
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PUSHCTR c1
+        BOOLOR
+        SWAP
+        TRY
+    }
+    6 => {
+        SAVECTR c2
+        SAMEALTSAVE
+        DEBUGMARK 404
+        POP s4
+        DEBUGMARK 405
+        PU2XC s12 s11 s-2
+        PU2XC s12 s11 s-2
+        PUXC s10 s5
+        PUSH s8
+        PUSHREFCONT {
+            DEBUGMARK 621
+            NIP
+            DEBUGMARK 622
+            DEBUGMARK 623
+            PUSH s2
+            ISNULL
+            NOT
+            PUSHCONT {
+                DEBUGMARK 624
+                NIP
+                DEBUGMARK 625
+                DEBUGMARK 626
+                DEBUGMARK 627
+                DEBUGMARK 628
+                SWAP
+                CTOS
+                LDI 1
+                LDREF
+                ENDS
+            }
+            PUSHCONT {
+                DEBUGMARK 629
+                POP s2
+                DEBUGMARK 630
+                DEBUGMARK 631
+                PUSHINT_4 0
+                DEBUGMARK 632
+                DEBUGMARK 633
+                PUSHSLICE x{206661696C6564}
+                DEBUGMARK 634
+                DEBUGMARK 635
+                DEBUGMARK 636
+                DEBUGMARK 637
+                NEWC
+                STSLICECONST x{00000000}
+                XCHG_1I s1 s3
+                STSLICE
+                XCHG_1I s1 s2
+                STSLICE
+                ENDC
+                DEBUGMARK 638
+                DEBUGMARK 639
+            }
+            IFELSE
+            DEBUGMARK 640
+            PUSH s7
+            DEBUGMARK 641
+            ref {
+                DEBUGMARK 642
+                DEBUGMARK 643
+                DEBUGMARK 644
+                DEBUGMARK 645
+                PUSH s4
+                GTINT 0
+                DEBUGMARK 646
+                THROWIFNOT 1005
+                DEBUGMARK 647
+                DEBUGMARK 648
+                DEBUGMARK 649
+                DEBUGMARK 650
+                DUP
+                SDBEGINSQ x{2_}
+                NIP
+                PUXC s9 s1
+                CONDSEL
+                DEBUGMARK 651
+                DEBUGMARK 652
+                DEBUGMARK 653
+                DEBUGMARK 654
+                DEBUGMARK 655
+                PUSHCTR c4
+                DEBUGMARK 656
+                CTOS
+                DEBUGMARK 657
+                DEBUGMARK 658
+                DEBUGMARK 659
+                DEBUGMARK 660
+                DEBUGMARK 661
+                DEBUGMARK 662
+                MYADDR
+                SWAP
+                LDMSGADDR
+                NIP
+                LDGRAMS
+                NIP
+                LDGRAMS
+                NIP
+                SKIPDICT
+                PLDREFIDX 0
+                DEBUGMARK 663
+                DEBUGMARK 664
+                ref {
+                    DEBUGMARK 665
+                    DEBUGMARK 666
+                    DEBUGMARK 667
+                    DEBUGMARK 668
+                    DEBUGMARK 669
+                    DEBUGMARK 670
+                    DEBUGMARK 671
+                    DEBUGMARK 672
+                    DEBUGMARK 673
+                    DEBUGMARK 674
+                    PUSH2 s2 s1
+                    DEBUGMARK 675
+                    DEBUGMARK 676
+                    DEBUGMARK 677
+                    DEBUGMARK 678
+                    DEBUGMARK 679
+                    DEBUGMARK 680
+                    DEBUGMARK 681
+                    NEWC
+                    STSLICECONST x{00}
+                    XCHG_1I s1 s2
+                    STSLICE
+                    STSLICE
+                    ENDC
+                    DEBUGMARK 682
+                    DEBUGMARK 683
+                    DEBUGMARK 684
+                    DEBUGMARK 685
+                    DEBUGMARK 686
+                    PUSHINT_LONG 60000000
+                    DEBUGMARK 687
+                    PUSH s10
+                    SUBR
+                    DEBUGMARK 688
+                    DEBUGMARK 689
+                    DEBUGMARK 690
+                    DEBUGMARK 691
+                    ref {
+                        DEBUGMARK 692
+                        XCHG_0I s6
+                        PUSHCONT {
+                            DEBUGMARK 693
+                            DEBUGMARK 694
+                            DEBUGMARK 695
+                            DEBUGMARK 696
+                            XCHG_0I s8
+                            NEWC
+                            STSLICE
+                            ENDC
+                        }
+                        PUSHCONT_SHORT {
+                            DEBUGMARK 697
+                            POP s8
+                            PUSHNULL
+                        }
+                        IFELSE
+                        DEBUGMARK 698
+                        PUSH s6
+                        DEBUGMARK 699
+                        DEBUGMARK 700
+                        DEBUGMARK 701
+                        DEBUGMARK 702
+                        DEBUGMARK 703
+                        NEWC
+                        STSLICECONST x{B00D7656}
+                        STU 16
+                        XCHG_1I s1 s12
+                        STSLICE
+                        XCHG_1I s1 s4
+                        STDICT
+                        XCHG_1I s1 s10
+                        STDICT
+                        ENDC
+                        DEBUGMARK 704
+                        DEBUGMARK 705
+                        DEBUGMARK 706
+                        DEBUGMARK 707
+                        NEWC
+                        STSLICECONST x{178D4519}
+                        XCHG_1I s1 s9
+                        STU 64
+                        XCHG2 s0 s5
+                        STGRAMS
+                        XCHG_1I s1 s8
+                        STSLICE
+                        PUSH s3
+                        STSLICER
+                        POP s3
+                        XCHG_1I s1 s2
+                        STGRAMS
+                        XCHG_1I s1 s4
+                        STDICT
+                        ENDC
+                        NEWC
+                        STSLICECONST x{42004_}
+                        ref {
+                            PUSH2 s5 s2
+                            DUP2
+                            HASHCU
+                            SWAP
+                            HASHCU
+                            SWAP2
+                            CDEPTH
+                            SWAP
+                            CDEPTH
+                            NEWC
+                            STSLICECONST x{020134}
+                            STU 16
+                            STU 16
+                            STU 256
+                            STU 256
+                            PUSHINT_4 1
+                            HASHEXT 0
+                            STUR 256
+                            XCHG2 s0 s3
+                            STGRAMS
+                            PUSHINT_16 141
+                            STUR 113
+                            XCHG_1I s1 s4
+                            STREF
+                            XCHG_1I s1 s3
+                            STREF
+                            XCHG_1I s1 s2
+                            STREF
+                            ENDC
+                            DEBUGMARK 708
+                            PUSHINT_4 1
+                            DEBUGMARK 709
+                            SENDRAWMSG
+                            DEBUGMARK 710
+                            DEBUGMARK 711
+                            COMMIT
+                            DEBUGMARK 712
+                            THROWANY
+                        }
+                    }
+                }
+            }
+        }
+        SETCONTCTRMANY 187
+        PUSHINT_4 7
+        PUSHINT_4 -1
+        SETCONTVARARGS
+        PUSHREFCONT {
+            DEBUGMARK 406
+            DEBUGMARK 407
+            DEBUGMARK 408
+            DEBUGMARK 409
+            DEBUGMARK 410
+            PUSHPOW2DEC 120
+            DEBUGMARK 411
+            DEBUGMARK 412
+            DEBUGMARK 413
+            DEBUGMARK 414
+            DEBUGMARK 415
+            PUSHINT_16 3002
+            DEBUGMARK 416
+            PUXC s7 s1
+            LEQ
+            DEBUGMARK 417
+            THROWANYIFNOT
+            DEBUGMARK 418
+            DEBUGMARK 419
+            DEBUGMARK 420
+            DEBUGMARK 421
+            DEBUGMARK 422
+            PUSHINT_4 0
+            DEBUGMARK 423
+            DEBUGMARK 424
+            DEBUGMARK 425
+            DEBUGMARK 426
+            PUSHCTR c4
+            DEBUGMARK 427
+            CTOS
+            DEBUGMARK 428
+            DEBUGMARK 429
+            DEBUGMARK 430
+            DEBUGMARK 431
+            LDMSGADDR
+            NIP
+            LDGRAMS
+            DROP
+            ref {
+                DEBUGMARK 432
+                DEBUGMARK 433
+                DEBUGMARK 434
+                DEBUGMARK 435
+                DUP
+                EQINT 0
+                PUSHCONT_SHORT {
+                    DEBUGMARK 436
+                    DROP2
+                    PUSHINT_4 0
+                }
+                PUSHCONT {
+                    DEBUGMARK 437
+                    DEBUGMARK 438
+                    DEBUGMARK 439
+                    DEBUGMARK 440
+                    DEBUGMARK 441
+                    PUSHCTR c4
+                    DEBUGMARK 442
+                    CTOS
+                    DEBUGMARK 443
+                    DEBUGMARK 444
+                    DEBUGMARK 445
+                    DEBUGMARK 446
+                    LDMSGADDR
+                    NIP
+                    LDGRAMS
+                    NIP
+                    LDGRAMS
+                    DROP
+                    DEBUGMARK 447
+                    DEBUGMARK 448
+                    DEBUGMARK 449
+                    PUSH s8
+                    XCHG2 s2 s3
+                    CALLDICT 4
+                }
+                IFELSE
+                DEBUGMARK 450
+                DEBUGMARK 451
+                DEBUGMARK 452
+                DEBUGMARK 453
+                DEBUGMARK 454
+                DEBUGMARK 455
+                DEBUGMARK 456
+                ref {
+                    PUSHINT_16 3003
+                    DEBUGMARK 457
+                    PUXC s1 s5
+                    GEQ
+                    DEBUGMARK 458
+                    XCHG_1I s1 s5
+                    THROWANYIFNOT
+                    DEBUGMARK 459
+                    DEBUGMARK 460
+                    DEBUGMARK 461
+                    OVER
+                    ISNULL
+                    NOT
+                    PUSHCONT {
+                        DEBUGMARK 467
+                        NIP
+                        DEBUGMARK 468
+                        DEBUGMARK 469
+                        PUSHINT_4 0
+                        DEBUGMARK 470
+                        DEBUGMARK 471
+                        PUSHSLICE x{207375636365737366756C}
+                        DEBUGMARK 472
+                        DEBUGMARK 473
+                        DEBUGMARK 474
+                        DEBUGMARK 475
+                        NEWC
+                        STSLICECONST x{00000000}
+                        XCHG_1I s1 s4
+                        STSLICE
+                        XCHG_1I s1 s3
+                        STSLICE
+                        ENDC
+                        DEBUGMARK 476
+                        DEBUGMARK 477
+                        XCHG_1I s1 s2
+                    }
+                    IFREFELSE {
+                        DEBUGMARK 462
+                        POP s2
+                        DEBUGMARK 463
+                        DEBUGMARK 464
+                        DEBUGMARK 465
+                        DEBUGMARK 466
+                        CTOS
+                        LDI 1
+                        LDREF
+                        ENDS
+                    }
+                    DEBUGMARK 478
+                    DEBUGMARK 479
+                    DEBUGMARK 480
+                    DEBUGMARK 481
+                    ref {
+                        DEBUGMARK 482
+                        PUSHINT_16 129
+                        PUSH s7
+                        EQUAL
+                        PUSHCONT {
+                            DEBUGMARK 516
+                            PUSHINT_16 132
+                            XCHG2 s0 s7
+                            EQUAL
+                            IFREFELSEREF {
+                                DEBUGMARK 517
+                                POP s6
+                                DEBUGMARK 518
+                                DEBUGMARK 519
+                                DEBUGMARK 520
+                                DEBUGMARK 521
+                                DUP
+                                ISNULL
+                                NOT
+                                DEBUGMARK 522
+                                THROWIFNOT 1006
+                                DEBUGMARK 523
+                                PUSH s2
+                                DEBUGMARK 524
+                                DEBUGMARK 525
+                                DEBUGMARK 526
+                                DEBUGMARK 527
+                                DEBUGMARK 528
+                                PUSH s2
+                                GTINT 0
+                                DEBUGMARK 529
+                                THROWIFNOT 1005
+                                DEBUGMARK 530
+                                DEBUGMARK 531
+                                DEBUGMARK 532
+                                DEBUGMARK 533
+                                DUP
+                                SDBEGINSQ x{2_}
+                                NIP
+                                PUXC s11 s1
+                                CONDSEL
+                                DEBUGMARK 534
+                                DEBUGMARK 535
+                                DEBUGMARK 536
+                                DEBUGMARK 537
+                                DEBUGMARK 538
+                                DEBUGMARK 539
+                                DEBUGMARK 540
+                                PUSHNULL
+                                DEBUGMARK 541
+                                ref {
+                                    PUSHINT_LONG 60000000
+                                    DEBUGMARK 542
+                                    PUSH s10
+                                    SUBR
+                                    DEBUGMARK 543
+                                    DEBUGMARK 544
+                                    DEBUGMARK 545
+                                    DEBUGMARK 546
+                                    DEBUGMARK 547
+                                    XCHG_0I s8
+                                    PUSHCONT {
+                                        DEBUGMARK 548
+                                        DEBUGMARK 549
+                                        DEBUGMARK 550
+                                        DEBUGMARK 551
+                                        XCHG_0I s8
+                                        NEWC
+                                        STSLICE
+                                        ENDC
+                                    }
+                                    PUSHCONT_SHORT {
+                                        DEBUGMARK 552
+                                        POP s8
+                                        PUSHNULL
+                                    }
+                                    IFELSE
+                                    DEBUGMARK 553
+                                    PUSH s11
+                                    DEBUGMARK 554
+                                    DEBUGMARK 555
+                                    DEBUGMARK 556
+                                    DEBUGMARK 557
+                                    DEBUGMARK 558
+                                    NEWC
+                                    STSLICECONST x{B00D76560000}
+                                    STSLICE
+                                    XCHG_1I s1 s7
+                                    STDICT
+                                    XCHG_1I s1 s6
+                                    STDICT
+                                    ENDC
+                                    DEBUGMARK 559
+                                    DEBUGMARK 560
+                                    DEBUGMARK 561
+                                    DEBUGMARK 562
+                                    NEWC
+                                    STSLICECONST x{0F8A7EA5}
+                                    ref {
+                                        XCHG_1I s1 s10
+                                        STU 64
+                                        PUSH s2
+                                        STGRAMS
+                                        XCHG_1I s1 s5
+                                        STSLICE
+                                        PUSH s9
+                                        STSLICER
+                                        XCHG_1I s1 s6
+                                        STDICT
+                                        XCHG2 s0 s4
+                                        STGRAMS
+                                        XCHG_1I s1 s6
+                                        STDICT
+                                        ENDC
+                                        NEWC
+                                        STSLICECONST x{42_}
+                                        XCHG_1I s1 s2
+                                        STSLICE
+                                        XCHG2 s0 s4
+                                        STGRAMS
+                                        PUSHINT_4 1
+                                        STUR 107
+                                        XCHG_1I s1 s3
+                                        STREF
+                                        ENDC
+                                        DEBUGMARK 563
+                                        PUSHINT_4 1
+                                        DEBUGMARK 564
+                                        SENDRAWMSG
+                                        DEBUGMARK 565
+                                    }
+                                }
+                            } {
+                                DEBUGMARK 566
+                                NIP
+                                DEBUGMARK 567
+                                DEBUGMARK 568
+                                DEBUGMARK 569
+                                DEBUGMARK 570
+                                DEBUGMARK 571
+                                DEBUGMARK 572
+                                OVER
+                                GTINT 0
+                                DEBUGMARK 573
+                                THROWIFNOT 1005
+                                DEBUGMARK 574
+                                DEBUGMARK 575
+                                PUSHNULL
+                                DEBUGMARK 576
+                                PUSHINT_8 32
+                                DEBUGMARK 577
+                                NEWC
+                                DEBUGMARK 578
+                                PUSH s4
+                                STVARUINT32
+                                DEBUGMARK 579
+                                XCHG_0I s3
+                                XCHG3 s8 s8 s8
+                                DICTUSETB
+                                DEBUGMARK 580
+                                DEBUGMARK 581
+                                DEBUGMARK 582
+                                DEBUGMARK 583
+                                DEBUGMARK 584
+                                DEBUGMARK 585
+                                DEBUGMARK 586
+                                DEBUGMARK 587
+                                PUSH s2
+                                SDBEGINSQ x{2_}
+                                NIP
+                                PUSH2 s10 s3
+                                CONDSEL
+                                DEBUGMARK 588
+                                DEBUGMARK 589
+                                ref {
+                                    DEBUGMARK 590
+                                    DEBUGMARK 591
+                                    DEBUGMARK 592
+                                    DEBUGMARK 593
+                                    XCHG_0I s6
+                                    PUSHCONT {
+                                        DEBUGMARK 594
+                                        DEBUGMARK 595
+                                        DEBUGMARK 596
+                                        DEBUGMARK 597
+                                        XCHG_0I s6
+                                        NEWC
+                                        STSLICE
+                                        ENDC
+                                    }
+                                    PUSHCONT_SHORT {
+                                        DEBUGMARK 598
+                                        POP s6
+                                        PUSHNULL
+                                    }
+                                    IFELSE
+                                    DEBUGMARK 599
+                                    PUSH s9
+                                    DEBUGMARK 600
+                                    DEBUGMARK 601
+                                    DEBUGMARK 602
+                                    NEWC
+                                    STSLICECONST x{1F9E644B}
+                                    XCHG_1I s1 s10
+                                    STU 64
+                                    STSLICECONST x{0000}
+                                    XCHG_1I s1 s9
+                                    STSLICE
+                                    XCHG_1I s1 s4
+                                    STDICT
+                                    XCHG_1I s1 s7
+                                    STDICT
+                                    ENDC
+                                    NEWC
+                                    STSLICECONST x{42_}
+                                    XCHG_1I s1 s4
+                                    STSLICE
+                                    XCHG2 s0 s5
+                                    STGRAMS
+                                    XCHG_1I s1 s3
+                                    STDICT
+                                    PUSHINT_4 1
+                                    STUR 106
+                                    STREF
+                                    ENDC
+                                    DEBUGMARK 603
+                                    PUSHINT_4 1
+                                    DEBUGMARK 604
+                                    SENDRAWMSG
+                                    DEBUGMARK 605
+                                    XCHG_1I s1 s2
+                                }
+                            }
+                            SWAP
+                        }
+                        IFREFELSE {
+                            DEBUGMARK 483
+                            POP s2
+                            POP s5
+                            POP s5
+                            DEBUGMARK 484
+                            DEBUGMARK 485
+                            DEBUGMARK 486
+                            DEBUGMARK 487
+                            DEBUGMARK 488
+                            DEBUGMARK 489
+                            DUP
+                            GTINT 0
+                            DEBUGMARK 490
+                            THROWIFNOT 1005
+                            DEBUGMARK 491
+                            DEBUGMARK 492
+                            DEBUGMARK 493
+                            DEBUGMARK 494
+                            XCPU s6 s6
+                            ADD
+                            DEBUGMARK 495
+                            DEBUGMARK 496
+                            DEBUGMARK 497
+                            OVER
+                            SDBEGINSQ x{2_}
+                            NIP
+                            PUSH2 s9 s2
+                            CONDSEL
+                            DEBUGMARK 498
+                            DEBUGMARK 499
+                            DEBUGMARK 500
+                            DEBUGMARK 501
+                            DEBUGMARK 502
+                            DEBUGMARK 503
+                            XCHG_0I s4
+                            PUSHCONT_SHORT {
+                                DEBUGMARK 508
+                                POP s5
+                                PUSHNULL
+                            }
+                            IFREFELSE {
+                                DEBUGMARK 504
+                                DEBUGMARK 505
+                                DEBUGMARK 506
+                                DEBUGMARK 507
+                                XCHG_0I s5
+                                NEWC
+                                STSLICE
+                                ENDC
+                            }
+                            DEBUGMARK 509
+                            PUSH s8
+                            DEBUGMARK 510
+                            ref {
+                                DEBUGMARK 511
+                                DEBUGMARK 512
+                                NEWC
+                                STSLICECONST x{86EBA146}
+                                XCHG_1I s1 s9
+                                STU 64
+                                STSLICECONST x{0000}
+                                XCHG_1I s1 s8
+                                STSLICE
+                                XCHG_1I s1 s4
+                                STDICT
+                                XCHG_1I s1 s6
+                                STDICT
+                                ENDC
+                                NEWC
+                                STSLICECONST x{62_}
+                                XCHG_1I s1 s2
+                                STSLICE
+                                XCHG2 s0 s3
+                                STGRAMS
+                                PUSHINT_4 1
+                                STUR 107
+                                XCHG_1I s1 s2
+                                STREF
+                                ENDC
+                                DEBUGMARK 513
+                                PUSHINT_4 1
+                                DEBUGMARK 514
+                                SENDRAWMSG
+                                DEBUGMARK 515
+                            }
+                        }
+                        DEBUGMARK 606
+                        DEBUGMARK 607
+                        DEBUGMARK 608
+                        PUSHNULL
+                        DEBUGMARK 609
+                        PUSHNULL
+                        DEBUGMARK 610
+                        DEBUGMARK 611
+                        DEBUGMARK 612
+                        DEBUGMARK 613
+                        DEBUGMARK 614
+                        DEBUGMARK 615
+                        DEBUGMARK 616
+                        NEWC
+                        STSLICECONST x{EDFB416D}
+                        XCHG_1I s1 s6
+                        STSLICE
+                        XCHG_1I s1 s2
+                        STSLICE
+                        STDICT
+                        OVER
+                        STGRAMS
+                        ROT
+                        STGRAMS
+                        XCHG_1I s1 s2
+                        STDICT
+                        ENDC
+                        NEWC
+                        STSLICECONST x{C60001_}
+                        PUSHINT_LONG 3992666477
+                        STUR 248
+                        PUSHINT_4 1
+                        STUR 98
+                        STREF
+                        ENDC
+                        DEBUGMARK 617
+                        PUSHINT_4 0
+                        DEBUGMARK 618
+                        SENDRAWMSG
+                        ref {
+                            DEBUGMARK 619
+                            DEBUGMARK 620
+                            RETALT
+                        }
+                    }
+                }
+            }
+        }
+        PUSHCTR c1
+        BOOLOR
+        SWAP
+        TRY
+    }
+    7 => {
+        DEBUGMARK 713
+        DEBUGMARK 714
+        DEBUGMARK 715
+        OVER
+        TLEN
+        DEBUGMARK 716
+        OVER
+        SUB
+        DEBUGMARK 717
+        DEBUGMARK 718
+        PUSHINT_4 3
+        DEBUGMARK 719
+        OVER
+        MIN
+        DEBUGMARK 720
+        DEBUGMARK 721
+        NEWC
+        DEBUGMARK 722
+        OVER
+        PUSHCONT {
+            DEBUGMARK 723
+            DEBUGMARK 724
+            PUSH2 s4 s3
+            INDEXVAR
+            DEBUGMARK 725
+            DEBUGMARK 726
+            STREFR
+            DEBUGMARK 727
+            DEBUGMARK 728
+            XCHG_0I s3
+            INC
+            XCHG_0I s3
+        }
+        REPEAT
+        DEBUGMARK 729
+        XCHG_0I s2
+        SUBR
+        DEBUGMARK 730
+        DEBUGMARK 731
+        DEBUGMARK 732
+        GTINT 0
+        IFJMPREF {
+            DEBUGMARK 733
+            DEBUGMARK 734
+            ROTREV
+            CALLDICT 7
+            DEBUGMARK 735
+            STREFR
+            DEBUGMARK 736
+            ENDC
+            DEBUGMARK 737
+        }
+        DEBUGMARK 738
+        BLKDROP2 2 1
+        ENDC
+        DEBUGMARK 739
+    }
+    66074 => {
+        DEBUGMARK 894
+        DROP
+        DEBUGMARK 895
+        DEBUGMARK 896
+        DEBUGMARK 897
+        DEBUGMARK 898
+        PUSHINT_4 0
+        DEBUGMARK 899
+        DEBUGMARK 900
+        DEBUGMARK 901
+        DEBUGMARK 902
+        PUSHCTR c4
+        DEBUGMARK 903
+        CTOS
+        DEBUGMARK 904
+        DEBUGMARK 905
+        DEBUGMARK 906
+        DEBUGMARK 907
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        DROP
+        DEBUGMARK 908
+        DEBUGMARK 909
+        DEBUGMARK 910
+        DEBUGMARK 911
+        DUP
+        EQINT 0
+        PUSHCONT_SHORT {
+            DEBUGMARK 912
+            BLKDROP 3
+            PUSHINT_4 0
+        }
+        IFELSEREF {
+            DEBUGMARK 913
+            DEBUGMARK 914
+            DEBUGMARK 915
+            DEBUGMARK 916
+            DEBUGMARK 917
+            PUSHCTR c4
+            DEBUGMARK 918
+            CTOS
+            DEBUGMARK 919
+            DEBUGMARK 920
+            DEBUGMARK 921
+            DEBUGMARK 922
+            LDMSGADDR
+            NIP
+            LDGRAMS
+            NIP
+            LDGRAMS
+            DROP
+            DEBUGMARK 923
+            DEBUGMARK 924
+            DEBUGMARK 925
+            XCHG_0I s2
+            CALLDICT 4
+        }
+        DEBUGMARK 926
+        DEBUGMARK 927
+        DEBUGMARK 928
+        DEBUGMARK 929
+        DEBUGMARK 930
+    }
+    68542 => {
+        DEBUGMARK 955
+        DEBUGMARK 956
+        DEBUGMARK 957
+        PUSHINT_LONG 10000000
+        DEBUGMARK 958
+        DEBUGMARK 959
+        DEBUGMARK 960
+    }
+    72050 => {
+        DEBUGMARK 943
+        DEBUGMARK 944
+        DEBUGMARK 945
+        PUSHINT_LONG 13000000
+        DEBUGMARK 946
+        DEBUGMARK 947
+        DEBUGMARK 948
+    }
+    78575 => {
+        DEBUGMARK 775
+        DROP2
+        DEBUGMARK 776
+        DEBUGMARK 777
+        PUSHINT_4 0
+        DEBUGMARK 778
+        DEBUGMARK 779
+        DEBUGMARK 780
+        DEBUGMARK 781
+        PUSHCTR c4
+        DEBUGMARK 782
+        CTOS
+        DEBUGMARK 783
+        DEBUGMARK 784
+        DEBUGMARK 785
+        DEBUGMARK 786
+        DEBUGMARK 787
+        DEBUGMARK 788
+        DEBUGMARK 789
+        DEBUGMARK 790
+        DEBUGMARK 791
+        DEBUGMARK 792
+        PUSHCTR c4
+        DEBUGMARK 793
+        CTOS
+        DEBUGMARK 794
+        DEBUGMARK 795
+        DEBUGMARK 796
+        DEBUGMARK 797
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        NIP
+        LDGRAMS
+        DROP
+        DEBUGMARK 798
+        DEBUGMARK 799
+        SWAP
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        ref {
+            DROP
+            DEBUGMARK 800
+            DEBUGMARK 801
+            DEBUGMARK 802
+            OVER
+            EQINT 0
+            PUSHCONT_SHORT {
+                BLKDROP 3
+            }
+            PUSHCONT_SHORT {
+                DEBUGMARK 803
+                DEBUGMARK 804
+                XCHG_0I s2
+                CALLDICT 4
+            }
+            IFELSE
+            DEBUGMARK 805
+            DEBUGMARK 806
+            DEBUGMARK 807
+        }
+    }
+    78757 => {
+        DEBUGMARK 841
+        DROP
+        DEBUGMARK 842
+        DEBUGMARK 843
+        DEBUGMARK 844
+        DEBUGMARK 845
+        PUSHPOW2DEC 120
+        DEBUGMARK 846
+        DEBUGMARK 847
+        DEBUGMARK 848
+    }
+    79504 => {
+        DEBUGMARK 740
+        DEBUGMARK 741
+        DEBUGMARK 742
+        TUPLE 0
+        DEBUGMARK 743
+        DEBUGMARK 744
+        DEBUGMARK 745
+        PUSHCTR c4
+        DEBUGMARK 746
+        CTOS
+        DEBUGMARK 747
+        DEBUGMARK 748
+        DEBUGMARK 749
+        DEBUGMARK 750
+        LDMSGADDR
+        LDGRAMS
+        LDGRAMS
+        LDDICT
+        LDREF
+        PLDREFIDX 0
+        DEBUGMARK 751
+        DEBUGMARK 752
+        CALLDICT 1
+        DEBUGMARK 753
+        DEBUGMARK 754
+        DEBUGMARK 755
+        DEBUGMARK 756
+        NEWC
+        PUSHINT_16 129
+        PUSH s2
+        EQUAL
+        PUSHCONT_SHORT {
+            BLKDROP2 2 1
+            STSLICECONST x{0}
+        }
+        PUSHCONT {
+            PUSHINT_16 132
+            ROT
+            EQUAL
+            PUSHCONT_SHORT {
+                STSLICECONST x{1}
+                STSLICE
+            }
+            PUSHCONT_SHORT {
+                STSLICECONST x{2}
+                STU 32
+            }
+            IFELSE
+        }
+        IFELSE
+        ENDC
+        DEBUGMARK 757
+        ref {
+            TPUSH
+            DEBUGMARK 758
+            PUSHINT_4 0
+            DEBUGMARK 759
+            CALLDICT 7
+            DEBUGMARK 760
+        }
+    }
+    84976 => {
+        DEBUGMARK 808
+        DROP2
+        DEBUGMARK 809
+        DEBUGMARK 810
+        PUSHINT_4 0
+        DEBUGMARK 811
+        DEBUGMARK 812
+        DEBUGMARK 813
+        DEBUGMARK 814
+        PUSHCTR c4
+        DEBUGMARK 815
+        CTOS
+        DEBUGMARK 816
+        DEBUGMARK 817
+        DEBUGMARK 818
+        DEBUGMARK 819
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        DROP
+        DEBUGMARK 820
+        DEBUGMARK 821
+        DEBUGMARK 822
+        DEBUGMARK 823
+        DUP
+        EQINT 0
+        PUSHCONT_SHORT {
+            DEBUGMARK 824
+            BLKDROP 3
+            PUSHINT_4 0
+        }
+        IFELSEREF {
+            DEBUGMARK 825
+            DEBUGMARK 826
+            DEBUGMARK 827
+            DEBUGMARK 828
+            DEBUGMARK 829
+            PUSHCTR c4
+            DEBUGMARK 830
+            CTOS
+            DEBUGMARK 831
+            DEBUGMARK 832
+            DEBUGMARK 833
+            DEBUGMARK 834
+            LDMSGADDR
+            NIP
+            LDGRAMS
+            NIP
+            LDGRAMS
+            DROP
+            DEBUGMARK 835
+            DEBUGMARK 836
+            DEBUGMARK 837
+            XCHG_0I s2
+            CALLDICT 4
+        }
+        DEBUGMARK 838
+        DEBUGMARK 839
+        DEBUGMARK 840
+    }
+    85878 => {
+        DEBUGMARK 857
+        DROP
+        DEBUGMARK 858
+        DEBUGMARK 859
+        DEBUGMARK 860
+        DEBUGMARK 861
+        PUSHINT_4 0
+        DEBUGMARK 862
+        DEBUGMARK 863
+        DEBUGMARK 864
+        DEBUGMARK 865
+        PUSHCTR c4
+        DEBUGMARK 866
+        CTOS
+        DEBUGMARK 867
+        DEBUGMARK 868
+        DEBUGMARK 869
+        DEBUGMARK 870
+        DEBUGMARK 871
+        DEBUGMARK 872
+        DEBUGMARK 873
+        DEBUGMARK 874
+        DEBUGMARK 875
+        DEBUGMARK 876
+        PUSHCTR c4
+        DEBUGMARK 877
+        CTOS
+        DEBUGMARK 878
+        DEBUGMARK 879
+        DEBUGMARK 880
+        DEBUGMARK 881
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        NIP
+        LDGRAMS
+        DROP
+        DEBUGMARK 882
+        ref {
+            DEBUGMARK 883
+            SWAP
+            LDMSGADDR
+            NIP
+            LDGRAMS
+            DROP
+            DEBUGMARK 884
+            DEBUGMARK 885
+            DEBUGMARK 886
+            OVER
+            EQINT 0
+            PUSHCONT_SHORT {
+                BLKDROP 3
+            }
+            PUSHCONT_SHORT {
+                DEBUGMARK 887
+                DEBUGMARK 888
+                XCHG_0I s2
+                CALLDICT 4
+            }
+            IFELSE
+            DEBUGMARK 889
+            DEBUGMARK 890
+            DEBUGMARK 891
+            DEBUGMARK 892
+            DEBUGMARK 893
+        }
+    }
+    93697 => {
+        DEBUGMARK 849
+        DROP
+        DEBUGMARK 850
+        DEBUGMARK 851
+        DEBUGMARK 852
+        DEBUGMARK 853
+        PUSHPOW2DEC 120
+        DEBUGMARK 854
+        DEBUGMARK 855
+        DEBUGMARK 856
+    }
+    95294 => {
+        DEBUGMARK 931
+        DEBUGMARK 932
+        DEBUGMARK 933
+        PUSHINT_LONG 13000000
+        DEBUGMARK 934
+        DEBUGMARK 935
+        DEBUGMARK 936
+    }
+    98063 => {
+        DEBUGMARK 937
+        DEBUGMARK 938
+        DEBUGMARK 939
+        PUSHINT_LONG 13000000
+        DEBUGMARK 940
+        DEBUGMARK 941
+        DEBUGMARK 942
+    }
+    103289 => {
+        DEBUGMARK 973
+        DEBUGMARK 974
+        DEBUGMARK 975
+        DEBUGMARK 976
+        PUSHCTR c4
+        DEBUGMARK 977
+        CTOS
+        DEBUGMARK 978
+        DEBUGMARK 979
+        DEBUGMARK 980
+        DEBUGMARK 981
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        NIP
+        LDGRAMS
+        NIP
+        SKIPDICT
+        PLDREFIDX 0
+        DEBUGMARK 982
+        DEBUGMARK 983
+        MYADDR
+        DEBUGMARK 984
+        DEBUGMARK 985
+        DEBUGMARK 986
+        DEBUGMARK 987
+        DEBUGMARK 988
+        DEBUGMARK 989
+        DEBUGMARK 990
+        DEBUGMARK 991
+        DEBUGMARK 992
+        DEBUGMARK 993
+        DEBUGMARK 994
+        DEBUGMARK 995
+        DEBUGMARK 996
+        DEBUGMARK 997
+        DEBUGMARK 998
+        ref {
+            DEBUGMARK 999
+            DEBUGMARK 1000
+            DEBUGMARK 1001
+            NEWC
+            STSLICECONST x{00}
+            XCHG_1I s1 s3
+            STSLICE
+            XCHG_1I s1 s2
+            STSLICE
+            ENDC
+            DEBUGMARK 1002
+            DEBUGMARK 1003
+            DEBUGMARK 1004
+            DEBUGMARK 1005
+            DEBUGMARK 1006
+            DUP2
+            HASHCU
+            SWAP
+            HASHCU
+            SWAP2
+            CDEPTH
+            SWAP
+            CDEPTH
+            NEWC
+            STSLICECONST x{020134}
+            STU 16
+            STU 16
+            STU 256
+            STU 256
+            PUSHINT_4 1
+            HASHEXT 0
+            NEWC
+            STSLICECONST x{801_}
+            STU 256
+            DEBUGMARK 1007
+            DEBUGMARK 1008
+            DEBUGMARK 1009
+            ENDC
+            CTOS
+            DEBUGMARK 1010
+        }
+    }
+    106029 => {
+        DEBUGMARK 961
+        DEBUGMARK 962
+        DEBUGMARK 963
+        DEBUGMARK 964
+        PUSHCTR c4
+        DEBUGMARK 965
+        CTOS
+        DEBUGMARK 966
+        DEBUGMARK 967
+        DEBUGMARK 968
+        DEBUGMARK 969
+        LDMSGADDR
+        LDGRAMS
+        LDGRAMS
+        NIP
+        SKIPDICT
+        LDREF
+        PLDREFIDX 0
+        DEBUGMARK 970
+        DEBUGMARK 971
+        PUSHINT_4 -1
+        DEBUGMARK 972
+        XCHG_0I s3
+        XCHG3 s4 s1 s4
+    }
+    116476 => {
+        DEBUGMARK 761
+        DROP
+        DEBUGMARK 762
+        DEBUGMARK 763
+        DEBUGMARK 764
+        DEBUGMARK 765
+        DEBUGMARK 766
+        PUSHCTR c4
+        DEBUGMARK 767
+        CTOS
+        DEBUGMARK 768
+        DEBUGMARK 769
+        DEBUGMARK 770
+        DEBUGMARK 771
+        LDMSGADDR
+        NIP
+        LDGRAMS
+        NIP
+        LDGRAMS
+        DROP
+        DEBUGMARK 772
+        DEBUGMARK 773
+        DEBUGMARK 774
+    }
+    124169 => {
+        DEBUGMARK 949
+        DEBUGMARK 950
+        DEBUGMARK 951
+        PUSHINT_LONG 12000000
+        DEBUGMARK 952
+        DEBUGMARK 953
+        DEBUGMARK 954
+    }
+]
+DICTIGETJMPZ
+THROWARG 11
