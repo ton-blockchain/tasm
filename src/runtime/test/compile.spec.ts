@@ -26,6 +26,8 @@ const test = (text: string): (() => void) => {
         const [compiled2] = compileCellWithMapping(res2.instructions, {skipRefs: true})
         expect(compiled2.hash().toString("hex")).toMatchSnapshot()
 
+        expect(compiled.hash().toString("hex")).toEqual(compiled2.hash().toString("hex"))
+
         const compiledAssembly = print(decompileCell(compiled))
         const compiledAssembly2 = print(decompileCell(compiled2))
 
