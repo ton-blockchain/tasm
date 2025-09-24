@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   HUSKY: 0
 
@@ -24,15 +28,10 @@ jobs:
           - macos-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Fetch Sources
+        uses: actions/checkout@v4
 
       - name: Enable Corepack
-        if: matrix.os == 'windows-latest'
-        run: corepack enable --install-directory 'C:\npm\prefix'
-
-      - name: Enable Corepack
-        if: matrix.os != 'windows-latest'
         run: corepack enable
 
       - name: Setup Node.js 22.x
@@ -47,7 +46,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn build
+        run: yarn run build
 
       - name: Run Tests
-        run: yarn test
+        run: yarn run test
