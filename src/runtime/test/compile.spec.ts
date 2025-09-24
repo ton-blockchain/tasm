@@ -36,7 +36,7 @@ const test = (text: string): (() => void) => {
     }
 }
 
-describe("compileCell", () => {
+describe("Compile", () => {
     it(
         "should compile Vault with skipRefs option enabled",
         test(fs.readFileSync(`${__dirname}/testdata/Vault.tasm`, "utf8")),
