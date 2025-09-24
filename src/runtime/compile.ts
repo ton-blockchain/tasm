@@ -30,7 +30,7 @@ function isLastInstruction(index: number, instructions: Instr[]) {
     for (let i = index + 1; i < instructions.length; i++) {
         const instruction = instructions[i]
         if (instruction?.$ !== "DEBUGMARK") {
-            // found non DEBUGMARK instruction in the tail, so instructions is not a last
+            // found non DEBUGMARK instruction in the tail, so instruction is not a last
             return false
         }
     }
