@@ -1,7 +1,12 @@
-import type {InstructionInfo, Loc, MappingInfo} from "./mapping"
 import type {LogEntry, StackElement} from "./logs"
 import {parseLogs} from "./logs"
-import type {HighLevelSourceMap, HighLevelSourceMapEntry} from "./high-level-source-map"
+import type {
+    AssemblyMapping,
+    HighLevelMapping,
+    HighLevelSourceMapEntry,
+    InstructionInfo,
+    Loc,
+} from "ton-source-map"
 
 /**
  * Describes a single step in the trace.
@@ -27,8 +32,8 @@ export type TraceInfo = {
  */
 export const createTraceInfo = (
     logs: string,
-    mapping: MappingInfo,
-    sourceMap: undefined | HighLevelSourceMap,
+    mapping: AssemblyMapping,
+    sourceMap: undefined | HighLevelMapping,
 ): TraceInfo => {
     const stepLogInfo = parseLogs(logs).flat()
 
@@ -65,8 +70,8 @@ export const createTraceInfo = (
 
 export const createTraceInfoPerTransaction = (
     logs: string,
-    mapping: MappingInfo,
-    sourceMap: undefined | HighLevelSourceMap,
+    mapping: AssemblyMapping,
+    sourceMap: undefined | HighLevelMapping,
 ): TraceInfo[] => {
     const transactionLogs = parseLogs(logs)
 
@@ -149,7 +154,7 @@ export const createTraceInfoPerTransaction = (
  * Finds the instruction in the mapping.
  */
 export const findInstructionInfo = (
-    info: MappingInfo,
+    info: AssemblyMapping,
     stepInfo: LogEntry,
 ): undefined | [readonly InstructionInfo[], number] => {
     // Cell hash can be both Dictionary Cell hash or just a regular code Cell hash

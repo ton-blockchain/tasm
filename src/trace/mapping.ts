@@ -1,23 +1,13 @@
 import type {DictionaryInfo, Mapping} from "../runtime"
 import type {Loc as InstrLoc} from "../runtime/util"
+import type {
+    AssemblyMapping,
+    CellHash,
+    CellRepresentation,
+    InstructionInfo,
+    Loc,
+} from "ton-source-map"
 
-/**
- * Represents a location of the single instruction in the code.
- *
- * One instruction can be actually pointing to multiple locations in the code
- * if it is contained in a Cell referenced from multiple places.
- */
-export type Loc = {
-    readonly file: string
-    readonly line: number
-    readonly otherLines: number[]
-}
-
-export const Loc = (file: string, line: number, otherLines: number[]): Loc => ({
-    file,
-    line,
-    otherLines,
-})
 export const fromParserLoc = (loc: InstrLoc): Loc => ({
     file: loc.file,
     line: loc.line,
@@ -25,81 +15,9 @@ export const fromParserLoc = (loc: InstrLoc): Loc => ({
 })
 
 /**
- * Describes a single instruction in the code.
- */
-export type InstructionInfo = {
-    /**
-     * Name of the instruction.
-     */
-    readonly name: string
-
-    /**
-     * Location of the instruction in the file.
-     */
-    readonly loc: undefined | Loc
-
-    /**
-     * Offset of the instruction in the Cell.
-     */
-    readonly offset: number
-
-    /**
-     * Debug section numbers.
-     *
-     * Debug sections are used to group instructions together in the code.
-     * This way we later can match several instructions to a single statement in the source code.
-     *
-     * If instruction is not part of any debug section, this value is an empty array.
-     */
-    readonly debugSections: readonly number[]
-}
-
-export type CellHash = string
-
-/**
  * Describes mapping of a Cell to its instructions.
  */
-export type CellsMapping = Record<
-    CellHash,
-    | undefined
-    | {
-          readonly instructions: readonly InstructionInfo[]
-      }
->
-
-/**
- * Describes mapping of a Dictionary cell to its data Cell.
- *
- * @see DictionaryInfo for more information.
- */
-export type DictionaryCellInfo = {
-    /**
-     * Hash of the Dictionary cell.
-     */
-    readonly cell: CellHash
-    /**
-     * Offset of the data cell in the Dictionary cell.
-     */
-    readonly offset: number
-    /**
-     * Hash of the data cell.
-     */
-    readonly dataCell: CellHash
-}
-
-/**
- * Describes mapping of all cells to their instructions.
- */
-export type MappingInfo = {
-    /**
-     * Mapping of Dictionary cells to their data cells.
-     */
-    readonly dictionaryCells: readonly DictionaryCellInfo[]
-    /**
-     * Mapping of all cells to their instructions.
-     */
-    readonly cells: CellsMapping
-}
+export type CellsMapping = Record<CellHash, undefined | CellRepresentation>
 
 const processMapping = (mapping: Mapping, cells: CellsMapping) => {
     const previousData = cells[mapping.cell]
@@ -147,7 +65,7 @@ const buildCellsMapping = (mapping: Mapping, cells: CellsMapping) => {
 /**
  * Creates a mapping of all cells to their instructions.
  */
-export const createMappingInfo = (m: Mapping): MappingInfo => {
+export const createMappingInfo = (m: Mapping): AssemblyMapping => {
     const cells: CellsMapping = {}
 
     const dictionaryInfos = buildCellsMapping(m, cells)
