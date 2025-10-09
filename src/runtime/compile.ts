@@ -1,7 +1,7 @@
 import * as c from "./constructors"
 import * as $ from "./util"
 import type {Instr} from "./instr-gen"
-import {CodeBuilder} from "./builder"
+import {CodeBuilder, MAX_CELL_BITS} from "./builder"
 import {instr} from "./instr"
 import {matchingRule} from "./layout"
 import {IF, IFELSE, IFJMP, IFNOT, IFNOTJMP, PUSHCONT, PUSHCONT_SHORT} from "./types"
@@ -211,7 +211,7 @@ function compileIf(t: Instr, b: CodeBuilder, options: StoreOptions) {
             compilePushcont(b2, t.arg0, t.loc, options)
             compileNonRefIf(b2, t, options)
 
-            if (b2.bits + b.bits <= 1023 && b2.refs + b.refs <= 4) {
+            if (b2.bits + b.bits <= MAX_CELL_BITS && b2.refs + b.refs <= 4) {
                 compilePushcont(b, t.arg0, t.loc, options)
                 compileNonRefIf(b, t, options)
                 return true
@@ -237,12 +237,12 @@ const safeStore = (
 
     try {
         instr.store(b, t, options)
-        if (b.bits >= 1023 - (b.isDictionaryCell ? b.offset : 0)) {
+        if (b.bits >= MAX_CELL_BITS - (b.isDictionaryCell ? b.offset : 0)) {
             return true
         }
 
         if (!isLastInstruction && options.skipRefs) {
-            if (b.bits >= 1023 - 8) {
+            if (b.bits >= MAX_CELL_BITS - 8) {
                 // we need room for PUSHREF
                 return true
             }

@@ -3,6 +3,8 @@ import {Builder} from "@ton/core"
 import type {Instr} from "./instr-gen"
 import type {Dictionary, DictionaryKeyTypes} from "../dict/Dictionary"
 
+export const MAX_CELL_BITS = 1023
+
 /**
  * Describes an instruction with its offset in the parent `Cell`.
  */
@@ -154,7 +156,7 @@ export class CodeBuilder extends Builder {
     }
 
     public canFit(bits: number): boolean {
-        const maxBits = 1023 - (this.isDictionaryCell ? this.offset : 0)
+        const maxBits = MAX_CELL_BITS - (this.isDictionaryCell ? this.offset : 0)
         return this.bits + bits <= maxBits
     }
 
