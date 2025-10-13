@@ -7801,6 +7801,22 @@ export type INMSGPARAM = {
     arg0: number
     loc: $.Loc | undefined
 }
+export const BTOS = (loc?: $.Loc): BTOS => ({
+    $: "BTOS",
+    loc,
+})
+export type BTOS = {
+    $: "BTOS"
+    loc: $.Loc | undefined
+}
+export const HASHBU = (loc?: $.Loc): HASHBU => ({
+    $: "HASHBU",
+    loc,
+})
+export type HASHBU = {
+    $: "HASHBU"
+    loc: $.Loc | undefined
+}
 export const DEBUGMARK = (arg0: number, loc?: $.Loc): DEBUGMARK => ({
     $: "DEBUGMARK",
     arg0,

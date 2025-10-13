@@ -273,6 +273,19 @@ describe("assembly-parser", () => {
         expect(print(res.instructions)).toMatchSnapshot()
     })
 
+    it("should parse TVM 12 instructions", () => {
+        const code = `
+            BTOS
+            HASHBU
+        `
+        const res = parse("test.asm", code)
+        if (res.$ === "ParseFailure") {
+            throw new Error("unexpected parser error")
+        }
+
+        expect(print(res.instructions)).toMatchSnapshot()
+    })
+
     it("should parse fift instruction", () => {
         const code = `
             fPUSHINT 10

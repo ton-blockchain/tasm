@@ -8436,6 +8436,24 @@ export const INMSGPARAM: $.Type<c.INMSGPARAM> = {
         $.uint(4).store(b, val.arg0, options)
     },
 }
+export const BTOS: $.Type<c.BTOS> = {
+    load: s => {
+        s.skip(16)
+        return c.BTOS()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(53072, 16, val)
+    },
+}
+export const HASHBU: $.Type<c.HASHBU> = {
+    load: s => {
+        s.skip(16)
+        return c.HASHBU()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(63766, 16, val)
+    },
+}
 export const DEBUGMARK: $.Type<c.DEBUGMARK> = {
     load: s => {
         s.skip(16)

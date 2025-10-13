@@ -20,6 +20,8 @@ import {
     ENDC,
     STREF2CONST,
     SUB,
+    BTOS,
+    HASHBU,
 } from "../index"
 import {call, execute} from "../../helpers"
 import {bin, code, dictMap, hex} from "../util"
@@ -349,4 +351,6 @@ ENDC
             `DEBUGSTR slice should be byte aligned, but 9-bit slice given`,
         ),
     )
+    it("with TVM 12 BTOS", test([BTOS()], `BTOS\n`))
+    it("with TVM 12 HASHBU", test([HASHBU()], `HASHBU\n`))
 })

@@ -916,6 +916,8 @@ export type Instr =
     | c.INMSG_VALUEEXTRA
     | c.INMSG_STATEINIT
     | c.INMSGPARAM
+    | c.BTOS
+    | c.HASHBU
     | c.DEBUGMARK
     | cf.fPUSHINT
     | cf.fPUSHSLICE
@@ -5475,6 +5477,16 @@ export const rangeToType = [
         load: types.INMSGPARAM.load,
     },
     {
+        min: 13586432,
+        max: 13586688,
+        load: types.BTOS.load,
+    },
+    {
+        min: 16324096,
+        max: 16324352,
+        load: types.HASHBU.load,
+    },
+    {
         min: 16340224,
         max: 16340480,
         load: types.DEBUGMARK.load,
@@ -6389,6 +6401,8 @@ storeMapping.set("INMSG_VALUE", types.INMSG_VALUE.store)
 storeMapping.set("INMSG_VALUEEXTRA", types.INMSG_VALUEEXTRA.store)
 storeMapping.set("INMSG_STATEINIT", types.INMSG_STATEINIT.store)
 storeMapping.set("INMSGPARAM", types.INMSGPARAM.store)
+storeMapping.set("BTOS", types.BTOS.store)
+storeMapping.set("HASHBU", types.HASHBU.store)
 storeMapping.set("DEBUGMARK", types.DEBUGMARK.store)
 storeMapping.set("fPUSHINT", ftypes.fPUSHINT.store)
 storeMapping.set("fPUSHSLICE", ftypes.fPUSHSLICE.store)

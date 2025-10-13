@@ -3946,6 +3946,14 @@ export const INMSGPARAM: $.Convert = (ctx, instr, loc) => {
     const args = $.singleIntegerArg(instr)
     return c.INMSGPARAM(args, loc)
 }
+export const BTOS: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.BTOS(loc)
+}
+export const HASHBU: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.HASHBU(loc)
+}
 export const DEBUGMARK: $.Convert = (ctx, instr, loc) => {
     u.assertSingleArgs(instr, loc)
     const args = $.singleIntegerArg(instr)
@@ -5883,6 +5891,10 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return INMSG_STATEINIT(ctx, instr, loc)
         case "INMSGPARAM":
             return INMSGPARAM(ctx, instr, loc)
+        case "BTOS":
+            return BTOS(ctx, instr, loc)
+        case "HASHBU":
+            return HASHBU(ctx, instr, loc)
         case "DEBUGMARK":
             return DEBUGMARK(ctx, instr, loc)
         case "fPUSHINT":
