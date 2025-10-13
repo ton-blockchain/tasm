@@ -2389,6 +2389,10 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             p.append(instr.arg0.toString())
             return
+        case "BTOS":
+            return
+        case "HASHBU":
+            return
         case "DEBUGMARK":
             p.append(" ")
             p.append(instr.arg0.toString())

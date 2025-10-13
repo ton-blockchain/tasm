@@ -1346,6 +1346,9 @@ export const instructions: Record<string, Opcode> = {
     INMSG_STATEINIT: version(11, cat("config", mksimple(0xf899, 16, `exec_get_in_msg_param`))),
     INMSGPARAM: version(11, cat("config", mkfixedrangen(0xf89a, 0xf8a0, 16, 4, seq(uint4), `exec_get_var_in_msg_param`))),
 
+    BTOS: version(12, cat("cell_deserialize", mksimple(0xcf50, 16, "exec_builder_to_slice"))),
+    HASHBU: version(12, cat("crypto_common", mksimple(0xf916, 16, "exec_compute_hash"))),
+
     DEBUGMARK: cat("int_const", mkfixedn(0xF955, 16, 16, seq(uint(16, range(0n, 0n))), `exec_push_pow2dec`)),
 
     fPUSHSLICE: cat("int_const", mkfixedn(0, 0, 0, seq(slice(uint4, uint4, 0)), "")),
