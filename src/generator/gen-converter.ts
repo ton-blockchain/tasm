@@ -143,7 +143,7 @@ function generateConvertorFunction(
 }
 
 function generateBody(name: string, instruction: $.Opcode) {
-    const len = argsLen(instruction.args)
+    const len = instruction.args.length
 
     const argsConst = t.variableDeclaration("const", [
         t.variableDeclarator(
@@ -196,17 +196,6 @@ function generateBody(name: string, instruction: $.Opcode) {
     )
 
     return t.blockStatement([argsConst, lenCheck, ...argsStatements])
-}
-
-const argsLen = (args: $.args): number => {
-    switch (args.$) {
-        case "simpleArgs":
-            return args.children.length
-        case "dictpush":
-            return 2
-    }
-
-    throw new Error("Unexpected arg type")
 }
 
 function isIntegerArg(arg: $.arg) {
@@ -283,7 +272,7 @@ function returnThreeArgInstr(name: string) {
     )
 }
 
-const generateSimpleArgs = (name: string, args: $.arg[]): t.Statement[] => {
+const generateSimpleArgs = (name: string, args: $.args): t.Statement[] => {
     if (args.length === 0) {
         return [
             t.returnStatement(
@@ -401,14 +390,11 @@ const generateDictpush = (name: string): t.Statement[] => {
 }
 
 const generateArgs = (name: string, args: $.args): t.Statement[] => {
-    switch (args.$) {
-        case "simpleArgs":
-            return generateSimpleArgs(name, args.children)
-        case "dictpush":
-            return generateDictpush(name)
+    if (args.length === 2 && args[0]?.$ === "dict") {
+        return generateDictpush(name)
     }
 
-    throw new Error("Unexpected arg type")
+    return generateSimpleArgs(name, args)
 }
 
 const generateInstr = (name: string, instruction: $.Opcode): t.Statement[] => {
