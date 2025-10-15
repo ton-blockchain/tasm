@@ -213,7 +213,6 @@ function isIntegerArg(arg: $.arg) {
     return (
         arg.$ === "int" ||
         arg.$ === "uint" ||
-        arg.$ === "refs" ||
         arg.$ === "plduzArg" ||
         arg.$ === "tinyInt" ||
         arg.$ === "runvmArg" ||

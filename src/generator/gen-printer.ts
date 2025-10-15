@@ -147,7 +147,6 @@ const generateArg = (name: string, arg: $.arg): t.Statement[] => {
     switch (arg.$) {
         case "int":
         case "uint":
-        case "refs":
         case "plduzArg":
         case "tinyInt":
         case "largeInt":

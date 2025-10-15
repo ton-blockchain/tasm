@@ -227,8 +227,6 @@ const generateArg = (arg: $.arg): t.Expression => {
             return generateTypeDescription("int", arg.len)
         case "uint":
             return generateTypeDescription("uint", arg.len)
-        case "refs":
-            return generateTypeDescription("refs", arg.count)
         case "stack":
             return generateTypeDescription("uint", arg.len)
         case "control":
