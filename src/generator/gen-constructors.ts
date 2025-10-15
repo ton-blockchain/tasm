@@ -101,17 +101,14 @@ const generateOpcode = (name: string, instruction: $.Opcode): t.Statement[] => {
 }
 
 const generateArgs = (args: $.args): CompiledArgs => {
-    switch (args.$) {
-        case "simpleArgs":
-            return generateSimpleArgs(args)
-        case "dictpush":
-            return generateDictpush(args)
+    if (args.length === 2 && args[0]?.$ === "dict") {
+        return generateDictpush()
     }
 
-    throw new Error("Unexpected arg type")
+    return generateSimpleArgs(args)
 }
 
-const generateDictpush = (_args: $.dictpush): CompiledArgs => {
+const generateDictpush = (): CompiledArgs => {
     return [
         // TODO: rename parameters
         ["arg0", t.tsNumberKeyword()],
@@ -119,8 +116,8 @@ const generateDictpush = (_args: $.dictpush): CompiledArgs => {
     ]
 }
 
-const generateSimpleArgs = (args: $.simpleArgs): CompiledArgs => {
-    return args.children.map((arg, index) => [`arg${index}`, generateArg(arg)])
+const generateSimpleArgs = (args: $.args): CompiledArgs => {
+    return args.map((arg, index) => [`arg${index}`, generateArg(arg)])
 }
 
 const generateArg = (arg: $.arg): t.TSType => {
@@ -154,6 +151,8 @@ const generateArg = (arg: $.arg): t.TSType => {
             return t.tsTypeReference(t.tsQualifiedName(TON_CORE_QUALIFIER, t.identifier("Slice")))
         case "exoticCell":
             return t.tsTypeReference(t.tsQualifiedName(UTIL_QUALIFIER, t.identifier("ExoticCell")))
+        case "dict":
+            throw new Error("Must be handled in Args")
     }
 
     throw new Error("Unexpected arg type")

@@ -160,30 +160,24 @@ const generateOpcode = (name: string, instruction: $.Opcode): t.Statement[] => {
 }
 
 const generateLoadArgs = (args: $.args): (t.Expression | t.SpreadElement)[] => {
-    switch (args.$) {
-        case "simpleArgs":
-            return generateSimpleArgs(args).map(arg => wrapIntoLoad(arg))
-        case "dictpush":
-            return generateDictpush(args).map(arg => t.spreadElement(wrapIntoLoad(arg)))
+    if (args.length === 2 && args[0]?.$ === "dict") {
+        return generateDictpush().map(arg => t.spreadElement(wrapIntoLoad(arg)))
     }
 
-    throw new Error("Unexpected arg type")
+    return generateArgs(args).map(arg => wrapIntoLoad(arg))
 }
 
 const generateStoreArgs = (args: $.args): t.Statement[] => {
-    switch (args.$) {
-        case "simpleArgs":
-            return generateSimpleArgs(args).map((arg, index) => wrapIntoStore(`arg${index}`, arg))
-        case "dictpush":
-            return [
-                wrapIntoArrayStore(
-                    ["arg0", "arg1"],
-                    t.memberExpression(UTIL_QUALIFIER, t.identifier("dictpush")),
-                ),
-            ]
+    if (args.length === 2 && args[0]?.$ === "dict") {
+        return [
+            wrapIntoArrayStore(
+                ["arg0", "arg1"],
+                t.memberExpression(UTIL_QUALIFIER, t.identifier("dictpush")),
+            ),
+        ]
     }
 
-    throw new Error("Unexpected arg type")
+    return generateArgs(args).map((arg, index) => wrapIntoStore(`arg${index}`, arg))
 }
 
 // codeSlice(uint(2), uint(7))
@@ -208,12 +202,11 @@ const generateSlice = (args: $.slice): t.Expression => {
     ])
 }
 
-const generateDictpush = (_args: $.dictpush): t.Expression[] => {
+const generateDictpush = (): t.Expression[] => {
     return [t.memberExpression(UTIL_QUALIFIER, t.identifier("dictpush"))]
 }
 
-const generateSimpleArgs = (args: $.simpleArgs): t.Expression[] =>
-    args.children.map(arg => generateArg(arg))
+const generateArgs = (args: $.args): t.Expression[] => args.map(arg => generateArg(arg))
 
 function generateTypeDescription(name: string, arg: number) {
     return t.callExpression(t.memberExpression(UTIL_QUALIFIER, t.identifier(name)), [
@@ -267,6 +260,8 @@ const generateArg = (arg: $.arg): t.Expression => {
             return generateInlineCodeSlice(arg)
         case "slice":
             return generateSlice(arg)
+        case "dict":
+            throw new Error("Must be handled in Args")
     }
 
     throw new Error("Unexpected arg type")

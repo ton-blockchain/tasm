@@ -61,7 +61,7 @@ function generatePrintFunction(
             }
 
             const args = opcode.args
-            const countArgs = argsLen(args)
+            const countArgs = args.length
 
             const statements: t.Statement[] = []
 
@@ -75,7 +75,7 @@ function generatePrintFunction(
         }),
         ...fiftInstructions.flatMap(([name, opcode]) => {
             const args = opcode.args
-            const countArgs = argsLen(args)
+            const countArgs = args.length
 
             const statements: t.Statement[] = []
 
@@ -109,18 +109,7 @@ function generatePrintFunction(
     )
 }
 
-const argsLen = (args: $.args): number => {
-    switch (args.$) {
-        case "simpleArgs":
-            return args.children.length
-        case "dictpush":
-            return 2
-    }
-
-    throw new Error("Unexpected arg type")
-}
-
-const generateSimpleArgs = (args: $.arg[]): t.Statement[] => {
+const generateSimpleArgs = (args: $.args): t.Statement[] => {
     return args.flatMap((arg, index) => {
         const stmt = generateArg(`arg${index}`, arg)
         if (index !== args.length - 1) {
@@ -194,6 +183,8 @@ const generateArg = (name: string, arg: $.arg): t.Statement[] => {
                     ),
                 ),
             ]
+        case "dict":
+            throw new Error("Must be handled in Args")
     }
 
     throw new Error("Unexpected arg type")
@@ -216,14 +207,11 @@ const generateDictpush = (): t.Statement[] => {
 }
 
 const generateArgs = (args: $.args): t.Statement[] => {
-    switch (args.$) {
-        case "simpleArgs":
-            return generateSimpleArgs(args.children)
-        case "dictpush":
-            return generateDictpush()
+    if (args.length === 2 && args[0]?.$ === "dict") {
+        return generateDictpush()
     }
 
-    throw new Error("Unexpected arg type")
+    return generateSimpleArgs(args)
 }
 
 function writeAppend(val: string) {

@@ -16,6 +16,7 @@ export type arg =
     | codeSlice
     | refCodeSlice
     | inlineCodeSlice
+    | dict
     | exoticCell
     | debugstr
 
@@ -72,10 +73,8 @@ export const hash: hash = {$: "hash"}
 export type setcpArg = {$: "setcpArg", range: range}
 export const setcpArg: setcpArg = {$: "setcpArg", range: range(-15n, 239n)}
 
-export type args = simpleArgs | dictpush
-
-export type simpleArgs = {$: "simpleArgs", children: arg[]}
-export const seq = (...args: arg[]): simpleArgs => ({$: "simpleArgs", children: args})
+export type args = arg[]
+export const seq = (...args: arg[]): args => args
 
 export type codeSlice = {$: "codeSlice", refs: arg, bits: arg}
 export const codeSlice = (refs: arg, bits: arg): codeSlice => ({$: "codeSlice", refs, bits})
@@ -88,6 +87,9 @@ export const refCodeSlice: refCodeSlice = {$: "refCodeSlice"}
 
 export type slice = {$: "slice", refs: arg, bits: arg, pad: number}
 export const slice = (refs: arg, bits: arg, pad: number): slice => ({$: "slice", refs, bits, pad})
+
+export type dict = {$: "dict"}
+export const dict: dict = {$: "dict"}
 
 export type exoticCell = {$: "exoticCell"}
 export const exoticCell: exoticCell = {$: "exoticCell"}
@@ -358,6 +360,7 @@ const uint3range = range(0n, BigInt(Math.pow(2, 3) - 1))
 const uint5range = range(0n, BigInt(Math.pow(2, 5) - 1))
 const uint6range = range(0n, BigInt(Math.pow(2, 6) - 1))
 const uint7range = range(0n, BigInt(Math.pow(2, 7) - 1))
+const uint10range = range(0n, BigInt(Math.pow(2, 10) - 1))
 const uint11range = range(0n, BigInt(Math.pow(2, 11) - 1))
 const uint14range = range(0n, BigInt(Math.pow(2, 14) - 1))
 
@@ -372,6 +375,7 @@ const uint5 = uint(5, uint5range)
 const uint6 = uint(6, uint6range)
 const uint7 = uint(7, uint7range)
 const uint8 = uint(8, uint8range)
+const uint10 = uint(10, uint10range)
 const uint11 = uint(11, uint11range)
 const uint14 = uint(14, uint14range)
 
@@ -1152,8 +1156,8 @@ export const instructions: Record<string, Opcode> = {
     IFNBITJMPREF: effects(cat("continuation_cond_loop", mkext((0xe3c >> 1) | 0b1, 11, 5, seq(uint5, refCodeSlice), `exec_if_bit_jmpref`)), ImplicitJumpRef(), CellLoad()),
     // END SECTION
 
-    DICTPUSHCONST: cat("dictionary", mkfixedn(0x3d29, 14, 10, dictpush, `exec_push_const_dict`)),
-    PFXDICTSWITCH: cat("dictionary", mkfixedn(0xf4ac00 >> 10, 14, 10, dictpush, `exec_const_pfx_dict_switch`)),
+    DICTPUSHCONST: cat("dictionary", mkfixedn(0x3d29, 14, 10, seq(dict, uint10), `exec_push_const_dict`)),
+    PFXDICTSWITCH: cat("dictionary", mkfixedn(0xf4ac00 >> 10, 14, 10, seq(dict, uint10), `exec_const_pfx_dict_switch`)),
 
     // SECTION: sdbegins
     SDBEGINSX: cat("cell_deserialize", mksimple(0xd726, 16, `(_1) => exec_slice_begins_with(_1, false)`)),
