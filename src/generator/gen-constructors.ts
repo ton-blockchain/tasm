@@ -104,20 +104,11 @@ const generateArgs = (args: $.args): CompiledArgs => {
     switch (args.$) {
         case "simpleArgs":
             return generateSimpleArgs(args)
-        case "xchgArgs":
-            return generateXchgArgs(args)
         case "dictpush":
             return generateDictpush(args)
     }
 
     throw new Error("Unexpected arg type")
-}
-
-const generateXchgArgs = (_args: $.xchgArgs): CompiledArgs => {
-    return [
-        ["arg0", t.tsNumberKeyword()],
-        ["arg1", t.tsNumberKeyword()],
-    ]
 }
 
 const generateDictpush = (_args: $.dictpush): CompiledArgs => {

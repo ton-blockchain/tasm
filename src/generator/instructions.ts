@@ -76,13 +76,10 @@ export const hash: hash = {$: "hash"}
 export type setcpArg = {$: "setcpArg", range: range}
 export const setcpArg: setcpArg = {$: "setcpArg", range: range(-15n, 239n)}
 
-export type args = simpleArgs | xchgArgs | dictpush
+export type args = simpleArgs | dictpush
 
 export type simpleArgs = {$: "simpleArgs", children: arg[]}
 export const seq = (...args: arg[]): simpleArgs => ({$: "simpleArgs", children: args})
-
-export type xchgArgs = {$: "xchgArgs", range: range}
-export const xchgArgs: xchgArgs = {$: "xchgArgs", range: range(1n, 16n)}
 
 export type codeSlice = {$: "codeSlice", refs: arg, bits: arg}
 export const codeSlice = (refs: arg, bits: arg): codeSlice => ({$: "codeSlice", refs, bits})
@@ -1289,7 +1286,7 @@ export const instructions: Record<string, Opcode> = {
 
     XCHG_0I_LONG: cat("stack", mkfixedn(0x11, 8, 8, seq(stack2(8, 1n)), `exec_xchg0_l`)),
     XCHG_0I: cat("stack", mkfixedrangen(0x02, 0x10, 8, 4, seq(stack2(4, 1n)), `exec_xchg0`)),
-    XCHG_IJ: cat("stack", mkfixedn(0x10, 8, 8, xchgArgs, `exec_xchg`)),
+    XCHG_IJ: cat("stack", mkfixedn(0x10, 8, 8, seq(stack2(4, 1n), stack(4)), `exec_xchg`)),
     XCHG_1I: cat("stack", mkfixedrangen(0x12, 0x20, 8, 4, seq(s1, stack2(4, 2n)), `exec_xchg1`)),
 
     // special case: opcode with holes
