@@ -139,10 +139,8 @@ const generateArg = (name: string, arg: $.arg): t.Statement[] => {
         case "plduzArg":
         case "tinyInt":
         case "largeInt":
-        case "runvmArg":
         case "minusOne":
         case "setcpArg":
-        case "hash":
             return [writeToString(name)]
 
         case "delta":

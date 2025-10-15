@@ -7181,11 +7181,11 @@ export const SAVEBOTHCTR: $.Type<c.SAVEBOTHCTR> = {
 export const RUNVM: $.Type<c.RUNVM> = {
     load: s => {
         s.skip(12)
-        return c.RUNVM($.runvmArg.load(s))
+        return c.RUNVM($.uint(12).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(3508, 12, val)
-        $.runvmArg.store(b, val.arg0, options)
+        $.uint(12).store(b, val.arg0, options)
     },
 }
 export const SWAP2: $.Type<c.SWAP2> = {
@@ -7587,41 +7587,41 @@ export const LSHIFT_DIVMODC: $.Type<c.LSHIFT_DIVMODC> = {
 export const HASHEXT: $.Type<c.HASHEXT> = {
     load: s => {
         s.skip(16)
-        return c.HASHEXT($.hash.load(s))
+        return c.HASHEXT($.uint(8).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(63748, 16, val)
-        $.hash.store(b, val.arg0, options)
+        $.uint(8).store(b, val.arg0, options)
     },
 }
 export const HASHEXTR: $.Type<c.HASHEXTR> = {
     load: s => {
         s.skip(16)
-        return c.HASHEXTR($.hash.load(s))
+        return c.HASHEXTR($.uint(8).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(63749, 16, val)
-        $.hash.store(b, val.arg0, options)
+        $.uint(8).store(b, val.arg0, options)
     },
 }
 export const HASHEXTA: $.Type<c.HASHEXTA> = {
     load: s => {
         s.skip(16)
-        return c.HASHEXTA($.hash.load(s))
+        return c.HASHEXTA($.uint(8).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(63750, 16, val)
-        $.hash.store(b, val.arg0, options)
+        $.uint(8).store(b, val.arg0, options)
     },
 }
 export const HASHEXTAR: $.Type<c.HASHEXTAR> = {
     load: s => {
         s.skip(16)
-        return c.HASHEXTAR($.hash.load(s))
+        return c.HASHEXTAR($.uint(8).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(63751, 16, val)
-        $.hash.store(b, val.arg0, options)
+        $.uint(8).store(b, val.arg0, options)
     },
 }
 export const STREF: $.Type<c.STREF> = {

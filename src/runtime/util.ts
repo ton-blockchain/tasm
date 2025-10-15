@@ -449,16 +449,9 @@ export const debugstr: Type<Slice> = {
     },
 }
 
-// TODO: revert
-export const refs = (count: number): number => {
-    return count
-}
-
 const uint3 = uint(3)
 const uint4 = uint(4)
 const uint5 = uint(5)
-const uint8 = uint(8)
-const uint12 = uint(12)
 
 export const control: Type<number> = {
     store: (b, t, options) => {
@@ -511,26 +504,6 @@ export const largeInt: Type<bigint> = {
     load: s => s.loadIntBig(3 + ((uint5.load(s) & 31) + 2) * 8),
 }
 
-// special case: RUNVM { ... }
-// +1 = same_c3 (set c3 to code)
-// +2 = push_0 (push an implicit 0 before running the code)
-// +4 = load c4 (persistent data) from stack and return its final value
-// +8 = load gas limit from stack and return consumed gas
-// +16 = load c7 (smart-contract context)
-// +32 = return c5 (actions)
-// +64 = pop hard gas limit (enabled by ACCEPT) from stack as well
-// +128 = isolated gas consumption (separate set of visited cells, reset chksgn counter)
-// +256 = pop number N, return exactly N values from stack (only if res=0 or 1; if not enough then res=stk_und)
-// if (mode >= 512) { throw new VmError(Excno.range_chk, "invalid flags"); }
-export type RunVmArg = number
-
-export const runvmArg: Type<RunVmArg> = {
-    store: (b, t, options) => {
-        uint12.store(b, t, options)
-    },
-    load: s => uint12.load(s),
-}
-
 // special case: CALLXARGS $ -1
 export const minusOne: Type<number> = {
     store: (_b, t, _options) => {
@@ -566,19 +539,6 @@ export const delta = (n: number, ty: Type<number>): Type<number> => ({
     },
     load: s => ty.load(s) + n,
 })
-
-export const hash: Type<Hash> = {
-    store: (b, t, options) => {
-        uint8.store(b, t, options)
-    },
-    load: s => {
-        const r = uint8.load(s)
-        if (!(r in Hash)) {
-            throw new Error("Wrong hash")
-        }
-        return r
-    },
-}
 
 // TODO: slice
 export const PSEUDO_PUSHSLICE: Type<c.PSEUDO_PUSHSLICE> = {
