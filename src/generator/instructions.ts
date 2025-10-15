@@ -351,7 +351,6 @@ const uint5range = range(0n, BigInt(Math.pow(2, 5) - 1))
 const uint6range = range(0n, BigInt(Math.pow(2, 6) - 1))
 const uint7range = range(0n, BigInt(Math.pow(2, 7) - 1))
 const uint11range = range(0n, BigInt(Math.pow(2, 11) - 1))
-const uint12range = range(0n, BigInt(Math.pow(2, 12) - 1))
 const uint14range = range(0n, BigInt(Math.pow(2, 14) - 1))
 
 const int8 = int(8, int8range)
@@ -366,8 +365,8 @@ const uint6 = uint(6, uint6range)
 const uint7 = uint(7, uint7range)
 const uint8 = uint(8, uint8range)
 const uint11 = uint(11, uint11range)
-const uint12 = uint(12, uint12range)
 const uint14 = uint(14, uint14range)
+const hash = uint(8, {min: 0n, max: 4n})
 
 export const instructions: Record<string, Opcode> = {
     PUSHNAN: cat("int_const", mksimple(0x83ff, 16, `exec_push_nan`)),
@@ -1171,7 +1170,7 @@ export const instructions: Record<string, Opcode> = {
     SAVEALTCTR: cat("continuation_change", mkfixedrangen(0xedb0, 0xedb8, 16, 4, seq(control), `exec_savealt_ctr`)),
     SAVEBOTHCTR: cat("continuation_change", mkfixedrangen(0xedc0, 0xedc8, 16, 4, seq(control), `exec_saveboth_ctr`)),
 
-    RUNVM: version(4, cat("continuation_jump", mkfixedn(0xdb4, 12, 12, seq(uint12), `exec_runvm`))),
+    RUNVM: version(4, cat("continuation_jump", mkfixedn(0xdb4, 12, 12, seq(uint(12, {min: 0n, max: 511n})), `exec_runvm`))),
 
     // special case: numeric
     "2SWAP": cat("stack", mksimple(0x5a, 8, `exec_2swap`)),
@@ -1218,10 +1217,10 @@ export const instructions: Record<string, Opcode> = {
     "LSHIFT#DIVMODC": cat("div", mkfixedn(0xa9de, 16, 8, seq(delta(1, uint8)), `exec_shldivmod(_1, _2, 2)`)),
 
     // special case: named argument
-    HASHEXT: version(4, cat("crypto", mkfixedn(0xf904, 16, 8, seq(uint8), `exec_hash_ext`))),
-    HASHEXTR: version(4, cat("crypto", mkfixedn(0xf905, 16, 8, seq(uint8), `exec_hash_ext`))),
-    HASHEXTA: version(4, cat("crypto", mkfixedn(0xf906, 16, 8, seq(uint8), `exec_hash_ext`))),
-    HASHEXTAR: version(4, cat("crypto", mkfixedn(0xf907, 16, 8, seq(uint8), `exec_hash_ext`))),
+    HASHEXT: version(4, cat("crypto", mkfixedn(0xf904, 16, 8, seq(hash), `exec_hash_ext`))),
+    HASHEXTR: version(4, cat("crypto", mkfixedn(0xf905, 16, 8, seq(hash), `exec_hash_ext`))),
+    HASHEXTA: version(4, cat("crypto", mkfixedn(0xf906, 16, 8, seq(hash), `exec_hash_ext`))),
+    HASHEXTAR: version(4, cat("crypto", mkfixedn(0xf907, 16, 8, seq(hash), `exec_hash_ext`))),
 
     // special case: meaningless long opcodes
     STREF: cat("cell_serialize", mksimple(0xcc, 8, `(_1) => exec_store_ref(_1, false)`)),
