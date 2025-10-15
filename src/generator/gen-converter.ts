@@ -215,10 +215,8 @@ function isIntegerArg(arg: $.arg) {
         arg.$ === "uint" ||
         arg.$ === "plduzArg" ||
         arg.$ === "tinyInt" ||
-        arg.$ === "runvmArg" ||
         arg.$ === "minusOne" ||
         arg.$ === "delta" ||
-        arg.$ === "hash" || // TODO: separate type
         arg.$ === "setcpArg"
     )
 }

@@ -131,7 +131,6 @@ const generateArg = (arg: $.arg): t.TSType => {
         case "control":
         case "plduzArg":
         case "tinyInt":
-        case "runvmArg":
         case "minusOne":
         case "s1":
         case "setcpArg":
@@ -142,8 +141,6 @@ const generateArg = (arg: $.arg): t.TSType => {
             return t.tsBigIntKeyword()
         case "debugstr":
             return t.tsTypeReference(t.tsQualifiedName(TON_CORE_QUALIFIER, t.identifier("Slice")))
-        case "hash":
-            return t.tsTypeReference(t.tsQualifiedName(UTIL_QUALIFIER, t.identifier("Hash")))
         case "codeSlice":
             return t.tsTypeReference(t.tsQualifiedName(UTIL_QUALIFIER, t.identifier("Code")))
         case "refCodeSlice":

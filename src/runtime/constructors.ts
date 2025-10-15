@@ -6937,44 +6937,44 @@ export type LSHIFT_DIVMODC = {
     arg0: number
     loc: $.Loc | undefined
 }
-export const HASHEXT = (arg0: $.Hash, loc?: $.Loc): HASHEXT => ({
+export const HASHEXT = (arg0: number, loc?: $.Loc): HASHEXT => ({
     $: "HASHEXT",
     arg0,
     loc,
 })
 export type HASHEXT = {
     $: "HASHEXT"
-    arg0: $.Hash
+    arg0: number
     loc: $.Loc | undefined
 }
-export const HASHEXTR = (arg0: $.Hash, loc?: $.Loc): HASHEXTR => ({
+export const HASHEXTR = (arg0: number, loc?: $.Loc): HASHEXTR => ({
     $: "HASHEXTR",
     arg0,
     loc,
 })
 export type HASHEXTR = {
     $: "HASHEXTR"
-    arg0: $.Hash
+    arg0: number
     loc: $.Loc | undefined
 }
-export const HASHEXTA = (arg0: $.Hash, loc?: $.Loc): HASHEXTA => ({
+export const HASHEXTA = (arg0: number, loc?: $.Loc): HASHEXTA => ({
     $: "HASHEXTA",
     arg0,
     loc,
 })
 export type HASHEXTA = {
     $: "HASHEXTA"
-    arg0: $.Hash
+    arg0: number
     loc: $.Loc | undefined
 }
-export const HASHEXTAR = (arg0: $.Hash, loc?: $.Loc): HASHEXTAR => ({
+export const HASHEXTAR = (arg0: number, loc?: $.Loc): HASHEXTAR => ({
     $: "HASHEXTAR",
     arg0,
     loc,
 })
 export type HASHEXTAR = {
     $: "HASHEXTAR"
-    arg0: $.Hash
+    arg0: number
     loc: $.Loc | undefined
 }
 export const STREF = (loc?: $.Loc): STREF => ({
