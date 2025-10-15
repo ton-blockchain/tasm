@@ -237,8 +237,6 @@ const generateArg = (arg: $.arg): t.Expression => {
             return t.memberExpression(UTIL_QUALIFIER, t.identifier("tinyInt"))
         case "largeInt":
             return t.memberExpression(UTIL_QUALIFIER, t.identifier("largeInt"))
-        case "runvmArg":
-            return t.memberExpression(UTIL_QUALIFIER, t.identifier("runvmArg"))
         case "minusOne":
             return t.memberExpression(UTIL_QUALIFIER, t.identifier("minusOne"))
         case "s1":
@@ -250,8 +248,6 @@ const generateArg = (arg: $.arg): t.Expression => {
                 t.numericLiteral(arg.delta),
                 generateArg(arg.arg),
             ])
-        case "hash":
-            return t.memberExpression(UTIL_QUALIFIER, t.identifier("hash"))
         case "codeSlice":
             return generateCodeSlice(arg)
         case "refCodeSlice":

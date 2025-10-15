@@ -7,8 +7,6 @@ export type arg =
     | plduzArg
     | tinyInt
     | largeInt
-    | runvmArg
-    | hash
     | minusOne
     | s1
     | setcpArg
@@ -61,12 +59,6 @@ export const s1: s1 = {$: "s1"}
 // special case: CALLXARGS $ -1
 export type minusOne = {$: "minusOne"}
 export const minusOne: minusOne = {$: "minusOne"}
-
-export type runvmArg = {$: "runvmArg"}
-export const runvmArg: runvmArg = {$: "runvmArg"}
-
-export type hash = {$: "hash"}
-export const hash: hash = {$: "hash"}
 
 // special case: [-15, 239]
 export type setcpArg = {$: "setcpArg", range: range}
@@ -374,6 +366,7 @@ const uint7 = uint(7, uint7range)
 const uint8 = uint(8, uint8range)
 const uint11 = uint(11, uint11range)
 const uint14 = uint(14, uint14range)
+const hash = uint(8, {min: 0n, max: 4n})
 
 export const instructions: Record<string, Opcode> = {
     PUSHNAN: cat("int_const", mksimple(0x83ff, 16, `exec_push_nan`)),
@@ -1177,7 +1170,7 @@ export const instructions: Record<string, Opcode> = {
     SAVEALTCTR: cat("continuation_change", mkfixedrangen(0xedb0, 0xedb8, 16, 4, seq(control), `exec_savealt_ctr`)),
     SAVEBOTHCTR: cat("continuation_change", mkfixedrangen(0xedc0, 0xedc8, 16, 4, seq(control), `exec_saveboth_ctr`)),
 
-    RUNVM: version(4, cat("continuation_jump", mkfixedn(0xdb4, 12, 12, seq(runvmArg), `exec_runvm`))),
+    RUNVM: version(4, cat("continuation_jump", mkfixedn(0xdb4, 12, 12, seq(uint(12, {min: 0n, max: 511n})), `exec_runvm`))),
 
     // special case: numeric
     "2SWAP": cat("stack", mksimple(0x5a, 8, `exec_2swap`)),
