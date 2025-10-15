@@ -127,7 +127,6 @@ const generateArg = (arg: $.arg): t.TSType => {
     switch (arg.$) {
         case "int":
         case "uint":
-        case "refs":
         case "stack":
         case "control":
         case "plduzArg":

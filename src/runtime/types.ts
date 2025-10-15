@@ -7042,21 +7042,21 @@ export const SDBEGINSXQ: $.Type<c.SDBEGINSXQ> = {
 export const SDBEGINS: $.Type<c.SDBEGINS> = {
     load: s => {
         s.skip(14)
-        return c.SDBEGINS($.slice($.refs(0), $.uint(7), 3).load(s))
+        return c.SDBEGINS($.slice($.uint(0), $.uint(7), 3).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(13770, 14, val)
-        $.slice($.refs(0), $.uint(7), 3).store(b, val.arg0, options)
+        $.slice($.uint(0), $.uint(7), 3).store(b, val.arg0, options)
     },
 }
 export const SDBEGINSQ: $.Type<c.SDBEGINSQ> = {
     load: s => {
         s.skip(14)
-        return c.SDBEGINSQ($.slice($.refs(0), $.uint(7), 3).load(s))
+        return c.SDBEGINSQ($.slice($.uint(0), $.uint(7), 3).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(13771, 14, val)
-        $.slice($.refs(0), $.uint(7), 3).store(b, val.arg0, options)
+        $.slice($.uint(0), $.uint(7), 3).store(b, val.arg0, options)
     },
 }
 export const STREFCONST: $.Type<c.STREFCONST> = {
@@ -8221,11 +8221,11 @@ export const CALLXARGS_1: $.Type<c.CALLXARGS_1> = {
 export const PUSHSLICE: $.Type<c.PUSHSLICE> = {
     load: s => {
         s.skip(8)
-        return c.PUSHSLICE($.slice($.refs(0), $.uint(4), 4).load(s))
+        return c.PUSHSLICE($.slice($.uint(0), $.uint(4), 4).load(s))
     },
     store: (b, val, options) => {
         b.storeInstructionPrefix(139, 8, val)
-        $.slice($.refs(0), $.uint(4), 4).store(b, val.arg0, options)
+        $.slice($.uint(0), $.uint(4), 4).store(b, val.arg0, options)
     },
 }
 export const PUSHSLICE_REFS: $.Type<c.PUSHSLICE_REFS> = {

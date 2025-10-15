@@ -45,6 +45,12 @@ export type Type<T> = {
 }
 
 export function uint(bits: number): Type<number> {
+    if (bits === 0) {
+        return {
+            store: (_b, _t, _options) => {},
+            load: _s => 0,
+        }
+    }
     return {
         store: (b, t, _options) => b.storeUint(t, bits),
         load: s => s.loadUint(bits),
@@ -227,16 +233,11 @@ export const inlineCodeSlice = (bits: Type<number>): Type<Code> => {
     }
 }
 
-export const slice = (
-    refs: Type<number> | number, // TODO: remove union
-    bits: Type<number>,
-    pad: number,
-): Type<Slice> => {
+export const slice = (refs: Type<number>, bits: Type<number>, pad: number): Type<Slice> => {
     return {
         store: (b, slice, options) => {
-            if (typeof refs !== "number") {
-                refs.store(b, slice.remainingRefs, options)
-            }
+            // For instructions without refs, we use uint(0) that doesn't write anything
+            refs.store(b, slice.remainingRefs, options)
             const length = slice.remainingBits + 1
             const y = Math.ceil((length - pad) / 8)
             bits.store(b, y, options)
@@ -246,7 +247,8 @@ export const slice = (
             b.storeUint(0x0, realLength - length)
         },
         load: s => {
-            const countRefs = typeof refs === "number" ? refs : refs.load(s)
+            // For instructions without refs, we use uint(0) that will return a zero from load
+            const countRefs = refs.load(s)
             const y = bits.load(s)
             const realLength = y * 8 + pad
             const r = s.loadBits(realLength)

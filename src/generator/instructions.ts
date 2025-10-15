@@ -1,7 +1,6 @@
 export type arg =
     | uint
     | int
-    | refs
     | delta
     | stack
     | control
@@ -28,9 +27,6 @@ export const uint = (len: number, range: range): uint => ({$: "uint", len, range
 
 export type int = {$: "int", len: number, range: range}
 export const int = (len: number, range: range): int => ({$: "int", len, range})
-
-export type refs = {$: "refs", count: number}
-export const refs = (count: number): refs => ({$: "refs", count})
 
 export type delta = {$: "delta", delta: number, arg: arg}
 export const delta = (delta: number, arg: arg): delta => ({$: "delta", delta, arg})
@@ -368,6 +364,7 @@ const uint14range = range(0n, BigInt(Math.pow(2, 14) - 1))
 const int8 = int(8, int8range)
 const int16 = int(16, int16range)
 
+const uint0 = uint(0, {min: 0n, max: 0n})
 const uint2 = uint(2, uint2range)
 const uint3 = uint(3, uint3range)
 const uint4 = uint(4, uint4range)
@@ -1161,8 +1158,8 @@ export const instructions: Record<string, Opcode> = {
     // SECTION: sdbegins
     SDBEGINSX: cat("cell_deserialize", mksimple(0xd726, 16, `(_1) => exec_slice_begins_with(_1, false)`)),
     SDBEGINSXQ: cat("cell_deserialize", mksimple(0xd727, 16, `(_1) => exec_slice_begins_with(_1, true)`)),
-    SDBEGINS: cat("cell_deserialize", mkext(0xd728 >> 2, 14, 7, seq(slice(refs(0), uint7, 3)), `exec_slice_begins_with_const`)),
-    SDBEGINSQ: cat("cell_deserialize", mkext(0xd72c >> 2, 14, 7, seq(slice(refs(0), uint7, 3)), `exec_slice_begins_with_const`)),
+    SDBEGINS: cat("cell_deserialize", mkext(0xd728 >> 2, 14, 7, seq(slice(uint0, uint7, 3)), `exec_slice_begins_with_const`)),
+    SDBEGINSQ: cat("cell_deserialize", mkext(0xd72c >> 2, 14, 7, seq(slice(uint0, uint7, 3)), `exec_slice_begins_with_const`)),
     // END SECTION
 
     STREFCONST: cat("cell_serialize", mkextrange(0xcf20, 0xcf21, 16, 0, seq(refCodeSlice), `exec_store_const_ref`)),
@@ -1308,7 +1305,7 @@ export const instructions: Record<string, Opcode> = {
     CALLXARGS: cat("continuation_jump", mkfixedn(0xdb0, 12, 4, seq(uint4, minusOne), `exec_callx_args_p`)),
     CALLXARGS_1: cat("continuation_jump", mkfixedn(0xda, 8, 8, seq(uint4, uint4), `exec_callx_args`)),
 
-    PUSHSLICE: cat("cell_const", mkext(0x8b, 8, 4, seq(slice(refs(0), uint4, 4)), `exec_push_slice`)),
+    PUSHSLICE: cat("cell_const", mkext(0x8b, 8, 4, seq(slice(uint0, uint4, 4)), `exec_push_slice`)),
     PUSHSLICE_REFS: cat("cell_const", mkext(0x8c, 8, 7, seq(slice(delta(1, uint2), uint5, 1)), `exec_push_slice_r`)),
     PUSHSLICE_LONG: cat("cell_const", mkextrange((0x8d << 3) << 7, ((0x8d << 3) + 5) << 7, 18, 10, seq(slice(uint3, uint7, 6)), `exec_push_slice_r2`)),
 
@@ -1324,7 +1321,7 @@ export const instructions: Record<string, Opcode> = {
     // SETCP: cat("codepage", mkfixedrangen(0xff00, 0x10000, 16, 8, seq(setcpArg), `exec_set_cp`)),
 
     PSEUDO_PUSHREF: cat("cell_const", mkfixedpseudo(0, seq(refCodeSlice))),
-    PSEUDO_PUSHSLICE: cat("cell_const", mkfixedpseudo(0, seq(slice(refs(1), uint(0, range(0n, 0n)), 0)))),
+    PSEUDO_PUSHSLICE: cat("cell_const", mkfixedpseudo(0, seq(slice(uint0, uint(0, range(0n, 0n)), 0)))),
     PSEUDO_EXOTIC: cat("cell_const", mkfixedpseudo(0, seq(exoticCell))),
 
     // TVM 11 instructions
