@@ -113,8 +113,6 @@ const argsLen = (args: $.args): number => {
     switch (args.$) {
         case "simpleArgs":
             return args.children.length
-        case "xchgArgs":
-            return 2
         case "dictpush":
             return 2
     }
@@ -218,22 +216,10 @@ const generateDictpush = (): t.Statement[] => {
     ]
 }
 
-const generateXchgArgs = (): t.Statement[] => {
-    return [
-        writeAppend("s"),
-        writeToString("arg0"),
-        writeAppend(" "),
-        writeAppend("s"),
-        writeToString("arg1"),
-    ]
-}
-
 const generateArgs = (args: $.args): t.Statement[] => {
     switch (args.$) {
         case "simpleArgs":
             return generateSimpleArgs(args.children)
-        case "xchgArgs":
-            return generateXchgArgs()
         case "dictpush":
             return generateDictpush()
     }

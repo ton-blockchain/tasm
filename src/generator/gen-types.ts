@@ -163,8 +163,6 @@ const generateLoadArgs = (args: $.args): (t.Expression | t.SpreadElement)[] => {
     switch (args.$) {
         case "simpleArgs":
             return generateSimpleArgs(args).map(arg => wrapIntoLoad(arg))
-        case "xchgArgs":
-            return generateXchgArgs(args).map(arg => wrapIntoLoad(arg))
         case "dictpush":
             return generateDictpush(args).map(arg => t.spreadElement(wrapIntoLoad(arg)))
     }
@@ -176,8 +174,6 @@ const generateStoreArgs = (args: $.args): t.Statement[] => {
     switch (args.$) {
         case "simpleArgs":
             return generateSimpleArgs(args).map((arg, index) => wrapIntoStore(`arg${index}`, arg))
-        case "xchgArgs":
-            return generateXchgArgs(args).map((arg, index) => wrapIntoStore(`arg${index}`, arg))
         case "dictpush":
             return [
                 wrapIntoArrayStore(
@@ -188,18 +184,6 @@ const generateStoreArgs = (args: $.args): t.Statement[] => {
     }
 
     throw new Error("Unexpected arg type")
-}
-
-// uint(4), uint(4)
-const generateXchgArgs = (_args: $.xchgArgs): t.Expression[] => {
-    return [
-        t.callExpression(t.memberExpression(UTIL_QUALIFIER, t.identifier("uint")), [
-            t.numericLiteral(4),
-        ]),
-        t.callExpression(t.memberExpression(UTIL_QUALIFIER, t.identifier("uint")), [
-            t.numericLiteral(4),
-        ]),
-    ]
 }
 
 // codeSlice(uint(2), uint(7))

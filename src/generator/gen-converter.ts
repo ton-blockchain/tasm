@@ -202,8 +202,6 @@ const argsLen = (args: $.args): number => {
     switch (args.$) {
         case "simpleArgs":
             return args.children.length
-        case "xchgArgs":
-            return 2
         case "dictpush":
             return 2
     }
@@ -405,32 +403,10 @@ const generateDictpush = (name: string): t.Statement[] => {
     ]
 }
 
-const generateXchgArgs = (name: string): t.Statement[] => {
-    return [
-        t.variableDeclaration("const", [
-            t.variableDeclarator(
-                t.identifier("args"),
-                t.callExpression(t.memberExpression(UTIL_QUALIFIER, t.identifier("twoStackArgs")), [
-                    t.identifier("instr"),
-                ]),
-            ),
-        ]),
-        t.returnStatement(
-            t.callExpression(t.memberExpression(RUNTIME_QUALIFIER, t.identifier(name)), [
-                t.memberExpression(t.identifier("args"), t.numericLiteral(0), true),
-                t.memberExpression(t.identifier("args"), t.numericLiteral(1), true),
-                t.identifier("loc"),
-            ]),
-        ),
-    ]
-}
-
 const generateArgs = (name: string, args: $.args): t.Statement[] => {
     switch (args.$) {
         case "simpleArgs":
             return generateSimpleArgs(name, args.children)
-        case "xchgArgs":
-            return generateXchgArgs(name)
         case "dictpush":
             return generateDictpush(name)
     }
