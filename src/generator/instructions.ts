@@ -1522,8 +1522,17 @@ export const instructions: Record<string, Opcode> = {
     INMSG_STATEINIT: version(11, cat("config", mksimple(0xf899, 16, `exec_get_in_msg_param`))),
     INMSGPARAM: version(11, cat("config", mkfixedrangen(0xf89a, 0xf8a0, 16, 4, seq(uint4), `exec_get_var_in_msg_param`))),
 
+    // TVM 12 instructions
     BTOS: version(12, cat("cell_deserialize", mksimple(0xcf50, 16, "exec_builder_to_slice"))),
     HASHBU: version(12, cat("crypto_common", mksimple(0xf916, 16, "exec_compute_hash"))),
+    LDSTDADDR: version(12, cat("cell_deserialize", mksimple(0xfa48, 16, `(_1) => exec_load_std_message_addr(_1, false)`))),
+    LDSTDADDRQ: version(12, cat("cell_deserialize", mksimple(0xfa49, 16, `(_1) => exec_load_std_message_addr(_1, true)`))),
+    LDOPTSTDADDR: version(12, cat("cell_deserialize", mksimple(0xfa50, 16, `(_1) => exec_load_opt_std_message_addr(_1, false)`))),
+    LDOPTSTDADDRQ: version(12, cat("cell_deserialize", mksimple(0xfa51, 16, `(_1) => exec_load_opt_std_message_addr(_1, true)`))),
+    STSTDADDR: version(12, cat("cell_deserialize", mksimple(0xfa52, 16, `(_1) => exec_store_std_address(_1, false)`))),
+    STSTDADDRQ: version(12, cat("cell_deserialize", mksimple(0xfa53, 16, `(_1) => exec_store_std_address(_1, true)`))),
+    STOPTSTDADDR: version(12, cat("cell_deserialize", mksimple(0xfa54, 16, `(_1) => exec_store_opt_std_address(_1, false)`))),
+    STOPTSTDADDRQ: version(12, cat("cell_deserialize", mksimple(0xfa55, 16, `(_1) => exec_store_opt_std_address(_1, true)`))),
 
     DEBUGMARK: cat("int_const", mkfixedn(0xF955, 16, 16, seq(uint(16, range(0n, 0n))), `exec_push_pow2dec`)),
 

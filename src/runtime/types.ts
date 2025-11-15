@@ -8454,6 +8454,78 @@ export const HASHBU: $.Type<c.HASHBU> = {
         b.storeInstructionPrefix(63766, 16, val)
     },
 }
+export const LDSTDADDR: $.Type<c.LDSTDADDR> = {
+    load: s => {
+        s.skip(16)
+        return c.LDSTDADDR()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64072, 16, val)
+    },
+}
+export const LDSTDADDRQ: $.Type<c.LDSTDADDRQ> = {
+    load: s => {
+        s.skip(16)
+        return c.LDSTDADDRQ()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64073, 16, val)
+    },
+}
+export const LDOPTSTDADDR: $.Type<c.LDOPTSTDADDR> = {
+    load: s => {
+        s.skip(16)
+        return c.LDOPTSTDADDR()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64080, 16, val)
+    },
+}
+export const LDOPTSTDADDRQ: $.Type<c.LDOPTSTDADDRQ> = {
+    load: s => {
+        s.skip(16)
+        return c.LDOPTSTDADDRQ()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64081, 16, val)
+    },
+}
+export const STSTDADDR: $.Type<c.STSTDADDR> = {
+    load: s => {
+        s.skip(16)
+        return c.STSTDADDR()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64082, 16, val)
+    },
+}
+export const STSTDADDRQ: $.Type<c.STSTDADDRQ> = {
+    load: s => {
+        s.skip(16)
+        return c.STSTDADDRQ()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64083, 16, val)
+    },
+}
+export const STOPTSTDADDR: $.Type<c.STOPTSTDADDR> = {
+    load: s => {
+        s.skip(16)
+        return c.STOPTSTDADDR()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64084, 16, val)
+    },
+}
+export const STOPTSTDADDRQ: $.Type<c.STOPTSTDADDRQ> = {
+    load: s => {
+        s.skip(16)
+        return c.STOPTSTDADDRQ()
+    },
+    store: (b, val, options) => {
+        b.storeInstructionPrefix(64085, 16, val)
+    },
+}
 export const DEBUGMARK: $.Type<c.DEBUGMARK> = {
     load: s => {
         s.skip(16)

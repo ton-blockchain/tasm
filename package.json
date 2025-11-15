@@ -60,7 +60,7 @@
         "@ton/crypto": "^3.3.0",
         "@ton/sandbox": "^0.37.1",
         "@ton/test-utils": "^0.12.0",
-        "@ton/tolk-js": "^1.0.0",
+        "@ton/tolk-js": "^1.2.0",
         "@tonstudio/pgen": "^0.0.1",
         "@types/diff": "^7.0.1",
         "@types/jest": "^29.5.14",

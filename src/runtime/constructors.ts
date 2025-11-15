@@ -7817,6 +7817,70 @@ export type HASHBU = {
     $: "HASHBU"
     loc: $.Loc | undefined
 }
+export const LDSTDADDR = (loc?: $.Loc): LDSTDADDR => ({
+    $: "LDSTDADDR",
+    loc,
+})
+export type LDSTDADDR = {
+    $: "LDSTDADDR"
+    loc: $.Loc | undefined
+}
+export const LDSTDADDRQ = (loc?: $.Loc): LDSTDADDRQ => ({
+    $: "LDSTDADDRQ",
+    loc,
+})
+export type LDSTDADDRQ = {
+    $: "LDSTDADDRQ"
+    loc: $.Loc | undefined
+}
+export const LDOPTSTDADDR = (loc?: $.Loc): LDOPTSTDADDR => ({
+    $: "LDOPTSTDADDR",
+    loc,
+})
+export type LDOPTSTDADDR = {
+    $: "LDOPTSTDADDR"
+    loc: $.Loc | undefined
+}
+export const LDOPTSTDADDRQ = (loc?: $.Loc): LDOPTSTDADDRQ => ({
+    $: "LDOPTSTDADDRQ",
+    loc,
+})
+export type LDOPTSTDADDRQ = {
+    $: "LDOPTSTDADDRQ"
+    loc: $.Loc | undefined
+}
+export const STSTDADDR = (loc?: $.Loc): STSTDADDR => ({
+    $: "STSTDADDR",
+    loc,
+})
+export type STSTDADDR = {
+    $: "STSTDADDR"
+    loc: $.Loc | undefined
+}
+export const STSTDADDRQ = (loc?: $.Loc): STSTDADDRQ => ({
+    $: "STSTDADDRQ",
+    loc,
+})
+export type STSTDADDRQ = {
+    $: "STSTDADDRQ"
+    loc: $.Loc | undefined
+}
+export const STOPTSTDADDR = (loc?: $.Loc): STOPTSTDADDR => ({
+    $: "STOPTSTDADDR",
+    loc,
+})
+export type STOPTSTDADDR = {
+    $: "STOPTSTDADDR"
+    loc: $.Loc | undefined
+}
+export const STOPTSTDADDRQ = (loc?: $.Loc): STOPTSTDADDRQ => ({
+    $: "STOPTSTDADDRQ",
+    loc,
+})
+export type STOPTSTDADDRQ = {
+    $: "STOPTSTDADDRQ"
+    loc: $.Loc | undefined
+}
 export const DEBUGMARK = (arg0: number, loc?: $.Loc): DEBUGMARK => ({
     $: "DEBUGMARK",
     arg0,

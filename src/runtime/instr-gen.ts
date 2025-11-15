@@ -918,6 +918,14 @@ export type Instr =
     | c.INMSGPARAM
     | c.BTOS
     | c.HASHBU
+    | c.LDSTDADDR
+    | c.LDSTDADDRQ
+    | c.LDOPTSTDADDR
+    | c.LDOPTSTDADDRQ
+    | c.STSTDADDR
+    | c.STSTDADDRQ
+    | c.STOPTSTDADDR
+    | c.STOPTSTDADDRQ
     | c.DEBUGMARK
     | cf.fPUSHINT
     | cf.fPUSHSLICE
@@ -5487,6 +5495,46 @@ export const rangeToType = [
         load: types.HASHBU.load,
     },
     {
+        min: 16402432,
+        max: 16402688,
+        load: types.LDSTDADDR.load,
+    },
+    {
+        min: 16402688,
+        max: 16402944,
+        load: types.LDSTDADDRQ.load,
+    },
+    {
+        min: 16404480,
+        max: 16404736,
+        load: types.LDOPTSTDADDR.load,
+    },
+    {
+        min: 16404736,
+        max: 16404992,
+        load: types.LDOPTSTDADDRQ.load,
+    },
+    {
+        min: 16404992,
+        max: 16405248,
+        load: types.STSTDADDR.load,
+    },
+    {
+        min: 16405248,
+        max: 16405504,
+        load: types.STSTDADDRQ.load,
+    },
+    {
+        min: 16405504,
+        max: 16405760,
+        load: types.STOPTSTDADDR.load,
+    },
+    {
+        min: 16405760,
+        max: 16406016,
+        load: types.STOPTSTDADDRQ.load,
+    },
+    {
         min: 16340224,
         max: 16340480,
         load: types.DEBUGMARK.load,
@@ -6403,6 +6451,14 @@ storeMapping.set("INMSG_STATEINIT", types.INMSG_STATEINIT.store)
 storeMapping.set("INMSGPARAM", types.INMSGPARAM.store)
 storeMapping.set("BTOS", types.BTOS.store)
 storeMapping.set("HASHBU", types.HASHBU.store)
+storeMapping.set("LDSTDADDR", types.LDSTDADDR.store)
+storeMapping.set("LDSTDADDRQ", types.LDSTDADDRQ.store)
+storeMapping.set("LDOPTSTDADDR", types.LDOPTSTDADDR.store)
+storeMapping.set("LDOPTSTDADDRQ", types.LDOPTSTDADDRQ.store)
+storeMapping.set("STSTDADDR", types.STSTDADDR.store)
+storeMapping.set("STSTDADDRQ", types.STSTDADDRQ.store)
+storeMapping.set("STOPTSTDADDR", types.STOPTSTDADDR.store)
+storeMapping.set("STOPTSTDADDRQ", types.STOPTSTDADDRQ.store)
 storeMapping.set("DEBUGMARK", types.DEBUGMARK.store)
 storeMapping.set("fPUSHINT", ftypes.fPUSHINT.store)
 storeMapping.set("fPUSHSLICE", ftypes.fPUSHSLICE.store)

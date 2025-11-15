@@ -206,7 +206,6 @@ function isIntegerArg(arg: $.arg) {
         arg.$ === "tinyInt" ||
         arg.$ === "minusOne" ||
         arg.$ === "delta" ||
-        arg.$ === "stack" ||
         arg.$ === "setcpArg"
     )
 }
@@ -290,12 +289,12 @@ const generateSimpleArgs = (name: string, args: $.args): t.Statement[] => {
             throw new Error(`Unexpected args count, expected 1, got ${args.length}`)
         }
 
-        if (isStackArg(arg)) {
-            return [parseArgs("singleStackArg", false), returnSingleArgInstr(name)]
-        }
-
         if (isIntegerArg(arg)) {
             return [parseArgs("singleIntegerArg", false), returnSingleArgInstr(name)]
+        }
+
+        if (isStackArg(arg)) {
+            return [parseArgs("singleStackArg", false), returnSingleArgInstr(name)]
         }
 
         if (isControlArg(arg)) {
@@ -327,12 +326,16 @@ const generateSimpleArgs = (name: string, args: $.args): t.Statement[] => {
             throw new Error(`Unexpected args count, expected 2, got ${args.length}`)
         }
 
-        if (isStackArg(arg) && isStackArg(arg1)) {
-            return [parseArgs("twoStackArgs", false), returnTwoArgInstr(name)]
-        }
-
         if (isIntegerArg(arg) && isIntegerArg(arg1)) {
             return [parseArgs("twoIntegerArgs", false), returnTwoArgInstr(name)]
+        }
+
+        if (isIntegerArg(arg) && isStackArg(arg1)) {
+            return [parseArgs("twoIntegerArgs", false), returnTwoArgInstr(name)]
+        }
+
+        if (isStackArg(arg) && isStackArg(arg1)) {
+            return [parseArgs("integerAndStackArgs", false), returnTwoArgInstr(name)]
         }
 
         if (isCodeArg(arg) && isCodeArg(arg1)) {
@@ -353,12 +356,12 @@ const generateSimpleArgs = (name: string, args: $.args): t.Statement[] => {
             throw new Error(`Unexpected args count, expected 3, got ${args.length}`)
         }
 
-        if (isStackArg(arg) && isStackArg(arg1) && isStackArg(arg2)) {
-            return [parseArgs("threeStackArgs", false), returnThreeArgInstr(name)]
-        }
-
         if (isIntegerArg(arg) && isIntegerArg(arg1) && isIntegerArg(arg2)) {
             return [parseArgs("threeIntegerArgs", false), returnThreeArgInstr(name)]
+        }
+
+        if (isStackArg(arg) && isStackArg(arg1) && isStackArg(arg2)) {
+            return [parseArgs("threeStackArgs", false), returnThreeArgInstr(name)]
         }
 
         if (isIntegerArg(arg) && isCodeArg(arg1) && isCodeArg(arg2)) {

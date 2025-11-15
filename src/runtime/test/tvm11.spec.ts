@@ -108,7 +108,7 @@ describe("TVM11 opcodes", () => {
                     
                     match (msg) {
                         IncreaseCounter => {
-                            if (in.senderAddress.isNone()) {
+                            if ((in.senderAddress as any_address).isNone()) {
                                 throw 10;
                             }
                         }
@@ -294,6 +294,40 @@ describe("TVM11 opcodes", () => {
                         INMSG_BOUNCED
                         THROWIF_SHORT 0
                         INMSG_BOUNCED
+                        DUMP s0
+                        DROP
+                    }
+                ]
+                DICTIGETJMPZ
+                THROWARG 11
+            `,
+        ),
+    )
+    it(
+        "STSTDADDR in Tolk code",
+        test(
+            `
+                struct Foo {
+                    addr: address
+                }
+            
+                fun onInternalMessage(in: InMessage) {
+                    val cell = Foo{addr: in.senderAddress}.toCell();
+                    debug.print(cell.depth());
+                }
+            `,
+            `
+                SETCP 0
+                DICTPUSHCONST 19 [
+                    0 => {
+                        DROP
+                        INMSG_BOUNCED
+                        THROWIF_SHORT 0
+                        INMSG_SRC
+                        NEWC
+                        STSTDADDR
+                        ENDC
+                        CDEPTH
                         DUMP s0
                         DROP
                     }

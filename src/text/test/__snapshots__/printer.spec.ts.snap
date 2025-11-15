@@ -280,7 +280,7 @@ PUSHCONT {
                                 XCHG_IJ s4 s5
                                 XCHG_IJ s2 s4
                                 XCHG_IJ s2 s3
-                                BLKPUSH 4 1
+                                BLKPUSH 4 s1
                                 HASHCU
                                 SWAP
                                 HASHCU
@@ -1010,7 +1010,7 @@ PUSHCONT {
                                     XCHG_IJ s4 s5
                                     XCHG_IJ s2 s4
                                     XCHG_IJ s2 s3
-                                    BLKPUSH 4 1
+                                    BLKPUSH 4 s1
                                     HASHCU
                                     SWAP
                                     HASHCU
@@ -1825,7 +1825,7 @@ PUSHCONT {
                                     XCHG_IJ s4 s5
                                     XCHG_IJ s2 s4
                                     XCHG_IJ s2 s3
-                                    BLKPUSH 4 1
+                                    BLKPUSH 4 s1
                                     HASHCU
                                     SWAP
                                     HASHCU
@@ -2220,7 +2220,7 @@ PUSHCONT {
                 XCHG_IJ s2 s3
                 XCHG_IJ s3 s5
                 XCHG_IJ s2 s4
-                BLKPUSH 4 1
+                BLKPUSH 4 s1
                 HASHCU
                 SWAP
                 HASHCU
@@ -2540,7 +2540,7 @@ DICTPUSHCONST 19 [
                             XCHG_IJ s4 s5
                             XCHG_IJ s2 s4
                             XCHG_IJ s2 s3
-                            BLKPUSH 4 1
+                            BLKPUSH 4 s1
                             HASHCU
                             SWAP
                             HASHCU
@@ -3199,7 +3199,7 @@ DICTPUSHCONST 19 [
                             XCHG_IJ s4 s5
                             XCHG_IJ s2 s4
                             XCHG_IJ s2 s3
-                            BLKPUSH 4 1
+                            BLKPUSH 4 s1
                             HASHCU
                             SWAP
                             HASHCU

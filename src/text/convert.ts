@@ -3113,7 +3113,7 @@ export const BLKPUSH: $.Convert = (ctx, instr, loc) => {
     if (argsLen.length !== 2) {
         throw new $.ParseError(loc, "Expected 2 arguments")
     }
-    const args = $.twoIntegerArgs(instr)
+    const args = $.integerAndStackArgs(instr)
     return c.BLKPUSH(args[0], args[1], loc)
 }
 export const BLKDROP2: $.Convert = (ctx, instr, loc) => {
@@ -3953,6 +3953,38 @@ export const BTOS: $.Convert = (ctx, instr, loc) => {
 export const HASHBU: $.Convert = (ctx, instr, loc) => {
     u.assertZeroArgs(instr, loc)
     return c.HASHBU(loc)
+}
+export const LDSTDADDR: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.LDSTDADDR(loc)
+}
+export const LDSTDADDRQ: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.LDSTDADDRQ(loc)
+}
+export const LDOPTSTDADDR: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.LDOPTSTDADDR(loc)
+}
+export const LDOPTSTDADDRQ: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.LDOPTSTDADDRQ(loc)
+}
+export const STSTDADDR: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.STSTDADDR(loc)
+}
+export const STSTDADDRQ: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.STSTDADDRQ(loc)
+}
+export const STOPTSTDADDR: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.STOPTSTDADDR(loc)
+}
+export const STOPTSTDADDRQ: $.Convert = (ctx, instr, loc) => {
+    u.assertZeroArgs(instr, loc)
+    return c.STOPTSTDADDRQ(loc)
 }
 export const DEBUGMARK: $.Convert = (ctx, instr, loc) => {
     u.assertSingleArgs(instr, loc)
@@ -5895,6 +5927,22 @@ export const convertInstruction = (ctx: $.Ctx, instr: $ast.Instruction, loc: c.u
             return BTOS(ctx, instr, loc)
         case "HASHBU":
             return HASHBU(ctx, instr, loc)
+        case "LDSTDADDR":
+            return LDSTDADDR(ctx, instr, loc)
+        case "LDSTDADDRQ":
+            return LDSTDADDRQ(ctx, instr, loc)
+        case "LDOPTSTDADDR":
+            return LDOPTSTDADDR(ctx, instr, loc)
+        case "LDOPTSTDADDRQ":
+            return LDOPTSTDADDRQ(ctx, instr, loc)
+        case "STSTDADDR":
+            return STSTDADDR(ctx, instr, loc)
+        case "STSTDADDRQ":
+            return STSTDADDRQ(ctx, instr, loc)
+        case "STOPTSTDADDR":
+            return STOPTSTDADDR(ctx, instr, loc)
+        case "STOPTSTDADDRQ":
+            return STOPTSTDADDRQ(ctx, instr, loc)
         case "DEBUGMARK":
             return DEBUGMARK(ctx, instr, loc)
         case "fPUSHINT":

@@ -186,6 +186,25 @@ export const twoIntegerArgs = (instr: $ast.Instruction): [number, number] => {
     return [parseNumber(arg), parseNumber(arg2)]
 }
 
+export const integerAndStackArgs = (instr: $ast.Instruction): [number, number] => {
+    const [arg0raw, arg1raw] = instr.args
+    if (!arg0raw || !arg1raw) {
+        throw new Error(`Expected 2 arguments`)
+    }
+
+    const arg = arg0raw.expression
+    if (arg.$ !== "IntegerLiteral") {
+        throw new Error(`Expected integer literal argument 1, got ${arg.$}`)
+    }
+
+    const arg2 = arg1raw.expression
+    if (arg2.$ !== "StackElement") {
+        throw new Error(`Expected stack element argument 2, got ${arg2.$}`)
+    }
+
+    return [parseNumber(arg), parseStackElement(arg2)]
+}
+
 export const twoStackArgs = (instr: $ast.Instruction): [number, number] => {
     const [arg0raw, arg1raw] = instr.args
     if (!arg0raw || !arg1raw) {

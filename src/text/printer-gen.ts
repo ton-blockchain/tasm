@@ -2394,6 +2394,22 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             return
         case "HASHBU":
             return
+        case "LDSTDADDR":
+            return
+        case "LDSTDADDRQ":
+            return
+        case "LDOPTSTDADDR":
+            return
+        case "LDOPTSTDADDRQ":
+            return
+        case "STSTDADDR":
+            return
+        case "STSTDADDRQ":
+            return
+        case "STOPTSTDADDR":
+            return
+        case "STOPTSTDADDRQ":
+            return
         case "DEBUGMARK":
             p.append(" ")
             p.append(instr.arg0.toString())
