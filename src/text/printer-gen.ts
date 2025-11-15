@@ -1729,6 +1729,7 @@ export const printInstruction = (p: $.Printer, instr: c.Instr) => {
             p.append(" ")
             p.append(instr.arg0.toString())
             p.append(" ")
+            p.append("s")
             p.append(instr.arg1.toString())
             return
         case "BLKDROP2":
