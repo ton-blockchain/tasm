@@ -86,14 +86,38 @@ export const dict: dict = {$: "dict"}
 export type exoticCell = {$: "exoticCell"}
 export const exoticCell: exoticCell = {$: "exoticCell"}
 
-export type dictpush = {$: "dictpush"}
-export const dictpush: dictpush = {$: "dictpush"}
-
 export type debugstr = {$: "debugstr"}
 export const debugstr: debugstr = {$: "debugstr"}
 
 /// section: effects
-export type Effect = CellLoad | CellCreate | CanThrow | AlwaysThrow | Tuple | ImplicitJumpRef
+export type Effect =
+    | CellLoad
+    | CellCreate
+    | CanThrow
+    | AlwaysThrow
+    | Tuple
+    | ImplicitJumpRef
+    | Ecrecover
+    | Secp256k1XonlyPubkeyTweakAdd
+    | Chksign
+    | P256Chksign
+    | Rist255Fromhash
+    | Rist255Validate
+    | Rist255Add
+    | Rist255Mul
+    | Rist255Mulbase
+    | BlsVerify
+    | BlsG1AddSub
+    | BlsG1Neg
+    | BlsG1Mul
+    | BlsMapToG1
+    | BlsG1InGroup
+    | BlsG2AddSub
+    | BlsG2Neg
+    | BlsG2Mul
+    | BlsMapToG2
+    | BlsG2InGroup
+    | DynamicGas
 
 export type CellLoad = {
     $: "CellLoad",
@@ -189,7 +213,128 @@ export const ImplicitJumpRef = (): ImplicitJumpRef => ({
         {value: 10, description: "If reference Cell is loaded for the first time"},
     ] as const,
 })
+
+export type Ecrecover = {$: "Ecrecover", costs: [{value: 1500, description: "For ECRECOVER operation"}]}
+export const Ecrecover = (): Ecrecover => ({
+    $: "Ecrecover", costs: [{value: 1500, description: "For ECRECOVER operation"}] as const,
+})
+
+export type Secp256k1XonlyPubkeyTweakAdd = {$: "Secp256k1XonlyPubkeyTweakAdd", costs: [{value: 1250, description: "For SECP256K1_XONLY_PUBKEY_TWEAK_ADD operation"}]}
+export const Secp256k1XonlyPubkeyTweakAdd = (): Secp256k1XonlyPubkeyTweakAdd => ({
+    $: "Secp256k1XonlyPubkeyTweakAdd", costs: [{value: 1250, description: "For SECP256K1_XONLY_PUBKEY_TWEAK_ADD operation"}] as const,
+})
+
+export type Chksign = {$: "Chksign", costs: [{value: 4000, description: "For CHKSIGN operation"}]}
+export const Chksign = (): Chksign => ({
+    $: "Chksign", costs: [{value: 4000, description: "For CHKSIGN operation"}] as const,
+})
+
+export type P256Chksign = {$: "P256Chksign", costs: [{value: 3500, description: "For P256_CHKSIGN operation"}]}
+export const P256Chksign = (): P256Chksign => ({
+    $: "P256Chksign", costs: [{value: 3500, description: "For P256_CHKSIGN operation"}] as const,
+})
+
+export type Rist255Fromhash = {$: "Rist255Fromhash", costs: [{value: 600, description: "For RIST255_FROMHASH operation"}]}
+export const Rist255Fromhash = (): Rist255Fromhash => ({
+    $: "Rist255Fromhash", costs: [{value: 600, description: "For RIST255_FROMHASH operation"}] as const,
+})
+
+export type Rist255Validate = {$: "Rist255Validate", costs: [{value: 200, description: "For RIST255_VALIDATE operation"}]}
+export const Rist255Validate = (): Rist255Validate => ({
+    $: "Rist255Validate", costs: [{value: 200, description: "For RIST255_VALIDATE operation"}] as const,
+})
+
+export type Rist255Add = {$: "Rist255Add", costs: [{value: 600, description: "For RIST255_ADD operation"}]}
+export const Rist255Add = (): Rist255Add => ({
+    $: "Rist255Add", costs: [{value: 600, description: "For RIST255_ADD operation"}] as const,
+})
+
+export type Rist255Mul = {$: "Rist255Mul", costs: [{value: 2000, description: "For RIST255_MUL operation"}]}
+export const Rist255Mul = (): Rist255Mul => ({
+    $: "Rist255Mul", costs: [{value: 2000, description: "For RIST255_MUL operation"}] as const,
+})
+
+export type Rist255Mulbase = {$: "Rist255Mulbase", costs: [{value: 750, description: "For RIST255_MULBASE operation"}]}
+export const Rist255Mulbase = (): Rist255Mulbase => ({
+    $: "Rist255Mulbase", costs: [{value: 750, description: "For RIST255_MULBASE operation"}] as const,
+})
+
+export type BlsG1AddSub = {$: "BlsG1AddSub", costs: [{value: 3900, description: "For BLS_G1_ADD/BLS_G1_SUB operation"}]}
+export const BlsG1AddSub = (): BlsG1AddSub => ({
+    $: "BlsG1AddSub", costs: [{value: 3900, description: "For BLS_G1_ADD/BLS_G1_SUB operation"}] as const,
+})
+
+export type BlsG1Neg = {$: "BlsG1Neg", costs: [{value: 750, description: "For BLS_G1_NEG operation"}]}
+export const BlsG1Neg = (): BlsG1Neg => ({
+    $: "BlsG1Neg", costs: [{value: 750, description: "For BLS_G1_NEG operation"}] as const,
+})
+
+export type BlsG1Mul = {$: "BlsG1Mul", costs: [{value: 5200, description: "For BLS_G1_MUL operation"}]}
+export const BlsG1Mul = (): BlsG1Mul => ({
+    $: "BlsG1Mul", costs: [{value: 5200, description: "For BLS_G1_MUL operation"}] as const,
+})
+
+export type BlsMapToG1 = {$: "BlsMapToG1", costs: [{value: 2350, description: "For BLS_MAP_TO_G1 operation"}]}
+export const BlsMapToG1 = (): BlsMapToG1 => ({
+    $: "BlsMapToG1", costs: [{value: 2350, description: "For BLS_MAP_TO_G1 operation"}] as const,
+})
+
+export type BlsG1InGroup = {$: "BlsG1InGroup", costs: [{value: 2950, description: "For BLS_G1_INGROUP operation"}]}
+export const BlsG1InGroup = (): BlsG1InGroup => ({
+    $: "BlsG1InGroup", costs: [{value: 2950, description: "For BLS_G1_INGROUP operation"}] as const,
+})
+
+export type BlsVerify = {$: "BlsVerify", costs: [{value: 61000, description: "For BLS_VERIFY operation"}]}
+export const BlsVerify = (): BlsVerify => ({
+    $: "BlsVerify", costs: [{value: 61000, description: "For BLS_VERIFY operation"}] as const,
+})
+
+export type BlsG2AddSub = {$: "BlsG2AddSub", costs: [{value: 6100, description: "For BLS_G2_ADD/BLS_G2_SUB operation"}]}
+export const BlsG2AddSub = (): BlsG2AddSub => ({
+    $: "BlsG2AddSub", costs: [{value: 6100, description: "For BLS_G2_ADD/BLS_G2_SUB operation"}] as const,
+})
+
+export type BlsG2Neg = {$: "BlsG2Neg", costs: [{value: 1550, description: "For BLS_G2_NEG operation"}]}
+export const BlsG2Neg = (): BlsG2Neg => ({
+    $: "BlsG2Neg", costs: [{value: 1550, description: "For BLS_G2_NEG operation"}] as const,
+})
+
+export type BlsG2Mul = {$: "BlsG2Mul", costs: [{value: 10550, description: "For BLS_G2_MUL operation"}]}
+export const BlsG2Mul = (): BlsG2Mul => ({
+    $: "BlsG2Mul", costs: [{value: 10550, description: "For BLS_G2_MUL operation"}] as const,
+})
+
+export type BlsMapToG2 = {$: "BlsMapToG2", costs: [{value: 7950, description: "For BLS_MAP_TO_G2 operation"}]}
+export const BlsMapToG2 = (): BlsMapToG2 => ({
+    $: "BlsMapToG2", costs: [{value: 7950, description: "For BLS_MAP_TO_G2 operation"}] as const,
+})
+
+export type BlsG2InGroup = {$: "BlsG2InGroup", costs: [{value: 4250, description: "For BLS_G2_INGROUP operation"}]}
+export const BlsG2InGroup = (): BlsG2InGroup => ({
+    $: "BlsG2InGroup", costs: [{value: 4250, description: "For BLS_G2_INGROUP operation"}] as const,
+})
+
+export type DynamicGas = {$: "DynamicGas", formula: string, description: string}
+export const DynamicGas = (formula: string, description: string): DynamicGas => ({
+    $: "DynamicGas", formula, description,
+})
 /// end section
+
+// BLS gas price constants
+export const BLS_AGGREGATE_BASE_GAS_PRICE = -2650
+export const BLS_AGGREGATE_ELEMENT_GAS_PRICE = 4350
+export const BLS_FAST_AGGREGATE_VERIFY_BASE_GAS_PRICE = 58000
+export const BLS_FAST_AGGREGATE_VERIFY_ELEMENT_GAS_PRICE = 3000
+export const BLS_AGGREGATE_VERIFY_BASE_GAS_PRICE = 38500
+export const BLS_AGGREGATE_VERIFY_ELEMENT_GAS_PRICE = 22500
+export const BLS_G1_MULTIEXP_BASE_GAS_PRICE = 11375
+export const BLS_G1_MULTIEXP_COEF1_GAS_PRICE = 630
+export const BLS_G1_MULTIEXP_COEF2_GAS_PRICE = 8820
+export const BLS_G2_MULTIEXP_BASE_GAS_PRICE = 30388
+export const BLS_G2_MULTIEXP_COEF1_GAS_PRICE = 1280
+export const BLS_G2_MULTIEXP_COEF2_GAS_PRICE = 22840
+export const BLS_PAIRING_BASE_GAS_PRICE = 20000
+export const BLS_PAIRING_ELEMENT_GAS_PRICE = 11800
 
 export type Opcode = {
     readonly min: number;
@@ -197,7 +342,8 @@ export type Opcode = {
     readonly checkLen: number;
     readonly skipLen: number;
     readonly exec: string;
-    readonly cat: string;
+    readonly category: string;
+    readonly subCategory: string;
     readonly version: undefined | number;
     readonly args: args;
     readonly kind: "dummy" | "simple" | "fixed" | "fixed-range" | "ext" | "ext-range"
@@ -205,8 +351,41 @@ export type Opcode = {
     readonly effects?: readonly Effect[],
 }
 
+const superCat = (cat: string): string => {
+    switch (cat) {
+        case "add_mul":
+        case "div":
+        case "int_cmp":
+        case "int_const":
+        case "shift_logic":
+        case "other_arith":
+            return "arithmetic"
+        case "cell_cmp":
+        case "cell_const":
+        case "cell_deserialize":
+        case "cell_serialize":
+            return "cell"
+        case "continuation_change":
+        case "continuation_cond":
+        case "continuation_cond_loop":
+        case "continuation_dict_jump":
+        case "continuation_jump":
+            return "continuation"
+        case "crypto_bls":
+        case "crypto_rist255":
+        case "crypto_common":
+            return "crypto"
+        default:
+            return cat
+    }
+}
+
 const cat = (cat: string, o: Opcode): Opcode => {
-    return {...o, cat}
+    const superCategory = superCat(cat)
+    if (superCategory === cat) {
+        return {...o, category: superCategory, subCategory: ""}
+    }
+    return {...o, category: superCategory, subCategory: cat}
 }
 
 const effects = (o: Opcode, ...effects: readonly Effect[]): Opcode => {
@@ -231,7 +410,8 @@ const mksimple = (
         skipLen: pfxLen,
         args: seq(),
         exec,
-        cat: "",
+        category: "",
+        subCategory: "",
         version: undefined,
         kind: "simple",
         prefix: opcode,
@@ -252,7 +432,8 @@ const mkfixedn = (
         skipLen: pfxLen + argLen,
         args,
         exec,
-        cat: "",
+        category: "",
+        subCategory: "",
         version: undefined,
         kind: "fixed",
         prefix: opcode,
@@ -270,7 +451,8 @@ const mkfixedpseudo = (
         skipLen: 0,
         args,
         exec: "",
-        cat: "",
+        category: "",
+        subCategory: "",
         version: undefined,
         kind: "fixed",
         prefix: opcode,
@@ -292,7 +474,8 @@ const mkfixedrangen = (
         skipLen: totLen,
         args,
         exec,
-        cat: "",
+        category: "",
+        subCategory: "",
         version: undefined,
         kind: "fixed-range",
         prefix: opcode_min,
@@ -313,7 +496,8 @@ const mkext = (
         skipLen: pfxLen + argLen,
         args,
         exec,
-        cat: "",
+        category: "",
+        subCategory: "",
         version: undefined,
         kind: "ext",
         prefix: opcode,
@@ -335,7 +519,8 @@ const mkextrange = (
         skipLen: totLen,
         args,
         exec,
-        cat: "",
+        category: "",
+        subCategory: "",
         version: undefined,
         kind: "ext-range",
         prefix: opcode_min,
@@ -535,18 +720,18 @@ export const instructions: Record<string, Opcode> = {
     JMPXVARARGS: cat("continuation_jump", mksimple(0xdb3a, 16, `exec_jmpx_varargs`)),
     CALLCCVARARGS: cat("continuation_jump", mksimple(0xdb3b, 16, `exec_callcc_varargs`)),
     RETDATA: cat("continuation_jump", mksimple(0xdb3f, 16, `exec_ret_data`)),
-    RUNVMX: version(4, cat("continuation_jump", mksimple(0xdb50, 16, ` exec_runvmx`))),
-    IFRET: cat("continuation_cond_loop", mksimple(0xdc, 8, `exec_ifret`)),
-    IFNOTRET: cat("continuation_cond_loop", mksimple(0xdd, 8, `exec_ifnotret`)),
-    IF: cat("continuation_cond_loop", mksimple(0xde, 8, `exec_if`)),
-    IFNOT: cat("continuation_cond_loop", mksimple(0xdf, 8, `exec_ifnot`)),
-    IFJMP: cat("continuation_cond_loop", mksimple(0xe0, 8, `exec_if_jmp`)),
-    IFNOTJMP: cat("continuation_cond_loop", mksimple(0xe1, 8, `exec_ifnot_jmp`)),
-    IFELSE: cat("continuation_cond_loop", mksimple(0xe2, 8, `exec_if_else`)),
-    CONDSEL: cat("continuation_cond_loop", mksimple(0xe304, 16, `exec_condsel`)),
-    CONDSELCHK: cat("continuation_cond_loop", mksimple(0xe305, 16, `exec_condsel_chk`)),
-    IFRETALT: cat("continuation_cond_loop", mksimple(0xe308, 16, `exec_ifretalt`)),
-    IFNOTRETALT: cat("continuation_cond_loop", mksimple(0xe309, 16, `exec_ifnotretalt`)),
+    RUNVMX: version(4, cat("continuation_jump", mksimple(0xdb50, 16, `exec_runvmx`))),
+    IFRET: cat("continuation_cond", mksimple(0xdc, 8, `exec_ifret`)),
+    IFNOTRET: cat("continuation_cond", mksimple(0xdd, 8, `exec_ifnotret`)),
+    IF: cat("continuation_cond", mksimple(0xde, 8, `exec_if`)),
+    IFNOT: cat("continuation_cond", mksimple(0xdf, 8, `exec_ifnot`)),
+    IFJMP: cat("continuation_cond", mksimple(0xe0, 8, `exec_if_jmp`)),
+    IFNOTJMP: cat("continuation_cond", mksimple(0xe1, 8, `exec_ifnot_jmp`)),
+    IFELSE: cat("continuation_cond", mksimple(0xe2, 8, `exec_if_else`)),
+    CONDSEL: cat("continuation_cond", mksimple(0xe304, 16, `exec_condsel`)),
+    CONDSELCHK: cat("continuation_cond", mksimple(0xe305, 16, `exec_condsel_chk`)),
+    IFRETALT: cat("continuation_cond", mksimple(0xe308, 16, `exec_ifretalt`)),
+    IFNOTRETALT: cat("continuation_cond", mksimple(0xe309, 16, `exec_ifnotretalt`)),
     REPEAT: cat("continuation_cond_loop", mksimple(0xe4, 8, `(_1) => exec_repeat(_1, false)`)),
     REPEATEND: cat("continuation_cond_loop", mksimple(0xe5, 8, `(_1) => exec_repeat_end(_1, false)`)),
     UNTIL: cat("continuation_cond_loop", mksimple(0xe6, 8, `(_1) => exec_until(_1, false)`)),
@@ -654,71 +839,71 @@ export const instructions: Record<string, Opcode> = {
     GETORIGINALFWDFEE: version(6, cat("config", mksimple(0xf83a, 16, `exec_get_original_fwd_fee`))),
     GETGASFEESIMPLE: version(6, cat("config", mksimple(0xf83b, 16, `exec_get_gas_fee_simple`))),
     GETFORWARDFEESIMPLE: version(6, cat("config", mksimple(0xf83c, 16, `exec_get_forward_fee_simple`))),
-    GETGLOBVAR: cat("config", mksimple(0xf840, 16, `exec_get_global_var`)),
-    SETGLOBVAR: cat("config", mksimple(0xf860, 16, `exec_set_global_var`)),
+    GETGLOBVAR: cat("globals", mksimple(0xf840, 16, `exec_get_global_var`)),
+    SETGLOBVAR: cat("globals", mksimple(0xf860, 16, `exec_set_global_var`)),
     RANDU256: cat("prng", mksimple(0xf810, 16, `exec_randu256`)),
     RAND: cat("prng", mksimple(0xf811, 16, `exec_rand_int`)),
     SETRAND: cat("prng", mksimple(0xf814, 16, `(_1) => exec_set_rand(_1, false)`)),
     ADDRAND: cat("prng", mksimple(0xf815, 16, `(_1) => exec_set_rand(_1, true)`)),
-    HASHCU: cat("crypto", mksimple(0xf900, 16, `(_1) => exec_compute_hash(_1, 0)`)),
-    HASHSU: effects(cat("crypto", mksimple(0xf901, 16, `(_1) => exec_compute_hash(_1, 1)`)), CellCreate()),
-    SHA256U: cat("crypto", mksimple(0xf902, 16, `exec_compute_sha256`)),
-    CHKSIGNU: cat("crypto", mksimple(0xf910, 16, `(_1) => exec_ed25519_check_signature(_1, false)`)),
-    CHKSIGNS: cat("crypto", mksimple(0xf911, 16, `(_1) => exec_ed25519_check_signature(_1, true)`)),
-    ECRECOVER: version(4, cat("crypto", mksimple(0xf912, 16, `exec_ecrecover`))),
-    SECP256K1_XONLY_PUBKEY_TWEAK_ADD: version(9, cat("crypto", mksimple(0xf913, 16, `exec_secp256k1_xonly_pubkey_tweak_add`))),
-    P256_CHKSIGNU: version(4, cat("crypto", mksimple(0xf914, 16, `(_1) => exec_p256_chksign(_1, false)`))),
-    P256_CHKSIGNS: version(4, cat("crypto", mksimple(0xf915, 16, `(_1) => exec_p256_chksign(_1, true)`))),
-    RIST255_FROMHASH: version(4, cat("crypto", mksimple(0xf920, 16, `exec_ristretto255_from_hash`))),
-    RIST255_VALIDATE: version(4, cat("crypto", mksimple(0xf921, 16, `(_1) => exec_ristretto255_validate(_1, false)`))),
-    RIST255_ADD: version(4, cat("crypto", mksimple(0xf922, 16, `(_1) => exec_ristretto255_add(_1, false)`))),
-    RIST255_SUB: version(4, cat("crypto", mksimple(0xf923, 16, `(_1) => exec_ristretto255_sub(_1, false)`))),
-    RIST255_MUL: version(4, cat("crypto", mksimple(0xf924, 16, `(_1) => exec_ristretto255_mul(_1, false)`))),
-    RIST255_MULBASE: version(4, cat("crypto", mksimple(0xf925, 16, `(_1) => exec_ristretto255_mul_base(_1, false)`))),
-    RIST255_PUSHL: version(4, cat("crypto", mksimple(0xf926, 16, `exec_ristretto255_push_l`))),
-    RIST255_QVALIDATE: version(4, cat("crypto", mksimple(0xb7f921, 24, `(_1) => exec_ristretto255_validate(_1, true)`))),
-    RIST255_QADD: version(4, cat("crypto", mksimple(0xb7f922, 24, `(_1) => exec_ristretto255_add(_1, true)`))),
-    RIST255_QSUB: version(4, cat("crypto", mksimple(0xb7f923, 24, `(_1) => exec_ristretto255_sub(_1, true)`))),
-    RIST255_QMUL: version(4, cat("crypto", mksimple(0xb7f924, 24, `(_1) => exec_ristretto255_mul(_1, true)`))),
-    RIST255_QMULBASE: version(4, cat("crypto", mksimple(0xb7f925, 24, `(_1) => exec_ristretto255_mul_base(_1, true)`))),
-    BLS_VERIFY: version(4, cat("crypto", mksimple(0xf93000, 24, `exec_bls_verify`))),
-    BLS_AGGREGATE: version(4, cat("crypto", mksimple(0xf93001, 24, `exec_bls_aggregate`))),
-    BLS_FASTAGGREGATEVERIFY: version(4, cat("crypto", mksimple(0xf93002, 24, `exec_bls_fast_aggregate_verify`))),
-    BLS_AGGREGATEVERIFY: version(4, cat("crypto", mksimple(0xf93003, 24, `exec_bls_aggregate_verify`))),
-    BLS_G1_ADD: version(4, cat("crypto", mksimple(0xf93010, 24, `exec_bls_g1_add`))),
-    BLS_G1_SUB: version(4, cat("crypto", mksimple(0xf93011, 24, `exec_bls_g1_sub`))),
-    BLS_G1_NEG: version(4, cat("crypto", mksimple(0xf93012, 24, `exec_bls_g1_neg`))),
-    BLS_G1_MUL: version(4, cat("crypto", mksimple(0xf93013, 24, `exec_bls_g1_mul`))),
-    BLS_G1_MULTIEXP: version(4, cat("crypto", mksimple(0xf93014, 24, `exec_bls_g1_multiexp`))),
-    BLS_G1_ZERO: version(4, cat("crypto", mksimple(0xf93015, 24, `exec_bls_g1_zero`))),
-    BLS_MAP_TO_G1: version(4, cat("crypto", mksimple(0xf93016, 24, `exec_bls_map_to_g1`))),
-    BLS_G1_INGROUP: version(4, cat("crypto", mksimple(0xf93017, 24, `exec_bls_g1_in_group`))),
-    BLS_G1_ISZERO: version(4, cat("crypto", mksimple(0xf93018, 24, `exec_bls_g1_is_zero`))),
-    BLS_G2_ADD: version(4, cat("crypto", mksimple(0xf93020, 24, `exec_bls_g2_add`))),
-    BLS_G2_SUB: version(4, cat("crypto", mksimple(0xf93021, 24, `exec_bls_g2_sub`))),
-    BLS_G2_NEG: version(4, cat("crypto", mksimple(0xf93022, 24, `exec_bls_g2_neg`))),
-    BLS_G2_MUL: version(4, cat("crypto", mksimple(0xf93023, 24, `exec_bls_g2_mul`))),
-    BLS_G2_MULTIEXP: version(4, cat("crypto", mksimple(0xf93024, 24, `exec_bls_g2_multiexp`))),
-    BLS_G2_ZERO: version(4, cat("crypto", mksimple(0xf93025, 24, `exec_bls_g2_zero`))),
-    BLS_MAP_TO_G2: version(4, cat("crypto", mksimple(0xf93026, 24, `exec_bls_map_to_g2`))),
-    BLS_G2_INGROUP: version(4, cat("crypto", mksimple(0xf93027, 24, `exec_bls_g2_in_group`))),
-    BLS_G2_ISZERO: version(4, cat("crypto", mksimple(0xf93028, 24, `exec_bls_g2_is_zero`))),
-    BLS_PAIRING: version(4, cat("crypto", mksimple(0xf93030, 24, `exec_bls_pairing`))),
-    BLS_PUSHR: version(4, cat("crypto", mksimple(0xf93031, 24, `exec_bls_push_r`))),
+    HASHCU: cat("crypto_common", mksimple(0xf900, 16, `(_1) => exec_compute_hash(_1, 0)`)),
+    HASHSU: effects(cat("crypto_common", mksimple(0xf901, 16, `(_1) => exec_compute_hash(_1, 1)`)), CellCreate()),
+    SHA256U: cat("crypto_common", mksimple(0xf902, 16, `exec_compute_sha256`)),
+    CHKSIGNU: effects(cat("crypto_common", mksimple(0xf910, 16, `(_1) => exec_ed25519_check_signature(_1, false)`)), Chksign()),
+    CHKSIGNS: effects(cat("crypto_common", mksimple(0xf911, 16, `(_1) => exec_ed25519_check_signature(_1, true)`)), Chksign()),
+    ECRECOVER: version(4, effects(cat("crypto_common", mksimple(0xf912, 16, `exec_ecrecover`)), Ecrecover())),
+    SECP256K1_XONLY_PUBKEY_TWEAK_ADD: version(9, effects(cat("crypto_common", mksimple(0xf913, 16, `exec_secp256k1_xonly_pubkey_tweak_add`)), Secp256k1XonlyPubkeyTweakAdd())),
+    P256_CHKSIGNU: version(4, effects(cat("crypto_common", mksimple(0xf914, 16, `(_1) => exec_p256_chksign(_1, false)`)), P256Chksign())),
+    P256_CHKSIGNS: version(4, effects(cat("crypto_common", mksimple(0xf915, 16, `(_1) => exec_p256_chksign(_1, true)`)), P256Chksign())),
+    RIST255_FROMHASH: version(4, effects(cat("crypto_rist255", mksimple(0xf920, 16, `exec_ristretto255_from_hash`)), Rist255Fromhash())),
+    RIST255_VALIDATE: version(4, effects(cat("crypto_rist255", mksimple(0xf921, 16, `(_1) => exec_ristretto255_validate(_1, false)`)), Rist255Validate())),
+    RIST255_ADD: version(4, effects(cat("crypto_rist255", mksimple(0xf922, 16, `(_1) => exec_ristretto255_add(_1, false)`)), Rist255Add())),
+    RIST255_SUB: version(4, effects(cat("crypto_rist255", mksimple(0xf923, 16, `(_1) => exec_ristretto255_sub(_1, false)`)), Rist255Add())),
+    RIST255_MUL: version(4, effects(cat("crypto_rist255", mksimple(0xf924, 16, `(_1) => exec_ristretto255_mul(_1, false)`)), Rist255Mul())),
+    RIST255_MULBASE: version(4, effects(cat("crypto_rist255", mksimple(0xf925, 16, `(_1) => exec_ristretto255_mul_base(_1, false)`)), Rist255Mulbase())),
+    RIST255_PUSHL: version(4, cat("crypto_rist255", mksimple(0xf926, 16, `exec_ristretto255_push_l`))),
+    RIST255_QVALIDATE: version(4, effects(cat("crypto_rist255", mksimple(0xb7f921, 24, `(_1) => exec_ristretto255_validate(_1, true)`)), Rist255Validate())),
+    RIST255_QADD: version(4, effects(cat("crypto_rist255", mksimple(0xb7f922, 24, `(_1) => exec_ristretto255_add(_1, true)`)), Rist255Add())),
+    RIST255_QSUB: version(4, effects(cat("crypto_rist255", mksimple(0xb7f923, 24, `(_1) => exec_ristretto255_sub(_1, true)`)), Rist255Add())),
+    RIST255_QMUL: version(4, effects(cat("crypto_rist255", mksimple(0xb7f924, 24, `(_1) => exec_ristretto255_mul(_1, true)`)), Rist255Mul())),
+    RIST255_QMULBASE: version(4, effects(cat("crypto_rist255", mksimple(0xb7f925, 24, `(_1) => exec_ristretto255_mul_base(_1, true)`)), Rist255Mulbase())),
+    BLS_VERIFY: version(4, effects(cat("crypto_bls", mksimple(0xf93000, 24, `exec_bls_verify`)), BlsVerify())),
+    BLS_AGGREGATE: version(4, effects(cat("crypto_bls", mksimple(0xf93001, 24, `exec_bls_aggregate`)), DynamicGas(`${BLS_AGGREGATE_BASE_GAS_PRICE} + n * ${BLS_AGGREGATE_ELEMENT_GAS_PRICE}`, "For BLS_AGGREGATE operation"))),
+    BLS_FASTAGGREGATEVERIFY: version(4, effects(cat("crypto_bls", mksimple(0xf93002, 24, `exec_bls_fast_aggregate_verify`)), DynamicGas(`${BLS_FAST_AGGREGATE_VERIFY_BASE_GAS_PRICE} + n * ${BLS_FAST_AGGREGATE_VERIFY_ELEMENT_GAS_PRICE}`, "For BLS_FASTAGGREGATEVERIFY operation"))),
+    BLS_AGGREGATEVERIFY: version(4, effects(cat("crypto_bls", mksimple(0xf93003, 24, `exec_bls_aggregate_verify`)), DynamicGas(`${BLS_AGGREGATE_VERIFY_BASE_GAS_PRICE} + n * ${BLS_AGGREGATE_VERIFY_ELEMENT_GAS_PRICE}`, "For BLS_AGGREGATEVERIFY operation"))),
+    BLS_G1_ADD: version(4, effects(cat("crypto_bls", mksimple(0xf93010, 24, `exec_bls_g1_add`)), BlsG1AddSub())),
+    BLS_G1_SUB: version(4, effects(cat("crypto_bls", mksimple(0xf93011, 24, `exec_bls_g1_sub`)), BlsG1AddSub())),
+    BLS_G1_NEG: version(4, effects(cat("crypto_bls", mksimple(0xf93012, 24, `exec_bls_g1_neg`)), BlsG1Neg())),
+    BLS_G1_MUL: version(4, effects(cat("crypto_bls", mksimple(0xf93013, 24, `exec_bls_g1_mul`)), BlsG1Mul())),
+    BLS_G1_MULTIEXP: version(4, effects(cat("crypto_bls", mksimple(0xf93014, 24, `exec_bls_g1_multiexp`)), DynamicGas(`${BLS_G1_MULTIEXP_BASE_GAS_PRICE} + ${BLS_G1_MULTIEXP_COEF1_GAS_PRICE} * n + ${BLS_G1_MULTIEXP_COEF2_GAS_PRICE} * n * n`, "For BLS_G1_MULTIEXP operation"))),
+    BLS_G1_ZERO: version(4, cat("crypto_bls", mksimple(0xf93015, 24, `exec_bls_g1_zero`))),
+    BLS_MAP_TO_G1: version(4, effects(cat("crypto_bls", mksimple(0xf93016, 24, `exec_bls_map_to_g1`)), BlsMapToG1())),
+    BLS_G1_INGROUP: version(4, effects(cat("crypto_bls", mksimple(0xf93017, 24, `exec_bls_g1_in_group`)), BlsG1InGroup())),
+    BLS_G1_ISZERO: version(4, cat("crypto_bls", mksimple(0xf93018, 24, `exec_bls_g1_is_zero`))),
+    BLS_G2_ADD: version(4, effects(cat("crypto_bls", mksimple(0xf93020, 24, `exec_bls_g2_add`)), BlsG2AddSub())),
+    BLS_G2_SUB: version(4, effects(cat("crypto_bls", mksimple(0xf93021, 24, `exec_bls_g2_sub`)), BlsG2AddSub())),
+    BLS_G2_NEG: version(4, effects(cat("crypto_bls", mksimple(0xf93022, 24, `exec_bls_g2_neg`)), BlsG2Neg())),
+    BLS_G2_MUL: version(4, effects(cat("crypto_bls", mksimple(0xf93023, 24, `exec_bls_g2_mul`)), BlsG2Mul())),
+    BLS_G2_MULTIEXP: version(4, effects(cat("crypto_bls", mksimple(0xf93024, 24, `exec_bls_g2_multiexp`)), DynamicGas(`${BLS_G2_MULTIEXP_BASE_GAS_PRICE} + ${BLS_G2_MULTIEXP_COEF1_GAS_PRICE} * n + ${BLS_G2_MULTIEXP_COEF2_GAS_PRICE} * n * n`, "For BLS_G2_MULTIEXP operation"))),
+    BLS_G2_ZERO: version(4, cat("crypto_bls", mksimple(0xf93025, 24, `exec_bls_g2_zero`))),
+    BLS_MAP_TO_G2: version(4, effects(cat("crypto_bls", mksimple(0xf93026, 24, `exec_bls_map_to_g2`)), BlsMapToG2())),
+    BLS_G2_INGROUP: version(4, effects(cat("crypto_bls", mksimple(0xf93027, 24, `exec_bls_g2_in_group`)), BlsG2InGroup())),
+    BLS_G2_ISZERO: version(4, cat("crypto_bls", mksimple(0xf93028, 24, `exec_bls_g2_is_zero`))),
+    BLS_PAIRING: version(4, effects(cat("crypto_bls", mksimple(0xf93030, 24, `exec_bls_pairing`)), DynamicGas(`${BLS_PAIRING_BASE_GAS_PRICE} + n * ${BLS_PAIRING_ELEMENT_GAS_PRICE}`, "For BLS_PAIRING operation"))),
+    BLS_PUSHR: version(4, cat("crypto_bls", mksimple(0xf93031, 24, `exec_bls_push_r`))),
     CDATASIZEQ: cat("misc", mksimple(0xf940, 16, `(_1) => exec_compute_data_size(_1, 1)`)),
     CDATASIZE: cat("misc", mksimple(0xf941, 16, `(_1) => exec_compute_data_size(_1, 0)`)),
     SDATASIZEQ: cat("misc", mksimple(0xf942, 16, `(_1) => exec_compute_data_size(_1, 3)`)),
     SDATASIZE: cat("misc", mksimple(0xf943, 16, `(_1) => exec_compute_data_size(_1, 2)`)),
-    LDGRAMS: cat("address", mksimple(0xfa00, 16, `(_1) => exec_load_var_integer(_1, 4, false, false)`)),
-    LDVARINT16: cat("address", mksimple(0xfa01, 16, `(_1) => exec_load_var_integer(_1, 4, true, false)`)),
-    STGRAMS: cat("address", mksimple(0xfa02, 16, `(_1) => exec_store_var_integer(_1, 4, false, false)`)),
-    STVARINT16: cat("address", mksimple(0xfa03, 16, `(_1) => exec_store_var_integer(_1, 4, true, false)`)),
-    LDVARUINT32: cat("address", mksimple(0xfa04, 16, `(_1) => exec_load_var_integer(_1, 5, false, false)`)),
-    LDVARINT32: cat("address", mksimple(0xfa05, 16, `(_1) => exec_load_var_integer(_1, 5, true, false)`)),
-    STVARUINT32: cat("address", mksimple(0xfa06, 16, `(_1) => exec_store_var_integer(_1, 5, false, false)`)),
-    STVARINT32: cat("address", mksimple(0xfa07, 16, `(_1) => exec_store_var_integer(_1, 5, true, false)`)),
-    LDMSGADDR: cat("address", mksimple(0xfa40, 16, `(_1) => exec_load_message_addr(_1, false)`)),
-    LDMSGADDRQ: cat("address", mksimple(0xfa41, 16, `(_1) => exec_load_message_addr(_1, true)`)),
+    LDGRAMS: cat("cell_deserialize", mksimple(0xfa00, 16, `(_1) => exec_load_var_integer(_1, 4, false, false)`)),
+    LDVARINT16: cat("cell_deserialize", mksimple(0xfa01, 16, `(_1) => exec_load_var_integer(_1, 4, true, false)`)),
+    STGRAMS: cat("cell_serialize", mksimple(0xfa02, 16, `(_1) => exec_store_var_integer(_1, 4, false, false)`)),
+    STVARINT16: cat("cell_serialize", mksimple(0xfa03, 16, `(_1) => exec_store_var_integer(_1, 4, true, false)`)),
+    LDVARUINT32: cat("cell_deserialize", mksimple(0xfa04, 16, `(_1) => exec_load_var_integer(_1, 5, false, false)`)),
+    LDVARINT32: cat("cell_deserialize", mksimple(0xfa05, 16, `(_1) => exec_load_var_integer(_1, 5, true, false)`)),
+    STVARUINT32: cat("cell_serialize", mksimple(0xfa06, 16, `(_1) => exec_store_var_integer(_1, 5, false, false)`)),
+    STVARINT32: cat("cell_serialize", mksimple(0xfa07, 16, `(_1) => exec_store_var_integer(_1, 5, true, false)`)),
+    LDMSGADDR: cat("cell_deserialize", mksimple(0xfa40, 16, `(_1) => exec_load_message_addr(_1, false)`)),
+    LDMSGADDRQ: cat("cell_deserialize", mksimple(0xfa41, 16, `(_1) => exec_load_message_addr(_1, true)`)),
     PARSEMSGADDR: cat("address", mksimple(0xfa42, 16, `(_1) => exec_parse_message_addr(_1, false)`)),
     PARSEMSGADDRQ: cat("address", mksimple(0xfa43, 16, `(_1) => exec_parse_message_addr(_1, true)`)),
     REWRITESTDADDR: cat("address", mksimple(0xfa44, 16, `(_1) => exec_rewrite_message_addr(_1, false, false)`)),
@@ -746,8 +931,8 @@ export const instructions: Record<string, Opcode> = {
     QTLEN: cat("tuple", mksimple(0x6f89, 16, `exec_tuple_length_quiet`)),
     ISTUPLE: cat("tuple", mksimple(0x6f8a, 16, `exec_is_tuple`)),
     LAST: cat("tuple", mksimple(0x6f8b, 16, `exec_tuple_last`)),
-    TPUSH: cat("tuple", mksimple(0x6f8c, 16, `exec_tuple_push`)),
-    TPOP: cat("tuple", mksimple(0x6f8d, 16, `exec_tuple_pop`)),
+    TPUSH: effects(cat("tuple", mksimple(0x6f8c, 16, `exec_tuple_push`)), Tuple()),
+    TPOP: effects(cat("tuple", mksimple(0x6f8d, 16, `exec_tuple_pop`)), Tuple()),
     NULLSWAPIF: cat("tuple", mksimple(0x6fa0, 16, `(_1) => exec_null_swap_if(_1, true, 0)`)),
     NULLSWAPIFNOT: cat("tuple", mksimple(0x6fa1, 16, `(_1) => exec_null_swap_if(_1, false, 0)`)),
     NULLROTRIF: cat("tuple", mksimple(0x6fa2, 16, `(_1) => exec_null_swap_if(_1, true, 1)`)),
@@ -1083,9 +1268,9 @@ export const instructions: Record<string, Opcode> = {
     UNTUPLE: effects(cat("tuple", mkfixedn(0x6f2, 12, 4, seq(uint4), `exec_untuple`)), Tuple()),
     UNPACKFIRST: effects(cat("tuple", mkfixedn(0x6f3, 12, 4, seq(uint4), `exec_untuple_first`)), Tuple()),
     EXPLODE: effects(cat("tuple", mkfixedn(0x6f4, 12, 4, seq(uint4), `exec_explode_tuple`)), Tuple()),
-    SETINDEX: cat("tuple", mkfixedn(0x6f5, 12, 4, seq(uint4), `exec_tuple_set_index`)),
+    SETINDEX: effects(cat("tuple", mkfixedn(0x6f5, 12, 4, seq(uint4), `exec_tuple_set_index`)), Tuple()),
     INDEXQ: cat("tuple", mkfixedn(0x6f6, 12, 4, seq(uint4), `exec_tuple_quiet_index`)),
-    SETINDEXQ: cat("tuple", mkfixedn(0x6f7, 12, 4, seq(uint4), `exec_tuple_quiet_set_index`)),
+    SETINDEXQ: effects(cat("tuple", mkfixedn(0x6f7, 12, 4, seq(uint4), `exec_tuple_quiet_set_index`)), Tuple()),
     XC2PU: cat("stack", mkfixedn(0x541, 12, 12, seq(stack(4), stack(4), stack(4)), `exec_xc2pu`)),
     XCPU2: cat("stack", mkfixedn(0x543, 12, 12, seq(stack(4), stack(4), stack(4)), `exec_xcpu2`)),
     PUSH3: cat("stack", mkfixedn(0x547, 12, 12, seq(stack(4), stack(4), stack(4)), `exec_push3`)),
@@ -1118,16 +1303,16 @@ export const instructions: Record<string, Opcode> = {
     PLDSLICE: cat("cell_deserialize", mkfixedn(0xd71d, 16, 8, seq(delta(1, uint8)), `exec_load_slice_fixed2`)),
     LDSLICEQ: cat("cell_deserialize", mkfixedn(0xd71e, 16, 8, seq(delta(1, uint8)), `exec_load_slice_fixed2`)),
     PLDSLICEQ: cat("cell_deserialize", mkfixedn(0xd71f, 16, 8, seq(delta(1, uint8)), `exec_load_slice_fixed2`)),
-    IFBITJMP: cat("continuation_cond_loop", mkfixedn(0xe380 >> 5, 11, 5, seq(uint5), `exec_if_bit_jmp`)),
-    IFNBITJMP: cat("continuation_cond_loop", mkfixedn(0xe3a0 >> 5, 11, 5, seq(uint5), `exec_if_bit_jmp`)),
+    IFBITJMP: cat("continuation_cond", mkfixedn(0xe380 >> 5, 11, 5, seq(uint5), `exec_if_bit_jmp`)),
+    IFNBITJMP: cat("continuation_cond", mkfixedn(0xe3a0 >> 5, 11, 5, seq(uint5), `exec_if_bit_jmp`)),
     INDEX2: cat("tuple", mkfixedn(0x6fb, 12, 4, seq(uint2, uint2), `exec_tuple_index2`)),
     INDEX3: cat("tuple", mkfixedn(0x6fc >> 2, 10, 6, seq(uint2, uint2, uint2), `exec_tuple_index3`)),
 
     PUSHPOW2: cat("int_const", mkfixedrangen(0x8300, 0x83ff, 16, 8, seq(delta(1, uint8)), `exec_push_pow2`)),
-    BLKPUSH: cat("stack", mkfixedrangen(0x5f10, 0x6000, 16, 8, seq(uint4, uint4), `exec_blkpush`)),
+    BLKPUSH: cat("stack", mkfixedrangen(0x5f10, 0x6000, 16, 8, seq(uint(4, range(1n, 15n)), stack(4)), `exec_blkpush`)),
     BLKDROP2: cat("stack", mkfixedrangen(0x6c10, 0x6d00, 16, 8, seq(uint4, uint4), `exec_blkdrop2`)),
-    GETGLOB: cat("config", mkfixedrangen(0xf841, 0xf860, 16, 5, seq(uint5), `exec_get_global`)),
-    SETGLOB: cat("config", mkfixedrangen(0xf861, 0xf880, 16, 5, seq(uint5), `exec_set_global`)),
+    GETGLOB: cat("globals", mkfixedrangen(0xf841, 0xf860, 16, 5, seq(uint5), `exec_get_global`)),
+    SETGLOB: cat("globals", mkfixedrangen(0xf861, 0xf880, 16, 5, seq(uint5), `exec_set_global`)),
     GETPARAM: cat("config", mkfixedrangen(0xf820, 0xf823, 16, 4, seq(uint4), `exec_get_var_param`)),
 
     // SECTION: Ref instructions
@@ -1137,16 +1322,16 @@ export const instructions: Record<string, Opcode> = {
     CALLREF: effects(cat("continuation_jump", mkext(0xdb3c, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_ref(_1, _2, _4, (st, cont) => st.call((cont)), 'CALLREF')`)), CellLoad()),
     JMPREF: effects(cat("continuation_jump", mkext(0xdb3d, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_ref(_1, _2, _4, (st, cont) => st.jump((cont)), 'JMPREF')`)), CellLoad()),
     JMPREFDATA: effects(cat("continuation_jump", mkext(0xdb3e, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_ref(_1, _2, _4, (st, cont) => { st.push_code(); return st.jump((cont)) }, 'JMPREFDATA')`)), CellLoad()),
-    IFREF: effects(cat("continuation_cond_loop", mkext(0xe300, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? st.call(st.ref_to_cont((cell))) : 0, 'IFREF')`)), ImplicitJumpRef(), CellLoad()),
-    IFNOTREF: effects(cat("continuation_cond_loop", mkext(0xe301, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? 0 : st.call(st.ref_to_cont((cell))), 'IFNOTREF')`)), ImplicitJumpRef(), CellLoad()),
-    IFJMPREF: effects(cat("continuation_cond_loop", mkext(0xe302, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? st.jump(st.ref_to_cont((cell))) : 0, 'IFJMPREF')`)), ImplicitJumpRef(), CellLoad()),
-    IFNOTJMPREF: effects(cat("continuation_cond_loop", mkext(0xe303, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? 0 : st.jump(st.ref_to_cont((cell))), 'IFNOTJMPREF')`)), ImplicitJumpRef(), CellLoad()),
-    IFREFELSE: effects(cat("continuation_cond_loop", mkext(0xe30d, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_ifelse_ref(_1, _2, _4, true)`)), ImplicitJumpRef(), CellLoad()),
-    IFELSEREF: effects(cat("continuation_cond_loop", mkext(0xe30e, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_ifelse_ref(_1, _2, _4, false)`)), ImplicitJumpRef(), CellLoad()),
-    IFREFELSEREF: effects(cat("continuation_cond_loop", mkext(0xe30f, 16, 0, seq(refCodeSlice, refCodeSlice), `exec_ifref_elseref`)), CellLoad()),
+    IFREF: effects(cat("continuation_cond", mkext(0xe300, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? st.call(st.ref_to_cont((cell))) : 0, 'IFREF')`)), ImplicitJumpRef(), CellLoad()),
+    IFNOTREF: effects(cat("continuation_cond", mkext(0xe301, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? 0 : st.call(st.ref_to_cont((cell))), 'IFNOTREF')`)), ImplicitJumpRef(), CellLoad()),
+    IFJMPREF: effects(cat("continuation_cond", mkext(0xe302, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? st.jump(st.ref_to_cont((cell))) : 0, 'IFJMPREF')`)), ImplicitJumpRef(), CellLoad()),
+    IFNOTJMPREF: effects(cat("continuation_cond", mkext(0xe303, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_do_with_cell(1, _2, _4, (st, cell) => st.get_stack().pop_bool() ? 0 : st.jump(st.ref_to_cont((cell))), 'IFNOTJMPREF')`)), ImplicitJumpRef(), CellLoad()),
+    IFREFELSE: effects(cat("continuation_cond", mkext(0xe30d, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_ifelse_ref(_1, _2, _4, true)`)), ImplicitJumpRef(), CellLoad()),
+    IFELSEREF: effects(cat("continuation_cond", mkext(0xe30e, 16, 0, seq(refCodeSlice), `(_1, _2, _3, _4) => exec_ifelse_ref(_1, _2, _4, false)`)), ImplicitJumpRef(), CellLoad()),
+    IFREFELSEREF: effects(cat("continuation_cond", mkext(0xe30f, 16, 0, seq(refCodeSlice, refCodeSlice), `exec_ifref_elseref`)), CellLoad()),
 
-    IFBITJMPREF: effects(cat("continuation_cond_loop", mkext(0xe3c >> 1, 11, 5, seq(uint5, refCodeSlice), `exec_if_bit_jmpref`)), ImplicitJumpRef(), CellLoad()),
-    IFNBITJMPREF: effects(cat("continuation_cond_loop", mkext((0xe3c >> 1) | 0b1, 11, 5, seq(uint5, refCodeSlice), `exec_if_bit_jmpref`)), ImplicitJumpRef(), CellLoad()),
+    IFBITJMPREF: effects(cat("continuation_cond", mkext(0xe3c >> 1, 11, 5, seq(uint5, refCodeSlice), `exec_if_bit_jmpref`)), ImplicitJumpRef(), CellLoad()),
+    IFNBITJMPREF: effects(cat("continuation_cond", mkext((0xe3c >> 1) | 0b1, 11, 5, seq(uint5, refCodeSlice), `exec_if_bit_jmpref`)), ImplicitJumpRef(), CellLoad()),
     // END SECTION
 
     DICTPUSHCONST: cat("dictionary", mkfixedn(0x3d29, 14, 10, seq(dict, uint10), `exec_push_const_dict`)),
@@ -1221,10 +1406,10 @@ export const instructions: Record<string, Opcode> = {
     "LSHIFT#DIVMODC": cat("div", mkfixedn(0xa9de, 16, 8, seq(delta(1, uint8)), `exec_shldivmod(_1, _2, 2)`)),
 
     // special case: named argument
-    HASHEXT: version(4, cat("crypto", mkfixedn(0xf904, 16, 8, seq(hash), `exec_hash_ext`))),
-    HASHEXTR: version(4, cat("crypto", mkfixedn(0xf905, 16, 8, seq(hash), `exec_hash_ext`))),
-    HASHEXTA: version(4, cat("crypto", mkfixedn(0xf906, 16, 8, seq(hash), `exec_hash_ext`))),
-    HASHEXTAR: version(4, cat("crypto", mkfixedn(0xf907, 16, 8, seq(hash), `exec_hash_ext`))),
+    HASHEXT: version(4, cat("crypto_common", mkfixedn(0xf904, 16, 8, seq(hash), `exec_hash_ext`))),
+    HASHEXTR: version(4, cat("crypto_common", mkfixedn(0xf905, 16, 8, seq(hash), `exec_hash_ext`))),
+    HASHEXTA: version(4, cat("crypto_common", mkfixedn(0xf906, 16, 8, seq(hash), `exec_hash_ext`))),
+    HASHEXTAR: version(4, cat("crypto_common", mkfixedn(0xf907, 16, 8, seq(hash), `exec_hash_ext`))),
 
     // special case: meaningless long opcodes
     STREF: cat("cell_serialize", mksimple(0xcc, 8, `(_1) => exec_store_ref(_1, false)`)),
@@ -1421,15 +1606,24 @@ export const COST_PRELOAD_INSTR = 10
 
 export const calculateGasConsumption = (instr: Opcode): number[] => {
     const base = instr.skipLen * COST_PER_BIT + COST_PRELOAD_INSTR
+    const result = [base]
+
     if (!instr.effects || instr.effects.length === 0) {
-        return [base]
+        return result
     }
-    return instr.effects.flatMap(effect => effect.costs.map(it => it.value + base))
+
+    return [...result, ...instr.effects.flatMap(effect => {
+        if (effect.$ === "DynamicGas") {
+            return [0]
+        }
+        return effect.costs.map(it => it.value + base)
+    })]
 }
 
 export type GasConsumptionEntry = {
     readonly value: number
     readonly description: string
+    readonly formula?: string
 }
 
 export const calculateGasConsumptionWithDescription = (instr: Opcode): GasConsumptionEntry[] => {
@@ -1441,9 +1635,16 @@ export const calculateGasConsumptionWithDescription = (instr: Opcode): GasConsum
         }]
     }
     return instr.effects.flatMap(effect => {
+        if (effect.$ === "DynamicGas") {
+            return [{
+                value: 0,
+                description: effect.description,
+                formula: effect.formula,
+            }]
+        }
         return effect.costs.map(it => ({
             value: it.value + base,
-            description: it.description,
+            description: it.description as string,
         }))
     })
 }
