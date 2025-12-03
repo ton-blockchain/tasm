@@ -123,17 +123,17 @@ CellSlice
   }
 
 CellSliceBody
-  = "Cell{" value:hex "}" bits:CellSliceBits ";" refs:CellSliceRefs {
+  = "Cell{" value:hex "}" space* bits:CellSliceBits ";" space* refs:CellSliceRefs {
     return { value, bits, refs };
   }
 
 CellSliceBits
-  = "bits:" start:number ".." end:number {
+  = "bits:" space* start:number ".." end:number {
     return { start, end };
   }
 
 CellSliceRefs
-  = "refs:" start:number ".." end:number {
+  = "refs:" space* start:number ".." end:number {
     return { start, end };
   }
 

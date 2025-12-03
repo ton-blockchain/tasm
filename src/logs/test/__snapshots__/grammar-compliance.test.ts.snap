@@ -1,5 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Grammar Rules Compliance Stack parsing rules VmParsedStack with cell slice with bits and refs 1`] = `
+{
+  "$": "VmParsedStack",
+  "values": [
+    {
+      "$": "VmStackValue",
+      "value": {
+        "$": "Tuple",
+        "elements": [
+          {
+            "$": "VmStackValue",
+            "value": {
+              "$": "CellSlice",
+              "body": {
+                "value": "B5EE9C72010101010002000000",
+              },
+            },
+          },
+          {
+            "$": "VmStackValue",
+            "value": {
+              "$": "CellSlice",
+              "body": {
+                "bits": {
+                  "end": {
+                    "op": undefined,
+                    "value": "43",
+                  },
+                  "start": {
+                    "op": undefined,
+                    "value": "43",
+                  },
+                },
+                "refs": {
+                  "end": {
+                    "op": undefined,
+                    "value": "0",
+                  },
+                  "start": {
+                    "op": undefined,
+                    "value": "0",
+                  },
+                },
+                "value": "001ba0e006db161002de05161002de05",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+}
+`;
+
 exports[`Grammar Rules Compliance Stack parsing rules VmParsedStack with complex types 2 1`] = `
 {
   "$": "VmParsedStack",

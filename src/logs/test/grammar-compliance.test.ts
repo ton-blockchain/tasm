@@ -155,6 +155,14 @@ describe("Grammar Rules Compliance", () => {
 
             expect(result).toMatchSnapshot()
         })
+
+        test("VmParsedStack with cell slice with bits and refs", () => {
+            const input =
+                "[ (CS{B5EE9C72010101010002000000} CS{Cell{001ba0e006db161002de05161002de05} bits: 43..43; refs: 0..0}) ]"
+            const result = $.parse(input, {startRule: "VmParsedStack"}) as G.$ast.VmParsedStack
+
+            expect(result).toMatchSnapshot()
+        })
     })
 
     describe("Integration with parse.ts", () => {
