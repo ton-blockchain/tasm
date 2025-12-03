@@ -1536,7 +1536,7 @@ function peg$parse(input, options) {
     }
 
     function peg$parseCellSliceBody() {
-        let s0, s1, s2, s3, s4, s5, s6
+        let s0, s1, s2, s3, s4, s5, s6, s7, s8
 
         s0 = peg$currPos
         if (input.substr(peg$currPos, 5) === peg$c24) {
@@ -1560,22 +1560,34 @@ function peg$parse(input, options) {
                 }
             }
             if (s3 !== peg$FAILED) {
-                s4 = peg$parseCellSliceBits()
-                if (s4 !== peg$FAILED) {
+                s4 = []
+                s5 = peg$parsespace()
+                while (s5 !== peg$FAILED) {
+                    s4.push(s5)
+                    s5 = peg$parsespace()
+                }
+                s5 = peg$parseCellSliceBits()
+                if (s5 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 59) {
-                        s5 = peg$c25
+                        s6 = peg$c25
                         peg$currPos++
                     } else {
-                        s5 = peg$FAILED
+                        s6 = peg$FAILED
                         if (peg$silentFails === 0) {
                             peg$fail(peg$e27)
                         }
                     }
-                    if (s5 !== peg$FAILED) {
-                        s6 = peg$parseCellSliceRefs()
-                        if (s6 !== peg$FAILED) {
+                    if (s6 !== peg$FAILED) {
+                        s7 = []
+                        s8 = peg$parsespace()
+                        while (s8 !== peg$FAILED) {
+                            s7.push(s8)
+                            s8 = peg$parsespace()
+                        }
+                        s8 = peg$parseCellSliceRefs()
+                        if (s8 !== peg$FAILED) {
                             peg$savedPos = s0
-                            s0 = peg$f21(s2, s4, s6)
+                            s0 = peg$f21(s2, s5, s8)
                         } else {
                             peg$currPos = s0
                             s0 = peg$FAILED
@@ -1601,7 +1613,7 @@ function peg$parse(input, options) {
     }
 
     function peg$parseCellSliceBits() {
-        let s0, s1, s2, s3, s4
+        let s0, s1, s2, s3, s4, s5
 
         s0 = peg$currPos
         if (input.substr(peg$currPos, 5) === peg$c26) {
@@ -1614,22 +1626,28 @@ function peg$parse(input, options) {
             }
         }
         if (s1 !== peg$FAILED) {
-            s2 = peg$parsenumber()
-            if (s2 !== peg$FAILED) {
+            s2 = []
+            s3 = peg$parsespace()
+            while (s3 !== peg$FAILED) {
+                s2.push(s3)
+                s3 = peg$parsespace()
+            }
+            s3 = peg$parsenumber()
+            if (s3 !== peg$FAILED) {
                 if (input.substr(peg$currPos, 2) === peg$c27) {
-                    s3 = peg$c27
+                    s4 = peg$c27
                     peg$currPos += 2
                 } else {
-                    s3 = peg$FAILED
+                    s4 = peg$FAILED
                     if (peg$silentFails === 0) {
                         peg$fail(peg$e29)
                     }
                 }
-                if (s3 !== peg$FAILED) {
-                    s4 = peg$parsenumber()
-                    if (s4 !== peg$FAILED) {
+                if (s4 !== peg$FAILED) {
+                    s5 = peg$parsenumber()
+                    if (s5 !== peg$FAILED) {
                         peg$savedPos = s0
-                        s0 = peg$f22(s2, s4)
+                        s0 = peg$f22(s3, s5)
                     } else {
                         peg$currPos = s0
                         s0 = peg$FAILED
@@ -1651,7 +1669,7 @@ function peg$parse(input, options) {
     }
 
     function peg$parseCellSliceRefs() {
-        let s0, s1, s2, s3, s4
+        let s0, s1, s2, s3, s4, s5
 
         s0 = peg$currPos
         if (input.substr(peg$currPos, 5) === peg$c28) {
@@ -1664,22 +1682,28 @@ function peg$parse(input, options) {
             }
         }
         if (s1 !== peg$FAILED) {
-            s2 = peg$parsenumber()
-            if (s2 !== peg$FAILED) {
+            s2 = []
+            s3 = peg$parsespace()
+            while (s3 !== peg$FAILED) {
+                s2.push(s3)
+                s3 = peg$parsespace()
+            }
+            s3 = peg$parsenumber()
+            if (s3 !== peg$FAILED) {
                 if (input.substr(peg$currPos, 2) === peg$c27) {
-                    s3 = peg$c27
+                    s4 = peg$c27
                     peg$currPos += 2
                 } else {
-                    s3 = peg$FAILED
+                    s4 = peg$FAILED
                     if (peg$silentFails === 0) {
                         peg$fail(peg$e29)
                     }
                 }
-                if (s3 !== peg$FAILED) {
-                    s4 = peg$parsenumber()
-                    if (s4 !== peg$FAILED) {
+                if (s4 !== peg$FAILED) {
+                    s5 = peg$parsenumber()
+                    if (s5 !== peg$FAILED) {
                         peg$savedPos = s0
-                        s0 = peg$f23(s2, s4)
+                        s0 = peg$f23(s3, s5)
                     } else {
                         peg$currPos = s0
                         s0 = peg$FAILED
