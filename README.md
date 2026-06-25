@@ -37,7 +37,7 @@ Compile TVM Assembly files to BOC format:
 
 ```bash
 # Install globally
-npm install -g ton-assembly
+npm install -g @ton/tasm
 
 # Use the assembler
 tasm contract.tasm -o contract.boc
