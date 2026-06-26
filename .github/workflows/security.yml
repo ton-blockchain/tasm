@@ -39,14 +39,17 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version: "24"
-          package-manager-cache: false
-
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Run Yarn audit
+      - name: Setup Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Check project packages for deprecated
         run: yarn npm audit --all --severity moderate
+
+      - name: Check all packages for vulnerabilities
+        run: yarn npm audit --all --recursive --severity high
