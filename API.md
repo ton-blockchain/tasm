@@ -1,6 +1,6 @@
 # TON Assembly Library API
 
-This document provides a brief overview of the main functions and types available when using `ton-assembly` as a
+This document provides a brief overview of the main functions and types available when using `@ton/tasm` as a
 library.
 
 The library allows for a full assembly/disassembly cycle:
@@ -11,7 +11,7 @@ The library allows for a full assembly/disassembly cycle:
 The main functionality is exported through several modules.
 
 ```typescript
-import {text, runtime, logs, trace} from "ton-assembly"
+import {text, runtime, logs, trace} from "@ton/tasm"
 ```
 
 ## `text` Module: Parsing and Printing
@@ -118,7 +118,7 @@ extremely useful for debugging smart contracts.
     **Example:**
 
     ```typescript
-    import {logs} from "ton-assembly"
+    import {logs} from "@ton/tasm"
 
     const executionLog = `
     code cell hash:6DB0B8EFEF2B59D53B896E2A6EBCBBEF72BE9A1F8CD2DA1D0E8EA8F57C4F8AE0 offset:2608
@@ -158,7 +158,7 @@ generated during compilation to link each executed instruction back to its origi
     **Example:**
 
     ```typescript
-    import {runtime, trace} from "ton-assembly"
+    import {runtime, trace} from "@ton/tasm"
 
     const [cell, mapping] = runtime.compileCellWithMapping(instructions)
     const mappingInfo = trace.createMappingInfo(mapping)
@@ -177,7 +177,7 @@ generated during compilation to link each executed instruction back to its origi
     **Example:**
 
     ```typescript
-    import {runtime, trace} from "ton-assembly"
+    import {runtime, trace} from "@ton/tasm"
 
     // 1. Compile with mapping enabled
     const [cell, mapping] = runtime.compileCellWithMapping(instructions)
@@ -209,7 +209,7 @@ generated during compilation to link each executed instruction back to its origi
     **Example:**
 
     ```typescript
-    import {trace} from "ton-assembly"
+    import {trace} from "@ton/tasm"
 
     const traceInfos = trace.createTraceInfoPerTransaction(logs, mappingInfo)
 
