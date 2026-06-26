@@ -1,6 +1,6 @@
 {
     "name": "@ton/tasm",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "description": "TON assembler and disassembler",
     "author": "TON Studio & TON Core",
     "repository": {
