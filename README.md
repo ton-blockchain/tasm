@@ -121,4 +121,4 @@ where it successfully decompiled and compiled all contracts into equivalent **Ce
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-MIT © [TON Studio](https://tonstudio.io).
+MIT © TON Core, TON Studio
