@@ -48,16 +48,16 @@
   ],
   "scripts": {
     "build": "rimraf ./dist && tsc --declaration",
+    "coverage": "c8 jest",
     "fmt": "biome format --write .",
     "fmt:check": "biome format .",
-    "lint": "biome check --formatter-enabled=false .",
-    "lint:fix": "biome lint --formatter-enabled=false --write .",
-    "test": "jest",
-    "coverage": "c8 jest",
+    "gen:asm": "ts-node src/generator/gen-constructors.ts && ts-node src/generator/gen-converter.ts && ts-node src/generator/gen-instr.ts && ts-node src/generator/gen-printer.ts && ts-node src/generator/gen-types.ts && yarn fmt",
     "gen:grammar": "pgen src/text/grammar.gg -o src/text/grammar.ts",
     "gen:grammar:fift": "peggy --dts --format es -o src/fift/parse/grammar.gen.pegjs.ts --allowed-start-rules SourceFile src/fift/parse/grammar.pegjs && sed -i '' '1i\\\n// @ts-nocheck\n' src/fift/parse/grammar.gen.pegjs.ts",
     "gen:grammar:logs": "peggy --dts --format es -o src/logs/grammar.gen.pegjs.ts --allowed-start-rules vmLine,VmParsedStack src/logs/grammar.pegjs",
-    "gen:asm": "ts-node src/generator/gen-constructors.ts && ts-node src/generator/gen-converter.ts && ts-node src/generator/gen-instr.ts && ts-node src/generator/gen-printer.ts && ts-node src/generator/gen-types.ts && yarn fmt"
+    "lint": "biome check --formatter-enabled=false .",
+    "lint:fix": "biome lint --formatter-enabled=false --write .",
+    "test": "jest"
   },
   "dependencies": {
     "@tonstudio/parser-runtime": "^0.0.1",
