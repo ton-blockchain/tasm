@@ -3562,7 +3562,7 @@ function peg$parse(input, options) {
     )
   }
   if (options.peg$library) {
-    return /** @type {any} */ {
+    return /** @type {any} */ ({
       peg$result,
       peg$currPos,
       peg$FAILED,
@@ -3570,7 +3570,7 @@ function peg$parse(input, options) {
       peg$maxFailPos,
       peg$success,
       peg$throw: peg$success ? undefined : peg$throw,
-    }
+    })
   }
   if (peg$success) {
     return peg$result
