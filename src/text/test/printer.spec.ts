@@ -1,7 +1,7 @@
-import {ADD, decompileCell, PUSHINT_4, fPUSHINT} from "../../runtime"
-import {print} from "../printer"
 import {readFileSync} from "node:fs"
+import {ADD, decompileCell, fPUSHINT, PUSHINT_4} from "../../runtime"
 import {boc} from "../../runtime/util"
+import {print} from "../printer"
 
 describe("assembly-printer", () => {
   it("should print simple assembly", () => {

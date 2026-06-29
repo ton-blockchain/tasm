@@ -1,10 +1,9 @@
 import {writeFileSync} from "node:fs"
+import generateTs from "@babel/generator"
 import * as t from "@babel/types"
 import type * as $ from "./instructions"
 import type {Opcode} from "./instructions"
-import {fiftInstructionList} from "./instructions"
-import {instructionList, pseudoInstructions} from "./instructions"
-import generateTs from "@babel/generator"
+import {fiftInstructionList, instructionList, pseudoInstructions} from "./instructions"
 
 const RUNTIME_QUALIFIER = t.identifier("c")
 const PRINTER_QUALIFIER = t.identifier("$")

@@ -1,7 +1,7 @@
-import {compile} from "../compile"
-import {compileCell} from "../../runtime"
 import {readFileSync} from "node:fs"
 import path from "node:path"
+import {compileCell} from "../../runtime"
+import {compile} from "../compile"
 
 const test =
   (fift: string, expectedBoc: string): (() => void) =>

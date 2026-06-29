@@ -1,24 +1,24 @@
+import type {Address, Contract, ContractProvider, Sender, StateInit} from "@ton/core"
+import {Cell, contractAddress, toNano} from "@ton/core"
+import type {SandboxContract, TreasuryContract} from "@ton/sandbox"
+import {Blockchain} from "@ton/sandbox"
+import {call, measureGas2, when} from "../../helpers"
 import {
   ADD,
   BLKDROP,
   compileCell,
   DICTIGETJMPZ,
+  DICTPUSHCONST,
   DROP,
   DUMP,
   DUMPSTK,
   NEQ,
-  DICTPUSHCONST,
   PUSHINT_4,
   PUSHINT_8,
   SETCP,
   THROW,
   THROWARG,
 } from "../index"
-import type {Address, Contract, ContractProvider, Sender, StateInit} from "@ton/core"
-import {Cell, contractAddress, toNano} from "@ton/core"
-import type {SandboxContract, TreasuryContract} from "@ton/sandbox"
-import {Blockchain} from "@ton/sandbox"
-import {call, measureGas2, when} from "../../helpers"
 import {dictMap} from "../util"
 
 describe("runvm-helper", () => {

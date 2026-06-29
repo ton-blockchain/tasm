@@ -1,6 +1,6 @@
-import * as $ from "./util"
-import type {$ast} from "./grammar"
 import type {Loc} from "../runtime/util"
+import type {$ast} from "./grammar"
+import * as $ from "./util"
 
 export const assertZeroArgs = (instr: $ast.Instruction, loc: Loc) => {
   const argsLen = instr.args

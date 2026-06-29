@@ -1,6 +1,6 @@
+import type {Slice} from "@ton/core"
 import type {Instr} from "../runtime"
 import type {Code, Dict} from "../runtime/util"
-import type {Slice} from "@ton/core"
 import {printInstruction} from "./printer-gen"
 
 export class Printer {

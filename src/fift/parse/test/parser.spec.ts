@@ -1,5 +1,5 @@
-import {parse} from "../parse"
 import * as fs from "node:fs"
+import {parse} from "../parse"
 
 describe("Fift Parser", () => {
   it("should parse basic program", () => {
@@ -254,26 +254,26 @@ describe("Fift Parser", () => {
 
   it("should parse complex example", () => {
     const code = `"Asm.fif" include
-        
+
         PROGRAM{
             DECLPROC recv_internal
             DECLGLOBVAR storage
             85143 DECLMETHOD seqno
-        
+
             recv_internal PROC:<{
                 // Load storage
                 1 GETPARAM
                 CTOS
-                
+
                 // Parse message
                 32 LDU
                 SWAP
                 32 LDU
-                
+
                 // Check seqno
                 seqno CALLDICT
                 EQUAL
-                
+
                 IF:<{
                     // Valid seqno, process transaction
                     storage GETGLOB
@@ -284,7 +284,7 @@ describe("Fift Parser", () => {
                     35 THROWIF
                 }>
             }>
-        
+
             seqno METHOD:<{
                 storage GETGLOB
                 32 PUSHINT

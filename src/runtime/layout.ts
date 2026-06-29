@@ -1,6 +1,6 @@
 import * as c from "./constructors"
-import * as t from "./types"
 import type {Instr} from "./instr-gen"
+import * as t from "./types"
 import type * as $ from "./util"
 
 type RefRewriteRule = {

@@ -1,8 +1,8 @@
-import {compileCell, decompileCell} from "../index"
-import {parse, print} from "../../text"
-import {normalizeIndentation} from "./utils"
 import {Cell} from "@ton/core"
 import {runTolkCompiler} from "@ton/tolk-js"
+import {parse, print} from "../../text"
+import {compileCell, decompileCell} from "../index"
+import {normalizeIndentation} from "./utils"
 
 const test = (code: string, expected: string, skipRefs?: boolean): (() => void) => {
   return () => {
@@ -129,25 +129,25 @@ describe("tests auto layout", () => {
                     ${PUSHSLICES}
                 }
                 IF
-                
+
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
                 }
                 IF
-                
+
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
                 }
                 IF
-                
+
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
                 }
                 IF
-                
+
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
@@ -766,87 +766,87 @@ describe("tests auto layout", () => {
 
     const originalCode = `
             tolk 1.0
-            
+
             // this struct defines storage layout of the contract
             struct Storage {
                 id: uint32 // required to allow multiple independent counter instances, since the contract address depends on its initial state
                 counter: uint32 // the current counter value
             }
-            
+
             // load contract data from the persistent storage
             fun Storage.load() {
                 return Storage.fromCell(contract.getData());
             }
-            
+
             // save contract data into the persistent storage
             fun Storage.save(self) {
                 contract.setData(self.toCell());
             }
-            
+
             // the struct uses a 32-bit opcode prefix for message identification
             struct (0x7e8764ef) IncreaseCounter {
                 queryId: uint64 // query id, typically included in messages
                 increaseBy: uint32
             }
-            
+
             struct (0x3a752f06) ResetCounter {
                 queryId: uint64
             }
-            
+
             // using unions to represent available messages
             // this allows processing them with pattern matching
             type AllowedMessage = IncreaseCounter | ResetCounter
-            
+
             @noinline
             fun first(): bool { return true }
-            
+
             @noinline
             fun second(): bool { return true }
-            
+
             // the main entrypoint: called when a contract receives an message from other contracts
             fun onInternalMessage(in: InMessage) {
                 val msg = lazy AllowedMessage.fromSlice(in.body);
-            
+
                 if (
-                    first() 
+                    first()
                     && second()
                 ) {
                     throw 20;
                 }
-            
+
                 match (msg) {
                     IncreaseCounter => {
                         // load contract storage lazily (efficient for large or partial reads/updates)
                         var storage = lazy Storage.load();
-            
+
                         storage.counter += msg.increaseBy;
                         storage.save();
                     }
-            
+
                     ResetCounter => {
                         var storage = lazy Storage.load();
-            
+
                         storage.counter = 0;
                         storage.save();
                     }
-            
+
                     else => {
                         // ignore empty messages, "wrong opcode" for others
                         assert (in.body.isEmpty()) throw 0xFFFF;
                     }
                 }
             }
-            
+
             // a handler for bounced messages (not used here, may be ommited)
             fun onBouncedMessage(in: InMessageBounced) {}
-            
+
             // get methods are a means to conveniently read contract data using, for example, HTTP APIs
             // note that unlike in many other smart contract VMs, get methods cannot be called by other contracts
             get fun currentCounter(): int {
                 val storage = lazy Storage.load();
                 return storage.counter;
             }
-            
+
             get fun initialId(): int {
                 val storage = lazy Storage.load();
                 return storage.id;
@@ -897,10 +897,10 @@ describe("skipRef", () => {
     test(
       `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-                
+
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
-                
+
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
             `,
       `
@@ -920,10 +920,10 @@ describe("skipRef", () => {
     test(
       `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-                
+
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
-                
+
                 ref {
                     PUSHINT_4 10
                     PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}

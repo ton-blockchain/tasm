@@ -1,6 +1,6 @@
 import {writeFileSync} from "node:fs"
-import * as t from "@babel/types"
 import generateTs from "@babel/generator"
+import * as t from "@babel/types"
 import {fiftInstructionList, instructionList, pseudoInstructions} from "./instructions"
 
 const CONSTRUCTORS_QUALIFIER = t.identifier("c")

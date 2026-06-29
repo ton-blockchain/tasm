@@ -7,17 +7,11 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**"
-    ]
+    "includes": ["**"]
   },
   "formatter": {
     "enabled": true,
-    "includes": [
-      "**",
-      "!src/instructions/asm.ts",
-      "!src/generator/instructions.ts"
-    ],
+    "includes": ["**", "!src/instructions/asm.ts", "!src/generator/instructions.ts"],
     "bracketSpacing": false,
     "indentStyle": "space",
     "indentWidth": 2,
@@ -34,6 +28,7 @@
   },
   "assist": {
     "enabled": true,
+    "includes": ["**", "!src/runtime/index.ts"],
     "actions": {
       "preset": "recommended",
       "source": {

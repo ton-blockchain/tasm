@@ -1,31 +1,31 @@
+import {beginCell, Cell} from "@ton/core"
+import {print} from "../../text"
 import type {Instr} from "../index"
 import {
-  fPUSHCONT,
-  fSTSLICECONST,
-  NOP,
-  PUSHSLICE_LONG,
-  PUSHINT_4,
-  fPUSHSLICE,
-  fPUSHINT,
-  fXCHG,
-  fPUSHINTX,
-  fSDBEGINS,
-  fSDBEGINSQ,
-  fCALLXARGS,
+  compileCell,
+  decompileCell,
   fCALLDICT,
+  fCALLXARGS,
+  fIF,
   fJMPDICT,
   fPREPAREDICT,
+  fPUSHCONT,
+  fPUSHINT,
+  fPUSHINTX,
+  fPUSHSLICE,
+  fSDBEGINS,
+  fSDBEGINSQ,
+  fSTSLICECONST,
   fTHROW,
   fTHROWIF,
   fTHROWIFNOT,
-  fIF,
-  compileCell,
-  decompileCell,
+  fXCHG,
+  NOP,
+  PUSHINT_4,
+  PUSHSLICE_LONG,
 } from "../index"
-import {print} from "../../text"
-import {normalizeIndentation} from "./utils"
-import {beginCell, Cell} from "@ton/core"
 import {code} from "../util"
+import {normalizeIndentation} from "./utils"
 
 const test =
   (instructions: Instr[], asmCode: string): (() => void) =>

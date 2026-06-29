@@ -1,5 +1,3 @@
-import type {LogEntry, StackElement} from "./logs"
-import {parseLogs} from "./logs"
 import type {
   AssemblyMapping,
   HighLevelMapping,
@@ -7,6 +5,8 @@ import type {
   InstructionInfo,
   Loc,
 } from "ton-source-map"
+import type {LogEntry, StackElement} from "./logs"
+import {parseLogs} from "./logs"
 
 /**
  * Describes a single step in the trace.

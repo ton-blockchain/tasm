@@ -1,7 +1,7 @@
 import type {Cell} from "@ton/core"
 import {Builder} from "@ton/core"
-import type {Instr} from "./instr-gen"
 import type {Dictionary, DictionaryKeyTypes} from "../dict/Dictionary"
+import type {Instr} from "./instr-gen"
 
 export const MAX_CELL_BITS = 1023
 

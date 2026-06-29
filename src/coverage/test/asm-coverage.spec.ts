@@ -1,10 +1,10 @@
+import {existsSync, mkdirSync, writeFileSync} from "node:fs"
+import {executeInstructions} from "../../helpers/execute"
 import {compileCell} from "../../runtime"
 import {parse} from "../../text/parse"
-import {executeInstructions} from "../../helpers/execute"
+import {generateHtml} from "../html"
 import {collectAsmCoverage} from "../index"
 import {generateTextReport} from "../text"
-import {generateHtml} from "../html"
-import {mkdirSync, writeFileSync, existsSync} from "node:fs"
 
 describe("asm coverage", () => {
   const test =
@@ -55,9 +55,9 @@ describe("asm coverage", () => {
       `
                 DROP
                 PUSHINT_4 -1 // cond
-                
+
                 IFRET
-                
+
                 PUSHINT_4 1
                 PUSHINT_4 2
                 ADD
@@ -89,14 +89,14 @@ describe("asm coverage", () => {
       "while loop with break",
       `
                 PUSHINT_4 10 // a = 10
-                
+
                 PUSHCONT { DUP GTINT 0 } // a > 0
                 PUSHCONT {
                     // if (a < 5) { break }
                     DUP
                     LESSINT 5
                     IFRETALT
-                
+
                     // a -= 1;
                     DEC
                 }

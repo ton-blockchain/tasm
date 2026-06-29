@@ -1,15 +1,15 @@
+import * as fs from "node:fs"
+import * as path from "node:path"
+import {Cell} from "@ton/core"
 import * as i from "../index"
-import {instructions as jettonMinterInstructions} from "./testdata/jetton_minter_discoverable_JettonMinter.tasm"
+import {DefaultExoticCell, hex} from "../util"
 import {instructions as escrowInstructions} from "./testdata/escrow_Escrow.tasm"
-import {instructions as simpleCounterInstructions} from "./testdata/test_SimpleCounter.tasm"
+import {instructions as jettonMinterInstructions} from "./testdata/jetton_minter_discoverable_JettonMinter.tasm"
+import {instructions as pushIntLong130Instructions} from "./testdata/PUSHINT_LONG_130.tasm"
 import {instructions as someContractInstructions} from "./testdata/SomeContract.tasm"
 import {instructions as someContract2Instructions} from "./testdata/SomeContract2.tasm"
-import {instructions as pushIntLong130Instructions} from "./testdata/PUSHINT_LONG_130.tasm"
+import {instructions as simpleCounterInstructions} from "./testdata/test_SimpleCounter.tasm"
 import {instructions as withExoticInstructions} from "./testdata/WithExotic.tasm"
-import * as path from "node:path"
-import * as fs from "node:fs"
-import {Cell} from "@ton/core"
-import {DefaultExoticCell, hex} from "../util"
 
 const readBoc = (filename: string): Cell | undefined => {
   const filePath = path.join(__dirname, "testdata", filename)

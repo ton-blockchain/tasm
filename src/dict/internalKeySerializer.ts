@@ -6,8 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {Address} from "@ton/core"
-import {BitString} from "@ton/core"
+import {Address, BitString} from "@ton/core"
 import {paddedBufferToBits} from "./paddedBits"
 
 export function serializeInternalKey(value: any): string {
