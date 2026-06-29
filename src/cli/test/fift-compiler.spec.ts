@@ -5,34 +5,34 @@ import {Cell} from "@ton/core"
 
 // disable tests on windows
 const testExceptWindows =
-    process.platform === "win32" && Boolean(process.env["CI"]) ? test.skip : test
+  process.platform === "win32" && Boolean(process.env["CI"]) ? test.skip : test
 
 const CLI_PATH = path.join(__dirname, "..", "..", "..", "dist", "cli", "fift-compiler.js")
 
 describe("Fift assembly compiler CLI", () => {
-    const testDir = path.join(__dirname, "temp")
-    const testInputFile = path.join(testDir, "test.fif")
-    const testOutputFile = path.join(testDir, "test.boc")
+  const testDir = path.join(__dirname, "temp")
+  const testInputFile = path.join(testDir, "test.fif")
+  const testOutputFile = path.join(testDir, "test.boc")
 
-    beforeEach(() => {
-        try {
-            rmSync(testDir, {recursive: true, force: true})
-        } catch {
-            // ignore
-        }
-        execSync(`mkdir -p "${testDir}"`)
-    })
+  beforeEach(() => {
+    try {
+      rmSync(testDir, {recursive: true, force: true})
+    } catch {
+      // ignore
+    }
+    execSync(`mkdir -p "${testDir}"`)
+  })
 
-    afterEach(() => {
-        try {
-            rmSync(testDir, {recursive: true, force: true})
-        } catch {
-            // ignore
-        }
-    })
+  afterEach(() => {
+    try {
+      rmSync(testDir, {recursive: true, force: true})
+    } catch {
+      // ignore
+    }
+  })
 
-    testExceptWindows("should compile simple Fift assembly file to BOC", () => {
-        const fiftCode = `"Asm.fif" include
+  testExceptWindows("should compile simple Fift assembly file to BOC", () => {
+    const fiftCode = `"Asm.fif" include
 
 PROGRAM{
   DECLGLOBVAR $test_var
@@ -44,24 +44,24 @@ PROGRAM{
   }>
 }END>c`
 
-        writeFileSync(testInputFile, fiftCode)
+    writeFileSync(testInputFile, fiftCode)
 
-        const result = execSync(`node "${CLI_PATH}" "${testInputFile}" -o "${testOutputFile}"`, {
-            encoding: "utf8",
-        })
-
-        expect(result).toBe("")
-
-        // Verify BOC file was created and is valid
-        const bocBuffer = readFileSync(testOutputFile)
-        expect(bocBuffer.length).toBeGreaterThan(0)
-
-        const cell = Cell.fromBoc(bocBuffer)[0]
-        expect(cell).toBeDefined()
+    const result = execSync(`node "${CLI_PATH}" "${testInputFile}" -o "${testOutputFile}"`, {
+      encoding: "utf8",
     })
 
-    testExceptWindows("should output to stdout in hex format", () => {
-        const fiftCode = `"Asm.fif" include
+    expect(result).toBe("")
+
+    // Verify BOC file was created and is valid
+    const bocBuffer = readFileSync(testOutputFile)
+    expect(bocBuffer.length).toBeGreaterThan(0)
+
+    const cell = Cell.fromBoc(bocBuffer)[0]
+    expect(cell).toBeDefined()
+  })
+
+  testExceptWindows("should output to stdout in hex format", () => {
+    const fiftCode = `"Asm.fif" include
 
 PROGRAM{
   0 DECLMETHOD recv_internal()
@@ -71,17 +71,17 @@ PROGRAM{
   }>
 }END>c`
 
-        writeFileSync(testInputFile, fiftCode)
+    writeFileSync(testInputFile, fiftCode)
 
-        const result = execSync(`node "${CLI_PATH}" "${testInputFile}" -f hex`, {
-            encoding: "utf8",
-        })
-
-        expect(result.trim()).toMatchSnapshot()
+    const result = execSync(`node "${CLI_PATH}" "${testInputFile}" -f hex`, {
+      encoding: "utf8",
     })
 
-    testExceptWindows("should output to stdout in base64 format", () => {
-        const fiftCode = `"Asm.fif" include
+    expect(result.trim()).toMatchSnapshot()
+  })
+
+  testExceptWindows("should output to stdout in base64 format", () => {
+    const fiftCode = `"Asm.fif" include
 
 PROGRAM{
   0 DECLMETHOD recv_internal()
@@ -91,17 +91,17 @@ PROGRAM{
   }>
 }END>c`
 
-        writeFileSync(testInputFile, fiftCode)
+    writeFileSync(testInputFile, fiftCode)
 
-        const result = execSync(`node "${CLI_PATH}" "${testInputFile}" -f base64`, {
-            encoding: "utf8",
-        })
-
-        expect(result.trim()).toMatchSnapshot()
+    const result = execSync(`node "${CLI_PATH}" "${testInputFile}" -f base64`, {
+      encoding: "utf8",
     })
 
-    testExceptWindows("should compile from string input", () => {
-        const fiftCode = `"Asm.fif" include
+    expect(result.trim()).toMatchSnapshot()
+  })
+
+  testExceptWindows("should compile from string input", () => {
+    const fiftCode = `"Asm.fif" include
 PROGRAM{
   0 DECLMETHOD recv_internal()
   recv_internal() PROC:<{
@@ -110,48 +110,48 @@ PROGRAM{
   }>
 }END>c`
 
-        const result = execSync(`node "${CLI_PATH}" -s '${fiftCode}' -f hex`, {
-            encoding: "utf8",
-        })
-
-        expect(result.trim()).toMatchSnapshot()
+    const result = execSync(`node "${CLI_PATH}" -s '${fiftCode}' -f hex`, {
+      encoding: "utf8",
     })
 
-    testExceptWindows("should handle parse errors gracefully", () => {
-        const invalidFiftCode = `invalid syntax here`
+    expect(result.trim()).toMatchSnapshot()
+  })
 
-        writeFileSync(testInputFile, invalidFiftCode)
+  testExceptWindows("should handle parse errors gracefully", () => {
+    const invalidFiftCode = `invalid syntax here`
 
-        expect(() => {
-            execSync(`node "${CLI_PATH}" "${testInputFile}"`, {
-                encoding: "utf8",
-                stdio: "pipe",
-            })
-        }).toThrow()
+    writeFileSync(testInputFile, invalidFiftCode)
+
+    expect(() => {
+      execSync(`node "${CLI_PATH}" "${testInputFile}"`, {
+        encoding: "utf8",
+        stdio: "pipe",
+      })
+    }).toThrow()
+  })
+
+  testExceptWindows("should require input file or string", () => {
+    expect(() => {
+      execSync(`node "${CLI_PATH}"`, {
+        encoding: "utf8",
+        stdio: "pipe",
+      })
+    }).toThrow()
+  })
+
+  testExceptWindows("should show help", () => {
+    const result = execSync(`node "${CLI_PATH}" --help`, {
+      encoding: "utf8",
     })
 
-    testExceptWindows("should require input file or string", () => {
-        expect(() => {
-            execSync(`node "${CLI_PATH}"`, {
-                encoding: "utf8",
-                stdio: "pipe",
-            })
-        }).toThrow()
+    expect(result).toMatchSnapshot()
+  })
+
+  testExceptWindows("should show version", () => {
+    const result = execSync(`node "${CLI_PATH}" --version`, {
+      encoding: "utf8",
     })
 
-    testExceptWindows("should show help", () => {
-        const result = execSync(`node "${CLI_PATH}" --help`, {
-            encoding: "utf8",
-        })
-
-        expect(result).toMatchSnapshot()
-    })
-
-    testExceptWindows("should show version", () => {
-        const result = execSync(`node "${CLI_PATH}" --version`, {
-            encoding: "utf8",
-        })
-
-        expect(result).toContain("0.0.1")
-    })
+    expect(result).toContain("0.0.1")
+  })
 })

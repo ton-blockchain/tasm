@@ -7,35 +7,35 @@ import {generateHtml} from "../html"
 import {mkdirSync, writeFileSync, existsSync} from "node:fs"
 
 describe("asm coverage", () => {
-    const test =
-        (name: string, code: string, id: number = 0) =>
-        async () => {
-            const res = parse("test.asm", code)
-            if (res.$ === "ParseFailure") {
-                throw new Error(res.error.msg)
-            }
+  const test =
+    (name: string, code: string, id: number = 0) =>
+    async () => {
+      const res = parse("test.asm", code)
+      if (res.$ === "ParseFailure") {
+        throw new Error(res.error.msg)
+      }
 
-            const cell = compileCell(res.instructions)
-            const [_, logs] = await executeInstructions(res.instructions, id)
-            const {lines, summary} = collectAsmCoverage(cell, logs)
+      const cell = compileCell(res.instructions)
+      const [_, logs] = await executeInstructions(res.instructions, id)
+      const {lines, summary} = collectAsmCoverage(cell, logs)
 
-            const report = generateTextReport(lines, summary)
-            expect(report).toMatchSnapshot()
+      const report = generateTextReport(lines, summary)
+      expect(report).toMatchSnapshot()
 
-            const outDirname = `${__dirname}/output`
-            if (!existsSync(outDirname)) {
-                mkdirSync(outDirname)
-            }
+      const outDirname = `${__dirname}/output`
+      if (!existsSync(outDirname)) {
+        mkdirSync(outDirname)
+      }
 
-            const htmlReport = generateHtml(lines)
-            writeFileSync(`${__dirname}/output/${name}.html`, htmlReport)
-        }
+      const htmlReport = generateHtml(lines)
+      writeFileSync(`${__dirname}/output/${name}.html`, htmlReport)
+    }
 
-    it(
-        "simple if",
-        test(
-            "simple if",
-            `
+  it(
+    "simple if",
+    test(
+      "simple if",
+      `
                 PUSHINT_4 0
                 PUSHINT_4 0
                 PUSHCONT {
@@ -45,14 +45,14 @@ describe("asm coverage", () => {
                 }
                 IF
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "if ret",
-        test(
-            "if ret",
-            `
+  it(
+    "if ret",
+    test(
+      "if ret",
+      `
                 DROP
                 PUSHINT_4 -1 // cond
                 
@@ -62,14 +62,14 @@ describe("asm coverage", () => {
                 PUSHINT_4 2
                 ADD
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "simple if-else",
-        test(
-            "simple if-else",
-            `
+  it(
+    "simple if-else",
+    test(
+      "simple if-else",
+      `
                 PUSHINT_4 0
                 PUSHINT_4 -1
                 PUSHCONT {
@@ -80,14 +80,14 @@ describe("asm coverage", () => {
                 }
                 IFELSE
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "while loop with break",
-        test(
-            "while loop with break",
-            `
+  it(
+    "while loop with break",
+    test(
+      "while loop with break",
+      `
                 PUSHINT_4 10 // a = 10
                 
                 PUSHCONT { DUP GTINT 0 } // a > 0
@@ -102,14 +102,14 @@ describe("asm coverage", () => {
                 }
                 WHILEBRK
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "dictionary",
-        test(
-            "dictionary",
-            `
+  it(
+    "dictionary",
+    test(
+      "dictionary",
+      `
                 DICTPUSHCONST 19 [
                     0 => {
                         PUSHINT_4 10
@@ -123,14 +123,14 @@ describe("asm coverage", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "dictionary 2",
-        test(
-            "dictionary 2",
-            `
+  it(
+    "dictionary 2",
+    test(
+      "dictionary 2",
+      `
                 DICTPUSHCONST 19 [
                     0 => {
                         PUSHINT_4 10
@@ -144,15 +144,15 @@ describe("asm coverage", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-            2,
-        ),
-    )
+      2,
+    ),
+  )
 
-    it(
-        "try without throw",
-        test(
-            "try without throw",
-            `
+  it(
+    "try without throw",
+    test(
+      "try without throw",
+      `
                 PUSHINT_4 10
                 PUSHCONT {
                     INC
@@ -162,14 +162,14 @@ describe("asm coverage", () => {
                 }
                 TRY
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "try with throw",
-        test(
-            "try with throw",
-            `
+  it(
+    "try with throw",
+    test(
+      "try with throw",
+      `
                 PUSHINT_4 10
                 PUSHCONT {
                     THROW 10
@@ -179,14 +179,14 @@ describe("asm coverage", () => {
                 }
                 TRY
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "nested try with rethrow",
-        test(
-            "nested try with rethrow",
-            `
+  it(
+    "nested try with rethrow",
+    test(
+      "nested try with rethrow",
+      `
                 PUSHCONT {
                     PUSHCONT {
                         THROW 10
@@ -201,6 +201,6 @@ describe("asm coverage", () => {
                 }
                 TRY
             `,
-        ),
-    )
+    ),
+  )
 })

@@ -20,34 +20,34 @@ This module handles the conversion between assembly source code (`.tasm`) and it
 
 - **`parse(filepath: string, code: string): ParseResult`**
 
-    Parses a string of assembly code into an array of `Instr` objects.
+  Parses a string of assembly code into an array of `Instr` objects.
 
-    - `filepath`: A path for the file, used for error reporting.
-    - `code`: The assembly code to parse.
-    - **Returns:** A `ParseResult` object, which is either a `ParseSuccess` containing `instructions: Instr[]` or a
-      `ParseFailure` with error details.
+  - `filepath`: A path for the file, used for error reporting.
+  - `code`: The assembly code to parse.
+  - **Returns:** A `ParseResult` object, which is either a `ParseSuccess` containing `instructions: Instr[]` or a
+    `ParseFailure` with error details.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    const code = "PUSH s0"
-    const result = text.parse("<code>", code)
-    if (result.$ === "ParseSuccess") {
-        const instructions = result.instructions
-        // ...
-    }
-    ```
+  ```typescript
+  const code = "PUSH s0"
+  const result = text.parse("<code>", code)
+  if (result.$ === "ParseSuccess") {
+    const instructions = result.instructions
+    // ...
+  }
+  ```
 
 - **`print(instructions: Instr[]): string`**
 
-    Converts an array of `Instr` objects back into a formatted assembly code string.
+  Converts an array of `Instr` objects back into a formatted assembly code string.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    const asmString = text.print(instructions)
-    console.log(asmString)
-    ```
+  ```typescript
+  const asmString = text.print(instructions)
+  console.log(asmString)
+  ```
 
 ## `runtime` Module: Compilation and Decompilation
 
@@ -55,47 +55,47 @@ This module handles the conversion between the AST representation (`Instr[]`) an
 
 - **`compileCell(instructions: Instr[]): Cell`**
 
-    Compiles an array of `Instr` objects into a single root `Cell`.
+  Compiles an array of `Instr` objects into a single root `Cell`.
 
 - **`compile(instructions: Instr[]): Buffer`**
 
-    A convenience wrapper around `compileCell` that returns the compiled cell as a BOC `Buffer`.
+  A convenience wrapper around `compileCell` that returns the compiled cell as a BOC `Buffer`.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    const bocBuffer = runtime.compile(instructions)
-    ```
+  ```typescript
+  const bocBuffer = runtime.compile(instructions)
+  ```
 
 - **`compileCellWithMapping(instructions: Instr[]): [Cell, Mapping]`**
 
-    Compiles an array of `Instr` objects into a `Cell` along with mapping information for debugging and tracing.
+  Compiles an array of `Instr` objects into a `Cell` along with mapping information for debugging and tracing.
 
-    **Returns:** A tuple containing the compiled `Cell` and `Mapping` information that links cell offsets to source
-    locations.
+  **Returns:** A tuple containing the compiled `Cell` and `Mapping` information that links cell offsets to source
+  locations.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    const [cell, mapping] = runtime.compileCellWithMapping(instructions)
-    ```
+  ```typescript
+  const [cell, mapping] = runtime.compileCellWithMapping(instructions)
+  ```
 
 - **`decompileCell(cell: Cell): Instr[]`**
 
-    Decompiles a TVM `Cell` into an array of `Instr` objects.
+  Decompiles a TVM `Cell` into an array of `Instr` objects.
 
 - **`decompile(buffer: Buffer): Instr[]`**
 
-    A convenience wrapper that decompiles a BOC `Buffer` into an array of `Instr` objects.
+  A convenience wrapper that decompiles a BOC `Buffer` into an array of `Instr` objects.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    import {Cell} from "@ton/core"
+  ```typescript
+  import {Cell} from "@ton/core"
 
-    const cell = Cell.fromBoc(bocBuffer)[0]
-    const decompiledInstr = runtime.decompileCell(cell)
-    ```
+  const cell = Cell.fromBoc(bocBuffer)[0]
+  const decompiledInstr = runtime.decompileCell(cell)
+  ```
 
 ## `logs` Module: Parsing TVM Execution Logs
 
@@ -104,44 +104,44 @@ extremely useful for debugging smart contracts.
 
 - **`parse(log: string): VmLine[]`**
 
-    Parses a multi-line string containing the TVM execution log into a structured array of `VmLine` objects. Each object
-    in the array represents a parsed line from the log.
+  Parses a multi-line string containing the TVM execution log into a structured array of `VmLine` objects. Each object
+  in the array represents a parsed line from the log.
 
-    **VmLine Types:**
+  **VmLine Types:**
 
-    - `VmLoc`: Current code location (`{ hash, offset }`).
-    - `VmStack`: The state of the stack (`{ stack }`).
-    - `VmExecute`: The instruction being executed (`{ instr }`).
-    - `VmException`: An exception that occurred (`{ errno, message }`).
-    - And others like `VmGasRemaining`, `VmFinalC5`, etc.
+  - `VmLoc`: Current code location (`{ hash, offset }`).
+  - `VmStack`: The state of the stack (`{ stack }`).
+  - `VmExecute`: The instruction being executed (`{ instr }`).
+  - `VmException`: An exception that occurred (`{ errno, message }`).
+  - And others like `VmGasRemaining`, `VmFinalC5`, etc.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    import {logs} from "@ton/tasm"
+  ```typescript
+  import {logs} from "@ton/tasm"
 
-    const executionLog = `
-    code cell hash:6DB0B8EFEF2B59D53B896E2A6EBCBBEF72BE9A1F8CD2DA1D0E8EA8F57C4F8AE0 offset:2608
-    stack: [98 100 0 101]
-    execute PUSHINT 0
-    gas remaining: 999999998
-    changing gas limit to 100
-    handling exception code 2: stack underflow
-    default exception handler, terminating vm with exit code 2
-    final c5:C{00000000}
-    `
+  const executionLog = `
+  code cell hash:6DB0B8EFEF2B59D53B896E2A6EBCBBEF72BE9A1F8CD2DA1D0E8EA8F57C4F8AE0 offset:2608
+  stack: [98 100 0 101]
+  execute PUSHINT 0
+  gas remaining: 999999998
+  changing gas limit to 100
+  handling exception code 2: stack underflow
+  default exception handler, terminating vm with exit code 2
+  final c5:C{00000000}
+  `
 
-    const parsedLog = logs.parse(executionLog)
+  const parsedLog = logs.parse(executionLog)
 
-    for (const line of parsedLog) {
-        if (line.$ === "VmStack") {
-            console.log("Stack contents:", line.stack)
-        }
-        if (line.$ === "VmExecute") {
-            console.log("Executing:", line.instr)
-        }
+  for (const line of parsedLog) {
+    if (line.$ === "VmStack") {
+      console.log("Stack contents:", line.stack)
     }
-    ```
+    if (line.$ === "VmExecute") {
+      console.log("Executing:", line.instr)
+    }
+  }
+  ```
 
 ## `trace` Module: Correlating Logs with Source Code
 
@@ -150,73 +150,73 @@ generated during compilation to link each executed instruction back to its origi
 
 - **`createMappingInfo(mapping: Mapping): MappingInfo`**
 
-    Creates mapping information from the compilation mapping data.
+  Creates mapping information from the compilation mapping data.
 
-    - `mapping`: The `Mapping` object obtained from `compileCellWithMapping` function.
-    - **Returns:** A `MappingInfo` object that can be used for tracing.
+  - `mapping`: The `Mapping` object obtained from `compileCellWithMapping` function.
+  - **Returns:** A `MappingInfo` object that can be used for tracing.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    import {runtime, trace} from "@ton/tasm"
+  ```typescript
+  import {runtime, trace} from "@ton/tasm"
 
-    const [cell, mapping] = runtime.compileCellWithMapping(instructions)
-    const mappingInfo = trace.createMappingInfo(mapping)
-    ```
+  const [cell, mapping] = runtime.compileCellWithMapping(instructions)
+  const mappingInfo = trace.createMappingInfo(mapping)
+  ```
 
 - **`createTraceInfo(logs: string, mapping: MappingInfo, funcMapping?: FuncMapping): TraceInfo`**
 
-    Creates a detailed execution trace.
+  Creates a detailed execution trace.
 
-    - `logs`: The raw execution log string.
-    - `mapping`: The `MappingInfo` object obtained from the `createMappingInfo` function.
-    - `funcMapping`: (Optional) Mapping information for FunC functions, if applicable.
-    - **Returns:** A `TraceInfo` object containing an array of `Step` objects. Each `Step` includes the source
-      location (`loc`), instruction name, stack state, and gas information.
+  - `logs`: The raw execution log string.
+  - `mapping`: The `MappingInfo` object obtained from the `createMappingInfo` function.
+  - `funcMapping`: (Optional) Mapping information for FunC functions, if applicable.
+  - **Returns:** A `TraceInfo` object containing an array of `Step` objects. Each `Step` includes the source
+    location (`loc`), instruction name, stack state, and gas information.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    import {runtime, trace} from "@ton/tasm"
+  ```typescript
+  import {runtime, trace} from "@ton/tasm"
 
-    // 1. Compile with mapping enabled
-    const [cell, mapping] = runtime.compileCellWithMapping(instructions)
-    const mappingInfo = trace.createMappingInfo(mapping)
+  // 1. Compile with mapping enabled
+  const [cell, mapping] = runtime.compileCellWithMapping(instructions)
+  const mappingInfo = trace.createMappingInfo(mapping)
 
-    // 2. Get execution logs (from sandbox or other emulator)
-    const logs = getExecutionLogs()
+  // 2. Get execution logs (from sandbox or other emulator)
+  const logs = getExecutionLogs()
 
-    // 3. Create the trace
-    const traceInfo = trace.createTraceInfo(logs, mappingInfo)
+  // 3. Create the trace
+  const traceInfo = trace.createTraceInfo(logs, mappingInfo)
 
-    // 4. Analyze the trace
-    for (const step of traceInfo.steps) {
-        if (step.loc) {
-            console.log(`[${step.loc.file}:${step.loc.line}:${step.loc.col}]`, step.instructionName)
-        }
+  // 4. Analyze the trace
+  for (const step of traceInfo.steps) {
+    if (step.loc) {
+      console.log(`[${step.loc.file}:${step.loc.line}:${step.loc.col}]`, step.instructionName)
     }
-    ```
+  }
+  ```
 
 - **`createTraceInfoPerTransaction(logs: string, mapping: MappingInfo, funcMapping?: FuncMapping): TraceInfo[]`**
 
-    Creates detailed execution traces per transaction.
+  Creates detailed execution traces per transaction.
 
-    - `logs`: The raw execution log string containing multiple transactions.
-    - `mapping`: The `MappingInfo` object.
-    - `funcMapping`: (Optional) Mapping information for FunC functions.
-    - **Returns:** An array of `TraceInfo` objects, one for each transaction found in the logs.
+  - `logs`: The raw execution log string containing multiple transactions.
+  - `mapping`: The `MappingInfo` object.
+  - `funcMapping`: (Optional) Mapping information for FunC functions.
+  - **Returns:** An array of `TraceInfo` objects, one for each transaction found in the logs.
 
-    **Example:**
+  **Example:**
 
-    ```typescript
-    import {trace} from "@ton/tasm"
+  ```typescript
+  import {trace} from "@ton/tasm"
 
-    const traceInfos = trace.createTraceInfoPerTransaction(logs, mappingInfo)
+  const traceInfos = trace.createTraceInfoPerTransaction(logs, mappingInfo)
 
-    traceInfos.forEach((transaction, i) => {
-        console.log(`Transaction ${i}:`)
-        transaction.steps.forEach(step => {
-            console.log(`  - ${step.instructionName} (gas: ${step.gasCost})`)
-        })
+  traceInfos.forEach((transaction, i) => {
+    console.log(`Transaction ${i}:`)
+    transaction.steps.forEach(step => {
+      console.log(`  - ${step.instructionName} (gas: ${step.gasCost})`)
     })
-    ```
+  })
+  ```

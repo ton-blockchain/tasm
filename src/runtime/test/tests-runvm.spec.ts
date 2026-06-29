@@ -1,18 +1,18 @@
 import {
-    ADD,
-    BLKDROP,
-    compileCell,
-    DICTIGETJMPZ,
-    DROP,
-    DUMP,
-    DUMPSTK,
-    NEQ,
-    DICTPUSHCONST,
-    PUSHINT_4,
-    PUSHINT_8,
-    SETCP,
-    THROW,
-    THROWARG,
+  ADD,
+  BLKDROP,
+  compileCell,
+  DICTIGETJMPZ,
+  DROP,
+  DUMP,
+  DUMPSTK,
+  NEQ,
+  DICTPUSHCONST,
+  PUSHINT_4,
+  PUSHINT_8,
+  SETCP,
+  THROW,
+  THROWARG,
 } from "../index"
 import type {Address, Contract, ContractProvider, Sender, StateInit} from "@ton/core"
 import {Cell, contractAddress, toNano} from "@ton/core"
@@ -22,19 +22,19 @@ import {call, measureGas2, when} from "../../helpers"
 import {dictMap} from "../util"
 
 describe("runvm-helper", () => {
-    it(`should correctly execute instructions inside runvm`, async () => {
-        const blockchain: Blockchain = await Blockchain.create()
-        // blockchain.verbosity.vmLogs = "vm_logs"
-        const treasure: SandboxContract<TreasuryContract> = await blockchain.treasury("treasure")
+  it(`should correctly execute instructions inside runvm`, async () => {
+    const blockchain: Blockchain = await Blockchain.create()
+    // blockchain.verbosity.vmLogs = "vm_logs"
+    const treasure: SandboxContract<TreasuryContract> = await blockchain.treasury("treasure")
 
-        const instructions = [
-            SETCP(0),
-            DICTPUSHCONST(
-                19,
-                dictMap(
-                    new Map([
-                        // prettier-ignore
-                        [0, [
+    const instructions = [
+      SETCP(0),
+      DICTPUSHCONST(
+        19,
+        dictMap(
+          new Map([
+            // biome-ignore format: generate
+            [0, [
                         BLKDROP(4),
 
                         ...measureGas2([
@@ -51,49 +51,49 @@ describe("runvm-helper", () => {
 
                         DUMPSTK(),
                     ]],
-                    ]),
-                ),
-            ),
-            DICTIGETJMPZ(),
-            THROWARG(11),
-        ]
+          ]),
+        ),
+      ),
+      DICTIGETJMPZ(),
+      THROWARG(11),
+    ]
 
-        const init: StateInit = {
-            code: compileCell(instructions),
-            data: new Cell(),
-        }
+    const init: StateInit = {
+      code: compileCell(instructions),
+      data: new Cell(),
+    }
 
-        const address = contractAddress(0, init)
-        const contract = new TestContract(address, init)
+    const address = contractAddress(0, init)
+    const contract = new TestContract(address, init)
 
-        const openContract = blockchain.openContract(contract)
+    const openContract = blockchain.openContract(contract)
 
-        // Deploy
-        await openContract.send(
-            treasure.getSender(),
-            {
-                value: toNano("10"),
-            },
-            new Cell(),
-        )
-    })
+    // Deploy
+    await openContract.send(
+      treasure.getSender(),
+      {
+        value: toNano("10"),
+      },
+      new Cell(),
+    )
+  })
 })
 
 export class TestContract implements Contract {
-    public readonly address: Address
-    public readonly init?: StateInit
+  public readonly address: Address
+  public readonly init?: StateInit
 
-    public constructor(address: Address, init?: StateInit) {
-        this.address = address
-        this.init = init
-    }
+  public constructor(address: Address, init?: StateInit) {
+    this.address = address
+    this.init = init
+  }
 
-    public async send(
-        provider: ContractProvider,
-        via: Sender,
-        args: {value: bigint; bounce?: boolean | null | undefined},
-        body: Cell,
-    ) {
-        await provider.internal(via, {...args, body: body})
-    }
+  public async send(
+    provider: ContractProvider,
+    via: Sender,
+    args: {value: bigint; bounce?: boolean | null | undefined},
+    body: Cell,
+  ) {
+    await provider.internal(via, {...args, body: body})
+  }
 }

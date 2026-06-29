@@ -5,27 +5,27 @@ import {compileCell, decompileCell} from "../../runtime"
 import {print} from "../../text"
 
 const test =
-    (tolkCode: string): (() => void) =>
-    async () => {
-        const [tolkCell, fift] = await compileTolk(tolkCode)
-        const fiftCell = compileCell(compile("test.fif", fift))
+  (tolkCode: string): (() => void) =>
+  async () => {
+    const [tolkCell, fift] = await compileTolk(tolkCode)
+    const fiftCell = compileCell(compile("test.fif", fift))
 
-        const tolkAssembly = decompileCell(tolkCell)
-        const fiftAssembly = decompileCell(fiftCell)
+    const tolkAssembly = decompileCell(tolkCell)
+    const fiftAssembly = decompileCell(fiftCell)
 
-        expect(print(tolkAssembly)).toEqual(print(fiftAssembly))
-    }
+    expect(print(tolkAssembly)).toEqual(print(fiftAssembly))
+  }
 
 describe("Test Tolk compilation with Fift", () => {
-    it(
-        "should compile simple program",
-        test(`fun main() {
+  it(
+    "should compile simple program",
+    test(`fun main() {
             return 10 + 20
         }`),
-    )
-    it(
-        "should compile simple counter",
-        test(`
+  )
+  it(
+    "should compile simple counter",
+    test(`
             tolk 1.0
             
             // this struct defines storage layout of the contract
@@ -102,18 +102,18 @@ describe("Test Tolk compilation with Fift", () => {
                 return storage.id;
             }
         `),
-    )
+  )
 })
 
 const compileTolk = async (code: string): Promise<[Cell, string]> => {
-    const res = await runTolkCompiler({
-        entrypointFileName: "main.tolk",
-        fsReadCallback: () => code,
-        withStackComments: true,
-        withSrcLineComments: true,
-    })
-    if (res.status === "error") {
-        throw new Error(res.message)
-    }
-    return [Cell.fromBase64(res.codeBoc64), res.fiftCode]
+  const res = await runTolkCompiler({
+    entrypointFileName: "main.tolk",
+    fsReadCallback: () => code,
+    withStackComments: true,
+    withSrcLineComments: true,
+  })
+  if (res.status === "error") {
+    throw new Error(res.message)
+  }
+  return [Cell.fromBase64(res.codeBoc64), res.fiftCode]
 }
