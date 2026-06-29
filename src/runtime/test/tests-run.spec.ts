@@ -80,7 +80,7 @@ describe("instructions-execute", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                             PUSHINT_16(999),
                             PUSHINT_8(0b0100),
@@ -114,7 +114,7 @@ describe("instructions-execute", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                             PUSHINT_16(999),
                             PUSHINT_8(0b0100),
@@ -148,7 +148,7 @@ describe("instructions-execute", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                             ...execute(someFunction, PUSHINT_4(1), PUSHINT_4(2), PUSHINT_4(3)),
                         ]],
@@ -341,7 +341,7 @@ describe("instructions-execute", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                             PUSHINT_LONG(130n),
                         ]],

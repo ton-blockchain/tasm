@@ -58,7 +58,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                             NEWC(),
                             STSLICECONST(beginCell().storeUint(0b0, 1).asSlice()),
@@ -92,7 +92,7 @@ describe("tests", () => {
             builder store_slice7(builder b) asm "b{0000000} STSLICECONST";
             builder store_slice8(builder b) asm "b{00000000} STSLICECONST";
             builder store_slice9(builder b) asm "b{000000000} STSLICECONST";
-            
+
             () recv_internal() impure {
                 throw(begin_cell()
                     .store_slice1()
@@ -134,7 +134,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                                 PUSHCONT_SHORT(code([THROW_SHORT(1)])),
                                 PUSHCONT_SHORT(code([THROW_SHORT(2)])),
@@ -169,7 +169,7 @@ describe("tests", () => {
       `
                 slice sd_begins(slice where, slice to_find) asm "SDBEGINSX";
                 int bits(slice where) asm "SBITS";
-            
+
                 () recv_internal(slice s1, slice s2) impure {
                     var s3 = sd_begins(s1, s2);
                     throw(bits(s3));
@@ -186,7 +186,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                                 SDBEGINS(beginCell().storeUint(0n, 4).asSlice()), SBITS(), THROWANY(),
                             ]],
@@ -199,7 +199,7 @@ describe("tests", () => {
       `
                 slice sd_begins(slice where) asm "b{0000} SDBEGINS";
                 int bits(slice where) asm "SBITS";
-            
+
                 () recv_internal(slice s1) impure {
                     var s3 = sd_begins(s1);
                     throw(bits(s3));
@@ -219,7 +219,7 @@ describe("tests", () => {
       `
                 slice push_slice() asm "x{6_} PUSHSLICE";
                 int bits(slice where) asm "SBITS";
-            
+
                 () recv_internal() impure {
                     throw(push_slice().bits());
                 }`,
@@ -235,7 +235,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // prettier-ignore
+              // biome-ignore format
               [0, [
                                 PUSHSLICE_LONG(
                                     hex(
@@ -255,7 +255,7 @@ describe("tests", () => {
                 ;; 800 bits, too many for ordinary PUSHSLICE
                 slice push_slice() asm "x{BEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEFBEEF} PUSHSLICE";
                 int bits(slice where) asm "SBITS";
-            
+
                 () recv_internal() impure {
                     throw(push_slice().bits());
                 }`,

@@ -33,7 +33,7 @@ describe("runvm-helper", () => {
         19,
         dictMap(
           new Map([
-            // prettier-ignore
+            // biome-ignore format
             [0, [
                         BLKDROP(4),
 
