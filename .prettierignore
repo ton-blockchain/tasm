@@ -3,5 +3,4 @@ src/generator/instructions.ts
 examples/
 output/
 dist/
-coverage/
 scripts/
