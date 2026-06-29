@@ -4,37 +4,37 @@ import {parse, print} from "../../text"
 import {runTolkCompiler} from "@ton/tolk-js"
 
 const test =
-    (tolkCode: string, expectedAssembly: string): (() => Promise<void>) =>
-    async () => {
-        const res = parse("code.tasm", expectedAssembly)
-        if (res.$ === "ParseFailure") {
-            throw res.error
-        }
-        const compiled = compileCell(res.instructions)
-        const tolkCompiled = await compile(tolkCode)
+  (tolkCode: string, expectedAssembly: string): (() => Promise<void>) =>
+  async () => {
+    const res = parse("code.tasm", expectedAssembly)
+    if (res.$ === "ParseFailure") {
+      throw res.error
+    }
+    const compiled = compileCell(res.instructions)
+    const tolkCompiled = await compile(tolkCode)
 
-        const expectedCompiledAssembly = compiled.toString()
-        const actualCompiledTolk = tolkCompiled[0].toString()
+    const expectedCompiledAssembly = compiled.toString()
+    const actualCompiledTolk = tolkCompiled[0].toString()
 
-        if (expectedCompiledAssembly !== actualCompiledTolk) {
-            const fift = tolkCompiled[1]
-            console.log(fift)
+    if (expectedCompiledAssembly !== actualCompiledTolk) {
+      const fift = tolkCompiled[1]
+      console.log(fift)
 
-            const disasn = decompileCell(tolkCompiled[0])
-            console.log(print(disasn))
+      const disasn = decompileCell(tolkCompiled[0])
+      console.log(print(disasn))
 
-            const disasn2 = decompileCell(compiled)
-            console.log(print(disasn2))
-        }
-
-        expect(expectedCompiledAssembly).toEqual(actualCompiledTolk)
+      const disasn2 = decompileCell(compiled)
+      console.log(print(disasn2))
     }
 
+    expect(expectedCompiledAssembly).toEqual(actualCompiledTolk)
+  }
+
 describe("TVM11 opcodes", () => {
-    it(
-        "INMSG_BOUNCED in real world Tolk code",
-        test(
-            `
+  it(
+    "INMSG_BOUNCED in real world Tolk code",
+    test(
+      `
                 struct (0x7e8764ef) IncreaseCounter {
                     queryId: uint64
                     increaseBy: uint32
@@ -58,7 +58,7 @@ describe("TVM11 opcodes", () => {
                     }
                 }
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -85,13 +85,13 @@ describe("TVM11 opcodes", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "INMSG_SRC in real world Tolk code",
-        test(
-            `
+  it(
+    "INMSG_SRC in real world Tolk code",
+    test(
+      `
                 struct (0x7e8764ef) IncreaseCounter {
                     queryId: uint64
                     increaseBy: uint32
@@ -120,7 +120,7 @@ describe("TVM11 opcodes", () => {
                     }
                 }
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -154,12 +154,12 @@ describe("TVM11 opcodes", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
-    it(
-        "INMSG_BOUNCED, INMSG_UTIME, INMSG_LT, INMSG_FWDFEE, INMSG_SRC, INMSG_VALUE, INMSG_VALUEEXTRA in Tolk code",
-        test(
-            `
+    ),
+  )
+  it(
+    "INMSG_BOUNCED, INMSG_UTIME, INMSG_LT, INMSG_FWDFEE, INMSG_SRC, INMSG_VALUE, INMSG_VALUEEXTRA in Tolk code",
+    test(
+      `
                 fun onInternalMessage(in: InMessage) {
                     debug.print(in.body);
                     debug.print(in.createdAt);
@@ -170,7 +170,7 @@ describe("TVM11 opcodes", () => {
                     debug.print(in.valueExtra);
                 }
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -203,13 +203,13 @@ describe("TVM11 opcodes", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "GETPARAMLONG in Tolk code",
-        test(
-            `
+  it(
+    "GETPARAMLONG in Tolk code",
+    test(
+      `
                 fun getParamLong0(): int asm "0 GETPARAMLONG"
                 fun getParamLong1(): int asm "1 GETPARAMLONG"
                 fun getParamLong253(): int asm "253 GETPARAMLONG"
@@ -222,7 +222,7 @@ describe("TVM11 opcodes", () => {
                     debug.print(getParamLong254());
                 }
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -246,20 +246,20 @@ describe("TVM11 opcodes", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "INMSGPARAMS in Tolk code",
-        test(
-            `
+  it(
+    "INMSGPARAMS in Tolk code",
+    test(
+      `
                 fun inMsgParams(): tuple asm "INMSGPARAMS"
             
                 fun onInternalMessage(in: InMessage) {
                     debug.print(inMsgParams());
                 }
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -274,19 +274,19 @@ describe("TVM11 opcodes", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
-    it(
-        "INMSGPARAM in Tolk code",
-        test(
-            `
+    ),
+  )
+  it(
+    "INMSGPARAM in Tolk code",
+    test(
+      `
                 fun inMsgParam(): tuple asm "1 INMSGPARAM"
             
                 fun onInternalMessage(in: InMessage) {
                     debug.print(inMsgParam());
                 }
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -301,12 +301,12 @@ describe("TVM11 opcodes", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
-    it(
-        "STSTDADDR in Tolk code",
-        test(
-            `
+    ),
+  )
+  it(
+    "STSTDADDR in Tolk code",
+    test(
+      `
                 struct Foo {
                     addr: address
                 }
@@ -316,7 +316,7 @@ describe("TVM11 opcodes", () => {
                     debug.print(cell.depth());
                 }
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -335,19 +335,19 @@ describe("TVM11 opcodes", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-        ),
-    )
+    ),
+  )
 })
 
 const compile = async (code: string): Promise<[Cell, string]> => {
-    const res = await runTolkCompiler({
-        entrypointFileName: "main.tolk",
-        fsReadCallback: () => code,
-        withStackComments: true,
-        withSrcLineComments: true,
-    })
-    if (res.status === "error") {
-        throw new Error(res.message)
-    }
-    return [Cell.fromBase64(res.codeBoc64), res.fiftCode]
+  const res = await runTolkCompiler({
+    entrypointFileName: "main.tolk",
+    fsReadCallback: () => code,
+    withStackComments: true,
+    withSrcLineComments: true,
+  })
+  if (res.status === "error") {
+    throw new Error(res.message)
+  }
+  return [Cell.fromBase64(res.codeBoc64), res.fiftCode]
 }

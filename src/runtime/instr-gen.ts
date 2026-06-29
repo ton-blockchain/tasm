@@ -5,5540 +5,5540 @@ import * as cf from "./fift-instr-constructors"
 import * as types from "./types"
 import * as ftypes from "./fift-instr"
 export type Instr =
-    | c.PUSHNAN
-    | c.ADD
-    | c.SUB
-    | c.SUBR
-    | c.NEGATE
-    | c.INC
-    | c.DEC
-    | c.MUL
-    | c.POW2
-    | c.AND
-    | c.OR
-    | c.XOR
-    | c.NOT
-    | c.FITSX
-    | c.UFITSX
-    | c.BITSIZE
-    | c.UBITSIZE
-    | c.MIN
-    | c.MAX
-    | c.MINMAX
-    | c.ABS
-    | c.QADD
-    | c.QSUB
-    | c.QSUBR
-    | c.QNEGATE
-    | c.QINC
-    | c.QDEC
-    | c.QMUL
-    | c.QPOW2
-    | c.QAND
-    | c.QOR
-    | c.QXOR
-    | c.QNOT
-    | c.QFITSX
-    | c.QUFITSX
-    | c.QBITSIZE
-    | c.QUBITSIZE
-    | c.QMIN
-    | c.QMAX
-    | c.QMINMAX
-    | c.QABS
-    | c.SGN
-    | c.LESS
-    | c.EQUAL
-    | c.LEQ
-    | c.GREATER
-    | c.NEQ
-    | c.GEQ
-    | c.CMP
-    | c.ISNAN
-    | c.CHKNAN
-    | c.QSGN
-    | c.QLESS
-    | c.QEQUAL
-    | c.QLEQ
-    | c.QGREATER
-    | c.QNEQ
-    | c.QGEQ
-    | c.QCMP
-    | c.SEMPTY
-    | c.SDEMPTY
-    | c.SREMPTY
-    | c.SDFIRST
-    | c.SDLEXCMP
-    | c.SDEQ
-    | c.SDPFX
-    | c.SDPFXREV
-    | c.SDPPFX
-    | c.SDPPFXREV
-    | c.SDSFX
-    | c.SDSFXREV
-    | c.SDPSFX
-    | c.SDPSFXREV
-    | c.SDCNTLEAD0
-    | c.SDCNTLEAD1
-    | c.SDCNTTRAIL0
-    | c.SDCNTTRAIL1
-    | c.NEWC
-    | c.ENDC
-    | c.ENDCST
-    | c.STBREF
-    | c.STB
-    | c.STREFR
-    | c.STBREFR
-    | c.STSLICER
-    | c.STBR
-    | c.STREFQ
-    | c.STBREFQ
-    | c.STSLICEQ
-    | c.STBQ
-    | c.STREFRQ
-    | c.STBREFRQ
-    | c.STSLICERQ
-    | c.STBRQ
-    | c.ENDXC
-    | c.BDEPTH
-    | c.BBITS
-    | c.BREFS
-    | c.BBITREFS
-    | c.BREMBITS
-    | c.BREMREFS
-    | c.BREMBITREFS
-    | c.BCHKREFS
-    | c.BCHKBITREFS
-    | c.BCHKREFSQ
-    | c.BCHKBITREFSQ
-    | c.STZEROES
-    | c.STONES
-    | c.STSAME
-    | c.CTOS
-    | c.ENDS
-    | c.LDREF
-    | c.LDREFRTOS
-    | c.SDCUTFIRST
-    | c.SDSKIPFIRST
-    | c.SDCUTLAST
-    | c.SDSKIPLAST
-    | c.SDSUBSTR
-    | c.SCUTFIRST
-    | c.SSKIPFIRST
-    | c.SCUTLAST
-    | c.SSKIPLAST
-    | c.SUBSLICE
-    | c.SPLIT
-    | c.SPLITQ
-    | c.XCTOS
-    | c.XLOAD
-    | c.XLOADQ
-    | c.SCHKBITS
-    | c.SCHKREFS
-    | c.SCHKBITREFS
-    | c.SCHKBITSQ
-    | c.SCHKREFSQ
-    | c.SCHKBITREFSQ
-    | c.PLDREFVAR
-    | c.SBITS
-    | c.SREFS
-    | c.SBITREFS
-    | c.LDZEROES
-    | c.LDONES
-    | c.LDSAME
-    | c.SDEPTH
-    | c.CDEPTH
-    | c.CLEVEL
-    | c.CLEVELMASK
-    | c.CHASHIX
-    | c.CDEPTHIX
-    | c.EXECUTE
-    | c.JMPX
-    | c.RET
-    | c.RETALT
-    | c.RETBOOL
-    | c.CALLCC
-    | c.JMPXDATA
-    | c.CALLXVARARGS
-    | c.RETVARARGS
-    | c.JMPXVARARGS
-    | c.CALLCCVARARGS
-    | c.RETDATA
-    | c.RUNVMX
-    | c.IFRET
-    | c.IFNOTRET
-    | c.IF
-    | c.IFNOT
-    | c.IFJMP
-    | c.IFNOTJMP
-    | c.IFELSE
-    | c.CONDSEL
-    | c.CONDSELCHK
-    | c.IFRETALT
-    | c.IFNOTRETALT
-    | c.REPEAT
-    | c.REPEATEND
-    | c.UNTIL
-    | c.UNTILEND
-    | c.WHILE
-    | c.WHILEEND
-    | c.AGAIN
-    | c.AGAINEND
-    | c.REPEATBRK
-    | c.REPEATENDBRK
-    | c.UNTILBRK
-    | c.UNTILENDBRK
-    | c.WHILEBRK
-    | c.WHILEENDBRK
-    | c.AGAINBRK
-    | c.AGAINENDBRK
-    | c.RETURNVARARGS
-    | c.SETCONTVARARGS
-    | c.SETNUMVARARGS
-    | c.BLESS
-    | c.BLESSVARARGS
-    | c.PUSHCTRX
-    | c.POPCTRX
-    | c.SETCONTCTRX
-    | c.SETCONTCTRMANYX
-    | c.BOOLAND
-    | c.BOOLOR
-    | c.COMPOSBOTH
-    | c.ATEXIT
-    | c.ATEXITALT
-    | c.SETEXITALT
-    | c.THENRET
-    | c.THENRETALT
-    | c.INVERT
-    | c.BOOLEVAL
-    | c.SAMEALT
-    | c.SAMEALTSAVE
-    | c.TRY
-    | c.STDICT
-    | c.SKIPDICT
-    | c.LDDICTS
-    | c.PLDDICTS
-    | c.LDDICT
-    | c.PLDDICT
-    | c.LDDICTQ
-    | c.PLDDICTQ
-    | c.PFXDICTSET
-    | c.PFXDICTREPLACE
-    | c.PFXDICTADD
-    | c.PFXDICTDEL
-    | c.PFXDICTGETQ
-    | c.PFXDICTGET
-    | c.PFXDICTGETJMP
-    | c.PFXDICTGETEXEC
-    | c.NOP
-    | c.SWAP
-    | c.DUP
-    | c.OVER
-    | c.DROP
-    | c.NIP
-    | c.ROT
-    | c.ROTREV
-    | c.PICK
-    | c.ROLL
-    | c.ROLLREV
-    | c.BLKSWX
-    | c.REVX
-    | c.DROPX
-    | c.TUCK
-    | c.XCHGX
-    | c.DEPTH
-    | c.CHKDEPTH
-    | c.ONLYTOPX
-    | c.ONLYX
-    | c.ACCEPT
-    | c.SETGASLIMIT
-    | c.GASCONSUMED
-    | c.COMMIT
-    | c.NOW
-    | c.BLOCKLT
-    | c.LTIME
-    | c.RANDSEED
-    | c.BALANCE
-    | c.MYADDR
-    | c.CONFIGROOT
-    | c.MYCODE
-    | c.INCOMINGVALUE
-    | c.STORAGEFEES
-    | c.PREVBLOCKSINFOTUPLE
-    | c.UNPACKEDCONFIGTUPLE
-    | c.DUEPAYMENT
-    | c.CONFIGDICT
-    | c.CONFIGPARAM
-    | c.CONFIGOPTPARAM
-    | c.PREVMCBLOCKS
-    | c.PREVKEYBLOCK
-    | c.PREVMCBLOCKS_100
-    | c.GLOBALID
-    | c.GETGASFEE
-    | c.GETSTORAGEFEE
-    | c.GETFORWARDFEE
-    | c.GETPRECOMPILEDGAS
-    | c.GETORIGINALFWDFEE
-    | c.GETGASFEESIMPLE
-    | c.GETFORWARDFEESIMPLE
-    | c.GETGLOBVAR
-    | c.SETGLOBVAR
-    | c.RANDU256
-    | c.RAND
-    | c.SETRAND
-    | c.ADDRAND
-    | c.HASHCU
-    | c.HASHSU
-    | c.SHA256U
-    | c.CHKSIGNU
-    | c.CHKSIGNS
-    | c.ECRECOVER
-    | c.SECP256K1_XONLY_PUBKEY_TWEAK_ADD
-    | c.P256_CHKSIGNU
-    | c.P256_CHKSIGNS
-    | c.RIST255_FROMHASH
-    | c.RIST255_VALIDATE
-    | c.RIST255_ADD
-    | c.RIST255_SUB
-    | c.RIST255_MUL
-    | c.RIST255_MULBASE
-    | c.RIST255_PUSHL
-    | c.RIST255_QVALIDATE
-    | c.RIST255_QADD
-    | c.RIST255_QSUB
-    | c.RIST255_QMUL
-    | c.RIST255_QMULBASE
-    | c.BLS_VERIFY
-    | c.BLS_AGGREGATE
-    | c.BLS_FASTAGGREGATEVERIFY
-    | c.BLS_AGGREGATEVERIFY
-    | c.BLS_G1_ADD
-    | c.BLS_G1_SUB
-    | c.BLS_G1_NEG
-    | c.BLS_G1_MUL
-    | c.BLS_G1_MULTIEXP
-    | c.BLS_G1_ZERO
-    | c.BLS_MAP_TO_G1
-    | c.BLS_G1_INGROUP
-    | c.BLS_G1_ISZERO
-    | c.BLS_G2_ADD
-    | c.BLS_G2_SUB
-    | c.BLS_G2_NEG
-    | c.BLS_G2_MUL
-    | c.BLS_G2_MULTIEXP
-    | c.BLS_G2_ZERO
-    | c.BLS_MAP_TO_G2
-    | c.BLS_G2_INGROUP
-    | c.BLS_G2_ISZERO
-    | c.BLS_PAIRING
-    | c.BLS_PUSHR
-    | c.CDATASIZEQ
-    | c.CDATASIZE
-    | c.SDATASIZEQ
-    | c.SDATASIZE
-    | c.LDGRAMS
-    | c.LDVARINT16
-    | c.STGRAMS
-    | c.STVARINT16
-    | c.LDVARUINT32
-    | c.LDVARINT32
-    | c.STVARUINT32
-    | c.STVARINT32
-    | c.LDMSGADDR
-    | c.LDMSGADDRQ
-    | c.PARSEMSGADDR
-    | c.PARSEMSGADDRQ
-    | c.REWRITESTDADDR
-    | c.REWRITESTDADDRQ
-    | c.REWRITEVARADDR
-    | c.REWRITEVARADDRQ
-    | c.SENDRAWMSG
-    | c.RAWRESERVE
-    | c.RAWRESERVEX
-    | c.SETCODE
-    | c.SETLIBCODE
-    | c.CHANGELIB
-    | c.SENDMSG
-    | c.PUSHNULL
-    | c.ISNULL
-    | c.TUPLEVAR
-    | c.INDEXVAR
-    | c.UNTUPLEVAR
-    | c.UNPACKFIRSTVAR
-    | c.EXPLODEVAR
-    | c.SETINDEXVAR
-    | c.INDEXVARQ
-    | c.SETINDEXVARQ
-    | c.TLEN
-    | c.QTLEN
-    | c.ISTUPLE
-    | c.LAST
-    | c.TPUSH
-    | c.TPOP
-    | c.NULLSWAPIF
-    | c.NULLSWAPIFNOT
-    | c.NULLROTRIF
-    | c.NULLROTRIFNOT
-    | c.NULLSWAPIF2
-    | c.NULLSWAPIFNOT2
-    | c.NULLROTRIF2
-    | c.NULLROTRIFNOT2
-    | c.ADDDIVMOD
-    | c.ADDDIVMODR
-    | c.ADDDIVMODC
-    | c.DIV
-    | c.DIVR
-    | c.DIVC
-    | c.MOD
-    | c.MODR
-    | c.MODC
-    | c.DIVMOD
-    | c.DIVMODR
-    | c.DIVMODC
-    | c.QADDDIVMOD
-    | c.QADDDIVMODR
-    | c.QADDDIVMODC
-    | c.QDIV
-    | c.QDIVR
-    | c.QDIVC
-    | c.QMOD
-    | c.QMODR
-    | c.QMODC
-    | c.QDIVMOD
-    | c.QDIVMODR
-    | c.QDIVMODC
-    | c.ADDRSHIFTMOD
-    | c.ADDRSHIFTMODR
-    | c.ADDRSHIFTMODC
-    | c.RSHIFTR
-    | c.RSHIFTC
-    | c.MODPOW2
-    | c.MODPOW2R
-    | c.MODPOW2C
-    | c.RSHIFTMOD
-    | c.RSHIFTMODR
-    | c.RSHIFTMODC
-    | c.QADDRSHIFTMOD
-    | c.QADDRSHIFTMODR
-    | c.QADDRSHIFTMODC
-    | c.QRSHIFTR
-    | c.QRSHIFTC
-    | c.QMODPOW2
-    | c.QMODPOW2R
-    | c.QMODPOW2C
-    | c.QRSHIFTMOD
-    | c.QRSHIFTMODR
-    | c.QRSHIFTMODC
-    | c.MULADDDIVMOD
-    | c.MULADDDIVMODR
-    | c.MULADDDIVMODC
-    | c.MULDIV
-    | c.MULDIVR
-    | c.MULDIVC
-    | c.MULMOD
-    | c.MULMODR
-    | c.MULMODC
-    | c.MULDIVMOD
-    | c.MULDIVMODR
-    | c.MULDIVMODC
-    | c.QMULADDDIVMOD
-    | c.QMULADDDIVMODR
-    | c.QMULADDDIVMODC
-    | c.QMULDIV
-    | c.QMULDIVR
-    | c.QMULDIVC
-    | c.QMULMOD
-    | c.QMULMODR
-    | c.QMULMODC
-    | c.QMULDIVMOD
-    | c.QMULDIVMODR
-    | c.QMULDIVMODC
-    | c.MULADDRSHIFTMOD
-    | c.MULADDRSHIFTRMOD
-    | c.MULADDRSHIFTCMOD
-    | c.MULRSHIFT
-    | c.MULRSHIFTR
-    | c.MULRSHIFTC
-    | c.MULMODPOW2
-    | c.MULMODPOW2R
-    | c.MULMODPOW2C
-    | c.MULRSHIFTMOD
-    | c.MULRSHIFTRMOD
-    | c.MULRSHIFTCMOD
-    | c.QMULADDRSHIFTMOD
-    | c.QMULADDRSHIFTRMOD
-    | c.QMULADDRSHIFTCMOD
-    | c.QMULRSHIFT
-    | c.QMULRSHIFTR
-    | c.QMULRSHIFTC
-    | c.QMULMODPOW2
-    | c.QMULMODPOW2R
-    | c.QMULMODPOW2C
-    | c.QMULRSHIFTMOD
-    | c.QMULRSHIFTRMOD
-    | c.QMULRSHIFTCMOD
-    | c.LSHIFTADDDIVMOD
-    | c.LSHIFTADDDIVMODR
-    | c.LSHIFTADDDIVMODC
-    | c.LSHIFTDIV
-    | c.LSHIFTDIVR
-    | c.LSHIFTDIVC
-    | c.LSHIFTMOD
-    | c.LSHIFTMODR
-    | c.LSHIFTMODC
-    | c.LSHIFTDIVMOD
-    | c.LSHIFTDIVMODR
-    | c.LSHIFTDIVMODC
-    | c.QLSHIFTADDDIVMOD
-    | c.QLSHIFTADDDIVMODR
-    | c.QLSHIFTADDDIVMODC
-    | c.QLSHIFTDIV
-    | c.QLSHIFTDIVR
-    | c.QLSHIFTDIVC
-    | c.QLSHIFTMOD
-    | c.QLSHIFTMODR
-    | c.QLSHIFTMODC
-    | c.QLSHIFTDIVMOD
-    | c.QLSHIFTDIVMODR
-    | c.QLSHIFTDIVMODC
-    | c.STIX
-    | c.STUX
-    | c.STIXR
-    | c.STUXR
-    | c.STIXQ
-    | c.STUXQ
-    | c.STIXRQ
-    | c.STUXRQ
-    | c.STILE4
-    | c.STULE4
-    | c.STILE8
-    | c.STULE8
-    | c.LDIX
-    | c.LDUX
-    | c.PLDIX
-    | c.PLDUX
-    | c.LDIXQ
-    | c.LDUXQ
-    | c.PLDIXQ
-    | c.PLDUXQ
-    | c.LDSLICEX
-    | c.PLDSLICEX
-    | c.LDSLICEXQ
-    | c.PLDSLICEXQ
-    | c.LDILE4
-    | c.LDULE4
-    | c.LDILE8
-    | c.LDULE8
-    | c.PLDILE4
-    | c.PLDULE4
-    | c.PLDILE8
-    | c.PLDULE8
-    | c.LDILE4Q
-    | c.LDULE4Q
-    | c.LDILE8Q
-    | c.LDULE8Q
-    | c.PLDILE4Q
-    | c.PLDULE4Q
-    | c.PLDILE8Q
-    | c.PLDULE8Q
-    | c.DICTIGETJMP
-    | c.DICTUGETJMP
-    | c.DICTIGETEXEC
-    | c.DICTUGETEXEC
-    | c.DICTIGETJMPZ
-    | c.DICTUGETJMPZ
-    | c.DICTIGETEXECZ
-    | c.DICTUGETEXECZ
-    | c.DICTGET
-    | c.DICTGETREF
-    | c.DICTIGET
-    | c.DICTIGETREF
-    | c.DICTUGET
-    | c.DICTUGETREF
-    | c.DICTSET
-    | c.DICTSETREF
-    | c.DICTISET
-    | c.DICTISETREF
-    | c.DICTUSET
-    | c.DICTUSETREF
-    | c.DICTSETGET
-    | c.DICTSETGETREF
-    | c.DICTISETGET
-    | c.DICTISETGETREF
-    | c.DICTUSETGET
-    | c.DICTUSETGETREF
-    | c.DICTREPLACE
-    | c.DICTREPLACEREF
-    | c.DICTIREPLACE
-    | c.DICTIREPLACEREF
-    | c.DICTUREPLACE
-    | c.DICTUREPLACEREF
-    | c.DICTREPLACEGET
-    | c.DICTREPLACEGETREF
-    | c.DICTIREPLACEGET
-    | c.DICTIREPLACEGETREF
-    | c.DICTUREPLACEGET
-    | c.DICTUREPLACEGETREF
-    | c.DICTADD
-    | c.DICTADDREF
-    | c.DICTIADD
-    | c.DICTIADDREF
-    | c.DICTUADD
-    | c.DICTUADDREF
-    | c.DICTADDGET
-    | c.DICTADDGETREF
-    | c.DICTIADDGET
-    | c.DICTIADDGETREF
-    | c.DICTUADDGET
-    | c.DICTUADDGETREF
-    | c.DICTDELGET
-    | c.DICTDELGETREF
-    | c.DICTIDELGET
-    | c.DICTIDELGETREF
-    | c.DICTUDELGET
-    | c.DICTUDELGETREF
-    | c.DICTMIN
-    | c.DICTMINREF
-    | c.DICTIMIN
-    | c.DICTIMINREF
-    | c.DICTUMIN
-    | c.DICTUMINREF
-    | c.DICTMAX
-    | c.DICTMAXREF
-    | c.DICTIMAX
-    | c.DICTIMAXREF
-    | c.DICTUMAX
-    | c.DICTUMAXREF
-    | c.DICTREMMIN
-    | c.DICTREMMINREF
-    | c.DICTIREMMIN
-    | c.DICTIREMMINREF
-    | c.DICTUREMMIN
-    | c.DICTUREMMINREF
-    | c.DICTREMMAX
-    | c.DICTREMMAXREF
-    | c.DICTIREMMAX
-    | c.DICTIREMMAXREF
-    | c.DICTUREMMAX
-    | c.DICTUREMMAXREF
-    | c.DICTSETB
-    | c.DICTISETB
-    | c.DICTUSETB
-    | c.DICTSETGETB
-    | c.DICTISETGETB
-    | c.DICTUSETGETB
-    | c.DICTREPLACEB
-    | c.DICTIREPLACEB
-    | c.DICTUREPLACEB
-    | c.DICTREPLACEGETB
-    | c.DICTIREPLACEGETB
-    | c.DICTUREPLACEGETB
-    | c.DICTADDB
-    | c.DICTIADDB
-    | c.DICTUADDB
-    | c.DICTADDGETB
-    | c.DICTIADDGETB
-    | c.DICTUADDGETB
-    | c.DICTDEL
-    | c.DICTIDEL
-    | c.DICTUDEL
-    | c.DICTGETOPTREF
-    | c.DICTIGETOPTREF
-    | c.DICTUGETOPTREF
-    | c.DICTSETGETOPTREF
-    | c.DICTISETGETOPTREF
-    | c.DICTUSETGETOPTREF
-    | c.SUBDICTGET
-    | c.SUBDICTIGET
-    | c.SUBDICTUGET
-    | c.SUBDICTRPGET
-    | c.SUBDICTIRPGET
-    | c.SUBDICTURPGET
-    | c.THROWANY
-    | c.THROWARGANY
-    | c.THROWANYIFNOT
-    | c.THROWARGANYIFNOT
-    | c.DICTGETNEXT
-    | c.DICTGETNEXTEQ
-    | c.DICTGETPREV
-    | c.DICTGETPREVEQ
-    | c.DICTIGETNEXT
-    | c.DICTIGETNEXTEQ
-    | c.DICTIGETPREV
-    | c.DICTIGETPREVEQ
-    | c.DICTUGETNEXT
-    | c.DICTUGETNEXTEQ
-    | c.DICTUGETPREV
-    | c.DICTUGETPREVEQ
-    | c.ADDINT
-    | c.MULINT
-    | c.QADDINT
-    | c.QMULINT
-    | c.EQINT
-    | c.LESSINT
-    | c.GTINT
-    | c.NEQINT
-    | c.QEQINT
-    | c.QLESSINT
-    | c.QGTINT
-    | c.QNEQINT
-    | c.PUSHPOW2DEC
-    | c.PUSHNEGPOW2
-    | c.FITS
-    | c.UFITS
-    | c.QFITS
-    | c.QUFITS
-    | c.SETCONTCTRMANY
-    | c.CALLCCARGS
-    | c.TRYARGS
-    | c.PLDREFIDX
-    | c.CHASHI
-    | c.CDEPTHI
-    | c.JMPDICT
-    | c.PREPAREDICT
-    | c.THROWARG
-    | c.THROWARGIF
-    | c.THROWARGIFNOT
-    | c.JMPXARGS
-    | c.RETARGS
-    | c.RETURNARGS
-    | c.BLKDROP
-    | c.TUPLE
-    | c.INDEX
-    | c.UNTUPLE
-    | c.UNPACKFIRST
-    | c.EXPLODE
-    | c.SETINDEX
-    | c.INDEXQ
-    | c.SETINDEXQ
-    | c.XC2PU
-    | c.XCPU2
-    | c.PUSH3
-    | c.XCHG2
-    | c.XCPU
-    | c.PUSH2
-    | c.PUXC
-    | c.XCPUXC
-    | c.PUXC2
-    | c.PUXCPU
-    | c.PU2XC
-    | c.BLKSWAP
-    | c.REVERSE
-    | c.SETCONTARGS
-    | c.BLESSARGS
-    | c.STIR
-    | c.STUR
-    | c.STIQ
-    | c.STUQ
-    | c.STIRQ
-    | c.STURQ
-    | c.PLDI
-    | c.PLDU
-    | c.LDIQ
-    | c.LDUQ
-    | c.PLDIQ
-    | c.PLDUQ
-    | c.PLDUZ
-    | c.PLDSLICE
-    | c.LDSLICEQ
-    | c.PLDSLICEQ
-    | c.IFBITJMP
-    | c.IFNBITJMP
-    | c.INDEX2
-    | c.INDEX3
-    | c.PUSHPOW2
-    | c.BLKPUSH
-    | c.BLKDROP2
-    | c.GETGLOB
-    | c.SETGLOB
-    | c.GETPARAM
-    | c.PUSHREF
-    | c.PUSHREFSLICE
-    | c.PUSHREFCONT
-    | c.CALLREF
-    | c.JMPREF
-    | c.JMPREFDATA
-    | c.IFREF
-    | c.IFNOTREF
-    | c.IFJMPREF
-    | c.IFNOTJMPREF
-    | c.IFREFELSE
-    | c.IFELSEREF
-    | c.IFREFELSEREF
-    | c.IFBITJMPREF
-    | c.IFNBITJMPREF
-    | c.DICTPUSHCONST
-    | c.PFXDICTSWITCH
-    | c.SDBEGINSX
-    | c.SDBEGINSXQ
-    | c.SDBEGINS
-    | c.SDBEGINSQ
-    | c.STREFCONST
-    | c.STREF2CONST
-    | c.THROWANYIF
-    | c.THROWARGANYIF
-    | c.DEBUGSTR
-    | c.SETCONTCTR
-    | c.SETRETCTR
-    | c.SETALTCTR
-    | c.POPSAVE
-    | c.SAVECTR
-    | c.SAVEALTCTR
-    | c.SAVEBOTHCTR
-    | c.RUNVM
-    | c.SWAP2
-    | c.DROP2
-    | c.DUP2
-    | c.OVER2
-    | c.ADDRSHIFT_MOD
-    | c.ADDRSHIFTR_MOD
-    | c.ADDRSHIFTC_MOD
-    | c.RSHIFT_
-    | c.RSHIFTR_
-    | c.RSHIFTC_
-    | c.MODPOW2_
-    | c.MODPOW2R_
-    | c.MODPOW2C_
-    | c.RSHIFT_MOD
-    | c.RSHIFTR_MOD
-    | c.RSHIFTC_MOD
-    | c.MULADDRSHIFT_MOD
-    | c.MULADDRSHIFTR_MOD
-    | c.MULADDRSHIFTC_MOD
-    | c.MULRSHIFT_
-    | c.MULRSHIFTR_
-    | c.MULRSHIFTC_
-    | c.MULMODPOW2_
-    | c.MULMODPOW2R_
-    | c.MULMODPOW2C_
-    | c.MULRSHIFT_MOD
-    | c.MULRSHIFTR_MOD
-    | c.MULRSHIFTC_MOD
-    | c.LSHIFT_ADDDIVMOD
-    | c.LSHIFT_ADDDIVMODR
-    | c.LSHIFT_ADDDIVMODC
-    | c.LSHIFT_DIV
-    | c.LSHIFT_DIVR
-    | c.LSHIFT_DIVC
-    | c.LSHIFT_MOD
-    | c.LSHIFT_MODR
-    | c.LSHIFT_MODC
-    | c.LSHIFT_DIVMOD
-    | c.LSHIFT_DIVMODR
-    | c.LSHIFT_DIVMODC
-    | c.HASHEXT
-    | c.HASHEXTR
-    | c.HASHEXTA
-    | c.HASHEXTAR
-    | c.STREF
-    | c.STREF_ALT
-    | c.STSLICE
-    | c.STSLICE_ALT
-    | c.XCHG3
-    | c.XCHG3_ALT
-    | c.STI
-    | c.STI_ALT
-    | c.STU
-    | c.STU_ALT
-    | c.LDI
-    | c.LDI_ALT
-    | c.LDU
-    | c.LDU_ALT
-    | c.LDSLICE
-    | c.LDSLICE_ALT
-    | c.LSHIFT_VAR
-    | c.LSHIFT
-    | c.QLSHIFT_VAR
-    | c.QLSHIFT
-    | c.BCHKBITS_VAR
-    | c.BCHKBITS
-    | c.BCHKBITSQ_VAR
-    | c.BCHKBITSQ
-    | c.RSHIFT_VAR
-    | c.RSHIFT
-    | c.RSHIFT_ALT
-    | c.QRSHIFT_VAR
-    | c.QRSHIFT
-    | c.QRSHIFT_ALT
-    | c.CALLDICT
-    | c.CALLDICT_LONG
-    | c.THROW_SHORT
-    | c.THROW
-    | c.THROWIF_SHORT
-    | c.THROWIF
-    | c.THROWIFNOT_SHORT
-    | c.THROWIFNOT
-    | c.PUSHINT_4
-    | c.PUSHINT_8
-    | c.PUSHINT_16
-    | c.PUSHINT_LONG
-    | c.XCHG_0I_LONG
-    | c.XCHG_0I
-    | c.XCHG_IJ
-    | c.XCHG_1I
-    | c.DUMPSTK
-    | c.DEBUG
-    | c.STRDUMP
-    | c.DEBUG_1
-    | c.DUMP
-    | c.DEBUG_2
-    | c.PUSHCTR
-    | c.PUSH
-    | c.PUSH_LONG
-    | c.POPCTR
-    | c.POP
-    | c.POP_LONG
-    | c.CALLXARGS
-    | c.CALLXARGS_1
-    | c.PUSHSLICE
-    | c.PUSHSLICE_REFS
-    | c.PUSHSLICE_LONG
-    | c.PUSHCONT
-    | c.PUSHCONT_SHORT
-    | c.STSLICECONST
-    | c.SETCP
-    | c.SETCPX
-    | c.SETCP_SHORT
-    | c.PSEUDO_PUSHREF
-    | c.PSEUDO_PUSHSLICE
-    | c.PSEUDO_EXOTIC
-    | c.GETPARAMLONG
-    | c.INMSGPARAMS
-    | c.GETPARAMLONG2
-    | c.INMSG_BOUNCE
-    | c.INMSG_BOUNCED
-    | c.INMSG_SRC
-    | c.INMSG_FWDFEE
-    | c.INMSG_LT
-    | c.INMSG_UTIME
-    | c.INMSG_ORIGVALUE
-    | c.INMSG_VALUE
-    | c.INMSG_VALUEEXTRA
-    | c.INMSG_STATEINIT
-    | c.INMSGPARAM
-    | c.BTOS
-    | c.HASHBU
-    | c.LDSTDADDR
-    | c.LDSTDADDRQ
-    | c.LDOPTSTDADDR
-    | c.LDOPTSTDADDRQ
-    | c.STSTDADDR
-    | c.STSTDADDRQ
-    | c.STOPTSTDADDR
-    | c.STOPTSTDADDRQ
-    | c.DEBUGMARK
-    | cf.fPUSHINT
-    | cf.fPUSHSLICE
-    | cf.fPUSHCONT
-    | cf.fSTSLICECONST
-    | cf.fXCHG
-    | cf.fPUSHINTX
-    | cf.fSDBEGINS
-    | cf.fSDBEGINSQ
-    | cf.fCALLXARGS
-    | cf.fCALLDICT
-    | cf.fJMPDICT
-    | cf.fPREPAREDICT
-    | cf.fTHROW
-    | cf.fTHROWIF
-    | cf.fTHROWIFNOT
-    | cf.fIF
+  | c.PUSHNAN
+  | c.ADD
+  | c.SUB
+  | c.SUBR
+  | c.NEGATE
+  | c.INC
+  | c.DEC
+  | c.MUL
+  | c.POW2
+  | c.AND
+  | c.OR
+  | c.XOR
+  | c.NOT
+  | c.FITSX
+  | c.UFITSX
+  | c.BITSIZE
+  | c.UBITSIZE
+  | c.MIN
+  | c.MAX
+  | c.MINMAX
+  | c.ABS
+  | c.QADD
+  | c.QSUB
+  | c.QSUBR
+  | c.QNEGATE
+  | c.QINC
+  | c.QDEC
+  | c.QMUL
+  | c.QPOW2
+  | c.QAND
+  | c.QOR
+  | c.QXOR
+  | c.QNOT
+  | c.QFITSX
+  | c.QUFITSX
+  | c.QBITSIZE
+  | c.QUBITSIZE
+  | c.QMIN
+  | c.QMAX
+  | c.QMINMAX
+  | c.QABS
+  | c.SGN
+  | c.LESS
+  | c.EQUAL
+  | c.LEQ
+  | c.GREATER
+  | c.NEQ
+  | c.GEQ
+  | c.CMP
+  | c.ISNAN
+  | c.CHKNAN
+  | c.QSGN
+  | c.QLESS
+  | c.QEQUAL
+  | c.QLEQ
+  | c.QGREATER
+  | c.QNEQ
+  | c.QGEQ
+  | c.QCMP
+  | c.SEMPTY
+  | c.SDEMPTY
+  | c.SREMPTY
+  | c.SDFIRST
+  | c.SDLEXCMP
+  | c.SDEQ
+  | c.SDPFX
+  | c.SDPFXREV
+  | c.SDPPFX
+  | c.SDPPFXREV
+  | c.SDSFX
+  | c.SDSFXREV
+  | c.SDPSFX
+  | c.SDPSFXREV
+  | c.SDCNTLEAD0
+  | c.SDCNTLEAD1
+  | c.SDCNTTRAIL0
+  | c.SDCNTTRAIL1
+  | c.NEWC
+  | c.ENDC
+  | c.ENDCST
+  | c.STBREF
+  | c.STB
+  | c.STREFR
+  | c.STBREFR
+  | c.STSLICER
+  | c.STBR
+  | c.STREFQ
+  | c.STBREFQ
+  | c.STSLICEQ
+  | c.STBQ
+  | c.STREFRQ
+  | c.STBREFRQ
+  | c.STSLICERQ
+  | c.STBRQ
+  | c.ENDXC
+  | c.BDEPTH
+  | c.BBITS
+  | c.BREFS
+  | c.BBITREFS
+  | c.BREMBITS
+  | c.BREMREFS
+  | c.BREMBITREFS
+  | c.BCHKREFS
+  | c.BCHKBITREFS
+  | c.BCHKREFSQ
+  | c.BCHKBITREFSQ
+  | c.STZEROES
+  | c.STONES
+  | c.STSAME
+  | c.CTOS
+  | c.ENDS
+  | c.LDREF
+  | c.LDREFRTOS
+  | c.SDCUTFIRST
+  | c.SDSKIPFIRST
+  | c.SDCUTLAST
+  | c.SDSKIPLAST
+  | c.SDSUBSTR
+  | c.SCUTFIRST
+  | c.SSKIPFIRST
+  | c.SCUTLAST
+  | c.SSKIPLAST
+  | c.SUBSLICE
+  | c.SPLIT
+  | c.SPLITQ
+  | c.XCTOS
+  | c.XLOAD
+  | c.XLOADQ
+  | c.SCHKBITS
+  | c.SCHKREFS
+  | c.SCHKBITREFS
+  | c.SCHKBITSQ
+  | c.SCHKREFSQ
+  | c.SCHKBITREFSQ
+  | c.PLDREFVAR
+  | c.SBITS
+  | c.SREFS
+  | c.SBITREFS
+  | c.LDZEROES
+  | c.LDONES
+  | c.LDSAME
+  | c.SDEPTH
+  | c.CDEPTH
+  | c.CLEVEL
+  | c.CLEVELMASK
+  | c.CHASHIX
+  | c.CDEPTHIX
+  | c.EXECUTE
+  | c.JMPX
+  | c.RET
+  | c.RETALT
+  | c.RETBOOL
+  | c.CALLCC
+  | c.JMPXDATA
+  | c.CALLXVARARGS
+  | c.RETVARARGS
+  | c.JMPXVARARGS
+  | c.CALLCCVARARGS
+  | c.RETDATA
+  | c.RUNVMX
+  | c.IFRET
+  | c.IFNOTRET
+  | c.IF
+  | c.IFNOT
+  | c.IFJMP
+  | c.IFNOTJMP
+  | c.IFELSE
+  | c.CONDSEL
+  | c.CONDSELCHK
+  | c.IFRETALT
+  | c.IFNOTRETALT
+  | c.REPEAT
+  | c.REPEATEND
+  | c.UNTIL
+  | c.UNTILEND
+  | c.WHILE
+  | c.WHILEEND
+  | c.AGAIN
+  | c.AGAINEND
+  | c.REPEATBRK
+  | c.REPEATENDBRK
+  | c.UNTILBRK
+  | c.UNTILENDBRK
+  | c.WHILEBRK
+  | c.WHILEENDBRK
+  | c.AGAINBRK
+  | c.AGAINENDBRK
+  | c.RETURNVARARGS
+  | c.SETCONTVARARGS
+  | c.SETNUMVARARGS
+  | c.BLESS
+  | c.BLESSVARARGS
+  | c.PUSHCTRX
+  | c.POPCTRX
+  | c.SETCONTCTRX
+  | c.SETCONTCTRMANYX
+  | c.BOOLAND
+  | c.BOOLOR
+  | c.COMPOSBOTH
+  | c.ATEXIT
+  | c.ATEXITALT
+  | c.SETEXITALT
+  | c.THENRET
+  | c.THENRETALT
+  | c.INVERT
+  | c.BOOLEVAL
+  | c.SAMEALT
+  | c.SAMEALTSAVE
+  | c.TRY
+  | c.STDICT
+  | c.SKIPDICT
+  | c.LDDICTS
+  | c.PLDDICTS
+  | c.LDDICT
+  | c.PLDDICT
+  | c.LDDICTQ
+  | c.PLDDICTQ
+  | c.PFXDICTSET
+  | c.PFXDICTREPLACE
+  | c.PFXDICTADD
+  | c.PFXDICTDEL
+  | c.PFXDICTGETQ
+  | c.PFXDICTGET
+  | c.PFXDICTGETJMP
+  | c.PFXDICTGETEXEC
+  | c.NOP
+  | c.SWAP
+  | c.DUP
+  | c.OVER
+  | c.DROP
+  | c.NIP
+  | c.ROT
+  | c.ROTREV
+  | c.PICK
+  | c.ROLL
+  | c.ROLLREV
+  | c.BLKSWX
+  | c.REVX
+  | c.DROPX
+  | c.TUCK
+  | c.XCHGX
+  | c.DEPTH
+  | c.CHKDEPTH
+  | c.ONLYTOPX
+  | c.ONLYX
+  | c.ACCEPT
+  | c.SETGASLIMIT
+  | c.GASCONSUMED
+  | c.COMMIT
+  | c.NOW
+  | c.BLOCKLT
+  | c.LTIME
+  | c.RANDSEED
+  | c.BALANCE
+  | c.MYADDR
+  | c.CONFIGROOT
+  | c.MYCODE
+  | c.INCOMINGVALUE
+  | c.STORAGEFEES
+  | c.PREVBLOCKSINFOTUPLE
+  | c.UNPACKEDCONFIGTUPLE
+  | c.DUEPAYMENT
+  | c.CONFIGDICT
+  | c.CONFIGPARAM
+  | c.CONFIGOPTPARAM
+  | c.PREVMCBLOCKS
+  | c.PREVKEYBLOCK
+  | c.PREVMCBLOCKS_100
+  | c.GLOBALID
+  | c.GETGASFEE
+  | c.GETSTORAGEFEE
+  | c.GETFORWARDFEE
+  | c.GETPRECOMPILEDGAS
+  | c.GETORIGINALFWDFEE
+  | c.GETGASFEESIMPLE
+  | c.GETFORWARDFEESIMPLE
+  | c.GETGLOBVAR
+  | c.SETGLOBVAR
+  | c.RANDU256
+  | c.RAND
+  | c.SETRAND
+  | c.ADDRAND
+  | c.HASHCU
+  | c.HASHSU
+  | c.SHA256U
+  | c.CHKSIGNU
+  | c.CHKSIGNS
+  | c.ECRECOVER
+  | c.SECP256K1_XONLY_PUBKEY_TWEAK_ADD
+  | c.P256_CHKSIGNU
+  | c.P256_CHKSIGNS
+  | c.RIST255_FROMHASH
+  | c.RIST255_VALIDATE
+  | c.RIST255_ADD
+  | c.RIST255_SUB
+  | c.RIST255_MUL
+  | c.RIST255_MULBASE
+  | c.RIST255_PUSHL
+  | c.RIST255_QVALIDATE
+  | c.RIST255_QADD
+  | c.RIST255_QSUB
+  | c.RIST255_QMUL
+  | c.RIST255_QMULBASE
+  | c.BLS_VERIFY
+  | c.BLS_AGGREGATE
+  | c.BLS_FASTAGGREGATEVERIFY
+  | c.BLS_AGGREGATEVERIFY
+  | c.BLS_G1_ADD
+  | c.BLS_G1_SUB
+  | c.BLS_G1_NEG
+  | c.BLS_G1_MUL
+  | c.BLS_G1_MULTIEXP
+  | c.BLS_G1_ZERO
+  | c.BLS_MAP_TO_G1
+  | c.BLS_G1_INGROUP
+  | c.BLS_G1_ISZERO
+  | c.BLS_G2_ADD
+  | c.BLS_G2_SUB
+  | c.BLS_G2_NEG
+  | c.BLS_G2_MUL
+  | c.BLS_G2_MULTIEXP
+  | c.BLS_G2_ZERO
+  | c.BLS_MAP_TO_G2
+  | c.BLS_G2_INGROUP
+  | c.BLS_G2_ISZERO
+  | c.BLS_PAIRING
+  | c.BLS_PUSHR
+  | c.CDATASIZEQ
+  | c.CDATASIZE
+  | c.SDATASIZEQ
+  | c.SDATASIZE
+  | c.LDGRAMS
+  | c.LDVARINT16
+  | c.STGRAMS
+  | c.STVARINT16
+  | c.LDVARUINT32
+  | c.LDVARINT32
+  | c.STVARUINT32
+  | c.STVARINT32
+  | c.LDMSGADDR
+  | c.LDMSGADDRQ
+  | c.PARSEMSGADDR
+  | c.PARSEMSGADDRQ
+  | c.REWRITESTDADDR
+  | c.REWRITESTDADDRQ
+  | c.REWRITEVARADDR
+  | c.REWRITEVARADDRQ
+  | c.SENDRAWMSG
+  | c.RAWRESERVE
+  | c.RAWRESERVEX
+  | c.SETCODE
+  | c.SETLIBCODE
+  | c.CHANGELIB
+  | c.SENDMSG
+  | c.PUSHNULL
+  | c.ISNULL
+  | c.TUPLEVAR
+  | c.INDEXVAR
+  | c.UNTUPLEVAR
+  | c.UNPACKFIRSTVAR
+  | c.EXPLODEVAR
+  | c.SETINDEXVAR
+  | c.INDEXVARQ
+  | c.SETINDEXVARQ
+  | c.TLEN
+  | c.QTLEN
+  | c.ISTUPLE
+  | c.LAST
+  | c.TPUSH
+  | c.TPOP
+  | c.NULLSWAPIF
+  | c.NULLSWAPIFNOT
+  | c.NULLROTRIF
+  | c.NULLROTRIFNOT
+  | c.NULLSWAPIF2
+  | c.NULLSWAPIFNOT2
+  | c.NULLROTRIF2
+  | c.NULLROTRIFNOT2
+  | c.ADDDIVMOD
+  | c.ADDDIVMODR
+  | c.ADDDIVMODC
+  | c.DIV
+  | c.DIVR
+  | c.DIVC
+  | c.MOD
+  | c.MODR
+  | c.MODC
+  | c.DIVMOD
+  | c.DIVMODR
+  | c.DIVMODC
+  | c.QADDDIVMOD
+  | c.QADDDIVMODR
+  | c.QADDDIVMODC
+  | c.QDIV
+  | c.QDIVR
+  | c.QDIVC
+  | c.QMOD
+  | c.QMODR
+  | c.QMODC
+  | c.QDIVMOD
+  | c.QDIVMODR
+  | c.QDIVMODC
+  | c.ADDRSHIFTMOD
+  | c.ADDRSHIFTMODR
+  | c.ADDRSHIFTMODC
+  | c.RSHIFTR
+  | c.RSHIFTC
+  | c.MODPOW2
+  | c.MODPOW2R
+  | c.MODPOW2C
+  | c.RSHIFTMOD
+  | c.RSHIFTMODR
+  | c.RSHIFTMODC
+  | c.QADDRSHIFTMOD
+  | c.QADDRSHIFTMODR
+  | c.QADDRSHIFTMODC
+  | c.QRSHIFTR
+  | c.QRSHIFTC
+  | c.QMODPOW2
+  | c.QMODPOW2R
+  | c.QMODPOW2C
+  | c.QRSHIFTMOD
+  | c.QRSHIFTMODR
+  | c.QRSHIFTMODC
+  | c.MULADDDIVMOD
+  | c.MULADDDIVMODR
+  | c.MULADDDIVMODC
+  | c.MULDIV
+  | c.MULDIVR
+  | c.MULDIVC
+  | c.MULMOD
+  | c.MULMODR
+  | c.MULMODC
+  | c.MULDIVMOD
+  | c.MULDIVMODR
+  | c.MULDIVMODC
+  | c.QMULADDDIVMOD
+  | c.QMULADDDIVMODR
+  | c.QMULADDDIVMODC
+  | c.QMULDIV
+  | c.QMULDIVR
+  | c.QMULDIVC
+  | c.QMULMOD
+  | c.QMULMODR
+  | c.QMULMODC
+  | c.QMULDIVMOD
+  | c.QMULDIVMODR
+  | c.QMULDIVMODC
+  | c.MULADDRSHIFTMOD
+  | c.MULADDRSHIFTRMOD
+  | c.MULADDRSHIFTCMOD
+  | c.MULRSHIFT
+  | c.MULRSHIFTR
+  | c.MULRSHIFTC
+  | c.MULMODPOW2
+  | c.MULMODPOW2R
+  | c.MULMODPOW2C
+  | c.MULRSHIFTMOD
+  | c.MULRSHIFTRMOD
+  | c.MULRSHIFTCMOD
+  | c.QMULADDRSHIFTMOD
+  | c.QMULADDRSHIFTRMOD
+  | c.QMULADDRSHIFTCMOD
+  | c.QMULRSHIFT
+  | c.QMULRSHIFTR
+  | c.QMULRSHIFTC
+  | c.QMULMODPOW2
+  | c.QMULMODPOW2R
+  | c.QMULMODPOW2C
+  | c.QMULRSHIFTMOD
+  | c.QMULRSHIFTRMOD
+  | c.QMULRSHIFTCMOD
+  | c.LSHIFTADDDIVMOD
+  | c.LSHIFTADDDIVMODR
+  | c.LSHIFTADDDIVMODC
+  | c.LSHIFTDIV
+  | c.LSHIFTDIVR
+  | c.LSHIFTDIVC
+  | c.LSHIFTMOD
+  | c.LSHIFTMODR
+  | c.LSHIFTMODC
+  | c.LSHIFTDIVMOD
+  | c.LSHIFTDIVMODR
+  | c.LSHIFTDIVMODC
+  | c.QLSHIFTADDDIVMOD
+  | c.QLSHIFTADDDIVMODR
+  | c.QLSHIFTADDDIVMODC
+  | c.QLSHIFTDIV
+  | c.QLSHIFTDIVR
+  | c.QLSHIFTDIVC
+  | c.QLSHIFTMOD
+  | c.QLSHIFTMODR
+  | c.QLSHIFTMODC
+  | c.QLSHIFTDIVMOD
+  | c.QLSHIFTDIVMODR
+  | c.QLSHIFTDIVMODC
+  | c.STIX
+  | c.STUX
+  | c.STIXR
+  | c.STUXR
+  | c.STIXQ
+  | c.STUXQ
+  | c.STIXRQ
+  | c.STUXRQ
+  | c.STILE4
+  | c.STULE4
+  | c.STILE8
+  | c.STULE8
+  | c.LDIX
+  | c.LDUX
+  | c.PLDIX
+  | c.PLDUX
+  | c.LDIXQ
+  | c.LDUXQ
+  | c.PLDIXQ
+  | c.PLDUXQ
+  | c.LDSLICEX
+  | c.PLDSLICEX
+  | c.LDSLICEXQ
+  | c.PLDSLICEXQ
+  | c.LDILE4
+  | c.LDULE4
+  | c.LDILE8
+  | c.LDULE8
+  | c.PLDILE4
+  | c.PLDULE4
+  | c.PLDILE8
+  | c.PLDULE8
+  | c.LDILE4Q
+  | c.LDULE4Q
+  | c.LDILE8Q
+  | c.LDULE8Q
+  | c.PLDILE4Q
+  | c.PLDULE4Q
+  | c.PLDILE8Q
+  | c.PLDULE8Q
+  | c.DICTIGETJMP
+  | c.DICTUGETJMP
+  | c.DICTIGETEXEC
+  | c.DICTUGETEXEC
+  | c.DICTIGETJMPZ
+  | c.DICTUGETJMPZ
+  | c.DICTIGETEXECZ
+  | c.DICTUGETEXECZ
+  | c.DICTGET
+  | c.DICTGETREF
+  | c.DICTIGET
+  | c.DICTIGETREF
+  | c.DICTUGET
+  | c.DICTUGETREF
+  | c.DICTSET
+  | c.DICTSETREF
+  | c.DICTISET
+  | c.DICTISETREF
+  | c.DICTUSET
+  | c.DICTUSETREF
+  | c.DICTSETGET
+  | c.DICTSETGETREF
+  | c.DICTISETGET
+  | c.DICTISETGETREF
+  | c.DICTUSETGET
+  | c.DICTUSETGETREF
+  | c.DICTREPLACE
+  | c.DICTREPLACEREF
+  | c.DICTIREPLACE
+  | c.DICTIREPLACEREF
+  | c.DICTUREPLACE
+  | c.DICTUREPLACEREF
+  | c.DICTREPLACEGET
+  | c.DICTREPLACEGETREF
+  | c.DICTIREPLACEGET
+  | c.DICTIREPLACEGETREF
+  | c.DICTUREPLACEGET
+  | c.DICTUREPLACEGETREF
+  | c.DICTADD
+  | c.DICTADDREF
+  | c.DICTIADD
+  | c.DICTIADDREF
+  | c.DICTUADD
+  | c.DICTUADDREF
+  | c.DICTADDGET
+  | c.DICTADDGETREF
+  | c.DICTIADDGET
+  | c.DICTIADDGETREF
+  | c.DICTUADDGET
+  | c.DICTUADDGETREF
+  | c.DICTDELGET
+  | c.DICTDELGETREF
+  | c.DICTIDELGET
+  | c.DICTIDELGETREF
+  | c.DICTUDELGET
+  | c.DICTUDELGETREF
+  | c.DICTMIN
+  | c.DICTMINREF
+  | c.DICTIMIN
+  | c.DICTIMINREF
+  | c.DICTUMIN
+  | c.DICTUMINREF
+  | c.DICTMAX
+  | c.DICTMAXREF
+  | c.DICTIMAX
+  | c.DICTIMAXREF
+  | c.DICTUMAX
+  | c.DICTUMAXREF
+  | c.DICTREMMIN
+  | c.DICTREMMINREF
+  | c.DICTIREMMIN
+  | c.DICTIREMMINREF
+  | c.DICTUREMMIN
+  | c.DICTUREMMINREF
+  | c.DICTREMMAX
+  | c.DICTREMMAXREF
+  | c.DICTIREMMAX
+  | c.DICTIREMMAXREF
+  | c.DICTUREMMAX
+  | c.DICTUREMMAXREF
+  | c.DICTSETB
+  | c.DICTISETB
+  | c.DICTUSETB
+  | c.DICTSETGETB
+  | c.DICTISETGETB
+  | c.DICTUSETGETB
+  | c.DICTREPLACEB
+  | c.DICTIREPLACEB
+  | c.DICTUREPLACEB
+  | c.DICTREPLACEGETB
+  | c.DICTIREPLACEGETB
+  | c.DICTUREPLACEGETB
+  | c.DICTADDB
+  | c.DICTIADDB
+  | c.DICTUADDB
+  | c.DICTADDGETB
+  | c.DICTIADDGETB
+  | c.DICTUADDGETB
+  | c.DICTDEL
+  | c.DICTIDEL
+  | c.DICTUDEL
+  | c.DICTGETOPTREF
+  | c.DICTIGETOPTREF
+  | c.DICTUGETOPTREF
+  | c.DICTSETGETOPTREF
+  | c.DICTISETGETOPTREF
+  | c.DICTUSETGETOPTREF
+  | c.SUBDICTGET
+  | c.SUBDICTIGET
+  | c.SUBDICTUGET
+  | c.SUBDICTRPGET
+  | c.SUBDICTIRPGET
+  | c.SUBDICTURPGET
+  | c.THROWANY
+  | c.THROWARGANY
+  | c.THROWANYIFNOT
+  | c.THROWARGANYIFNOT
+  | c.DICTGETNEXT
+  | c.DICTGETNEXTEQ
+  | c.DICTGETPREV
+  | c.DICTGETPREVEQ
+  | c.DICTIGETNEXT
+  | c.DICTIGETNEXTEQ
+  | c.DICTIGETPREV
+  | c.DICTIGETPREVEQ
+  | c.DICTUGETNEXT
+  | c.DICTUGETNEXTEQ
+  | c.DICTUGETPREV
+  | c.DICTUGETPREVEQ
+  | c.ADDINT
+  | c.MULINT
+  | c.QADDINT
+  | c.QMULINT
+  | c.EQINT
+  | c.LESSINT
+  | c.GTINT
+  | c.NEQINT
+  | c.QEQINT
+  | c.QLESSINT
+  | c.QGTINT
+  | c.QNEQINT
+  | c.PUSHPOW2DEC
+  | c.PUSHNEGPOW2
+  | c.FITS
+  | c.UFITS
+  | c.QFITS
+  | c.QUFITS
+  | c.SETCONTCTRMANY
+  | c.CALLCCARGS
+  | c.TRYARGS
+  | c.PLDREFIDX
+  | c.CHASHI
+  | c.CDEPTHI
+  | c.JMPDICT
+  | c.PREPAREDICT
+  | c.THROWARG
+  | c.THROWARGIF
+  | c.THROWARGIFNOT
+  | c.JMPXARGS
+  | c.RETARGS
+  | c.RETURNARGS
+  | c.BLKDROP
+  | c.TUPLE
+  | c.INDEX
+  | c.UNTUPLE
+  | c.UNPACKFIRST
+  | c.EXPLODE
+  | c.SETINDEX
+  | c.INDEXQ
+  | c.SETINDEXQ
+  | c.XC2PU
+  | c.XCPU2
+  | c.PUSH3
+  | c.XCHG2
+  | c.XCPU
+  | c.PUSH2
+  | c.PUXC
+  | c.XCPUXC
+  | c.PUXC2
+  | c.PUXCPU
+  | c.PU2XC
+  | c.BLKSWAP
+  | c.REVERSE
+  | c.SETCONTARGS
+  | c.BLESSARGS
+  | c.STIR
+  | c.STUR
+  | c.STIQ
+  | c.STUQ
+  | c.STIRQ
+  | c.STURQ
+  | c.PLDI
+  | c.PLDU
+  | c.LDIQ
+  | c.LDUQ
+  | c.PLDIQ
+  | c.PLDUQ
+  | c.PLDUZ
+  | c.PLDSLICE
+  | c.LDSLICEQ
+  | c.PLDSLICEQ
+  | c.IFBITJMP
+  | c.IFNBITJMP
+  | c.INDEX2
+  | c.INDEX3
+  | c.PUSHPOW2
+  | c.BLKPUSH
+  | c.BLKDROP2
+  | c.GETGLOB
+  | c.SETGLOB
+  | c.GETPARAM
+  | c.PUSHREF
+  | c.PUSHREFSLICE
+  | c.PUSHREFCONT
+  | c.CALLREF
+  | c.JMPREF
+  | c.JMPREFDATA
+  | c.IFREF
+  | c.IFNOTREF
+  | c.IFJMPREF
+  | c.IFNOTJMPREF
+  | c.IFREFELSE
+  | c.IFELSEREF
+  | c.IFREFELSEREF
+  | c.IFBITJMPREF
+  | c.IFNBITJMPREF
+  | c.DICTPUSHCONST
+  | c.PFXDICTSWITCH
+  | c.SDBEGINSX
+  | c.SDBEGINSXQ
+  | c.SDBEGINS
+  | c.SDBEGINSQ
+  | c.STREFCONST
+  | c.STREF2CONST
+  | c.THROWANYIF
+  | c.THROWARGANYIF
+  | c.DEBUGSTR
+  | c.SETCONTCTR
+  | c.SETRETCTR
+  | c.SETALTCTR
+  | c.POPSAVE
+  | c.SAVECTR
+  | c.SAVEALTCTR
+  | c.SAVEBOTHCTR
+  | c.RUNVM
+  | c.SWAP2
+  | c.DROP2
+  | c.DUP2
+  | c.OVER2
+  | c.ADDRSHIFT_MOD
+  | c.ADDRSHIFTR_MOD
+  | c.ADDRSHIFTC_MOD
+  | c.RSHIFT_
+  | c.RSHIFTR_
+  | c.RSHIFTC_
+  | c.MODPOW2_
+  | c.MODPOW2R_
+  | c.MODPOW2C_
+  | c.RSHIFT_MOD
+  | c.RSHIFTR_MOD
+  | c.RSHIFTC_MOD
+  | c.MULADDRSHIFT_MOD
+  | c.MULADDRSHIFTR_MOD
+  | c.MULADDRSHIFTC_MOD
+  | c.MULRSHIFT_
+  | c.MULRSHIFTR_
+  | c.MULRSHIFTC_
+  | c.MULMODPOW2_
+  | c.MULMODPOW2R_
+  | c.MULMODPOW2C_
+  | c.MULRSHIFT_MOD
+  | c.MULRSHIFTR_MOD
+  | c.MULRSHIFTC_MOD
+  | c.LSHIFT_ADDDIVMOD
+  | c.LSHIFT_ADDDIVMODR
+  | c.LSHIFT_ADDDIVMODC
+  | c.LSHIFT_DIV
+  | c.LSHIFT_DIVR
+  | c.LSHIFT_DIVC
+  | c.LSHIFT_MOD
+  | c.LSHIFT_MODR
+  | c.LSHIFT_MODC
+  | c.LSHIFT_DIVMOD
+  | c.LSHIFT_DIVMODR
+  | c.LSHIFT_DIVMODC
+  | c.HASHEXT
+  | c.HASHEXTR
+  | c.HASHEXTA
+  | c.HASHEXTAR
+  | c.STREF
+  | c.STREF_ALT
+  | c.STSLICE
+  | c.STSLICE_ALT
+  | c.XCHG3
+  | c.XCHG3_ALT
+  | c.STI
+  | c.STI_ALT
+  | c.STU
+  | c.STU_ALT
+  | c.LDI
+  | c.LDI_ALT
+  | c.LDU
+  | c.LDU_ALT
+  | c.LDSLICE
+  | c.LDSLICE_ALT
+  | c.LSHIFT_VAR
+  | c.LSHIFT
+  | c.QLSHIFT_VAR
+  | c.QLSHIFT
+  | c.BCHKBITS_VAR
+  | c.BCHKBITS
+  | c.BCHKBITSQ_VAR
+  | c.BCHKBITSQ
+  | c.RSHIFT_VAR
+  | c.RSHIFT
+  | c.RSHIFT_ALT
+  | c.QRSHIFT_VAR
+  | c.QRSHIFT
+  | c.QRSHIFT_ALT
+  | c.CALLDICT
+  | c.CALLDICT_LONG
+  | c.THROW_SHORT
+  | c.THROW
+  | c.THROWIF_SHORT
+  | c.THROWIF
+  | c.THROWIFNOT_SHORT
+  | c.THROWIFNOT
+  | c.PUSHINT_4
+  | c.PUSHINT_8
+  | c.PUSHINT_16
+  | c.PUSHINT_LONG
+  | c.XCHG_0I_LONG
+  | c.XCHG_0I
+  | c.XCHG_IJ
+  | c.XCHG_1I
+  | c.DUMPSTK
+  | c.DEBUG
+  | c.STRDUMP
+  | c.DEBUG_1
+  | c.DUMP
+  | c.DEBUG_2
+  | c.PUSHCTR
+  | c.PUSH
+  | c.PUSH_LONG
+  | c.POPCTR
+  | c.POP
+  | c.POP_LONG
+  | c.CALLXARGS
+  | c.CALLXARGS_1
+  | c.PUSHSLICE
+  | c.PUSHSLICE_REFS
+  | c.PUSHSLICE_LONG
+  | c.PUSHCONT
+  | c.PUSHCONT_SHORT
+  | c.STSLICECONST
+  | c.SETCP
+  | c.SETCPX
+  | c.SETCP_SHORT
+  | c.PSEUDO_PUSHREF
+  | c.PSEUDO_PUSHSLICE
+  | c.PSEUDO_EXOTIC
+  | c.GETPARAMLONG
+  | c.INMSGPARAMS
+  | c.GETPARAMLONG2
+  | c.INMSG_BOUNCE
+  | c.INMSG_BOUNCED
+  | c.INMSG_SRC
+  | c.INMSG_FWDFEE
+  | c.INMSG_LT
+  | c.INMSG_UTIME
+  | c.INMSG_ORIGVALUE
+  | c.INMSG_VALUE
+  | c.INMSG_VALUEEXTRA
+  | c.INMSG_STATEINIT
+  | c.INMSGPARAM
+  | c.BTOS
+  | c.HASHBU
+  | c.LDSTDADDR
+  | c.LDSTDADDRQ
+  | c.LDOPTSTDADDR
+  | c.LDOPTSTDADDRQ
+  | c.STSTDADDR
+  | c.STSTDADDRQ
+  | c.STOPTSTDADDR
+  | c.STOPTSTDADDRQ
+  | c.DEBUGMARK
+  | cf.fPUSHINT
+  | cf.fPUSHSLICE
+  | cf.fPUSHCONT
+  | cf.fSTSLICECONST
+  | cf.fXCHG
+  | cf.fPUSHINTX
+  | cf.fSDBEGINS
+  | cf.fSDBEGINSQ
+  | cf.fCALLXARGS
+  | cf.fCALLDICT
+  | cf.fJMPDICT
+  | cf.fPREPAREDICT
+  | cf.fTHROW
+  | cf.fTHROWIF
+  | cf.fTHROWIFNOT
+  | cf.fIF
 export const rangeToType = [
-    {
-        min: 8650496,
-        max: 8650752,
-        load: types.PUSHNAN.load,
-    },
-    {
-        min: 10485760,
-        max: 10551296,
-        load: types.ADD.load,
-    },
-    {
-        min: 10551296,
-        max: 10616832,
-        load: types.SUB.load,
-    },
-    {
-        min: 10616832,
-        max: 10682368,
-        load: types.SUBR.load,
-    },
-    {
-        min: 10682368,
-        max: 10747904,
-        load: types.NEGATE.load,
-    },
-    {
-        min: 10747904,
-        max: 10813440,
-        load: types.INC.load,
-    },
-    {
-        min: 10813440,
-        max: 10878976,
-        load: types.DEC.load,
-    },
-    {
-        min: 11010048,
-        max: 11075584,
-        load: types.MUL.load,
-    },
-    {
-        min: 11403264,
-        max: 11468800,
-        load: types.POW2.load,
-    },
-    {
-        min: 11534336,
-        max: 11599872,
-        load: types.AND.load,
-    },
-    {
-        min: 11599872,
-        max: 11665408,
-        load: types.OR.load,
-    },
-    {
-        min: 11665408,
-        max: 11730944,
-        load: types.XOR.load,
-    },
-    {
-        min: 11730944,
-        max: 11796480,
-        load: types.NOT.load,
-    },
-    {
-        min: 11927552,
-        max: 11927808,
-        load: types.FITSX.load,
-    },
-    {
-        min: 11927808,
-        max: 11928064,
-        load: types.UFITSX.load,
-    },
-    {
-        min: 11928064,
-        max: 11928320,
-        load: types.BITSIZE.load,
-    },
-    {
-        min: 11928320,
-        max: 11928576,
-        load: types.UBITSIZE.load,
-    },
-    {
-        min: 11929600,
-        max: 11929856,
-        load: types.MIN.load,
-    },
-    {
-        min: 11929856,
-        max: 11930112,
-        load: types.MAX.load,
-    },
-    {
-        min: 11930112,
-        max: 11930368,
-        load: types.MINMAX.load,
-    },
-    {
-        min: 11930368,
-        max: 11930624,
-        load: types.ABS.load,
-    },
-    {
-        min: 12034048,
-        max: 12034304,
-        load: types.QADD.load,
-    },
-    {
-        min: 12034304,
-        max: 12034560,
-        load: types.QSUB.load,
-    },
-    {
-        min: 12034560,
-        max: 12034816,
-        load: types.QSUBR.load,
-    },
-    {
-        min: 12034816,
-        max: 12035072,
-        load: types.QNEGATE.load,
-    },
-    {
-        min: 12035072,
-        max: 12035328,
-        load: types.QINC.load,
-    },
-    {
-        min: 12035328,
-        max: 12035584,
-        load: types.QDEC.load,
-    },
-    {
-        min: 12036096,
-        max: 12036352,
-        load: types.QMUL.load,
-    },
-    {
-        min: 12037632,
-        max: 12037888,
-        load: types.QPOW2.load,
-    },
-    {
-        min: 12038144,
-        max: 12038400,
-        load: types.QAND.load,
-    },
-    {
-        min: 12038400,
-        max: 12038656,
-        load: types.QOR.load,
-    },
-    {
-        min: 12038656,
-        max: 12038912,
-        load: types.QXOR.load,
-    },
-    {
-        min: 12038912,
-        max: 12039168,
-        load: types.QNOT.load,
-    },
-    {
-        min: 12039680,
-        max: 12039681,
-        load: types.QFITSX.load,
-    },
-    {
-        min: 12039681,
-        max: 12039682,
-        load: types.QUFITSX.load,
-    },
-    {
-        min: 12039682,
-        max: 12039683,
-        load: types.QBITSIZE.load,
-    },
-    {
-        min: 12039683,
-        max: 12039684,
-        load: types.QUBITSIZE.load,
-    },
-    {
-        min: 12039688,
-        max: 12039689,
-        load: types.QMIN.load,
-    },
-    {
-        min: 12039689,
-        max: 12039690,
-        load: types.QMAX.load,
-    },
-    {
-        min: 12039690,
-        max: 12039691,
-        load: types.QMINMAX.load,
-    },
-    {
-        min: 12039691,
-        max: 12039692,
-        load: types.QABS.load,
-    },
-    {
-        min: 12058624,
-        max: 12124160,
-        load: types.SGN.load,
-    },
-    {
-        min: 12124160,
-        max: 12189696,
-        load: types.LESS.load,
-    },
-    {
-        min: 12189696,
-        max: 12255232,
-        load: types.EQUAL.load,
-    },
-    {
-        min: 12255232,
-        max: 12320768,
-        load: types.LEQ.load,
-    },
-    {
-        min: 12320768,
-        max: 12386304,
-        load: types.GREATER.load,
-    },
-    {
-        min: 12386304,
-        max: 12451840,
-        load: types.NEQ.load,
-    },
-    {
-        min: 12451840,
-        max: 12517376,
-        load: types.GEQ.load,
-    },
-    {
-        min: 12517376,
-        max: 12582912,
-        load: types.CMP.load,
-    },
-    {
-        min: 12845056,
-        max: 12910592,
-        load: types.ISNAN.load,
-    },
-    {
-        min: 12910592,
-        max: 12976128,
-        load: types.CHKNAN.load,
-    },
-    {
-        min: 12040192,
-        max: 12040448,
-        load: types.QSGN.load,
-    },
-    {
-        min: 12040448,
-        max: 12040704,
-        load: types.QLESS.load,
-    },
-    {
-        min: 12040704,
-        max: 12040960,
-        load: types.QEQUAL.load,
-    },
-    {
-        min: 12040960,
-        max: 12041216,
-        load: types.QLEQ.load,
-    },
-    {
-        min: 12041216,
-        max: 12041472,
-        load: types.QGREATER.load,
-    },
-    {
-        min: 12041472,
-        max: 12041728,
-        load: types.QNEQ.load,
-    },
-    {
-        min: 12041728,
-        max: 12041984,
-        load: types.QGEQ.load,
-    },
-    {
-        min: 12041984,
-        max: 12042240,
-        load: types.QCMP.load,
-    },
-    {
-        min: 13041664,
-        max: 13041920,
-        load: types.SEMPTY.load,
-    },
-    {
-        min: 13041920,
-        max: 13042176,
-        load: types.SDEMPTY.load,
-    },
-    {
-        min: 13042176,
-        max: 13042432,
-        load: types.SREMPTY.load,
-    },
-    {
-        min: 13042432,
-        max: 13042688,
-        load: types.SDFIRST.load,
-    },
-    {
-        min: 13042688,
-        max: 13042944,
-        load: types.SDLEXCMP.load,
-    },
-    {
-        min: 13042944,
-        max: 13043200,
-        load: types.SDEQ.load,
-    },
-    {
-        min: 13043712,
-        max: 13043968,
-        load: types.SDPFX.load,
-    },
-    {
-        min: 13043968,
-        max: 13044224,
-        load: types.SDPFXREV.load,
-    },
-    {
-        min: 13044224,
-        max: 13044480,
-        load: types.SDPPFX.load,
-    },
-    {
-        min: 13044480,
-        max: 13044736,
-        load: types.SDPPFXREV.load,
-    },
-    {
-        min: 13044736,
-        max: 13044992,
-        load: types.SDSFX.load,
-    },
-    {
-        min: 13044992,
-        max: 13045248,
-        load: types.SDSFXREV.load,
-    },
-    {
-        min: 13045248,
-        max: 13045504,
-        load: types.SDPSFX.load,
-    },
-    {
-        min: 13045504,
-        max: 13045760,
-        load: types.SDPSFXREV.load,
-    },
-    {
-        min: 13045760,
-        max: 13046016,
-        load: types.SDCNTLEAD0.load,
-    },
-    {
-        min: 13046016,
-        max: 13046272,
-        load: types.SDCNTLEAD1.load,
-    },
-    {
-        min: 13046272,
-        max: 13046528,
-        load: types.SDCNTTRAIL0.load,
-    },
-    {
-        min: 13046528,
-        max: 13046784,
-        load: types.SDCNTTRAIL1.load,
-    },
-    {
-        min: 13107200,
-        max: 13172736,
-        load: types.NEWC.load,
-    },
-    {
-        min: 13172736,
-        max: 13238272,
-        load: types.ENDC.load,
-    },
-    {
-        min: 13434880,
-        max: 13500416,
-        load: types.ENDCST.load,
-    },
-    {
-        min: 13570304,
-        max: 13570560,
-        load: types.STBREF.load,
-    },
-    {
-        min: 13570816,
-        max: 13571072,
-        load: types.STB.load,
-    },
-    {
-        min: 13571072,
-        max: 13571328,
-        load: types.STREFR.load,
-    },
-    {
-        min: 13571328,
-        max: 13571584,
-        load: types.STBREFR.load,
-    },
-    {
-        min: 13571584,
-        max: 13571840,
-        load: types.STSLICER.load,
-    },
-    {
-        min: 13571840,
-        max: 13572096,
-        load: types.STBR.load,
-    },
-    {
-        min: 13572096,
-        max: 13572352,
-        load: types.STREFQ.load,
-    },
-    {
-        min: 13572352,
-        max: 13572608,
-        load: types.STBREFQ.load,
-    },
-    {
-        min: 13572608,
-        max: 13572864,
-        load: types.STSLICEQ.load,
-    },
-    {
-        min: 13572864,
-        max: 13573120,
-        load: types.STBQ.load,
-    },
-    {
-        min: 13573120,
-        max: 13573376,
-        load: types.STREFRQ.load,
-    },
-    {
-        min: 13573376,
-        max: 13573632,
-        load: types.STBREFRQ.load,
-    },
-    {
-        min: 13573632,
-        max: 13573888,
-        load: types.STSLICERQ.load,
-    },
-    {
-        min: 13573888,
-        max: 13574144,
-        load: types.STBRQ.load,
-    },
-    {
-        min: 13574912,
-        max: 13575168,
-        load: types.ENDXC.load,
-    },
-    {
-        min: 13578240,
-        max: 13578496,
-        load: types.BDEPTH.load,
-    },
-    {
-        min: 13578496,
-        max: 13578752,
-        load: types.BBITS.load,
-    },
-    {
-        min: 13578752,
-        max: 13579008,
-        load: types.BREFS.load,
-    },
-    {
-        min: 13579008,
-        max: 13579264,
-        load: types.BBITREFS.load,
-    },
-    {
-        min: 13579520,
-        max: 13579776,
-        load: types.BREMBITS.load,
-    },
-    {
-        min: 13579776,
-        max: 13580032,
-        load: types.BREMREFS.load,
-    },
-    {
-        min: 13580032,
-        max: 13580288,
-        load: types.BREMBITREFS.load,
-    },
-    {
-        min: 13580800,
-        max: 13581056,
-        load: types.BCHKREFS.load,
-    },
-    {
-        min: 13581056,
-        max: 13581312,
-        load: types.BCHKBITREFS.load,
-    },
-    {
-        min: 13581824,
-        max: 13582080,
-        load: types.BCHKREFSQ.load,
-    },
-    {
-        min: 13582080,
-        max: 13582336,
-        load: types.BCHKBITREFSQ.load,
-    },
-    {
-        min: 13582336,
-        max: 13582592,
-        load: types.STZEROES.load,
-    },
-    {
-        min: 13582592,
-        max: 13582848,
-        load: types.STONES.load,
-    },
-    {
-        min: 13582848,
-        max: 13583104,
-        load: types.STSAME.load,
-    },
-    {
-        min: 13631488,
-        max: 13697024,
-        load: types.CTOS.load,
-    },
-    {
-        min: 13697024,
-        max: 13762560,
-        load: types.ENDS.load,
-    },
-    {
-        min: 13893632,
-        max: 13959168,
-        load: types.LDREF.load,
-    },
-    {
-        min: 13959168,
-        max: 14024704,
-        load: types.LDREFRTOS.load,
-    },
-    {
-        min: 14098432,
-        max: 14098688,
-        load: types.SDCUTFIRST.load,
-    },
-    {
-        min: 14098688,
-        max: 14098944,
-        load: types.SDSKIPFIRST.load,
-    },
-    {
-        min: 14098944,
-        max: 14099200,
-        load: types.SDCUTLAST.load,
-    },
-    {
-        min: 14099200,
-        max: 14099456,
-        load: types.SDSKIPLAST.load,
-    },
-    {
-        min: 14099456,
-        max: 14099712,
-        load: types.SDSUBSTR.load,
-    },
-    {
-        min: 14102528,
-        max: 14102784,
-        load: types.SCUTFIRST.load,
-    },
-    {
-        min: 14102784,
-        max: 14103040,
-        load: types.SSKIPFIRST.load,
-    },
-    {
-        min: 14103040,
-        max: 14103296,
-        load: types.SCUTLAST.load,
-    },
-    {
-        min: 14103296,
-        max: 14103552,
-        load: types.SSKIPLAST.load,
-    },
-    {
-        min: 14103552,
-        max: 14103808,
-        load: types.SUBSLICE.load,
-    },
-    {
-        min: 14104064,
-        max: 14104320,
-        load: types.SPLIT.load,
-    },
-    {
-        min: 14104320,
-        max: 14104576,
-        load: types.SPLITQ.load,
-    },
-    {
-        min: 14104832,
-        max: 14105088,
-        load: types.XCTOS.load,
-    },
-    {
-        min: 14105088,
-        max: 14105344,
-        load: types.XLOAD.load,
-    },
-    {
-        min: 14105344,
-        max: 14105600,
-        load: types.XLOADQ.load,
-    },
-    {
-        min: 14106880,
-        max: 14107136,
-        load: types.SCHKBITS.load,
-    },
-    {
-        min: 14107136,
-        max: 14107392,
-        load: types.SCHKREFS.load,
-    },
-    {
-        min: 14107392,
-        max: 14107648,
-        load: types.SCHKBITREFS.load,
-    },
-    {
-        min: 14107904,
-        max: 14108160,
-        load: types.SCHKBITSQ.load,
-    },
-    {
-        min: 14108160,
-        max: 14108416,
-        load: types.SCHKREFSQ.load,
-    },
-    {
-        min: 14108416,
-        max: 14108672,
-        load: types.SCHKBITREFSQ.load,
-    },
-    {
-        min: 14108672,
-        max: 14108928,
-        load: types.PLDREFVAR.load,
-    },
-    {
-        min: 14108928,
-        max: 14109184,
-        load: types.SBITS.load,
-    },
-    {
-        min: 14109184,
-        max: 14109440,
-        load: types.SREFS.load,
-    },
-    {
-        min: 14109440,
-        max: 14109696,
-        load: types.SBITREFS.load,
-    },
-    {
-        min: 14114816,
-        max: 14115072,
-        load: types.LDZEROES.load,
-    },
-    {
-        min: 14115072,
-        max: 14115328,
-        load: types.LDONES.load,
-    },
-    {
-        min: 14115328,
-        max: 14115584,
-        load: types.LDSAME.load,
-    },
-    {
-        min: 14115840,
-        max: 14116096,
-        load: types.SDEPTH.load,
-    },
-    {
-        min: 14116096,
-        max: 14116352,
-        load: types.CDEPTH.load,
-    },
-    {
-        min: 14116352,
-        max: 14116608,
-        load: types.CLEVEL.load,
-    },
-    {
-        min: 14116608,
-        max: 14116864,
-        load: types.CLEVELMASK.load,
-    },
-    {
-        min: 14118912,
-        max: 14119168,
-        load: types.CHASHIX.load,
-    },
-    {
-        min: 14119168,
-        max: 14119424,
-        load: types.CDEPTHIX.load,
-    },
-    {
-        min: 14155776,
-        max: 14221312,
-        load: types.EXECUTE.load,
-    },
-    {
-        min: 14221312,
-        max: 14286848,
-        load: types.JMPX.load,
-    },
-    {
-        min: 14364672,
-        max: 14364928,
-        load: types.RET.load,
-    },
-    {
-        min: 14364928,
-        max: 14365184,
-        load: types.RETALT.load,
-    },
-    {
-        min: 14365184,
-        max: 14365440,
-        load: types.RETBOOL.load,
-    },
-    {
-        min: 14365696,
-        max: 14365952,
-        load: types.CALLCC.load,
-    },
-    {
-        min: 14365952,
-        max: 14366208,
-        load: types.JMPXDATA.load,
-    },
-    {
-        min: 14366720,
-        max: 14366976,
-        load: types.CALLXVARARGS.load,
-    },
-    {
-        min: 14366976,
-        max: 14367232,
-        load: types.RETVARARGS.load,
-    },
-    {
-        min: 14367232,
-        max: 14367488,
-        load: types.JMPXVARARGS.load,
-    },
-    {
-        min: 14367488,
-        max: 14367744,
-        load: types.CALLCCVARARGS.load,
-    },
-    {
-        min: 14368512,
-        max: 14368768,
-        load: types.RETDATA.load,
-    },
-    {
-        min: 14372864,
-        max: 14373120,
-        load: types.RUNVMX.load,
-    },
-    {
-        min: 14417920,
-        max: 14483456,
-        load: types.IFRET.load,
-    },
-    {
-        min: 14483456,
-        max: 14548992,
-        load: types.IFNOTRET.load,
-    },
-    {
-        min: 14548992,
-        max: 14614528,
-        load: types.IF.load,
-    },
-    {
-        min: 14614528,
-        max: 14680064,
-        load: types.IFNOT.load,
-    },
-    {
-        min: 14680064,
-        max: 14745600,
-        load: types.IFJMP.load,
-    },
-    {
-        min: 14745600,
-        max: 14811136,
-        load: types.IFNOTJMP.load,
-    },
-    {
-        min: 14811136,
-        max: 14876672,
-        load: types.IFELSE.load,
-    },
-    {
-        min: 14877696,
-        max: 14877952,
-        load: types.CONDSEL.load,
-    },
-    {
-        min: 14877952,
-        max: 14878208,
-        load: types.CONDSELCHK.load,
-    },
-    {
-        min: 14878720,
-        max: 14878976,
-        load: types.IFRETALT.load,
-    },
-    {
-        min: 14878976,
-        max: 14879232,
-        load: types.IFNOTRETALT.load,
-    },
-    {
-        min: 14942208,
-        max: 15007744,
-        load: types.REPEAT.load,
-    },
-    {
-        min: 15007744,
-        max: 15073280,
-        load: types.REPEATEND.load,
-    },
-    {
-        min: 15073280,
-        max: 15138816,
-        load: types.UNTIL.load,
-    },
-    {
-        min: 15138816,
-        max: 15204352,
-        load: types.UNTILEND.load,
-    },
-    {
-        min: 15204352,
-        max: 15269888,
-        load: types.WHILE.load,
-    },
-    {
-        min: 15269888,
-        max: 15335424,
-        load: types.WHILEEND.load,
-    },
-    {
-        min: 15335424,
-        max: 15400960,
-        load: types.AGAIN.load,
-    },
-    {
-        min: 15400960,
-        max: 15466496,
-        load: types.AGAINEND.load,
-    },
-    {
-        min: 14881792,
-        max: 14882048,
-        load: types.REPEATBRK.load,
-    },
-    {
-        min: 14882048,
-        max: 14882304,
-        load: types.REPEATENDBRK.load,
-    },
-    {
-        min: 14882304,
-        max: 14882560,
-        load: types.UNTILBRK.load,
-    },
-    {
-        min: 14882560,
-        max: 14882816,
-        load: types.UNTILENDBRK.load,
-    },
-    {
-        min: 14882816,
-        max: 14883072,
-        load: types.WHILEBRK.load,
-    },
-    {
-        min: 14883072,
-        max: 14883328,
-        load: types.WHILEENDBRK.load,
-    },
-    {
-        min: 14883328,
-        max: 14883584,
-        load: types.AGAINBRK.load,
-    },
-    {
-        min: 14883584,
-        max: 14883840,
-        load: types.AGAINENDBRK.load,
-    },
-    {
-        min: 15536128,
-        max: 15536384,
-        load: types.RETURNVARARGS.load,
-    },
-    {
-        min: 15536384,
-        max: 15536640,
-        load: types.SETCONTVARARGS.load,
-    },
-    {
-        min: 15536640,
-        max: 15536896,
-        load: types.SETNUMVARARGS.load,
-    },
-    {
-        min: 15539712,
-        max: 15539968,
-        load: types.BLESS.load,
-    },
-    {
-        min: 15539968,
-        max: 15540224,
-        load: types.BLESSVARARGS.load,
-    },
-    {
-        min: 15589376,
-        max: 15589632,
-        load: types.PUSHCTRX.load,
-    },
-    {
-        min: 15589632,
-        max: 15589888,
-        load: types.POPCTRX.load,
-    },
-    {
-        min: 15589888,
-        max: 15590144,
-        load: types.SETCONTCTRX.load,
-    },
-    {
-        min: 15590400,
-        max: 15590656,
-        load: types.SETCONTCTRMANYX.load,
-    },
-    {
-        min: 15593472,
-        max: 15593728,
-        load: types.BOOLAND.load,
-    },
-    {
-        min: 15593728,
-        max: 15593984,
-        load: types.BOOLOR.load,
-    },
-    {
-        min: 15593984,
-        max: 15594240,
-        load: types.COMPOSBOTH.load,
-    },
-    {
-        min: 15594240,
-        max: 15594496,
-        load: types.ATEXIT.load,
-    },
-    {
-        min: 15594496,
-        max: 15594752,
-        load: types.ATEXITALT.load,
-    },
-    {
-        min: 15594752,
-        max: 15595008,
-        load: types.SETEXITALT.load,
-    },
-    {
-        min: 15595008,
-        max: 15595264,
-        load: types.THENRET.load,
-    },
-    {
-        min: 15595264,
-        max: 15595520,
-        load: types.THENRETALT.load,
-    },
-    {
-        min: 15595520,
-        max: 15595776,
-        load: types.INVERT.load,
-    },
-    {
-        min: 15595776,
-        max: 15596032,
-        load: types.BOOLEVAL.load,
-    },
-    {
-        min: 15596032,
-        max: 15596288,
-        load: types.SAMEALT.load,
-    },
-    {
-        min: 15596288,
-        max: 15596544,
-        load: types.SAMEALTSAVE.load,
-    },
-    {
-        min: 15924992,
-        max: 15925248,
-        load: types.TRY.load,
-    },
-    {
-        min: 15990784,
-        max: 15991040,
-        load: types.STDICT.load,
-    },
-    {
-        min: 15991040,
-        max: 15991296,
-        load: types.SKIPDICT.load,
-    },
-    {
-        min: 15991296,
-        max: 15991552,
-        load: types.LDDICTS.load,
-    },
-    {
-        min: 15991552,
-        max: 15991808,
-        load: types.PLDDICTS.load,
-    },
-    {
-        min: 15991808,
-        max: 15992064,
-        load: types.LDDICT.load,
-    },
-    {
-        min: 15992064,
-        max: 15992320,
-        load: types.PLDDICT.load,
-    },
-    {
-        min: 15992320,
-        max: 15992576,
-        load: types.LDDICTQ.load,
-    },
-    {
-        min: 15992576,
-        max: 15992832,
-        load: types.PLDDICTQ.load,
-    },
-    {
-        min: 16019456,
-        max: 16019712,
-        load: types.PFXDICTSET.load,
-    },
-    {
-        min: 16019712,
-        max: 16019968,
-        load: types.PFXDICTREPLACE.load,
-    },
-    {
-        min: 16019968,
-        max: 16020224,
-        load: types.PFXDICTADD.load,
-    },
-    {
-        min: 16020224,
-        max: 16020480,
-        load: types.PFXDICTDEL.load,
-    },
-    {
-        min: 16033792,
-        max: 16034048,
-        load: types.PFXDICTGETQ.load,
-    },
-    {
-        min: 16034048,
-        max: 16034304,
-        load: types.PFXDICTGET.load,
-    },
-    {
-        min: 16034304,
-        max: 16034560,
-        load: types.PFXDICTGETJMP.load,
-    },
-    {
-        min: 16034560,
-        max: 16034816,
-        load: types.PFXDICTGETEXEC.load,
-    },
-    {
-        min: 0,
-        max: 65536,
-        load: types.NOP.load,
-    },
-    {
-        min: 65536,
-        max: 131072,
-        load: types.SWAP.load,
-    },
-    {
-        min: 2097152,
-        max: 2162688,
-        load: types.DUP.load,
-    },
-    {
-        min: 2162688,
-        max: 2228224,
-        load: types.OVER.load,
-    },
-    {
-        min: 3145728,
-        max: 3211264,
-        load: types.DROP.load,
-    },
-    {
-        min: 3211264,
-        max: 3276800,
-        load: types.NIP.load,
-    },
-    {
-        min: 5767168,
-        max: 5832704,
-        load: types.ROT.load,
-    },
-    {
-        min: 5832704,
-        max: 5898240,
-        load: types.ROTREV.load,
-    },
-    {
-        min: 6291456,
-        max: 6356992,
-        load: types.PICK.load,
-    },
-    {
-        min: 6356992,
-        max: 6422528,
-        load: types.ROLL.load,
-    },
-    {
-        min: 6422528,
-        max: 6488064,
-        load: types.ROLLREV.load,
-    },
-    {
-        min: 6488064,
-        max: 6553600,
-        load: types.BLKSWX.load,
-    },
-    {
-        min: 6553600,
-        max: 6619136,
-        load: types.REVX.load,
-    },
-    {
-        min: 6619136,
-        max: 6684672,
-        load: types.DROPX.load,
-    },
-    {
-        min: 6684672,
-        max: 6750208,
-        load: types.TUCK.load,
-    },
-    {
-        min: 6750208,
-        max: 6815744,
-        load: types.XCHGX.load,
-    },
-    {
-        min: 6815744,
-        max: 6881280,
-        load: types.DEPTH.load,
-    },
-    {
-        min: 6881280,
-        max: 6946816,
-        load: types.CHKDEPTH.load,
-    },
-    {
-        min: 6946816,
-        max: 7012352,
-        load: types.ONLYTOPX.load,
-    },
-    {
-        min: 7012352,
-        max: 7077888,
-        load: types.ONLYX.load,
-    },
-    {
-        min: 16252928,
-        max: 16253184,
-        load: types.ACCEPT.load,
-    },
-    {
-        min: 16253184,
-        max: 16253440,
-        load: types.SETGASLIMIT.load,
-    },
-    {
-        min: 16254720,
-        max: 16254976,
-        load: types.GASCONSUMED.load,
-    },
-    {
-        min: 16256768,
-        max: 16257024,
-        load: types.COMMIT.load,
-    },
-    {
-        min: 16261888,
-        max: 16262144,
-        load: types.NOW.load,
-    },
-    {
-        min: 16262144,
-        max: 16262400,
-        load: types.BLOCKLT.load,
-    },
-    {
-        min: 16262400,
-        max: 16262656,
-        load: types.LTIME.load,
-    },
-    {
-        min: 16262656,
-        max: 16262912,
-        load: types.RANDSEED.load,
-    },
-    {
-        min: 16262912,
-        max: 16263168,
-        load: types.BALANCE.load,
-    },
-    {
-        min: 16263168,
-        max: 16263424,
-        load: types.MYADDR.load,
-    },
-    {
-        min: 16263424,
-        max: 16263680,
-        load: types.CONFIGROOT.load,
-    },
-    {
-        min: 16263680,
-        max: 16263936,
-        load: types.MYCODE.load,
-    },
-    {
-        min: 16263936,
-        max: 16264192,
-        load: types.INCOMINGVALUE.load,
-    },
-    {
-        min: 16264192,
-        max: 16264448,
-        load: types.STORAGEFEES.load,
-    },
-    {
-        min: 16264448,
-        max: 16264704,
-        load: types.PREVBLOCKSINFOTUPLE.load,
-    },
-    {
-        min: 16264704,
-        max: 16264960,
-        load: types.UNPACKEDCONFIGTUPLE.load,
-    },
-    {
-        min: 16264960,
-        max: 16265216,
-        load: types.DUEPAYMENT.load,
-    },
-    {
-        min: 16265216,
-        max: 16265472,
-        load: types.CONFIGDICT.load,
-    },
-    {
-        min: 16265728,
-        max: 16265984,
-        load: types.CONFIGPARAM.load,
-    },
-    {
-        min: 16265984,
-        max: 16266240,
-        load: types.CONFIGOPTPARAM.load,
-    },
-    {
-        min: 16266240,
-        max: 16266241,
-        load: types.PREVMCBLOCKS.load,
-    },
-    {
-        min: 16266241,
-        max: 16266242,
-        load: types.PREVKEYBLOCK.load,
-    },
-    {
-        min: 16266242,
-        max: 16266243,
-        load: types.PREVMCBLOCKS_100.load,
-    },
-    {
-        min: 16266496,
-        max: 16266752,
-        load: types.GLOBALID.load,
-    },
-    {
-        min: 16266752,
-        max: 16267008,
-        load: types.GETGASFEE.load,
-    },
-    {
-        min: 16267008,
-        max: 16267264,
-        load: types.GETSTORAGEFEE.load,
-    },
-    {
-        min: 16267264,
-        max: 16267520,
-        load: types.GETFORWARDFEE.load,
-    },
-    {
-        min: 16267520,
-        max: 16267776,
-        load: types.GETPRECOMPILEDGAS.load,
-    },
-    {
-        min: 16267776,
-        max: 16268032,
-        load: types.GETORIGINALFWDFEE.load,
-    },
-    {
-        min: 16268032,
-        max: 16268288,
-        load: types.GETGASFEESIMPLE.load,
-    },
-    {
-        min: 16268288,
-        max: 16268544,
-        load: types.GETFORWARDFEESIMPLE.load,
-    },
-    {
-        min: 16269312,
-        max: 16269568,
-        load: types.GETGLOBVAR.load,
-    },
-    {
-        min: 16277504,
-        max: 16277760,
-        load: types.SETGLOBVAR.load,
-    },
-    {
-        min: 16257024,
-        max: 16257280,
-        load: types.RANDU256.load,
-    },
-    {
-        min: 16257280,
-        max: 16257536,
-        load: types.RAND.load,
-    },
-    {
-        min: 16258048,
-        max: 16258304,
-        load: types.SETRAND.load,
-    },
-    {
-        min: 16258304,
-        max: 16258560,
-        load: types.ADDRAND.load,
-    },
-    {
-        min: 16318464,
-        max: 16318720,
-        load: types.HASHCU.load,
-    },
-    {
-        min: 16318720,
-        max: 16318976,
-        load: types.HASHSU.load,
-    },
-    {
-        min: 16318976,
-        max: 16319232,
-        load: types.SHA256U.load,
-    },
-    {
-        min: 16322560,
-        max: 16322816,
-        load: types.CHKSIGNU.load,
-    },
-    {
-        min: 16322816,
-        max: 16323072,
-        load: types.CHKSIGNS.load,
-    },
-    {
-        min: 16323072,
-        max: 16323328,
-        load: types.ECRECOVER.load,
-    },
-    {
-        min: 16323328,
-        max: 16323584,
-        load: types.SECP256K1_XONLY_PUBKEY_TWEAK_ADD.load,
-    },
-    {
-        min: 16323584,
-        max: 16323840,
-        load: types.P256_CHKSIGNU.load,
-    },
-    {
-        min: 16323840,
-        max: 16324096,
-        load: types.P256_CHKSIGNS.load,
-    },
-    {
-        min: 16326656,
-        max: 16326912,
-        load: types.RIST255_FROMHASH.load,
-    },
-    {
-        min: 16326912,
-        max: 16327168,
-        load: types.RIST255_VALIDATE.load,
-    },
-    {
-        min: 16327168,
-        max: 16327424,
-        load: types.RIST255_ADD.load,
-    },
-    {
-        min: 16327424,
-        max: 16327680,
-        load: types.RIST255_SUB.load,
-    },
-    {
-        min: 16327680,
-        max: 16327936,
-        load: types.RIST255_MUL.load,
-    },
-    {
-        min: 16327936,
-        max: 16328192,
-        load: types.RIST255_MULBASE.load,
-    },
-    {
-        min: 16328192,
-        max: 16328448,
-        load: types.RIST255_PUSHL.load,
-    },
-    {
-        min: 12056865,
-        max: 12056866,
-        load: types.RIST255_QVALIDATE.load,
-    },
-    {
-        min: 12056866,
-        max: 12056867,
-        load: types.RIST255_QADD.load,
-    },
-    {
-        min: 12056867,
-        max: 12056868,
-        load: types.RIST255_QSUB.load,
-    },
-    {
-        min: 12056868,
-        max: 12056869,
-        load: types.RIST255_QMUL.load,
-    },
-    {
-        min: 12056869,
-        max: 12056870,
-        load: types.RIST255_QMULBASE.load,
-    },
-    {
-        min: 16330752,
-        max: 16330753,
-        load: types.BLS_VERIFY.load,
-    },
-    {
-        min: 16330753,
-        max: 16330754,
-        load: types.BLS_AGGREGATE.load,
-    },
-    {
-        min: 16330754,
-        max: 16330755,
-        load: types.BLS_FASTAGGREGATEVERIFY.load,
-    },
-    {
-        min: 16330755,
-        max: 16330756,
-        load: types.BLS_AGGREGATEVERIFY.load,
-    },
-    {
-        min: 16330768,
-        max: 16330769,
-        load: types.BLS_G1_ADD.load,
-    },
-    {
-        min: 16330769,
-        max: 16330770,
-        load: types.BLS_G1_SUB.load,
-    },
-    {
-        min: 16330770,
-        max: 16330771,
-        load: types.BLS_G1_NEG.load,
-    },
-    {
-        min: 16330771,
-        max: 16330772,
-        load: types.BLS_G1_MUL.load,
-    },
-    {
-        min: 16330772,
-        max: 16330773,
-        load: types.BLS_G1_MULTIEXP.load,
-    },
-    {
-        min: 16330773,
-        max: 16330774,
-        load: types.BLS_G1_ZERO.load,
-    },
-    {
-        min: 16330774,
-        max: 16330775,
-        load: types.BLS_MAP_TO_G1.load,
-    },
-    {
-        min: 16330775,
-        max: 16330776,
-        load: types.BLS_G1_INGROUP.load,
-    },
-    {
-        min: 16330776,
-        max: 16330777,
-        load: types.BLS_G1_ISZERO.load,
-    },
-    {
-        min: 16330784,
-        max: 16330785,
-        load: types.BLS_G2_ADD.load,
-    },
-    {
-        min: 16330785,
-        max: 16330786,
-        load: types.BLS_G2_SUB.load,
-    },
-    {
-        min: 16330786,
-        max: 16330787,
-        load: types.BLS_G2_NEG.load,
-    },
-    {
-        min: 16330787,
-        max: 16330788,
-        load: types.BLS_G2_MUL.load,
-    },
-    {
-        min: 16330788,
-        max: 16330789,
-        load: types.BLS_G2_MULTIEXP.load,
-    },
-    {
-        min: 16330789,
-        max: 16330790,
-        load: types.BLS_G2_ZERO.load,
-    },
-    {
-        min: 16330790,
-        max: 16330791,
-        load: types.BLS_MAP_TO_G2.load,
-    },
-    {
-        min: 16330791,
-        max: 16330792,
-        load: types.BLS_G2_INGROUP.load,
-    },
-    {
-        min: 16330792,
-        max: 16330793,
-        load: types.BLS_G2_ISZERO.load,
-    },
-    {
-        min: 16330800,
-        max: 16330801,
-        load: types.BLS_PAIRING.load,
-    },
-    {
-        min: 16330801,
-        max: 16330802,
-        load: types.BLS_PUSHR.load,
-    },
-    {
-        min: 16334848,
-        max: 16335104,
-        load: types.CDATASIZEQ.load,
-    },
-    {
-        min: 16335104,
-        max: 16335360,
-        load: types.CDATASIZE.load,
-    },
-    {
-        min: 16335360,
-        max: 16335616,
-        load: types.SDATASIZEQ.load,
-    },
-    {
-        min: 16335616,
-        max: 16335872,
-        load: types.SDATASIZE.load,
-    },
-    {
-        min: 16384000,
-        max: 16384256,
-        load: types.LDGRAMS.load,
-    },
-    {
-        min: 16384256,
-        max: 16384512,
-        load: types.LDVARINT16.load,
-    },
-    {
-        min: 16384512,
-        max: 16384768,
-        load: types.STGRAMS.load,
-    },
-    {
-        min: 16384768,
-        max: 16385024,
-        load: types.STVARINT16.load,
-    },
-    {
-        min: 16385024,
-        max: 16385280,
-        load: types.LDVARUINT32.load,
-    },
-    {
-        min: 16385280,
-        max: 16385536,
-        load: types.LDVARINT32.load,
-    },
-    {
-        min: 16385536,
-        max: 16385792,
-        load: types.STVARUINT32.load,
-    },
-    {
-        min: 16385792,
-        max: 16386048,
-        load: types.STVARINT32.load,
-    },
-    {
-        min: 16400384,
-        max: 16400640,
-        load: types.LDMSGADDR.load,
-    },
-    {
-        min: 16400640,
-        max: 16400896,
-        load: types.LDMSGADDRQ.load,
-    },
-    {
-        min: 16400896,
-        max: 16401152,
-        load: types.PARSEMSGADDR.load,
-    },
-    {
-        min: 16401152,
-        max: 16401408,
-        load: types.PARSEMSGADDRQ.load,
-    },
-    {
-        min: 16401408,
-        max: 16401664,
-        load: types.REWRITESTDADDR.load,
-    },
-    {
-        min: 16401664,
-        max: 16401920,
-        load: types.REWRITESTDADDRQ.load,
-    },
-    {
-        min: 16401920,
-        max: 16402176,
-        load: types.REWRITEVARADDR.load,
-    },
-    {
-        min: 16402176,
-        max: 16402432,
-        load: types.REWRITEVARADDRQ.load,
-    },
-    {
-        min: 16449536,
-        max: 16449792,
-        load: types.SENDRAWMSG.load,
-    },
-    {
-        min: 16450048,
-        max: 16450304,
-        load: types.RAWRESERVE.load,
-    },
-    {
-        min: 16450304,
-        max: 16450560,
-        load: types.RAWRESERVEX.load,
-    },
-    {
-        min: 16450560,
-        max: 16450816,
-        load: types.SETCODE.load,
-    },
-    {
-        min: 16451072,
-        max: 16451328,
-        load: types.SETLIBCODE.load,
-    },
-    {
-        min: 16451328,
-        max: 16451584,
-        load: types.CHANGELIB.load,
-    },
-    {
-        min: 16451584,
-        max: 16451840,
-        load: types.SENDMSG.load,
-    },
-    {
-        min: 7143424,
-        max: 7208960,
-        load: types.PUSHNULL.load,
-    },
-    {
-        min: 7208960,
-        max: 7274496,
-        load: types.ISNULL.load,
-    },
-    {
-        min: 7307264,
-        max: 7307520,
-        load: types.TUPLEVAR.load,
-    },
-    {
-        min: 7307520,
-        max: 7307776,
-        load: types.INDEXVAR.load,
-    },
-    {
-        min: 7307776,
-        max: 7308032,
-        load: types.UNTUPLEVAR.load,
-    },
-    {
-        min: 7308032,
-        max: 7308288,
-        load: types.UNPACKFIRSTVAR.load,
-    },
-    {
-        min: 7308288,
-        max: 7308544,
-        load: types.EXPLODEVAR.load,
-    },
-    {
-        min: 7308544,
-        max: 7308800,
-        load: types.SETINDEXVAR.load,
-    },
-    {
-        min: 7308800,
-        max: 7309056,
-        load: types.INDEXVARQ.load,
-    },
-    {
-        min: 7309056,
-        max: 7309312,
-        load: types.SETINDEXVARQ.load,
-    },
-    {
-        min: 7309312,
-        max: 7309568,
-        load: types.TLEN.load,
-    },
-    {
-        min: 7309568,
-        max: 7309824,
-        load: types.QTLEN.load,
-    },
-    {
-        min: 7309824,
-        max: 7310080,
-        load: types.ISTUPLE.load,
-    },
-    {
-        min: 7310080,
-        max: 7310336,
-        load: types.LAST.load,
-    },
-    {
-        min: 7310336,
-        max: 7310592,
-        load: types.TPUSH.load,
-    },
-    {
-        min: 7310592,
-        max: 7310848,
-        load: types.TPOP.load,
-    },
-    {
-        min: 7315456,
-        max: 7315712,
-        load: types.NULLSWAPIF.load,
-    },
-    {
-        min: 7315712,
-        max: 7315968,
-        load: types.NULLSWAPIFNOT.load,
-    },
-    {
-        min: 7315968,
-        max: 7316224,
-        load: types.NULLROTRIF.load,
-    },
-    {
-        min: 7316224,
-        max: 7316480,
-        load: types.NULLROTRIFNOT.load,
-    },
-    {
-        min: 7316480,
-        max: 7316736,
-        load: types.NULLSWAPIF2.load,
-    },
-    {
-        min: 7316736,
-        max: 7316992,
-        load: types.NULLSWAPIFNOT2.load,
-    },
-    {
-        min: 7316992,
-        max: 7317248,
-        load: types.NULLROTRIF2.load,
-    },
-    {
-        min: 7317248,
-        max: 7317504,
-        load: types.NULLROTRIFNOT2.load,
-    },
-    {
-        min: 11075584,
-        max: 11075840,
-        load: types.ADDDIVMOD.load,
-    },
-    {
-        min: 11075840,
-        max: 11076096,
-        load: types.ADDDIVMODR.load,
-    },
-    {
-        min: 11076096,
-        max: 11076352,
-        load: types.ADDDIVMODC.load,
-    },
-    {
-        min: 11076608,
-        max: 11076864,
-        load: types.DIV.load,
-    },
-    {
-        min: 11076864,
-        max: 11077120,
-        load: types.DIVR.load,
-    },
-    {
-        min: 11077120,
-        max: 11077376,
-        load: types.DIVC.load,
-    },
-    {
-        min: 11077632,
-        max: 11077888,
-        load: types.MOD.load,
-    },
-    {
-        min: 11077888,
-        max: 11078144,
-        load: types.MODR.load,
-    },
-    {
-        min: 11078144,
-        max: 11078400,
-        load: types.MODC.load,
-    },
-    {
-        min: 11078656,
-        max: 11078912,
-        load: types.DIVMOD.load,
-    },
-    {
-        min: 11078912,
-        max: 11079168,
-        load: types.DIVMODR.load,
-    },
-    {
-        min: 11079168,
-        max: 11079424,
-        load: types.DIVMODC.load,
-    },
-    {
-        min: 12036352,
-        max: 12036353,
-        load: types.QADDDIVMOD.load,
-    },
-    {
-        min: 12036353,
-        max: 12036354,
-        load: types.QADDDIVMODR.load,
-    },
-    {
-        min: 12036354,
-        max: 12036355,
-        load: types.QADDDIVMODC.load,
-    },
-    {
-        min: 12036356,
-        max: 12036357,
-        load: types.QDIV.load,
-    },
-    {
-        min: 12036357,
-        max: 12036358,
-        load: types.QDIVR.load,
-    },
-    {
-        min: 12036358,
-        max: 12036359,
-        load: types.QDIVC.load,
-    },
-    {
-        min: 12036360,
-        max: 12036361,
-        load: types.QMOD.load,
-    },
-    {
-        min: 12036361,
-        max: 12036362,
-        load: types.QMODR.load,
-    },
-    {
-        min: 12036362,
-        max: 12036363,
-        load: types.QMODC.load,
-    },
-    {
-        min: 12036364,
-        max: 12036365,
-        load: types.QDIVMOD.load,
-    },
-    {
-        min: 12036365,
-        max: 12036366,
-        load: types.QDIVMODR.load,
-    },
-    {
-        min: 12036366,
-        max: 12036367,
-        load: types.QDIVMODC.load,
-    },
-    {
-        min: 11083776,
-        max: 11084032,
-        load: types.ADDRSHIFTMOD.load,
-    },
-    {
-        min: 11084032,
-        max: 11084288,
-        load: types.ADDRSHIFTMODR.load,
-    },
-    {
-        min: 11084288,
-        max: 11084544,
-        load: types.ADDRSHIFTMODC.load,
-    },
-    {
-        min: 11085056,
-        max: 11085312,
-        load: types.RSHIFTR.load,
-    },
-    {
-        min: 11085312,
-        max: 11085568,
-        load: types.RSHIFTC.load,
-    },
-    {
-        min: 11085824,
-        max: 11086080,
-        load: types.MODPOW2.load,
-    },
-    {
-        min: 11086080,
-        max: 11086336,
-        load: types.MODPOW2R.load,
-    },
-    {
-        min: 11086336,
-        max: 11086592,
-        load: types.MODPOW2C.load,
-    },
-    {
-        min: 11086848,
-        max: 11087104,
-        load: types.RSHIFTMOD.load,
-    },
-    {
-        min: 11087104,
-        max: 11087360,
-        load: types.RSHIFTMODR.load,
-    },
-    {
-        min: 11087360,
-        max: 11087616,
-        load: types.RSHIFTMODC.load,
-    },
-    {
-        min: 12036384,
-        max: 12036385,
-        load: types.QADDRSHIFTMOD.load,
-    },
-    {
-        min: 12036385,
-        max: 12036386,
-        load: types.QADDRSHIFTMODR.load,
-    },
-    {
-        min: 12036386,
-        max: 12036387,
-        load: types.QADDRSHIFTMODC.load,
-    },
-    {
-        min: 12036389,
-        max: 12036390,
-        load: types.QRSHIFTR.load,
-    },
-    {
-        min: 12036390,
-        max: 12036391,
-        load: types.QRSHIFTC.load,
-    },
-    {
-        min: 12036392,
-        max: 12036393,
-        load: types.QMODPOW2.load,
-    },
-    {
-        min: 12036393,
-        max: 12036394,
-        load: types.QMODPOW2R.load,
-    },
-    {
-        min: 12036394,
-        max: 12036395,
-        load: types.QMODPOW2C.load,
-    },
-    {
-        min: 12036396,
-        max: 12036397,
-        load: types.QRSHIFTMOD.load,
-    },
-    {
-        min: 12036397,
-        max: 12036398,
-        load: types.QRSHIFTMODR.load,
-    },
-    {
-        min: 12036398,
-        max: 12036399,
-        load: types.QRSHIFTMODC.load,
-    },
-    {
-        min: 11108352,
-        max: 11108608,
-        load: types.MULADDDIVMOD.load,
-    },
-    {
-        min: 11108608,
-        max: 11108864,
-        load: types.MULADDDIVMODR.load,
-    },
-    {
-        min: 11108864,
-        max: 11109120,
-        load: types.MULADDDIVMODC.load,
-    },
-    {
-        min: 11109376,
-        max: 11109632,
-        load: types.MULDIV.load,
-    },
-    {
-        min: 11109632,
-        max: 11109888,
-        load: types.MULDIVR.load,
-    },
-    {
-        min: 11109888,
-        max: 11110144,
-        load: types.MULDIVC.load,
-    },
-    {
-        min: 11110400,
-        max: 11110656,
-        load: types.MULMOD.load,
-    },
-    {
-        min: 11110656,
-        max: 11110912,
-        load: types.MULMODR.load,
-    },
-    {
-        min: 11110912,
-        max: 11111168,
-        load: types.MULMODC.load,
-    },
-    {
-        min: 11111424,
-        max: 11111680,
-        load: types.MULDIVMOD.load,
-    },
-    {
-        min: 11111680,
-        max: 11111936,
-        load: types.MULDIVMODR.load,
-    },
-    {
-        min: 11111936,
-        max: 11112192,
-        load: types.MULDIVMODC.load,
-    },
-    {
-        min: 12036480,
-        max: 12036481,
-        load: types.QMULADDDIVMOD.load,
-    },
-    {
-        min: 12036481,
-        max: 12036482,
-        load: types.QMULADDDIVMODR.load,
-    },
-    {
-        min: 12036482,
-        max: 12036483,
-        load: types.QMULADDDIVMODC.load,
-    },
-    {
-        min: 12036484,
-        max: 12036485,
-        load: types.QMULDIV.load,
-    },
-    {
-        min: 12036485,
-        max: 12036486,
-        load: types.QMULDIVR.load,
-    },
-    {
-        min: 12036486,
-        max: 12036487,
-        load: types.QMULDIVC.load,
-    },
-    {
-        min: 12036488,
-        max: 12036489,
-        load: types.QMULMOD.load,
-    },
-    {
-        min: 12036489,
-        max: 12036490,
-        load: types.QMULMODR.load,
-    },
-    {
-        min: 12036490,
-        max: 12036491,
-        load: types.QMULMODC.load,
-    },
-    {
-        min: 12036492,
-        max: 12036493,
-        load: types.QMULDIVMOD.load,
-    },
-    {
-        min: 12036493,
-        max: 12036494,
-        load: types.QMULDIVMODR.load,
-    },
-    {
-        min: 12036494,
-        max: 12036495,
-        load: types.QMULDIVMODC.load,
-    },
-    {
-        min: 11116544,
-        max: 11116800,
-        load: types.MULADDRSHIFTMOD.load,
-    },
-    {
-        min: 11116800,
-        max: 11117056,
-        load: types.MULADDRSHIFTRMOD.load,
-    },
-    {
-        min: 11117056,
-        max: 11117312,
-        load: types.MULADDRSHIFTCMOD.load,
-    },
-    {
-        min: 11117568,
-        max: 11117824,
-        load: types.MULRSHIFT.load,
-    },
-    {
-        min: 11117824,
-        max: 11118080,
-        load: types.MULRSHIFTR.load,
-    },
-    {
-        min: 11118080,
-        max: 11118336,
-        load: types.MULRSHIFTC.load,
-    },
-    {
-        min: 11118592,
-        max: 11118848,
-        load: types.MULMODPOW2.load,
-    },
-    {
-        min: 11118848,
-        max: 11119104,
-        load: types.MULMODPOW2R.load,
-    },
-    {
-        min: 11119104,
-        max: 11119360,
-        load: types.MULMODPOW2C.load,
-    },
-    {
-        min: 11119616,
-        max: 11119872,
-        load: types.MULRSHIFTMOD.load,
-    },
-    {
-        min: 11119872,
-        max: 11120128,
-        load: types.MULRSHIFTRMOD.load,
-    },
-    {
-        min: 11120128,
-        max: 11120384,
-        load: types.MULRSHIFTCMOD.load,
-    },
-    {
-        min: 12036512,
-        max: 12036513,
-        load: types.QMULADDRSHIFTMOD.load,
-    },
-    {
-        min: 12036513,
-        max: 12036514,
-        load: types.QMULADDRSHIFTRMOD.load,
-    },
-    {
-        min: 12036514,
-        max: 12036515,
-        load: types.QMULADDRSHIFTCMOD.load,
-    },
-    {
-        min: 12036516,
-        max: 12036517,
-        load: types.QMULRSHIFT.load,
-    },
-    {
-        min: 12036517,
-        max: 12036518,
-        load: types.QMULRSHIFTR.load,
-    },
-    {
-        min: 12036518,
-        max: 12036519,
-        load: types.QMULRSHIFTC.load,
-    },
-    {
-        min: 12036520,
-        max: 12036521,
-        load: types.QMULMODPOW2.load,
-    },
-    {
-        min: 12036521,
-        max: 12036522,
-        load: types.QMULMODPOW2R.load,
-    },
-    {
-        min: 12036522,
-        max: 12036523,
-        load: types.QMULMODPOW2C.load,
-    },
-    {
-        min: 12036524,
-        max: 12036525,
-        load: types.QMULRSHIFTMOD.load,
-    },
-    {
-        min: 12036525,
-        max: 12036526,
-        load: types.QMULRSHIFTRMOD.load,
-    },
-    {
-        min: 12036526,
-        max: 12036527,
-        load: types.QMULRSHIFTCMOD.load,
-    },
-    {
-        min: 11124736,
-        max: 11124992,
-        load: types.LSHIFTADDDIVMOD.load,
-    },
-    {
-        min: 11124992,
-        max: 11125248,
-        load: types.LSHIFTADDDIVMODR.load,
-    },
-    {
-        min: 11125248,
-        max: 11125504,
-        load: types.LSHIFTADDDIVMODC.load,
-    },
-    {
-        min: 11125760,
-        max: 11126016,
-        load: types.LSHIFTDIV.load,
-    },
-    {
-        min: 11126016,
-        max: 11126272,
-        load: types.LSHIFTDIVR.load,
-    },
-    {
-        min: 11126272,
-        max: 11126528,
-        load: types.LSHIFTDIVC.load,
-    },
-    {
-        min: 11126784,
-        max: 11127040,
-        load: types.LSHIFTMOD.load,
-    },
-    {
-        min: 11127040,
-        max: 11127296,
-        load: types.LSHIFTMODR.load,
-    },
-    {
-        min: 11127296,
-        max: 11127552,
-        load: types.LSHIFTMODC.load,
-    },
-    {
-        min: 11127808,
-        max: 11128064,
-        load: types.LSHIFTDIVMOD.load,
-    },
-    {
-        min: 11128064,
-        max: 11128320,
-        load: types.LSHIFTDIVMODR.load,
-    },
-    {
-        min: 11128320,
-        max: 11128576,
-        load: types.LSHIFTDIVMODC.load,
-    },
-    {
-        min: 12036544,
-        max: 12036545,
-        load: types.QLSHIFTADDDIVMOD.load,
-    },
-    {
-        min: 12036545,
-        max: 12036546,
-        load: types.QLSHIFTADDDIVMODR.load,
-    },
-    {
-        min: 12036546,
-        max: 12036547,
-        load: types.QLSHIFTADDDIVMODC.load,
-    },
-    {
-        min: 12036548,
-        max: 12036549,
-        load: types.QLSHIFTDIV.load,
-    },
-    {
-        min: 12036549,
-        max: 12036550,
-        load: types.QLSHIFTDIVR.load,
-    },
-    {
-        min: 12036550,
-        max: 12036551,
-        load: types.QLSHIFTDIVC.load,
-    },
-    {
-        min: 12036552,
-        max: 12036553,
-        load: types.QLSHIFTMOD.load,
-    },
-    {
-        min: 12036553,
-        max: 12036554,
-        load: types.QLSHIFTMODR.load,
-    },
-    {
-        min: 12036554,
-        max: 12036555,
-        load: types.QLSHIFTMODC.load,
-    },
-    {
-        min: 12036556,
-        max: 12036557,
-        load: types.QLSHIFTDIVMOD.load,
-    },
-    {
-        min: 12036557,
-        max: 12036558,
-        load: types.QLSHIFTDIVMODR.load,
-    },
-    {
-        min: 12036558,
-        max: 12036559,
-        load: types.QLSHIFTDIVMODC.load,
-    },
-    {
-        min: 13565952,
-        max: 13566208,
-        load: types.STIX.load,
-    },
-    {
-        min: 13566208,
-        max: 13566464,
-        load: types.STUX.load,
-    },
-    {
-        min: 13566464,
-        max: 13566720,
-        load: types.STIXR.load,
-    },
-    {
-        min: 13566720,
-        max: 13566976,
-        load: types.STUXR.load,
-    },
-    {
-        min: 13566976,
-        max: 13567232,
-        load: types.STIXQ.load,
-    },
-    {
-        min: 13567232,
-        max: 13567488,
-        load: types.STUXQ.load,
-    },
-    {
-        min: 13567488,
-        max: 13567744,
-        load: types.STIXRQ.load,
-    },
-    {
-        min: 13567744,
-        max: 13568000,
-        load: types.STUXRQ.load,
-    },
-    {
-        min: 13576192,
-        max: 13576448,
-        load: types.STILE4.load,
-    },
-    {
-        min: 13576448,
-        max: 13576704,
-        load: types.STULE4.load,
-    },
-    {
-        min: 13576704,
-        max: 13576960,
-        load: types.STILE8.load,
-    },
-    {
-        min: 13576960,
-        max: 13577216,
-        load: types.STULE8.load,
-    },
-    {
-        min: 14090240,
-        max: 14090496,
-        load: types.LDIX.load,
-    },
-    {
-        min: 14090496,
-        max: 14090752,
-        load: types.LDUX.load,
-    },
-    {
-        min: 14090752,
-        max: 14091008,
-        load: types.PLDIX.load,
-    },
-    {
-        min: 14091008,
-        max: 14091264,
-        load: types.PLDUX.load,
-    },
-    {
-        min: 14091264,
-        max: 14091520,
-        load: types.LDIXQ.load,
-    },
-    {
-        min: 14091520,
-        max: 14091776,
-        load: types.LDUXQ.load,
-    },
-    {
-        min: 14091776,
-        max: 14092032,
-        load: types.PLDIXQ.load,
-    },
-    {
-        min: 14092032,
-        max: 14092288,
-        load: types.PLDUXQ.load,
-    },
-    {
-        min: 14096384,
-        max: 14096640,
-        load: types.LDSLICEX.load,
-    },
-    {
-        min: 14096640,
-        max: 14096896,
-        load: types.PLDSLICEX.load,
-    },
-    {
-        min: 14096896,
-        max: 14097152,
-        load: types.LDSLICEXQ.load,
-    },
-    {
-        min: 14097152,
-        max: 14097408,
-        load: types.PLDSLICEXQ.load,
-    },
-    {
-        min: 14110720,
-        max: 14110976,
-        load: types.LDILE4.load,
-    },
-    {
-        min: 14110976,
-        max: 14111232,
-        load: types.LDULE4.load,
-    },
-    {
-        min: 14111232,
-        max: 14111488,
-        load: types.LDILE8.load,
-    },
-    {
-        min: 14111488,
-        max: 14111744,
-        load: types.LDULE8.load,
-    },
-    {
-        min: 14111744,
-        max: 14112000,
-        load: types.PLDILE4.load,
-    },
-    {
-        min: 14112000,
-        max: 14112256,
-        load: types.PLDULE4.load,
-    },
-    {
-        min: 14112256,
-        max: 14112512,
-        load: types.PLDILE8.load,
-    },
-    {
-        min: 14112512,
-        max: 14112768,
-        load: types.PLDULE8.load,
-    },
-    {
-        min: 14112768,
-        max: 14113024,
-        load: types.LDILE4Q.load,
-    },
-    {
-        min: 14113024,
-        max: 14113280,
-        load: types.LDULE4Q.load,
-    },
-    {
-        min: 14113280,
-        max: 14113536,
-        load: types.LDILE8Q.load,
-    },
-    {
-        min: 14113536,
-        max: 14113792,
-        load: types.LDULE8Q.load,
-    },
-    {
-        min: 14113792,
-        max: 14114048,
-        load: types.PLDILE4Q.load,
-    },
-    {
-        min: 14114048,
-        max: 14114304,
-        load: types.PLDULE4Q.load,
-    },
-    {
-        min: 14114304,
-        max: 14114560,
-        load: types.PLDILE8Q.load,
-    },
-    {
-        min: 14114560,
-        max: 14114816,
-        load: types.PLDULE8Q.load,
-    },
-    {
-        min: 16031744,
-        max: 16032000,
-        load: types.DICTIGETJMP.load,
-    },
-    {
-        min: 16032000,
-        max: 16032256,
-        load: types.DICTUGETJMP.load,
-    },
-    {
-        min: 16032256,
-        max: 16032512,
-        load: types.DICTIGETEXEC.load,
-    },
-    {
-        min: 16032512,
-        max: 16032768,
-        load: types.DICTUGETEXEC.load,
-    },
-    {
-        min: 16038912,
-        max: 16039168,
-        load: types.DICTIGETJMPZ.load,
-    },
-    {
-        min: 16039168,
-        max: 16039424,
-        load: types.DICTUGETJMPZ.load,
-    },
-    {
-        min: 16039424,
-        max: 16039680,
-        load: types.DICTIGETEXECZ.load,
-    },
-    {
-        min: 16039680,
-        max: 16039936,
-        load: types.DICTUGETEXECZ.load,
-    },
-    {
-        min: 15993344,
-        max: 15993600,
-        load: types.DICTGET.load,
-    },
-    {
-        min: 15993600,
-        max: 15993856,
-        load: types.DICTGETREF.load,
-    },
-    {
-        min: 15993856,
-        max: 15994112,
-        load: types.DICTIGET.load,
-    },
-    {
-        min: 15994112,
-        max: 15994368,
-        load: types.DICTIGETREF.load,
-    },
-    {
-        min: 15994368,
-        max: 15994624,
-        load: types.DICTUGET.load,
-    },
-    {
-        min: 15994624,
-        max: 15994880,
-        load: types.DICTUGETREF.load,
-    },
-    {
-        min: 15995392,
-        max: 15995648,
-        load: types.DICTSET.load,
-    },
-    {
-        min: 15995648,
-        max: 15995904,
-        load: types.DICTSETREF.load,
-    },
-    {
-        min: 15995904,
-        max: 15996160,
-        load: types.DICTISET.load,
-    },
-    {
-        min: 15996160,
-        max: 15996416,
-        load: types.DICTISETREF.load,
-    },
-    {
-        min: 15996416,
-        max: 15996672,
-        load: types.DICTUSET.load,
-    },
-    {
-        min: 15996672,
-        max: 15996928,
-        load: types.DICTUSETREF.load,
-    },
-    {
-        min: 15997440,
-        max: 15997696,
-        load: types.DICTSETGET.load,
-    },
-    {
-        min: 15997696,
-        max: 15997952,
-        load: types.DICTSETGETREF.load,
-    },
-    {
-        min: 15997952,
-        max: 15998208,
-        load: types.DICTISETGET.load,
-    },
-    {
-        min: 15998208,
-        max: 15998464,
-        load: types.DICTISETGETREF.load,
-    },
-    {
-        min: 15998464,
-        max: 15998720,
-        load: types.DICTUSETGET.load,
-    },
-    {
-        min: 15998720,
-        max: 15998976,
-        load: types.DICTUSETGETREF.load,
-    },
-    {
-        min: 15999488,
-        max: 15999744,
-        load: types.DICTREPLACE.load,
-    },
-    {
-        min: 15999744,
-        max: 16000000,
-        load: types.DICTREPLACEREF.load,
-    },
-    {
-        min: 16000000,
-        max: 16000256,
-        load: types.DICTIREPLACE.load,
-    },
-    {
-        min: 16000256,
-        max: 16000512,
-        load: types.DICTIREPLACEREF.load,
-    },
-    {
-        min: 16000512,
-        max: 16000768,
-        load: types.DICTUREPLACE.load,
-    },
-    {
-        min: 16000768,
-        max: 16001024,
-        load: types.DICTUREPLACEREF.load,
-    },
-    {
-        min: 16001536,
-        max: 16001792,
-        load: types.DICTREPLACEGET.load,
-    },
-    {
-        min: 16001792,
-        max: 16002048,
-        load: types.DICTREPLACEGETREF.load,
-    },
-    {
-        min: 16002048,
-        max: 16002304,
-        load: types.DICTIREPLACEGET.load,
-    },
-    {
-        min: 16002304,
-        max: 16002560,
-        load: types.DICTIREPLACEGETREF.load,
-    },
-    {
-        min: 16002560,
-        max: 16002816,
-        load: types.DICTUREPLACEGET.load,
-    },
-    {
-        min: 16002816,
-        max: 16003072,
-        load: types.DICTUREPLACEGETREF.load,
-    },
-    {
-        min: 16003584,
-        max: 16003840,
-        load: types.DICTADD.load,
-    },
-    {
-        min: 16003840,
-        max: 16004096,
-        load: types.DICTADDREF.load,
-    },
-    {
-        min: 16004096,
-        max: 16004352,
-        load: types.DICTIADD.load,
-    },
-    {
-        min: 16004352,
-        max: 16004608,
-        load: types.DICTIADDREF.load,
-    },
-    {
-        min: 16004608,
-        max: 16004864,
-        load: types.DICTUADD.load,
-    },
-    {
-        min: 16004864,
-        max: 16005120,
-        load: types.DICTUADDREF.load,
-    },
-    {
-        min: 16005632,
-        max: 16005888,
-        load: types.DICTADDGET.load,
-    },
-    {
-        min: 16005888,
-        max: 16006144,
-        load: types.DICTADDGETREF.load,
-    },
-    {
-        min: 16006144,
-        max: 16006400,
-        load: types.DICTIADDGET.load,
-    },
-    {
-        min: 16006400,
-        max: 16006656,
-        load: types.DICTIADDGETREF.load,
-    },
-    {
-        min: 16006656,
-        max: 16006912,
-        load: types.DICTUADDGET.load,
-    },
-    {
-        min: 16006912,
-        max: 16007168,
-        load: types.DICTUADDGETREF.load,
-    },
-    {
-        min: 16015872,
-        max: 16016128,
-        load: types.DICTDELGET.load,
-    },
-    {
-        min: 16016128,
-        max: 16016384,
-        load: types.DICTDELGETREF.load,
-    },
-    {
-        min: 16016384,
-        max: 16016640,
-        load: types.DICTIDELGET.load,
-    },
-    {
-        min: 16016640,
-        max: 16016896,
-        load: types.DICTIDELGETREF.load,
-    },
-    {
-        min: 16016896,
-        max: 16017152,
-        load: types.DICTUDELGET.load,
-    },
-    {
-        min: 16017152,
-        max: 16017408,
-        load: types.DICTUDELGETREF.load,
-    },
-    {
-        min: 16024064,
-        max: 16024320,
-        load: types.DICTMIN.load,
-    },
-    {
-        min: 16024320,
-        max: 16024576,
-        load: types.DICTMINREF.load,
-    },
-    {
-        min: 16024576,
-        max: 16024832,
-        load: types.DICTIMIN.load,
-    },
-    {
-        min: 16024832,
-        max: 16025088,
-        load: types.DICTIMINREF.load,
-    },
-    {
-        min: 16025088,
-        max: 16025344,
-        load: types.DICTUMIN.load,
-    },
-    {
-        min: 16025344,
-        max: 16025600,
-        load: types.DICTUMINREF.load,
-    },
-    {
-        min: 16026112,
-        max: 16026368,
-        load: types.DICTMAX.load,
-    },
-    {
-        min: 16026368,
-        max: 16026624,
-        load: types.DICTMAXREF.load,
-    },
-    {
-        min: 16026624,
-        max: 16026880,
-        load: types.DICTIMAX.load,
-    },
-    {
-        min: 16026880,
-        max: 16027136,
-        load: types.DICTIMAXREF.load,
-    },
-    {
-        min: 16027136,
-        max: 16027392,
-        load: types.DICTUMAX.load,
-    },
-    {
-        min: 16027392,
-        max: 16027648,
-        load: types.DICTUMAXREF.load,
-    },
-    {
-        min: 16028160,
-        max: 16028416,
-        load: types.DICTREMMIN.load,
-    },
-    {
-        min: 16028416,
-        max: 16028672,
-        load: types.DICTREMMINREF.load,
-    },
-    {
-        min: 16028672,
-        max: 16028928,
-        load: types.DICTIREMMIN.load,
-    },
-    {
-        min: 16028928,
-        max: 16029184,
-        load: types.DICTIREMMINREF.load,
-    },
-    {
-        min: 16029184,
-        max: 16029440,
-        load: types.DICTUREMMIN.load,
-    },
-    {
-        min: 16029440,
-        max: 16029696,
-        load: types.DICTUREMMINREF.load,
-    },
-    {
-        min: 16030208,
-        max: 16030464,
-        load: types.DICTREMMAX.load,
-    },
-    {
-        min: 16030464,
-        max: 16030720,
-        load: types.DICTREMMAXREF.load,
-    },
-    {
-        min: 16030720,
-        max: 16030976,
-        load: types.DICTIREMMAX.load,
-    },
-    {
-        min: 16030976,
-        max: 16031232,
-        load: types.DICTIREMMAXREF.load,
-    },
-    {
-        min: 16031232,
-        max: 16031488,
-        load: types.DICTUREMMAX.load,
-    },
-    {
-        min: 16031488,
-        max: 16031744,
-        load: types.DICTUREMMAXREF.load,
-    },
-    {
-        min: 16007424,
-        max: 16007680,
-        load: types.DICTSETB.load,
-    },
-    {
-        min: 16007680,
-        max: 16007936,
-        load: types.DICTISETB.load,
-    },
-    {
-        min: 16007936,
-        max: 16008192,
-        load: types.DICTUSETB.load,
-    },
-    {
-        min: 16008448,
-        max: 16008704,
-        load: types.DICTSETGETB.load,
-    },
-    {
-        min: 16008704,
-        max: 16008960,
-        load: types.DICTISETGETB.load,
-    },
-    {
-        min: 16008960,
-        max: 16009216,
-        load: types.DICTUSETGETB.load,
-    },
-    {
-        min: 16009472,
-        max: 16009728,
-        load: types.DICTREPLACEB.load,
-    },
-    {
-        min: 16009728,
-        max: 16009984,
-        load: types.DICTIREPLACEB.load,
-    },
-    {
-        min: 16009984,
-        max: 16010240,
-        load: types.DICTUREPLACEB.load,
-    },
-    {
-        min: 16010496,
-        max: 16010752,
-        load: types.DICTREPLACEGETB.load,
-    },
-    {
-        min: 16010752,
-        max: 16011008,
-        load: types.DICTIREPLACEGETB.load,
-    },
-    {
-        min: 16011008,
-        max: 16011264,
-        load: types.DICTUREPLACEGETB.load,
-    },
-    {
-        min: 16011520,
-        max: 16011776,
-        load: types.DICTADDB.load,
-    },
-    {
-        min: 16011776,
-        max: 16012032,
-        load: types.DICTIADDB.load,
-    },
-    {
-        min: 16012032,
-        max: 16012288,
-        load: types.DICTUADDB.load,
-    },
-    {
-        min: 16012544,
-        max: 16012800,
-        load: types.DICTADDGETB.load,
-    },
-    {
-        min: 16012800,
-        max: 16013056,
-        load: types.DICTIADDGETB.load,
-    },
-    {
-        min: 16013056,
-        max: 16013312,
-        load: types.DICTUADDGETB.load,
-    },
-    {
-        min: 16013568,
-        max: 16013824,
-        load: types.DICTDEL.load,
-    },
-    {
-        min: 16013824,
-        max: 16014080,
-        load: types.DICTIDEL.load,
-    },
-    {
-        min: 16014080,
-        max: 16014336,
-        load: types.DICTUDEL.load,
-    },
-    {
-        min: 16017664,
-        max: 16017920,
-        load: types.DICTGETOPTREF.load,
-    },
-    {
-        min: 16017920,
-        max: 16018176,
-        load: types.DICTIGETOPTREF.load,
-    },
-    {
-        min: 16018176,
-        max: 16018432,
-        load: types.DICTUGETOPTREF.load,
-    },
-    {
-        min: 16018688,
-        max: 16018944,
-        load: types.DICTSETGETOPTREF.load,
-    },
-    {
-        min: 16018944,
-        max: 16019200,
-        load: types.DICTISETGETOPTREF.load,
-    },
-    {
-        min: 16019200,
-        max: 16019456,
-        load: types.DICTUSETGETOPTREF.load,
-    },
-    {
-        min: 16036096,
-        max: 16036352,
-        load: types.SUBDICTGET.load,
-    },
-    {
-        min: 16036352,
-        max: 16036608,
-        load: types.SUBDICTIGET.load,
-    },
-    {
-        min: 16036608,
-        max: 16036864,
-        load: types.SUBDICTUGET.load,
-    },
-    {
-        min: 16037120,
-        max: 16037376,
-        load: types.SUBDICTRPGET.load,
-    },
-    {
-        min: 16037376,
-        max: 16037632,
-        load: types.SUBDICTIRPGET.load,
-    },
-    {
-        min: 16037632,
-        max: 16037888,
-        load: types.SUBDICTURPGET.load,
-    },
-    {
-        min: 15921152,
-        max: 15921408,
-        load: types.THROWANY.load,
-    },
-    {
-        min: 15921408,
-        max: 15921664,
-        load: types.THROWARGANY.load,
-    },
-    {
-        min: 15922176,
-        max: 15922432,
-        load: types.THROWANYIFNOT.load,
-    },
-    {
-        min: 15922432,
-        max: 15922688,
-        load: types.THROWARGANYIFNOT.load,
-    },
-    {
-        min: 16020480,
-        max: 16020736,
-        load: types.DICTGETNEXT.load,
-    },
-    {
-        min: 16020736,
-        max: 16020992,
-        load: types.DICTGETNEXTEQ.load,
-    },
-    {
-        min: 16020992,
-        max: 16021248,
-        load: types.DICTGETPREV.load,
-    },
-    {
-        min: 16021248,
-        max: 16021504,
-        load: types.DICTGETPREVEQ.load,
-    },
-    {
-        min: 16021504,
-        max: 16021760,
-        load: types.DICTIGETNEXT.load,
-    },
-    {
-        min: 16021760,
-        max: 16022016,
-        load: types.DICTIGETNEXTEQ.load,
-    },
-    {
-        min: 16022016,
-        max: 16022272,
-        load: types.DICTIGETPREV.load,
-    },
-    {
-        min: 16022272,
-        max: 16022528,
-        load: types.DICTIGETPREVEQ.load,
-    },
-    {
-        min: 16022528,
-        max: 16022784,
-        load: types.DICTUGETNEXT.load,
-    },
-    {
-        min: 16022784,
-        max: 16023040,
-        load: types.DICTUGETNEXTEQ.load,
-    },
-    {
-        min: 16023040,
-        max: 16023296,
-        load: types.DICTUGETPREV.load,
-    },
-    {
-        min: 16023296,
-        max: 16023552,
-        load: types.DICTUGETPREVEQ.load,
-    },
-    {
-        min: 10878976,
-        max: 10944512,
-        load: types.ADDINT.load,
-    },
-    {
-        min: 10944512,
-        max: 11010048,
-        load: types.MULINT.load,
-    },
-    {
-        min: 12035584,
-        max: 12035840,
-        load: types.QADDINT.load,
-    },
-    {
-        min: 12035840,
-        max: 12036096,
-        load: types.QMULINT.load,
-    },
-    {
-        min: 12582912,
-        max: 12648448,
-        load: types.EQINT.load,
-    },
-    {
-        min: 12648448,
-        max: 12713984,
-        load: types.LESSINT.load,
-    },
-    {
-        min: 12713984,
-        max: 12779520,
-        load: types.GTINT.load,
-    },
-    {
-        min: 12779520,
-        max: 12845056,
-        load: types.NEQINT.load,
-    },
-    {
-        min: 12042240,
-        max: 12042496,
-        load: types.QEQINT.load,
-    },
-    {
-        min: 12042496,
-        max: 12042752,
-        load: types.QLESSINT.load,
-    },
-    {
-        min: 12042752,
-        max: 12043008,
-        load: types.QGTINT.load,
-    },
-    {
-        min: 12043008,
-        max: 12043264,
-        load: types.QNEQINT.load,
-    },
-    {
-        min: 8650752,
-        max: 8716288,
-        load: types.PUSHPOW2DEC.load,
-    },
-    {
-        min: 8716288,
-        max: 8781824,
-        load: types.PUSHNEGPOW2.load,
-    },
-    {
-        min: 11796480,
-        max: 11862016,
-        load: types.FITS.load,
-    },
-    {
-        min: 11862016,
-        max: 11927552,
-        load: types.UFITS.load,
-    },
-    {
-        min: 12039168,
-        max: 12039424,
-        load: types.QFITS.load,
-    },
-    {
-        min: 12039424,
-        max: 12039680,
-        load: types.QUFITS.load,
-    },
-    {
-        min: 15590144,
-        max: 15590400,
-        load: types.SETCONTCTRMANY.load,
-    },
-    {
-        min: 14366208,
-        max: 14366464,
-        load: types.CALLCCARGS.load,
-    },
-    {
-        min: 15925248,
-        max: 15990784,
-        load: types.TRYARGS.load,
-    },
-    {
-        min: 14109696,
-        max: 14110720,
-        load: types.PLDREFIDX.load,
-    },
-    {
-        min: 14116864,
-        max: 14117888,
-        load: types.CHASHI.load,
-    },
-    {
-        min: 14117888,
-        max: 14118912,
-        load: types.CDEPTHI.load,
-    },
-    {
-        min: 15810560,
-        max: 15826944,
-        load: types.JMPDICT.load,
-    },
-    {
-        min: 15826944,
-        max: 15843328,
-        load: types.PREPAREDICT.load,
-    },
-    {
-        min: 15910912,
-        max: 15912960,
-        load: types.THROWARG.load,
-    },
-    {
-        min: 15915008,
-        max: 15917056,
-        load: types.THROWARGIF.load,
-    },
-    {
-        min: 15919104,
-        max: 15921152,
-        load: types.THROWARGIFNOT.load,
-    },
-    {
-        min: 14356480,
-        max: 14360576,
-        load: types.JMPXARGS.load,
-    },
-    {
-        min: 14360576,
-        max: 14364672,
-        load: types.RETARGS.load,
-    },
-    {
-        min: 15532032,
-        max: 15536128,
-        load: types.RETURNARGS.load,
-    },
-    {
-        min: 6225920,
-        max: 6230016,
-        load: types.BLKDROP.load,
-    },
-    {
-        min: 7274496,
-        max: 7278592,
-        load: types.TUPLE.load,
-    },
-    {
-        min: 7278592,
-        max: 7282688,
-        load: types.INDEX.load,
-    },
-    {
-        min: 7282688,
-        max: 7286784,
-        load: types.UNTUPLE.load,
-    },
-    {
-        min: 7286784,
-        max: 7290880,
-        load: types.UNPACKFIRST.load,
-    },
-    {
-        min: 7290880,
-        max: 7294976,
-        load: types.EXPLODE.load,
-    },
-    {
-        min: 7294976,
-        max: 7299072,
-        load: types.SETINDEX.load,
-    },
-    {
-        min: 7299072,
-        max: 7303168,
-        load: types.INDEXQ.load,
-    },
-    {
-        min: 7303168,
-        max: 7307264,
-        load: types.SETINDEXQ.load,
-    },
-    {
-        min: 5509120,
-        max: 5513216,
-        load: types.XC2PU.load,
-    },
-    {
-        min: 5517312,
-        max: 5521408,
-        load: types.XCPU2.load,
-    },
-    {
-        min: 5533696,
-        max: 5537792,
-        load: types.PUSH3.load,
-    },
-    {
-        min: 5242880,
-        max: 5308416,
-        load: types.XCHG2.load,
-    },
-    {
-        min: 5308416,
-        max: 5373952,
-        load: types.XCPU.load,
-    },
-    {
-        min: 5439488,
-        max: 5505024,
-        load: types.PUSH2.load,
-    },
-    {
-        min: 5373952,
-        max: 5439488,
-        load: types.PUXC.load,
-    },
-    {
-        min: 5513216,
-        max: 5517312,
-        load: types.XCPUXC.load,
-    },
-    {
-        min: 5521408,
-        max: 5525504,
-        load: types.PUXC2.load,
-    },
-    {
-        min: 5525504,
-        max: 5529600,
-        load: types.PUXCPU.load,
-    },
-    {
-        min: 5529600,
-        max: 5533696,
-        load: types.PU2XC.load,
-    },
-    {
-        min: 5570560,
-        max: 5636096,
-        load: types.BLKSWAP.load,
-    },
-    {
-        min: 6160384,
-        max: 6225920,
-        load: types.REVERSE.load,
-    },
-    {
-        min: 15466496,
-        max: 15532032,
-        load: types.SETCONTARGS.load,
-    },
-    {
-        min: 15597568,
-        max: 15663104,
-        load: types.BLESSARGS.load,
-    },
-    {
-        min: 13568512,
-        max: 13568768,
-        load: types.STIR.load,
-    },
-    {
-        min: 13568768,
-        max: 13569024,
-        load: types.STUR.load,
-    },
-    {
-        min: 13569024,
-        max: 13569280,
-        load: types.STIQ.load,
-    },
-    {
-        min: 13569280,
-        max: 13569536,
-        load: types.STUQ.load,
-    },
-    {
-        min: 13569536,
-        max: 13569792,
-        load: types.STIRQ.load,
-    },
-    {
-        min: 13569792,
-        max: 13570048,
-        load: types.STURQ.load,
-    },
-    {
-        min: 14092800,
-        max: 14093056,
-        load: types.PLDI.load,
-    },
-    {
-        min: 14093056,
-        max: 14093312,
-        load: types.PLDU.load,
-    },
-    {
-        min: 14093312,
-        max: 14093568,
-        load: types.LDIQ.load,
-    },
-    {
-        min: 14093568,
-        max: 14093824,
-        load: types.LDUQ.load,
-    },
-    {
-        min: 14093824,
-        max: 14094080,
-        load: types.PLDIQ.load,
-    },
-    {
-        min: 14094080,
-        max: 14094336,
-        load: types.PLDUQ.load,
-    },
-    {
-        min: 14094336,
-        max: 14096384,
-        load: types.PLDUZ.load,
-    },
-    {
-        min: 14097664,
-        max: 14097920,
-        load: types.PLDSLICE.load,
-    },
-    {
-        min: 14097920,
-        max: 14098176,
-        load: types.LDSLICEQ.load,
-    },
-    {
-        min: 14098176,
-        max: 14098432,
-        load: types.PLDSLICEQ.load,
-    },
-    {
-        min: 14909440,
-        max: 14917632,
-        load: types.IFBITJMP.load,
-    },
-    {
-        min: 14917632,
-        max: 14925824,
-        load: types.IFNBITJMP.load,
-    },
-    {
-        min: 7319552,
-        max: 7323648,
-        load: types.INDEX2.load,
-    },
-    {
-        min: 7323648,
-        max: 7340032,
-        load: types.INDEX3.load,
-    },
-    {
-        min: 8585216,
-        max: 8650496,
-        load: types.PUSHPOW2.load,
-    },
-    {
-        min: 6230016,
-        max: 6291456,
-        load: types.BLKPUSH.load,
-    },
-    {
-        min: 7081984,
-        max: 7143424,
-        load: types.BLKDROP2.load,
-    },
-    {
-        min: 16269568,
-        max: 16277504,
-        load: types.GETGLOB.load,
-    },
-    {
-        min: 16277760,
-        max: 16285696,
-        load: types.SETGLOB.load,
-    },
-    {
-        min: 16261120,
-        max: 16261888,
-        load: types.GETPARAM.load,
-    },
-    {
-        min: 8912896,
-        max: 8978432,
-        load: types.PUSHREF.load,
-    },
-    {
-        min: 8978432,
-        max: 9043968,
-        load: types.PUSHREFSLICE.load,
-    },
-    {
-        min: 9043968,
-        max: 9109504,
-        load: types.PUSHREFCONT.load,
-    },
-    {
-        min: 14367744,
-        max: 14368000,
-        load: types.CALLREF.load,
-    },
-    {
-        min: 14368000,
-        max: 14368256,
-        load: types.JMPREF.load,
-    },
-    {
-        min: 14368256,
-        max: 14368512,
-        load: types.JMPREFDATA.load,
-    },
-    {
-        min: 14876672,
-        max: 14876928,
-        load: types.IFREF.load,
-    },
-    {
-        min: 14876928,
-        max: 14877184,
-        load: types.IFNOTREF.load,
-    },
-    {
-        min: 14877184,
-        max: 14877440,
-        load: types.IFJMPREF.load,
-    },
-    {
-        min: 14877440,
-        max: 14877696,
-        load: types.IFNOTJMPREF.load,
-    },
-    {
-        min: 14880000,
-        max: 14880256,
-        load: types.IFREFELSE.load,
-    },
-    {
-        min: 14880256,
-        max: 14880512,
-        load: types.IFELSEREF.load,
-    },
-    {
-        min: 14880512,
-        max: 14880768,
-        load: types.IFREFELSEREF.load,
-    },
-    {
-        min: 14925824,
-        max: 14934016,
-        load: types.IFBITJMPREF.load,
-    },
-    {
-        min: 14934016,
-        max: 14942208,
-        load: types.IFNBITJMPREF.load,
-    },
-    {
-        min: 16032768,
-        max: 16033792,
-        load: types.DICTPUSHCONST.load,
-    },
-    {
-        min: 16034816,
-        max: 16035840,
-        load: types.PFXDICTSWITCH.load,
-    },
-    {
-        min: 14099968,
-        max: 14100224,
-        load: types.SDBEGINSX.load,
-    },
-    {
-        min: 14100224,
-        max: 14100480,
-        load: types.SDBEGINSXQ.load,
-    },
-    {
-        min: 14100480,
-        max: 14101504,
-        load: types.SDBEGINS.load,
-    },
-    {
-        min: 14101504,
-        max: 14102528,
-        load: types.SDBEGINSQ.load,
-    },
-    {
-        min: 13574144,
-        max: 13574400,
-        load: types.STREFCONST.load,
-    },
-    {
-        min: 13574400,
-        max: 13574656,
-        load: types.STREF2CONST.load,
-    },
-    {
-        min: 15921664,
-        max: 15921920,
-        load: types.THROWANYIF.load,
-    },
-    {
-        min: 15921920,
-        max: 15922176,
-        load: types.THROWARGANYIF.load,
-    },
-    {
-        min: 16707584,
-        max: 16711680,
-        load: types.DEBUGSTR.load,
-    },
-    {
-        min: 15556608,
-        max: 15558656,
-        load: types.SETCONTCTR.load,
-    },
-    {
-        min: 15560704,
-        max: 15562752,
-        load: types.SETRETCTR.load,
-    },
-    {
-        min: 15564800,
-        max: 15566848,
-        load: types.SETALTCTR.load,
-    },
-    {
-        min: 15568896,
-        max: 15570944,
-        load: types.POPSAVE.load,
-    },
-    {
-        min: 15572992,
-        max: 15575040,
-        load: types.SAVECTR.load,
-    },
-    {
-        min: 15577088,
-        max: 15579136,
-        load: types.SAVEALTCTR.load,
-    },
-    {
-        min: 15581184,
-        max: 15583232,
-        load: types.SAVEBOTHCTR.load,
-    },
-    {
-        min: 14368768,
-        max: 14372864,
-        load: types.RUNVM.load,
-    },
-    {
-        min: 5898240,
-        max: 5963776,
-        load: types.SWAP2.load,
-    },
-    {
-        min: 5963776,
-        max: 6029312,
-        load: types.DROP2.load,
-    },
-    {
-        min: 6029312,
-        max: 6094848,
-        load: types.DUP2.load,
-    },
-    {
-        min: 6094848,
-        max: 6160384,
-        load: types.OVER2.load,
-    },
-    {
-        min: 11087872,
-        max: 11088128,
-        load: types.ADDRSHIFT_MOD.load,
-    },
-    {
-        min: 11088128,
-        max: 11088384,
-        load: types.ADDRSHIFTR_MOD.load,
-    },
-    {
-        min: 11088384,
-        max: 11088640,
-        load: types.ADDRSHIFTC_MOD.load,
-    },
-    {
-        min: 11088896,
-        max: 11089152,
-        load: types.RSHIFT_.load,
-    },
-    {
-        min: 11089152,
-        max: 11089408,
-        load: types.RSHIFTR_.load,
-    },
-    {
-        min: 11089408,
-        max: 11089664,
-        load: types.RSHIFTC_.load,
-    },
-    {
-        min: 11089920,
-        max: 11090176,
-        load: types.MODPOW2_.load,
-    },
-    {
-        min: 11090176,
-        max: 11090432,
-        load: types.MODPOW2R_.load,
-    },
-    {
-        min: 11090432,
-        max: 11090688,
-        load: types.MODPOW2C_.load,
-    },
-    {
-        min: 11090944,
-        max: 11091200,
-        load: types.RSHIFT_MOD.load,
-    },
-    {
-        min: 11091200,
-        max: 11091456,
-        load: types.RSHIFTR_MOD.load,
-    },
-    {
-        min: 11091456,
-        max: 11091712,
-        load: types.RSHIFTC_MOD.load,
-    },
-    {
-        min: 11120640,
-        max: 11120896,
-        load: types.MULADDRSHIFT_MOD.load,
-    },
-    {
-        min: 11120896,
-        max: 11121152,
-        load: types.MULADDRSHIFTR_MOD.load,
-    },
-    {
-        min: 11121152,
-        max: 11121408,
-        load: types.MULADDRSHIFTC_MOD.load,
-    },
-    {
-        min: 11121664,
-        max: 11121920,
-        load: types.MULRSHIFT_.load,
-    },
-    {
-        min: 11121920,
-        max: 11122176,
-        load: types.MULRSHIFTR_.load,
-    },
-    {
-        min: 11122176,
-        max: 11122432,
-        load: types.MULRSHIFTC_.load,
-    },
-    {
-        min: 11122688,
-        max: 11122944,
-        load: types.MULMODPOW2_.load,
-    },
-    {
-        min: 11122944,
-        max: 11123200,
-        load: types.MULMODPOW2R_.load,
-    },
-    {
-        min: 11123200,
-        max: 11123456,
-        load: types.MULMODPOW2C_.load,
-    },
-    {
-        min: 11123712,
-        max: 11123968,
-        load: types.MULRSHIFT_MOD.load,
-    },
-    {
-        min: 11123968,
-        max: 11124224,
-        load: types.MULRSHIFTR_MOD.load,
-    },
-    {
-        min: 11124224,
-        max: 11124480,
-        load: types.MULRSHIFTC_MOD.load,
-    },
-    {
-        min: 11128832,
-        max: 11129088,
-        load: types.LSHIFT_ADDDIVMOD.load,
-    },
-    {
-        min: 11129088,
-        max: 11129344,
-        load: types.LSHIFT_ADDDIVMODR.load,
-    },
-    {
-        min: 11129344,
-        max: 11129600,
-        load: types.LSHIFT_ADDDIVMODC.load,
-    },
-    {
-        min: 11129856,
-        max: 11130112,
-        load: types.LSHIFT_DIV.load,
-    },
-    {
-        min: 11130112,
-        max: 11130368,
-        load: types.LSHIFT_DIVR.load,
-    },
-    {
-        min: 11130368,
-        max: 11130624,
-        load: types.LSHIFT_DIVC.load,
-    },
-    {
-        min: 11130880,
-        max: 11131136,
-        load: types.LSHIFT_MOD.load,
-    },
-    {
-        min: 11131136,
-        max: 11131392,
-        load: types.LSHIFT_MODR.load,
-    },
-    {
-        min: 11131392,
-        max: 11131648,
-        load: types.LSHIFT_MODC.load,
-    },
-    {
-        min: 11131904,
-        max: 11132160,
-        load: types.LSHIFT_DIVMOD.load,
-    },
-    {
-        min: 11132160,
-        max: 11132416,
-        load: types.LSHIFT_DIVMODR.load,
-    },
-    {
-        min: 11132416,
-        max: 11132672,
-        load: types.LSHIFT_DIVMODC.load,
-    },
-    {
-        min: 16319488,
-        max: 16319744,
-        load: types.HASHEXT.load,
-    },
-    {
-        min: 16319744,
-        max: 16320000,
-        load: types.HASHEXTR.load,
-    },
-    {
-        min: 16320000,
-        max: 16320256,
-        load: types.HASHEXTA.load,
-    },
-    {
-        min: 16320256,
-        max: 16320512,
-        load: types.HASHEXTAR.load,
-    },
-    {
-        min: 13369344,
-        max: 13434880,
-        load: types.STREF.load,
-    },
-    {
-        min: 13570048,
-        max: 13570304,
-        load: types.STREF_ALT.load,
-    },
-    {
-        min: 13500416,
-        max: 13565952,
-        load: types.STSLICE.load,
-    },
-    {
-        min: 13570560,
-        max: 13570816,
-        load: types.STSLICE_ALT.load,
-    },
-    {
-        min: 4194304,
-        max: 5242880,
-        load: types.XCHG3.load,
-    },
-    {
-        min: 5505024,
-        max: 5509120,
-        load: types.XCHG3_ALT.load,
-    },
-    {
-        min: 13238272,
-        max: 13303808,
-        load: types.STI.load,
-    },
-    {
-        min: 13568000,
-        max: 13568256,
-        load: types.STI_ALT.load,
-    },
-    {
-        min: 13303808,
-        max: 13369344,
-        load: types.STU.load,
-    },
-    {
-        min: 13568256,
-        max: 13568512,
-        load: types.STU_ALT.load,
-    },
-    {
-        min: 13762560,
-        max: 13828096,
-        load: types.LDI.load,
-    },
-    {
-        min: 14092288,
-        max: 14092544,
-        load: types.LDI_ALT.load,
-    },
-    {
-        min: 13828096,
-        max: 13893632,
-        load: types.LDU.load,
-    },
-    {
-        min: 14092544,
-        max: 14092800,
-        load: types.LDU_ALT.load,
-    },
-    {
-        min: 14024704,
-        max: 14090240,
-        load: types.LDSLICE.load,
-    },
-    {
-        min: 14097408,
-        max: 14097664,
-        load: types.LDSLICE_ALT.load,
-    },
-    {
-        min: 11272192,
-        max: 11337728,
-        load: types.LSHIFT_VAR.load,
-    },
-    {
-        min: 11141120,
-        max: 11206656,
-        load: types.LSHIFT.load,
-    },
-    {
-        min: 12037120,
-        max: 12037376,
-        load: types.QLSHIFT_VAR.load,
-    },
-    {
-        min: 12036608,
-        max: 12036864,
-        load: types.QLSHIFT.load,
-    },
-    {
-        min: 13580544,
-        max: 13580800,
-        load: types.BCHKBITS_VAR.load,
-    },
-    {
-        min: 13580288,
-        max: 13580544,
-        load: types.BCHKBITS.load,
-    },
-    {
-        min: 13581568,
-        max: 13581824,
-        load: types.BCHKBITSQ_VAR.load,
-    },
-    {
-        min: 13581312,
-        max: 13581568,
-        load: types.BCHKBITSQ.load,
-    },
-    {
-        min: 11337728,
-        max: 11403264,
-        load: types.RSHIFT_VAR.load,
-    },
-    {
-        min: 11206656,
-        max: 11272192,
-        load: types.RSHIFT.load,
-    },
-    {
-        min: 11084800,
-        max: 11085056,
-        load: types.RSHIFT_ALT.load,
-    },
-    {
-        min: 12037376,
-        max: 12037632,
-        load: types.QRSHIFT_VAR.load,
-    },
-    {
-        min: 12036864,
-        max: 12037120,
-        load: types.QRSHIFT.load,
-    },
-    {
-        min: 12036388,
-        max: 12036389,
-        load: types.QRSHIFT_ALT.load,
-    },
-    {
-        min: 15728640,
-        max: 15794176,
-        load: types.CALLDICT.load,
-    },
-    {
-        min: 15794176,
-        max: 15810560,
-        load: types.CALLDICT_LONG.load,
-    },
-    {
-        min: 15859712,
-        max: 15876096,
-        load: types.THROW_SHORT.load,
-    },
-    {
-        min: 15908864,
-        max: 15910912,
-        load: types.THROW.load,
-    },
-    {
-        min: 15876096,
-        max: 15892480,
-        load: types.THROWIF_SHORT.load,
-    },
-    {
-        min: 15912960,
-        max: 15915008,
-        load: types.THROWIF.load,
-    },
-    {
-        min: 15892480,
-        max: 15908864,
-        load: types.THROWIFNOT_SHORT.load,
-    },
-    {
-        min: 15917056,
-        max: 15919104,
-        load: types.THROWIFNOT.load,
-    },
-    {
-        min: 7340032,
-        max: 8388608,
-        load: types.PUSHINT_4.load,
-    },
-    {
-        min: 8388608,
-        max: 8454144,
-        load: types.PUSHINT_8.load,
-    },
-    {
-        min: 8454144,
-        max: 8519680,
-        load: types.PUSHINT_16.load,
-    },
-    {
-        min: 8519680,
-        max: 8583168,
-        load: types.PUSHINT_LONG.load,
-    },
-    {
-        min: 1114112,
-        max: 1179648,
-        load: types.XCHG_0I_LONG.load,
-    },
-    {
-        min: 131072,
-        max: 1048576,
-        load: types.XCHG_0I.load,
-    },
-    {
-        min: 1048576,
-        max: 1114112,
-        load: types.XCHG_IJ.load,
-    },
-    {
-        min: 1179648,
-        max: 2097152,
-        load: types.XCHG_1I.load,
-    },
-    {
-        min: 16646144,
-        max: 16646400,
-        load: types.DUMPSTK.load,
-    },
-    {
-        min: 16646400,
-        max: 16651264,
-        load: types.DEBUG.load,
-    },
-    {
-        min: 16651264,
-        max: 16651520,
-        load: types.STRDUMP.load,
-    },
-    {
-        min: 16651520,
-        max: 16654336,
-        load: types.DEBUG_1.load,
-    },
-    {
-        min: 16654336,
-        max: 16658432,
-        load: types.DUMP.load,
-    },
-    {
-        min: 16658432,
-        max: 16707584,
-        load: types.DEBUG_2.load,
-    },
-    {
-        min: 15548416,
-        max: 15550464,
-        load: types.PUSHCTR.load,
-    },
-    {
-        min: 2228224,
-        max: 3145728,
-        load: types.PUSH.load,
-    },
-    {
-        min: 5636096,
-        max: 5701632,
-        load: types.PUSH_LONG.load,
-    },
-    {
-        min: 15552512,
-        max: 15554560,
-        load: types.POPCTR.load,
-    },
-    {
-        min: 3276800,
-        max: 4194304,
-        load: types.POP.load,
-    },
-    {
-        min: 5701632,
-        max: 5767168,
-        load: types.POP_LONG.load,
-    },
-    {
-        min: 14352384,
-        max: 14356480,
-        load: types.CALLXARGS.load,
-    },
-    {
-        min: 14286848,
-        max: 14352384,
-        load: types.CALLXARGS_1.load,
-    },
-    {
-        min: 9109504,
-        max: 9175040,
-        load: types.PUSHSLICE.load,
-    },
-    {
-        min: 9175040,
-        max: 9240576,
-        load: types.PUSHSLICE_REFS.load,
-    },
-    {
-        min: 9240576,
-        max: 9281536,
-        load: types.PUSHSLICE_LONG.load,
-    },
-    {
-        min: 9306112,
-        max: 9437184,
-        load: types.PUSHCONT.load,
-    },
-    {
-        min: 9437184,
-        max: 10485760,
-        load: types.PUSHCONT_SHORT.load,
-    },
-    {
-        min: 13598720,
-        max: 13631488,
-        load: types.STSLICECONST.load,
-    },
-    {
-        min: 16711680,
-        max: 16773120,
-        load: types.SETCP.load,
-    },
-    {
-        min: 16773120,
-        max: 16773376,
-        load: types.SETCPX.load,
-    },
-    {
-        min: 16773376,
-        max: 16777216,
-        load: types.SETCP_SHORT.load,
-    },
-    {
-        min: 16285952,
-        max: 16285969,
-        load: types.GETPARAMLONG.load,
-    },
-    {
-        min: 16285969,
-        max: 16285970,
-        load: types.INMSGPARAMS.load,
-    },
-    {
-        min: 16285970,
-        max: 16286207,
-        load: types.GETPARAMLONG2.load,
-    },
-    {
-        min: 16289792,
-        max: 16290048,
-        load: types.INMSG_BOUNCE.load,
-    },
-    {
-        min: 16290048,
-        max: 16290304,
-        load: types.INMSG_BOUNCED.load,
-    },
-    {
-        min: 16290304,
-        max: 16290560,
-        load: types.INMSG_SRC.load,
-    },
-    {
-        min: 16290560,
-        max: 16290816,
-        load: types.INMSG_FWDFEE.load,
-    },
-    {
-        min: 16290816,
-        max: 16291072,
-        load: types.INMSG_LT.load,
-    },
-    {
-        min: 16291072,
-        max: 16291328,
-        load: types.INMSG_UTIME.load,
-    },
-    {
-        min: 16291328,
-        max: 16291584,
-        load: types.INMSG_ORIGVALUE.load,
-    },
-    {
-        min: 16291584,
-        max: 16291840,
-        load: types.INMSG_VALUE.load,
-    },
-    {
-        min: 16291840,
-        max: 16292096,
-        load: types.INMSG_VALUEEXTRA.load,
-    },
-    {
-        min: 16292096,
-        max: 16292352,
-        load: types.INMSG_STATEINIT.load,
-    },
-    {
-        min: 16292352,
-        max: 16293888,
-        load: types.INMSGPARAM.load,
-    },
-    {
-        min: 13586432,
-        max: 13586688,
-        load: types.BTOS.load,
-    },
-    {
-        min: 16324096,
-        max: 16324352,
-        load: types.HASHBU.load,
-    },
-    {
-        min: 16402432,
-        max: 16402688,
-        load: types.LDSTDADDR.load,
-    },
-    {
-        min: 16402688,
-        max: 16402944,
-        load: types.LDSTDADDRQ.load,
-    },
-    {
-        min: 16404480,
-        max: 16404736,
-        load: types.LDOPTSTDADDR.load,
-    },
-    {
-        min: 16404736,
-        max: 16404992,
-        load: types.LDOPTSTDADDRQ.load,
-    },
-    {
-        min: 16404992,
-        max: 16405248,
-        load: types.STSTDADDR.load,
-    },
-    {
-        min: 16405248,
-        max: 16405504,
-        load: types.STSTDADDRQ.load,
-    },
-    {
-        min: 16405504,
-        max: 16405760,
-        load: types.STOPTSTDADDR.load,
-    },
-    {
-        min: 16405760,
-        max: 16406016,
-        load: types.STOPTSTDADDRQ.load,
-    },
-    {
-        min: 16340224,
-        max: 16340480,
-        load: types.DEBUGMARK.load,
-    },
+  {
+    min: 8650496,
+    max: 8650752,
+    load: types.PUSHNAN.load,
+  },
+  {
+    min: 10485760,
+    max: 10551296,
+    load: types.ADD.load,
+  },
+  {
+    min: 10551296,
+    max: 10616832,
+    load: types.SUB.load,
+  },
+  {
+    min: 10616832,
+    max: 10682368,
+    load: types.SUBR.load,
+  },
+  {
+    min: 10682368,
+    max: 10747904,
+    load: types.NEGATE.load,
+  },
+  {
+    min: 10747904,
+    max: 10813440,
+    load: types.INC.load,
+  },
+  {
+    min: 10813440,
+    max: 10878976,
+    load: types.DEC.load,
+  },
+  {
+    min: 11010048,
+    max: 11075584,
+    load: types.MUL.load,
+  },
+  {
+    min: 11403264,
+    max: 11468800,
+    load: types.POW2.load,
+  },
+  {
+    min: 11534336,
+    max: 11599872,
+    load: types.AND.load,
+  },
+  {
+    min: 11599872,
+    max: 11665408,
+    load: types.OR.load,
+  },
+  {
+    min: 11665408,
+    max: 11730944,
+    load: types.XOR.load,
+  },
+  {
+    min: 11730944,
+    max: 11796480,
+    load: types.NOT.load,
+  },
+  {
+    min: 11927552,
+    max: 11927808,
+    load: types.FITSX.load,
+  },
+  {
+    min: 11927808,
+    max: 11928064,
+    load: types.UFITSX.load,
+  },
+  {
+    min: 11928064,
+    max: 11928320,
+    load: types.BITSIZE.load,
+  },
+  {
+    min: 11928320,
+    max: 11928576,
+    load: types.UBITSIZE.load,
+  },
+  {
+    min: 11929600,
+    max: 11929856,
+    load: types.MIN.load,
+  },
+  {
+    min: 11929856,
+    max: 11930112,
+    load: types.MAX.load,
+  },
+  {
+    min: 11930112,
+    max: 11930368,
+    load: types.MINMAX.load,
+  },
+  {
+    min: 11930368,
+    max: 11930624,
+    load: types.ABS.load,
+  },
+  {
+    min: 12034048,
+    max: 12034304,
+    load: types.QADD.load,
+  },
+  {
+    min: 12034304,
+    max: 12034560,
+    load: types.QSUB.load,
+  },
+  {
+    min: 12034560,
+    max: 12034816,
+    load: types.QSUBR.load,
+  },
+  {
+    min: 12034816,
+    max: 12035072,
+    load: types.QNEGATE.load,
+  },
+  {
+    min: 12035072,
+    max: 12035328,
+    load: types.QINC.load,
+  },
+  {
+    min: 12035328,
+    max: 12035584,
+    load: types.QDEC.load,
+  },
+  {
+    min: 12036096,
+    max: 12036352,
+    load: types.QMUL.load,
+  },
+  {
+    min: 12037632,
+    max: 12037888,
+    load: types.QPOW2.load,
+  },
+  {
+    min: 12038144,
+    max: 12038400,
+    load: types.QAND.load,
+  },
+  {
+    min: 12038400,
+    max: 12038656,
+    load: types.QOR.load,
+  },
+  {
+    min: 12038656,
+    max: 12038912,
+    load: types.QXOR.load,
+  },
+  {
+    min: 12038912,
+    max: 12039168,
+    load: types.QNOT.load,
+  },
+  {
+    min: 12039680,
+    max: 12039681,
+    load: types.QFITSX.load,
+  },
+  {
+    min: 12039681,
+    max: 12039682,
+    load: types.QUFITSX.load,
+  },
+  {
+    min: 12039682,
+    max: 12039683,
+    load: types.QBITSIZE.load,
+  },
+  {
+    min: 12039683,
+    max: 12039684,
+    load: types.QUBITSIZE.load,
+  },
+  {
+    min: 12039688,
+    max: 12039689,
+    load: types.QMIN.load,
+  },
+  {
+    min: 12039689,
+    max: 12039690,
+    load: types.QMAX.load,
+  },
+  {
+    min: 12039690,
+    max: 12039691,
+    load: types.QMINMAX.load,
+  },
+  {
+    min: 12039691,
+    max: 12039692,
+    load: types.QABS.load,
+  },
+  {
+    min: 12058624,
+    max: 12124160,
+    load: types.SGN.load,
+  },
+  {
+    min: 12124160,
+    max: 12189696,
+    load: types.LESS.load,
+  },
+  {
+    min: 12189696,
+    max: 12255232,
+    load: types.EQUAL.load,
+  },
+  {
+    min: 12255232,
+    max: 12320768,
+    load: types.LEQ.load,
+  },
+  {
+    min: 12320768,
+    max: 12386304,
+    load: types.GREATER.load,
+  },
+  {
+    min: 12386304,
+    max: 12451840,
+    load: types.NEQ.load,
+  },
+  {
+    min: 12451840,
+    max: 12517376,
+    load: types.GEQ.load,
+  },
+  {
+    min: 12517376,
+    max: 12582912,
+    load: types.CMP.load,
+  },
+  {
+    min: 12845056,
+    max: 12910592,
+    load: types.ISNAN.load,
+  },
+  {
+    min: 12910592,
+    max: 12976128,
+    load: types.CHKNAN.load,
+  },
+  {
+    min: 12040192,
+    max: 12040448,
+    load: types.QSGN.load,
+  },
+  {
+    min: 12040448,
+    max: 12040704,
+    load: types.QLESS.load,
+  },
+  {
+    min: 12040704,
+    max: 12040960,
+    load: types.QEQUAL.load,
+  },
+  {
+    min: 12040960,
+    max: 12041216,
+    load: types.QLEQ.load,
+  },
+  {
+    min: 12041216,
+    max: 12041472,
+    load: types.QGREATER.load,
+  },
+  {
+    min: 12041472,
+    max: 12041728,
+    load: types.QNEQ.load,
+  },
+  {
+    min: 12041728,
+    max: 12041984,
+    load: types.QGEQ.load,
+  },
+  {
+    min: 12041984,
+    max: 12042240,
+    load: types.QCMP.load,
+  },
+  {
+    min: 13041664,
+    max: 13041920,
+    load: types.SEMPTY.load,
+  },
+  {
+    min: 13041920,
+    max: 13042176,
+    load: types.SDEMPTY.load,
+  },
+  {
+    min: 13042176,
+    max: 13042432,
+    load: types.SREMPTY.load,
+  },
+  {
+    min: 13042432,
+    max: 13042688,
+    load: types.SDFIRST.load,
+  },
+  {
+    min: 13042688,
+    max: 13042944,
+    load: types.SDLEXCMP.load,
+  },
+  {
+    min: 13042944,
+    max: 13043200,
+    load: types.SDEQ.load,
+  },
+  {
+    min: 13043712,
+    max: 13043968,
+    load: types.SDPFX.load,
+  },
+  {
+    min: 13043968,
+    max: 13044224,
+    load: types.SDPFXREV.load,
+  },
+  {
+    min: 13044224,
+    max: 13044480,
+    load: types.SDPPFX.load,
+  },
+  {
+    min: 13044480,
+    max: 13044736,
+    load: types.SDPPFXREV.load,
+  },
+  {
+    min: 13044736,
+    max: 13044992,
+    load: types.SDSFX.load,
+  },
+  {
+    min: 13044992,
+    max: 13045248,
+    load: types.SDSFXREV.load,
+  },
+  {
+    min: 13045248,
+    max: 13045504,
+    load: types.SDPSFX.load,
+  },
+  {
+    min: 13045504,
+    max: 13045760,
+    load: types.SDPSFXREV.load,
+  },
+  {
+    min: 13045760,
+    max: 13046016,
+    load: types.SDCNTLEAD0.load,
+  },
+  {
+    min: 13046016,
+    max: 13046272,
+    load: types.SDCNTLEAD1.load,
+  },
+  {
+    min: 13046272,
+    max: 13046528,
+    load: types.SDCNTTRAIL0.load,
+  },
+  {
+    min: 13046528,
+    max: 13046784,
+    load: types.SDCNTTRAIL1.load,
+  },
+  {
+    min: 13107200,
+    max: 13172736,
+    load: types.NEWC.load,
+  },
+  {
+    min: 13172736,
+    max: 13238272,
+    load: types.ENDC.load,
+  },
+  {
+    min: 13434880,
+    max: 13500416,
+    load: types.ENDCST.load,
+  },
+  {
+    min: 13570304,
+    max: 13570560,
+    load: types.STBREF.load,
+  },
+  {
+    min: 13570816,
+    max: 13571072,
+    load: types.STB.load,
+  },
+  {
+    min: 13571072,
+    max: 13571328,
+    load: types.STREFR.load,
+  },
+  {
+    min: 13571328,
+    max: 13571584,
+    load: types.STBREFR.load,
+  },
+  {
+    min: 13571584,
+    max: 13571840,
+    load: types.STSLICER.load,
+  },
+  {
+    min: 13571840,
+    max: 13572096,
+    load: types.STBR.load,
+  },
+  {
+    min: 13572096,
+    max: 13572352,
+    load: types.STREFQ.load,
+  },
+  {
+    min: 13572352,
+    max: 13572608,
+    load: types.STBREFQ.load,
+  },
+  {
+    min: 13572608,
+    max: 13572864,
+    load: types.STSLICEQ.load,
+  },
+  {
+    min: 13572864,
+    max: 13573120,
+    load: types.STBQ.load,
+  },
+  {
+    min: 13573120,
+    max: 13573376,
+    load: types.STREFRQ.load,
+  },
+  {
+    min: 13573376,
+    max: 13573632,
+    load: types.STBREFRQ.load,
+  },
+  {
+    min: 13573632,
+    max: 13573888,
+    load: types.STSLICERQ.load,
+  },
+  {
+    min: 13573888,
+    max: 13574144,
+    load: types.STBRQ.load,
+  },
+  {
+    min: 13574912,
+    max: 13575168,
+    load: types.ENDXC.load,
+  },
+  {
+    min: 13578240,
+    max: 13578496,
+    load: types.BDEPTH.load,
+  },
+  {
+    min: 13578496,
+    max: 13578752,
+    load: types.BBITS.load,
+  },
+  {
+    min: 13578752,
+    max: 13579008,
+    load: types.BREFS.load,
+  },
+  {
+    min: 13579008,
+    max: 13579264,
+    load: types.BBITREFS.load,
+  },
+  {
+    min: 13579520,
+    max: 13579776,
+    load: types.BREMBITS.load,
+  },
+  {
+    min: 13579776,
+    max: 13580032,
+    load: types.BREMREFS.load,
+  },
+  {
+    min: 13580032,
+    max: 13580288,
+    load: types.BREMBITREFS.load,
+  },
+  {
+    min: 13580800,
+    max: 13581056,
+    load: types.BCHKREFS.load,
+  },
+  {
+    min: 13581056,
+    max: 13581312,
+    load: types.BCHKBITREFS.load,
+  },
+  {
+    min: 13581824,
+    max: 13582080,
+    load: types.BCHKREFSQ.load,
+  },
+  {
+    min: 13582080,
+    max: 13582336,
+    load: types.BCHKBITREFSQ.load,
+  },
+  {
+    min: 13582336,
+    max: 13582592,
+    load: types.STZEROES.load,
+  },
+  {
+    min: 13582592,
+    max: 13582848,
+    load: types.STONES.load,
+  },
+  {
+    min: 13582848,
+    max: 13583104,
+    load: types.STSAME.load,
+  },
+  {
+    min: 13631488,
+    max: 13697024,
+    load: types.CTOS.load,
+  },
+  {
+    min: 13697024,
+    max: 13762560,
+    load: types.ENDS.load,
+  },
+  {
+    min: 13893632,
+    max: 13959168,
+    load: types.LDREF.load,
+  },
+  {
+    min: 13959168,
+    max: 14024704,
+    load: types.LDREFRTOS.load,
+  },
+  {
+    min: 14098432,
+    max: 14098688,
+    load: types.SDCUTFIRST.load,
+  },
+  {
+    min: 14098688,
+    max: 14098944,
+    load: types.SDSKIPFIRST.load,
+  },
+  {
+    min: 14098944,
+    max: 14099200,
+    load: types.SDCUTLAST.load,
+  },
+  {
+    min: 14099200,
+    max: 14099456,
+    load: types.SDSKIPLAST.load,
+  },
+  {
+    min: 14099456,
+    max: 14099712,
+    load: types.SDSUBSTR.load,
+  },
+  {
+    min: 14102528,
+    max: 14102784,
+    load: types.SCUTFIRST.load,
+  },
+  {
+    min: 14102784,
+    max: 14103040,
+    load: types.SSKIPFIRST.load,
+  },
+  {
+    min: 14103040,
+    max: 14103296,
+    load: types.SCUTLAST.load,
+  },
+  {
+    min: 14103296,
+    max: 14103552,
+    load: types.SSKIPLAST.load,
+  },
+  {
+    min: 14103552,
+    max: 14103808,
+    load: types.SUBSLICE.load,
+  },
+  {
+    min: 14104064,
+    max: 14104320,
+    load: types.SPLIT.load,
+  },
+  {
+    min: 14104320,
+    max: 14104576,
+    load: types.SPLITQ.load,
+  },
+  {
+    min: 14104832,
+    max: 14105088,
+    load: types.XCTOS.load,
+  },
+  {
+    min: 14105088,
+    max: 14105344,
+    load: types.XLOAD.load,
+  },
+  {
+    min: 14105344,
+    max: 14105600,
+    load: types.XLOADQ.load,
+  },
+  {
+    min: 14106880,
+    max: 14107136,
+    load: types.SCHKBITS.load,
+  },
+  {
+    min: 14107136,
+    max: 14107392,
+    load: types.SCHKREFS.load,
+  },
+  {
+    min: 14107392,
+    max: 14107648,
+    load: types.SCHKBITREFS.load,
+  },
+  {
+    min: 14107904,
+    max: 14108160,
+    load: types.SCHKBITSQ.load,
+  },
+  {
+    min: 14108160,
+    max: 14108416,
+    load: types.SCHKREFSQ.load,
+  },
+  {
+    min: 14108416,
+    max: 14108672,
+    load: types.SCHKBITREFSQ.load,
+  },
+  {
+    min: 14108672,
+    max: 14108928,
+    load: types.PLDREFVAR.load,
+  },
+  {
+    min: 14108928,
+    max: 14109184,
+    load: types.SBITS.load,
+  },
+  {
+    min: 14109184,
+    max: 14109440,
+    load: types.SREFS.load,
+  },
+  {
+    min: 14109440,
+    max: 14109696,
+    load: types.SBITREFS.load,
+  },
+  {
+    min: 14114816,
+    max: 14115072,
+    load: types.LDZEROES.load,
+  },
+  {
+    min: 14115072,
+    max: 14115328,
+    load: types.LDONES.load,
+  },
+  {
+    min: 14115328,
+    max: 14115584,
+    load: types.LDSAME.load,
+  },
+  {
+    min: 14115840,
+    max: 14116096,
+    load: types.SDEPTH.load,
+  },
+  {
+    min: 14116096,
+    max: 14116352,
+    load: types.CDEPTH.load,
+  },
+  {
+    min: 14116352,
+    max: 14116608,
+    load: types.CLEVEL.load,
+  },
+  {
+    min: 14116608,
+    max: 14116864,
+    load: types.CLEVELMASK.load,
+  },
+  {
+    min: 14118912,
+    max: 14119168,
+    load: types.CHASHIX.load,
+  },
+  {
+    min: 14119168,
+    max: 14119424,
+    load: types.CDEPTHIX.load,
+  },
+  {
+    min: 14155776,
+    max: 14221312,
+    load: types.EXECUTE.load,
+  },
+  {
+    min: 14221312,
+    max: 14286848,
+    load: types.JMPX.load,
+  },
+  {
+    min: 14364672,
+    max: 14364928,
+    load: types.RET.load,
+  },
+  {
+    min: 14364928,
+    max: 14365184,
+    load: types.RETALT.load,
+  },
+  {
+    min: 14365184,
+    max: 14365440,
+    load: types.RETBOOL.load,
+  },
+  {
+    min: 14365696,
+    max: 14365952,
+    load: types.CALLCC.load,
+  },
+  {
+    min: 14365952,
+    max: 14366208,
+    load: types.JMPXDATA.load,
+  },
+  {
+    min: 14366720,
+    max: 14366976,
+    load: types.CALLXVARARGS.load,
+  },
+  {
+    min: 14366976,
+    max: 14367232,
+    load: types.RETVARARGS.load,
+  },
+  {
+    min: 14367232,
+    max: 14367488,
+    load: types.JMPXVARARGS.load,
+  },
+  {
+    min: 14367488,
+    max: 14367744,
+    load: types.CALLCCVARARGS.load,
+  },
+  {
+    min: 14368512,
+    max: 14368768,
+    load: types.RETDATA.load,
+  },
+  {
+    min: 14372864,
+    max: 14373120,
+    load: types.RUNVMX.load,
+  },
+  {
+    min: 14417920,
+    max: 14483456,
+    load: types.IFRET.load,
+  },
+  {
+    min: 14483456,
+    max: 14548992,
+    load: types.IFNOTRET.load,
+  },
+  {
+    min: 14548992,
+    max: 14614528,
+    load: types.IF.load,
+  },
+  {
+    min: 14614528,
+    max: 14680064,
+    load: types.IFNOT.load,
+  },
+  {
+    min: 14680064,
+    max: 14745600,
+    load: types.IFJMP.load,
+  },
+  {
+    min: 14745600,
+    max: 14811136,
+    load: types.IFNOTJMP.load,
+  },
+  {
+    min: 14811136,
+    max: 14876672,
+    load: types.IFELSE.load,
+  },
+  {
+    min: 14877696,
+    max: 14877952,
+    load: types.CONDSEL.load,
+  },
+  {
+    min: 14877952,
+    max: 14878208,
+    load: types.CONDSELCHK.load,
+  },
+  {
+    min: 14878720,
+    max: 14878976,
+    load: types.IFRETALT.load,
+  },
+  {
+    min: 14878976,
+    max: 14879232,
+    load: types.IFNOTRETALT.load,
+  },
+  {
+    min: 14942208,
+    max: 15007744,
+    load: types.REPEAT.load,
+  },
+  {
+    min: 15007744,
+    max: 15073280,
+    load: types.REPEATEND.load,
+  },
+  {
+    min: 15073280,
+    max: 15138816,
+    load: types.UNTIL.load,
+  },
+  {
+    min: 15138816,
+    max: 15204352,
+    load: types.UNTILEND.load,
+  },
+  {
+    min: 15204352,
+    max: 15269888,
+    load: types.WHILE.load,
+  },
+  {
+    min: 15269888,
+    max: 15335424,
+    load: types.WHILEEND.load,
+  },
+  {
+    min: 15335424,
+    max: 15400960,
+    load: types.AGAIN.load,
+  },
+  {
+    min: 15400960,
+    max: 15466496,
+    load: types.AGAINEND.load,
+  },
+  {
+    min: 14881792,
+    max: 14882048,
+    load: types.REPEATBRK.load,
+  },
+  {
+    min: 14882048,
+    max: 14882304,
+    load: types.REPEATENDBRK.load,
+  },
+  {
+    min: 14882304,
+    max: 14882560,
+    load: types.UNTILBRK.load,
+  },
+  {
+    min: 14882560,
+    max: 14882816,
+    load: types.UNTILENDBRK.load,
+  },
+  {
+    min: 14882816,
+    max: 14883072,
+    load: types.WHILEBRK.load,
+  },
+  {
+    min: 14883072,
+    max: 14883328,
+    load: types.WHILEENDBRK.load,
+  },
+  {
+    min: 14883328,
+    max: 14883584,
+    load: types.AGAINBRK.load,
+  },
+  {
+    min: 14883584,
+    max: 14883840,
+    load: types.AGAINENDBRK.load,
+  },
+  {
+    min: 15536128,
+    max: 15536384,
+    load: types.RETURNVARARGS.load,
+  },
+  {
+    min: 15536384,
+    max: 15536640,
+    load: types.SETCONTVARARGS.load,
+  },
+  {
+    min: 15536640,
+    max: 15536896,
+    load: types.SETNUMVARARGS.load,
+  },
+  {
+    min: 15539712,
+    max: 15539968,
+    load: types.BLESS.load,
+  },
+  {
+    min: 15539968,
+    max: 15540224,
+    load: types.BLESSVARARGS.load,
+  },
+  {
+    min: 15589376,
+    max: 15589632,
+    load: types.PUSHCTRX.load,
+  },
+  {
+    min: 15589632,
+    max: 15589888,
+    load: types.POPCTRX.load,
+  },
+  {
+    min: 15589888,
+    max: 15590144,
+    load: types.SETCONTCTRX.load,
+  },
+  {
+    min: 15590400,
+    max: 15590656,
+    load: types.SETCONTCTRMANYX.load,
+  },
+  {
+    min: 15593472,
+    max: 15593728,
+    load: types.BOOLAND.load,
+  },
+  {
+    min: 15593728,
+    max: 15593984,
+    load: types.BOOLOR.load,
+  },
+  {
+    min: 15593984,
+    max: 15594240,
+    load: types.COMPOSBOTH.load,
+  },
+  {
+    min: 15594240,
+    max: 15594496,
+    load: types.ATEXIT.load,
+  },
+  {
+    min: 15594496,
+    max: 15594752,
+    load: types.ATEXITALT.load,
+  },
+  {
+    min: 15594752,
+    max: 15595008,
+    load: types.SETEXITALT.load,
+  },
+  {
+    min: 15595008,
+    max: 15595264,
+    load: types.THENRET.load,
+  },
+  {
+    min: 15595264,
+    max: 15595520,
+    load: types.THENRETALT.load,
+  },
+  {
+    min: 15595520,
+    max: 15595776,
+    load: types.INVERT.load,
+  },
+  {
+    min: 15595776,
+    max: 15596032,
+    load: types.BOOLEVAL.load,
+  },
+  {
+    min: 15596032,
+    max: 15596288,
+    load: types.SAMEALT.load,
+  },
+  {
+    min: 15596288,
+    max: 15596544,
+    load: types.SAMEALTSAVE.load,
+  },
+  {
+    min: 15924992,
+    max: 15925248,
+    load: types.TRY.load,
+  },
+  {
+    min: 15990784,
+    max: 15991040,
+    load: types.STDICT.load,
+  },
+  {
+    min: 15991040,
+    max: 15991296,
+    load: types.SKIPDICT.load,
+  },
+  {
+    min: 15991296,
+    max: 15991552,
+    load: types.LDDICTS.load,
+  },
+  {
+    min: 15991552,
+    max: 15991808,
+    load: types.PLDDICTS.load,
+  },
+  {
+    min: 15991808,
+    max: 15992064,
+    load: types.LDDICT.load,
+  },
+  {
+    min: 15992064,
+    max: 15992320,
+    load: types.PLDDICT.load,
+  },
+  {
+    min: 15992320,
+    max: 15992576,
+    load: types.LDDICTQ.load,
+  },
+  {
+    min: 15992576,
+    max: 15992832,
+    load: types.PLDDICTQ.load,
+  },
+  {
+    min: 16019456,
+    max: 16019712,
+    load: types.PFXDICTSET.load,
+  },
+  {
+    min: 16019712,
+    max: 16019968,
+    load: types.PFXDICTREPLACE.load,
+  },
+  {
+    min: 16019968,
+    max: 16020224,
+    load: types.PFXDICTADD.load,
+  },
+  {
+    min: 16020224,
+    max: 16020480,
+    load: types.PFXDICTDEL.load,
+  },
+  {
+    min: 16033792,
+    max: 16034048,
+    load: types.PFXDICTGETQ.load,
+  },
+  {
+    min: 16034048,
+    max: 16034304,
+    load: types.PFXDICTGET.load,
+  },
+  {
+    min: 16034304,
+    max: 16034560,
+    load: types.PFXDICTGETJMP.load,
+  },
+  {
+    min: 16034560,
+    max: 16034816,
+    load: types.PFXDICTGETEXEC.load,
+  },
+  {
+    min: 0,
+    max: 65536,
+    load: types.NOP.load,
+  },
+  {
+    min: 65536,
+    max: 131072,
+    load: types.SWAP.load,
+  },
+  {
+    min: 2097152,
+    max: 2162688,
+    load: types.DUP.load,
+  },
+  {
+    min: 2162688,
+    max: 2228224,
+    load: types.OVER.load,
+  },
+  {
+    min: 3145728,
+    max: 3211264,
+    load: types.DROP.load,
+  },
+  {
+    min: 3211264,
+    max: 3276800,
+    load: types.NIP.load,
+  },
+  {
+    min: 5767168,
+    max: 5832704,
+    load: types.ROT.load,
+  },
+  {
+    min: 5832704,
+    max: 5898240,
+    load: types.ROTREV.load,
+  },
+  {
+    min: 6291456,
+    max: 6356992,
+    load: types.PICK.load,
+  },
+  {
+    min: 6356992,
+    max: 6422528,
+    load: types.ROLL.load,
+  },
+  {
+    min: 6422528,
+    max: 6488064,
+    load: types.ROLLREV.load,
+  },
+  {
+    min: 6488064,
+    max: 6553600,
+    load: types.BLKSWX.load,
+  },
+  {
+    min: 6553600,
+    max: 6619136,
+    load: types.REVX.load,
+  },
+  {
+    min: 6619136,
+    max: 6684672,
+    load: types.DROPX.load,
+  },
+  {
+    min: 6684672,
+    max: 6750208,
+    load: types.TUCK.load,
+  },
+  {
+    min: 6750208,
+    max: 6815744,
+    load: types.XCHGX.load,
+  },
+  {
+    min: 6815744,
+    max: 6881280,
+    load: types.DEPTH.load,
+  },
+  {
+    min: 6881280,
+    max: 6946816,
+    load: types.CHKDEPTH.load,
+  },
+  {
+    min: 6946816,
+    max: 7012352,
+    load: types.ONLYTOPX.load,
+  },
+  {
+    min: 7012352,
+    max: 7077888,
+    load: types.ONLYX.load,
+  },
+  {
+    min: 16252928,
+    max: 16253184,
+    load: types.ACCEPT.load,
+  },
+  {
+    min: 16253184,
+    max: 16253440,
+    load: types.SETGASLIMIT.load,
+  },
+  {
+    min: 16254720,
+    max: 16254976,
+    load: types.GASCONSUMED.load,
+  },
+  {
+    min: 16256768,
+    max: 16257024,
+    load: types.COMMIT.load,
+  },
+  {
+    min: 16261888,
+    max: 16262144,
+    load: types.NOW.load,
+  },
+  {
+    min: 16262144,
+    max: 16262400,
+    load: types.BLOCKLT.load,
+  },
+  {
+    min: 16262400,
+    max: 16262656,
+    load: types.LTIME.load,
+  },
+  {
+    min: 16262656,
+    max: 16262912,
+    load: types.RANDSEED.load,
+  },
+  {
+    min: 16262912,
+    max: 16263168,
+    load: types.BALANCE.load,
+  },
+  {
+    min: 16263168,
+    max: 16263424,
+    load: types.MYADDR.load,
+  },
+  {
+    min: 16263424,
+    max: 16263680,
+    load: types.CONFIGROOT.load,
+  },
+  {
+    min: 16263680,
+    max: 16263936,
+    load: types.MYCODE.load,
+  },
+  {
+    min: 16263936,
+    max: 16264192,
+    load: types.INCOMINGVALUE.load,
+  },
+  {
+    min: 16264192,
+    max: 16264448,
+    load: types.STORAGEFEES.load,
+  },
+  {
+    min: 16264448,
+    max: 16264704,
+    load: types.PREVBLOCKSINFOTUPLE.load,
+  },
+  {
+    min: 16264704,
+    max: 16264960,
+    load: types.UNPACKEDCONFIGTUPLE.load,
+  },
+  {
+    min: 16264960,
+    max: 16265216,
+    load: types.DUEPAYMENT.load,
+  },
+  {
+    min: 16265216,
+    max: 16265472,
+    load: types.CONFIGDICT.load,
+  },
+  {
+    min: 16265728,
+    max: 16265984,
+    load: types.CONFIGPARAM.load,
+  },
+  {
+    min: 16265984,
+    max: 16266240,
+    load: types.CONFIGOPTPARAM.load,
+  },
+  {
+    min: 16266240,
+    max: 16266241,
+    load: types.PREVMCBLOCKS.load,
+  },
+  {
+    min: 16266241,
+    max: 16266242,
+    load: types.PREVKEYBLOCK.load,
+  },
+  {
+    min: 16266242,
+    max: 16266243,
+    load: types.PREVMCBLOCKS_100.load,
+  },
+  {
+    min: 16266496,
+    max: 16266752,
+    load: types.GLOBALID.load,
+  },
+  {
+    min: 16266752,
+    max: 16267008,
+    load: types.GETGASFEE.load,
+  },
+  {
+    min: 16267008,
+    max: 16267264,
+    load: types.GETSTORAGEFEE.load,
+  },
+  {
+    min: 16267264,
+    max: 16267520,
+    load: types.GETFORWARDFEE.load,
+  },
+  {
+    min: 16267520,
+    max: 16267776,
+    load: types.GETPRECOMPILEDGAS.load,
+  },
+  {
+    min: 16267776,
+    max: 16268032,
+    load: types.GETORIGINALFWDFEE.load,
+  },
+  {
+    min: 16268032,
+    max: 16268288,
+    load: types.GETGASFEESIMPLE.load,
+  },
+  {
+    min: 16268288,
+    max: 16268544,
+    load: types.GETFORWARDFEESIMPLE.load,
+  },
+  {
+    min: 16269312,
+    max: 16269568,
+    load: types.GETGLOBVAR.load,
+  },
+  {
+    min: 16277504,
+    max: 16277760,
+    load: types.SETGLOBVAR.load,
+  },
+  {
+    min: 16257024,
+    max: 16257280,
+    load: types.RANDU256.load,
+  },
+  {
+    min: 16257280,
+    max: 16257536,
+    load: types.RAND.load,
+  },
+  {
+    min: 16258048,
+    max: 16258304,
+    load: types.SETRAND.load,
+  },
+  {
+    min: 16258304,
+    max: 16258560,
+    load: types.ADDRAND.load,
+  },
+  {
+    min: 16318464,
+    max: 16318720,
+    load: types.HASHCU.load,
+  },
+  {
+    min: 16318720,
+    max: 16318976,
+    load: types.HASHSU.load,
+  },
+  {
+    min: 16318976,
+    max: 16319232,
+    load: types.SHA256U.load,
+  },
+  {
+    min: 16322560,
+    max: 16322816,
+    load: types.CHKSIGNU.load,
+  },
+  {
+    min: 16322816,
+    max: 16323072,
+    load: types.CHKSIGNS.load,
+  },
+  {
+    min: 16323072,
+    max: 16323328,
+    load: types.ECRECOVER.load,
+  },
+  {
+    min: 16323328,
+    max: 16323584,
+    load: types.SECP256K1_XONLY_PUBKEY_TWEAK_ADD.load,
+  },
+  {
+    min: 16323584,
+    max: 16323840,
+    load: types.P256_CHKSIGNU.load,
+  },
+  {
+    min: 16323840,
+    max: 16324096,
+    load: types.P256_CHKSIGNS.load,
+  },
+  {
+    min: 16326656,
+    max: 16326912,
+    load: types.RIST255_FROMHASH.load,
+  },
+  {
+    min: 16326912,
+    max: 16327168,
+    load: types.RIST255_VALIDATE.load,
+  },
+  {
+    min: 16327168,
+    max: 16327424,
+    load: types.RIST255_ADD.load,
+  },
+  {
+    min: 16327424,
+    max: 16327680,
+    load: types.RIST255_SUB.load,
+  },
+  {
+    min: 16327680,
+    max: 16327936,
+    load: types.RIST255_MUL.load,
+  },
+  {
+    min: 16327936,
+    max: 16328192,
+    load: types.RIST255_MULBASE.load,
+  },
+  {
+    min: 16328192,
+    max: 16328448,
+    load: types.RIST255_PUSHL.load,
+  },
+  {
+    min: 12056865,
+    max: 12056866,
+    load: types.RIST255_QVALIDATE.load,
+  },
+  {
+    min: 12056866,
+    max: 12056867,
+    load: types.RIST255_QADD.load,
+  },
+  {
+    min: 12056867,
+    max: 12056868,
+    load: types.RIST255_QSUB.load,
+  },
+  {
+    min: 12056868,
+    max: 12056869,
+    load: types.RIST255_QMUL.load,
+  },
+  {
+    min: 12056869,
+    max: 12056870,
+    load: types.RIST255_QMULBASE.load,
+  },
+  {
+    min: 16330752,
+    max: 16330753,
+    load: types.BLS_VERIFY.load,
+  },
+  {
+    min: 16330753,
+    max: 16330754,
+    load: types.BLS_AGGREGATE.load,
+  },
+  {
+    min: 16330754,
+    max: 16330755,
+    load: types.BLS_FASTAGGREGATEVERIFY.load,
+  },
+  {
+    min: 16330755,
+    max: 16330756,
+    load: types.BLS_AGGREGATEVERIFY.load,
+  },
+  {
+    min: 16330768,
+    max: 16330769,
+    load: types.BLS_G1_ADD.load,
+  },
+  {
+    min: 16330769,
+    max: 16330770,
+    load: types.BLS_G1_SUB.load,
+  },
+  {
+    min: 16330770,
+    max: 16330771,
+    load: types.BLS_G1_NEG.load,
+  },
+  {
+    min: 16330771,
+    max: 16330772,
+    load: types.BLS_G1_MUL.load,
+  },
+  {
+    min: 16330772,
+    max: 16330773,
+    load: types.BLS_G1_MULTIEXP.load,
+  },
+  {
+    min: 16330773,
+    max: 16330774,
+    load: types.BLS_G1_ZERO.load,
+  },
+  {
+    min: 16330774,
+    max: 16330775,
+    load: types.BLS_MAP_TO_G1.load,
+  },
+  {
+    min: 16330775,
+    max: 16330776,
+    load: types.BLS_G1_INGROUP.load,
+  },
+  {
+    min: 16330776,
+    max: 16330777,
+    load: types.BLS_G1_ISZERO.load,
+  },
+  {
+    min: 16330784,
+    max: 16330785,
+    load: types.BLS_G2_ADD.load,
+  },
+  {
+    min: 16330785,
+    max: 16330786,
+    load: types.BLS_G2_SUB.load,
+  },
+  {
+    min: 16330786,
+    max: 16330787,
+    load: types.BLS_G2_NEG.load,
+  },
+  {
+    min: 16330787,
+    max: 16330788,
+    load: types.BLS_G2_MUL.load,
+  },
+  {
+    min: 16330788,
+    max: 16330789,
+    load: types.BLS_G2_MULTIEXP.load,
+  },
+  {
+    min: 16330789,
+    max: 16330790,
+    load: types.BLS_G2_ZERO.load,
+  },
+  {
+    min: 16330790,
+    max: 16330791,
+    load: types.BLS_MAP_TO_G2.load,
+  },
+  {
+    min: 16330791,
+    max: 16330792,
+    load: types.BLS_G2_INGROUP.load,
+  },
+  {
+    min: 16330792,
+    max: 16330793,
+    load: types.BLS_G2_ISZERO.load,
+  },
+  {
+    min: 16330800,
+    max: 16330801,
+    load: types.BLS_PAIRING.load,
+  },
+  {
+    min: 16330801,
+    max: 16330802,
+    load: types.BLS_PUSHR.load,
+  },
+  {
+    min: 16334848,
+    max: 16335104,
+    load: types.CDATASIZEQ.load,
+  },
+  {
+    min: 16335104,
+    max: 16335360,
+    load: types.CDATASIZE.load,
+  },
+  {
+    min: 16335360,
+    max: 16335616,
+    load: types.SDATASIZEQ.load,
+  },
+  {
+    min: 16335616,
+    max: 16335872,
+    load: types.SDATASIZE.load,
+  },
+  {
+    min: 16384000,
+    max: 16384256,
+    load: types.LDGRAMS.load,
+  },
+  {
+    min: 16384256,
+    max: 16384512,
+    load: types.LDVARINT16.load,
+  },
+  {
+    min: 16384512,
+    max: 16384768,
+    load: types.STGRAMS.load,
+  },
+  {
+    min: 16384768,
+    max: 16385024,
+    load: types.STVARINT16.load,
+  },
+  {
+    min: 16385024,
+    max: 16385280,
+    load: types.LDVARUINT32.load,
+  },
+  {
+    min: 16385280,
+    max: 16385536,
+    load: types.LDVARINT32.load,
+  },
+  {
+    min: 16385536,
+    max: 16385792,
+    load: types.STVARUINT32.load,
+  },
+  {
+    min: 16385792,
+    max: 16386048,
+    load: types.STVARINT32.load,
+  },
+  {
+    min: 16400384,
+    max: 16400640,
+    load: types.LDMSGADDR.load,
+  },
+  {
+    min: 16400640,
+    max: 16400896,
+    load: types.LDMSGADDRQ.load,
+  },
+  {
+    min: 16400896,
+    max: 16401152,
+    load: types.PARSEMSGADDR.load,
+  },
+  {
+    min: 16401152,
+    max: 16401408,
+    load: types.PARSEMSGADDRQ.load,
+  },
+  {
+    min: 16401408,
+    max: 16401664,
+    load: types.REWRITESTDADDR.load,
+  },
+  {
+    min: 16401664,
+    max: 16401920,
+    load: types.REWRITESTDADDRQ.load,
+  },
+  {
+    min: 16401920,
+    max: 16402176,
+    load: types.REWRITEVARADDR.load,
+  },
+  {
+    min: 16402176,
+    max: 16402432,
+    load: types.REWRITEVARADDRQ.load,
+  },
+  {
+    min: 16449536,
+    max: 16449792,
+    load: types.SENDRAWMSG.load,
+  },
+  {
+    min: 16450048,
+    max: 16450304,
+    load: types.RAWRESERVE.load,
+  },
+  {
+    min: 16450304,
+    max: 16450560,
+    load: types.RAWRESERVEX.load,
+  },
+  {
+    min: 16450560,
+    max: 16450816,
+    load: types.SETCODE.load,
+  },
+  {
+    min: 16451072,
+    max: 16451328,
+    load: types.SETLIBCODE.load,
+  },
+  {
+    min: 16451328,
+    max: 16451584,
+    load: types.CHANGELIB.load,
+  },
+  {
+    min: 16451584,
+    max: 16451840,
+    load: types.SENDMSG.load,
+  },
+  {
+    min: 7143424,
+    max: 7208960,
+    load: types.PUSHNULL.load,
+  },
+  {
+    min: 7208960,
+    max: 7274496,
+    load: types.ISNULL.load,
+  },
+  {
+    min: 7307264,
+    max: 7307520,
+    load: types.TUPLEVAR.load,
+  },
+  {
+    min: 7307520,
+    max: 7307776,
+    load: types.INDEXVAR.load,
+  },
+  {
+    min: 7307776,
+    max: 7308032,
+    load: types.UNTUPLEVAR.load,
+  },
+  {
+    min: 7308032,
+    max: 7308288,
+    load: types.UNPACKFIRSTVAR.load,
+  },
+  {
+    min: 7308288,
+    max: 7308544,
+    load: types.EXPLODEVAR.load,
+  },
+  {
+    min: 7308544,
+    max: 7308800,
+    load: types.SETINDEXVAR.load,
+  },
+  {
+    min: 7308800,
+    max: 7309056,
+    load: types.INDEXVARQ.load,
+  },
+  {
+    min: 7309056,
+    max: 7309312,
+    load: types.SETINDEXVARQ.load,
+  },
+  {
+    min: 7309312,
+    max: 7309568,
+    load: types.TLEN.load,
+  },
+  {
+    min: 7309568,
+    max: 7309824,
+    load: types.QTLEN.load,
+  },
+  {
+    min: 7309824,
+    max: 7310080,
+    load: types.ISTUPLE.load,
+  },
+  {
+    min: 7310080,
+    max: 7310336,
+    load: types.LAST.load,
+  },
+  {
+    min: 7310336,
+    max: 7310592,
+    load: types.TPUSH.load,
+  },
+  {
+    min: 7310592,
+    max: 7310848,
+    load: types.TPOP.load,
+  },
+  {
+    min: 7315456,
+    max: 7315712,
+    load: types.NULLSWAPIF.load,
+  },
+  {
+    min: 7315712,
+    max: 7315968,
+    load: types.NULLSWAPIFNOT.load,
+  },
+  {
+    min: 7315968,
+    max: 7316224,
+    load: types.NULLROTRIF.load,
+  },
+  {
+    min: 7316224,
+    max: 7316480,
+    load: types.NULLROTRIFNOT.load,
+  },
+  {
+    min: 7316480,
+    max: 7316736,
+    load: types.NULLSWAPIF2.load,
+  },
+  {
+    min: 7316736,
+    max: 7316992,
+    load: types.NULLSWAPIFNOT2.load,
+  },
+  {
+    min: 7316992,
+    max: 7317248,
+    load: types.NULLROTRIF2.load,
+  },
+  {
+    min: 7317248,
+    max: 7317504,
+    load: types.NULLROTRIFNOT2.load,
+  },
+  {
+    min: 11075584,
+    max: 11075840,
+    load: types.ADDDIVMOD.load,
+  },
+  {
+    min: 11075840,
+    max: 11076096,
+    load: types.ADDDIVMODR.load,
+  },
+  {
+    min: 11076096,
+    max: 11076352,
+    load: types.ADDDIVMODC.load,
+  },
+  {
+    min: 11076608,
+    max: 11076864,
+    load: types.DIV.load,
+  },
+  {
+    min: 11076864,
+    max: 11077120,
+    load: types.DIVR.load,
+  },
+  {
+    min: 11077120,
+    max: 11077376,
+    load: types.DIVC.load,
+  },
+  {
+    min: 11077632,
+    max: 11077888,
+    load: types.MOD.load,
+  },
+  {
+    min: 11077888,
+    max: 11078144,
+    load: types.MODR.load,
+  },
+  {
+    min: 11078144,
+    max: 11078400,
+    load: types.MODC.load,
+  },
+  {
+    min: 11078656,
+    max: 11078912,
+    load: types.DIVMOD.load,
+  },
+  {
+    min: 11078912,
+    max: 11079168,
+    load: types.DIVMODR.load,
+  },
+  {
+    min: 11079168,
+    max: 11079424,
+    load: types.DIVMODC.load,
+  },
+  {
+    min: 12036352,
+    max: 12036353,
+    load: types.QADDDIVMOD.load,
+  },
+  {
+    min: 12036353,
+    max: 12036354,
+    load: types.QADDDIVMODR.load,
+  },
+  {
+    min: 12036354,
+    max: 12036355,
+    load: types.QADDDIVMODC.load,
+  },
+  {
+    min: 12036356,
+    max: 12036357,
+    load: types.QDIV.load,
+  },
+  {
+    min: 12036357,
+    max: 12036358,
+    load: types.QDIVR.load,
+  },
+  {
+    min: 12036358,
+    max: 12036359,
+    load: types.QDIVC.load,
+  },
+  {
+    min: 12036360,
+    max: 12036361,
+    load: types.QMOD.load,
+  },
+  {
+    min: 12036361,
+    max: 12036362,
+    load: types.QMODR.load,
+  },
+  {
+    min: 12036362,
+    max: 12036363,
+    load: types.QMODC.load,
+  },
+  {
+    min: 12036364,
+    max: 12036365,
+    load: types.QDIVMOD.load,
+  },
+  {
+    min: 12036365,
+    max: 12036366,
+    load: types.QDIVMODR.load,
+  },
+  {
+    min: 12036366,
+    max: 12036367,
+    load: types.QDIVMODC.load,
+  },
+  {
+    min: 11083776,
+    max: 11084032,
+    load: types.ADDRSHIFTMOD.load,
+  },
+  {
+    min: 11084032,
+    max: 11084288,
+    load: types.ADDRSHIFTMODR.load,
+  },
+  {
+    min: 11084288,
+    max: 11084544,
+    load: types.ADDRSHIFTMODC.load,
+  },
+  {
+    min: 11085056,
+    max: 11085312,
+    load: types.RSHIFTR.load,
+  },
+  {
+    min: 11085312,
+    max: 11085568,
+    load: types.RSHIFTC.load,
+  },
+  {
+    min: 11085824,
+    max: 11086080,
+    load: types.MODPOW2.load,
+  },
+  {
+    min: 11086080,
+    max: 11086336,
+    load: types.MODPOW2R.load,
+  },
+  {
+    min: 11086336,
+    max: 11086592,
+    load: types.MODPOW2C.load,
+  },
+  {
+    min: 11086848,
+    max: 11087104,
+    load: types.RSHIFTMOD.load,
+  },
+  {
+    min: 11087104,
+    max: 11087360,
+    load: types.RSHIFTMODR.load,
+  },
+  {
+    min: 11087360,
+    max: 11087616,
+    load: types.RSHIFTMODC.load,
+  },
+  {
+    min: 12036384,
+    max: 12036385,
+    load: types.QADDRSHIFTMOD.load,
+  },
+  {
+    min: 12036385,
+    max: 12036386,
+    load: types.QADDRSHIFTMODR.load,
+  },
+  {
+    min: 12036386,
+    max: 12036387,
+    load: types.QADDRSHIFTMODC.load,
+  },
+  {
+    min: 12036389,
+    max: 12036390,
+    load: types.QRSHIFTR.load,
+  },
+  {
+    min: 12036390,
+    max: 12036391,
+    load: types.QRSHIFTC.load,
+  },
+  {
+    min: 12036392,
+    max: 12036393,
+    load: types.QMODPOW2.load,
+  },
+  {
+    min: 12036393,
+    max: 12036394,
+    load: types.QMODPOW2R.load,
+  },
+  {
+    min: 12036394,
+    max: 12036395,
+    load: types.QMODPOW2C.load,
+  },
+  {
+    min: 12036396,
+    max: 12036397,
+    load: types.QRSHIFTMOD.load,
+  },
+  {
+    min: 12036397,
+    max: 12036398,
+    load: types.QRSHIFTMODR.load,
+  },
+  {
+    min: 12036398,
+    max: 12036399,
+    load: types.QRSHIFTMODC.load,
+  },
+  {
+    min: 11108352,
+    max: 11108608,
+    load: types.MULADDDIVMOD.load,
+  },
+  {
+    min: 11108608,
+    max: 11108864,
+    load: types.MULADDDIVMODR.load,
+  },
+  {
+    min: 11108864,
+    max: 11109120,
+    load: types.MULADDDIVMODC.load,
+  },
+  {
+    min: 11109376,
+    max: 11109632,
+    load: types.MULDIV.load,
+  },
+  {
+    min: 11109632,
+    max: 11109888,
+    load: types.MULDIVR.load,
+  },
+  {
+    min: 11109888,
+    max: 11110144,
+    load: types.MULDIVC.load,
+  },
+  {
+    min: 11110400,
+    max: 11110656,
+    load: types.MULMOD.load,
+  },
+  {
+    min: 11110656,
+    max: 11110912,
+    load: types.MULMODR.load,
+  },
+  {
+    min: 11110912,
+    max: 11111168,
+    load: types.MULMODC.load,
+  },
+  {
+    min: 11111424,
+    max: 11111680,
+    load: types.MULDIVMOD.load,
+  },
+  {
+    min: 11111680,
+    max: 11111936,
+    load: types.MULDIVMODR.load,
+  },
+  {
+    min: 11111936,
+    max: 11112192,
+    load: types.MULDIVMODC.load,
+  },
+  {
+    min: 12036480,
+    max: 12036481,
+    load: types.QMULADDDIVMOD.load,
+  },
+  {
+    min: 12036481,
+    max: 12036482,
+    load: types.QMULADDDIVMODR.load,
+  },
+  {
+    min: 12036482,
+    max: 12036483,
+    load: types.QMULADDDIVMODC.load,
+  },
+  {
+    min: 12036484,
+    max: 12036485,
+    load: types.QMULDIV.load,
+  },
+  {
+    min: 12036485,
+    max: 12036486,
+    load: types.QMULDIVR.load,
+  },
+  {
+    min: 12036486,
+    max: 12036487,
+    load: types.QMULDIVC.load,
+  },
+  {
+    min: 12036488,
+    max: 12036489,
+    load: types.QMULMOD.load,
+  },
+  {
+    min: 12036489,
+    max: 12036490,
+    load: types.QMULMODR.load,
+  },
+  {
+    min: 12036490,
+    max: 12036491,
+    load: types.QMULMODC.load,
+  },
+  {
+    min: 12036492,
+    max: 12036493,
+    load: types.QMULDIVMOD.load,
+  },
+  {
+    min: 12036493,
+    max: 12036494,
+    load: types.QMULDIVMODR.load,
+  },
+  {
+    min: 12036494,
+    max: 12036495,
+    load: types.QMULDIVMODC.load,
+  },
+  {
+    min: 11116544,
+    max: 11116800,
+    load: types.MULADDRSHIFTMOD.load,
+  },
+  {
+    min: 11116800,
+    max: 11117056,
+    load: types.MULADDRSHIFTRMOD.load,
+  },
+  {
+    min: 11117056,
+    max: 11117312,
+    load: types.MULADDRSHIFTCMOD.load,
+  },
+  {
+    min: 11117568,
+    max: 11117824,
+    load: types.MULRSHIFT.load,
+  },
+  {
+    min: 11117824,
+    max: 11118080,
+    load: types.MULRSHIFTR.load,
+  },
+  {
+    min: 11118080,
+    max: 11118336,
+    load: types.MULRSHIFTC.load,
+  },
+  {
+    min: 11118592,
+    max: 11118848,
+    load: types.MULMODPOW2.load,
+  },
+  {
+    min: 11118848,
+    max: 11119104,
+    load: types.MULMODPOW2R.load,
+  },
+  {
+    min: 11119104,
+    max: 11119360,
+    load: types.MULMODPOW2C.load,
+  },
+  {
+    min: 11119616,
+    max: 11119872,
+    load: types.MULRSHIFTMOD.load,
+  },
+  {
+    min: 11119872,
+    max: 11120128,
+    load: types.MULRSHIFTRMOD.load,
+  },
+  {
+    min: 11120128,
+    max: 11120384,
+    load: types.MULRSHIFTCMOD.load,
+  },
+  {
+    min: 12036512,
+    max: 12036513,
+    load: types.QMULADDRSHIFTMOD.load,
+  },
+  {
+    min: 12036513,
+    max: 12036514,
+    load: types.QMULADDRSHIFTRMOD.load,
+  },
+  {
+    min: 12036514,
+    max: 12036515,
+    load: types.QMULADDRSHIFTCMOD.load,
+  },
+  {
+    min: 12036516,
+    max: 12036517,
+    load: types.QMULRSHIFT.load,
+  },
+  {
+    min: 12036517,
+    max: 12036518,
+    load: types.QMULRSHIFTR.load,
+  },
+  {
+    min: 12036518,
+    max: 12036519,
+    load: types.QMULRSHIFTC.load,
+  },
+  {
+    min: 12036520,
+    max: 12036521,
+    load: types.QMULMODPOW2.load,
+  },
+  {
+    min: 12036521,
+    max: 12036522,
+    load: types.QMULMODPOW2R.load,
+  },
+  {
+    min: 12036522,
+    max: 12036523,
+    load: types.QMULMODPOW2C.load,
+  },
+  {
+    min: 12036524,
+    max: 12036525,
+    load: types.QMULRSHIFTMOD.load,
+  },
+  {
+    min: 12036525,
+    max: 12036526,
+    load: types.QMULRSHIFTRMOD.load,
+  },
+  {
+    min: 12036526,
+    max: 12036527,
+    load: types.QMULRSHIFTCMOD.load,
+  },
+  {
+    min: 11124736,
+    max: 11124992,
+    load: types.LSHIFTADDDIVMOD.load,
+  },
+  {
+    min: 11124992,
+    max: 11125248,
+    load: types.LSHIFTADDDIVMODR.load,
+  },
+  {
+    min: 11125248,
+    max: 11125504,
+    load: types.LSHIFTADDDIVMODC.load,
+  },
+  {
+    min: 11125760,
+    max: 11126016,
+    load: types.LSHIFTDIV.load,
+  },
+  {
+    min: 11126016,
+    max: 11126272,
+    load: types.LSHIFTDIVR.load,
+  },
+  {
+    min: 11126272,
+    max: 11126528,
+    load: types.LSHIFTDIVC.load,
+  },
+  {
+    min: 11126784,
+    max: 11127040,
+    load: types.LSHIFTMOD.load,
+  },
+  {
+    min: 11127040,
+    max: 11127296,
+    load: types.LSHIFTMODR.load,
+  },
+  {
+    min: 11127296,
+    max: 11127552,
+    load: types.LSHIFTMODC.load,
+  },
+  {
+    min: 11127808,
+    max: 11128064,
+    load: types.LSHIFTDIVMOD.load,
+  },
+  {
+    min: 11128064,
+    max: 11128320,
+    load: types.LSHIFTDIVMODR.load,
+  },
+  {
+    min: 11128320,
+    max: 11128576,
+    load: types.LSHIFTDIVMODC.load,
+  },
+  {
+    min: 12036544,
+    max: 12036545,
+    load: types.QLSHIFTADDDIVMOD.load,
+  },
+  {
+    min: 12036545,
+    max: 12036546,
+    load: types.QLSHIFTADDDIVMODR.load,
+  },
+  {
+    min: 12036546,
+    max: 12036547,
+    load: types.QLSHIFTADDDIVMODC.load,
+  },
+  {
+    min: 12036548,
+    max: 12036549,
+    load: types.QLSHIFTDIV.load,
+  },
+  {
+    min: 12036549,
+    max: 12036550,
+    load: types.QLSHIFTDIVR.load,
+  },
+  {
+    min: 12036550,
+    max: 12036551,
+    load: types.QLSHIFTDIVC.load,
+  },
+  {
+    min: 12036552,
+    max: 12036553,
+    load: types.QLSHIFTMOD.load,
+  },
+  {
+    min: 12036553,
+    max: 12036554,
+    load: types.QLSHIFTMODR.load,
+  },
+  {
+    min: 12036554,
+    max: 12036555,
+    load: types.QLSHIFTMODC.load,
+  },
+  {
+    min: 12036556,
+    max: 12036557,
+    load: types.QLSHIFTDIVMOD.load,
+  },
+  {
+    min: 12036557,
+    max: 12036558,
+    load: types.QLSHIFTDIVMODR.load,
+  },
+  {
+    min: 12036558,
+    max: 12036559,
+    load: types.QLSHIFTDIVMODC.load,
+  },
+  {
+    min: 13565952,
+    max: 13566208,
+    load: types.STIX.load,
+  },
+  {
+    min: 13566208,
+    max: 13566464,
+    load: types.STUX.load,
+  },
+  {
+    min: 13566464,
+    max: 13566720,
+    load: types.STIXR.load,
+  },
+  {
+    min: 13566720,
+    max: 13566976,
+    load: types.STUXR.load,
+  },
+  {
+    min: 13566976,
+    max: 13567232,
+    load: types.STIXQ.load,
+  },
+  {
+    min: 13567232,
+    max: 13567488,
+    load: types.STUXQ.load,
+  },
+  {
+    min: 13567488,
+    max: 13567744,
+    load: types.STIXRQ.load,
+  },
+  {
+    min: 13567744,
+    max: 13568000,
+    load: types.STUXRQ.load,
+  },
+  {
+    min: 13576192,
+    max: 13576448,
+    load: types.STILE4.load,
+  },
+  {
+    min: 13576448,
+    max: 13576704,
+    load: types.STULE4.load,
+  },
+  {
+    min: 13576704,
+    max: 13576960,
+    load: types.STILE8.load,
+  },
+  {
+    min: 13576960,
+    max: 13577216,
+    load: types.STULE8.load,
+  },
+  {
+    min: 14090240,
+    max: 14090496,
+    load: types.LDIX.load,
+  },
+  {
+    min: 14090496,
+    max: 14090752,
+    load: types.LDUX.load,
+  },
+  {
+    min: 14090752,
+    max: 14091008,
+    load: types.PLDIX.load,
+  },
+  {
+    min: 14091008,
+    max: 14091264,
+    load: types.PLDUX.load,
+  },
+  {
+    min: 14091264,
+    max: 14091520,
+    load: types.LDIXQ.load,
+  },
+  {
+    min: 14091520,
+    max: 14091776,
+    load: types.LDUXQ.load,
+  },
+  {
+    min: 14091776,
+    max: 14092032,
+    load: types.PLDIXQ.load,
+  },
+  {
+    min: 14092032,
+    max: 14092288,
+    load: types.PLDUXQ.load,
+  },
+  {
+    min: 14096384,
+    max: 14096640,
+    load: types.LDSLICEX.load,
+  },
+  {
+    min: 14096640,
+    max: 14096896,
+    load: types.PLDSLICEX.load,
+  },
+  {
+    min: 14096896,
+    max: 14097152,
+    load: types.LDSLICEXQ.load,
+  },
+  {
+    min: 14097152,
+    max: 14097408,
+    load: types.PLDSLICEXQ.load,
+  },
+  {
+    min: 14110720,
+    max: 14110976,
+    load: types.LDILE4.load,
+  },
+  {
+    min: 14110976,
+    max: 14111232,
+    load: types.LDULE4.load,
+  },
+  {
+    min: 14111232,
+    max: 14111488,
+    load: types.LDILE8.load,
+  },
+  {
+    min: 14111488,
+    max: 14111744,
+    load: types.LDULE8.load,
+  },
+  {
+    min: 14111744,
+    max: 14112000,
+    load: types.PLDILE4.load,
+  },
+  {
+    min: 14112000,
+    max: 14112256,
+    load: types.PLDULE4.load,
+  },
+  {
+    min: 14112256,
+    max: 14112512,
+    load: types.PLDILE8.load,
+  },
+  {
+    min: 14112512,
+    max: 14112768,
+    load: types.PLDULE8.load,
+  },
+  {
+    min: 14112768,
+    max: 14113024,
+    load: types.LDILE4Q.load,
+  },
+  {
+    min: 14113024,
+    max: 14113280,
+    load: types.LDULE4Q.load,
+  },
+  {
+    min: 14113280,
+    max: 14113536,
+    load: types.LDILE8Q.load,
+  },
+  {
+    min: 14113536,
+    max: 14113792,
+    load: types.LDULE8Q.load,
+  },
+  {
+    min: 14113792,
+    max: 14114048,
+    load: types.PLDILE4Q.load,
+  },
+  {
+    min: 14114048,
+    max: 14114304,
+    load: types.PLDULE4Q.load,
+  },
+  {
+    min: 14114304,
+    max: 14114560,
+    load: types.PLDILE8Q.load,
+  },
+  {
+    min: 14114560,
+    max: 14114816,
+    load: types.PLDULE8Q.load,
+  },
+  {
+    min: 16031744,
+    max: 16032000,
+    load: types.DICTIGETJMP.load,
+  },
+  {
+    min: 16032000,
+    max: 16032256,
+    load: types.DICTUGETJMP.load,
+  },
+  {
+    min: 16032256,
+    max: 16032512,
+    load: types.DICTIGETEXEC.load,
+  },
+  {
+    min: 16032512,
+    max: 16032768,
+    load: types.DICTUGETEXEC.load,
+  },
+  {
+    min: 16038912,
+    max: 16039168,
+    load: types.DICTIGETJMPZ.load,
+  },
+  {
+    min: 16039168,
+    max: 16039424,
+    load: types.DICTUGETJMPZ.load,
+  },
+  {
+    min: 16039424,
+    max: 16039680,
+    load: types.DICTIGETEXECZ.load,
+  },
+  {
+    min: 16039680,
+    max: 16039936,
+    load: types.DICTUGETEXECZ.load,
+  },
+  {
+    min: 15993344,
+    max: 15993600,
+    load: types.DICTGET.load,
+  },
+  {
+    min: 15993600,
+    max: 15993856,
+    load: types.DICTGETREF.load,
+  },
+  {
+    min: 15993856,
+    max: 15994112,
+    load: types.DICTIGET.load,
+  },
+  {
+    min: 15994112,
+    max: 15994368,
+    load: types.DICTIGETREF.load,
+  },
+  {
+    min: 15994368,
+    max: 15994624,
+    load: types.DICTUGET.load,
+  },
+  {
+    min: 15994624,
+    max: 15994880,
+    load: types.DICTUGETREF.load,
+  },
+  {
+    min: 15995392,
+    max: 15995648,
+    load: types.DICTSET.load,
+  },
+  {
+    min: 15995648,
+    max: 15995904,
+    load: types.DICTSETREF.load,
+  },
+  {
+    min: 15995904,
+    max: 15996160,
+    load: types.DICTISET.load,
+  },
+  {
+    min: 15996160,
+    max: 15996416,
+    load: types.DICTISETREF.load,
+  },
+  {
+    min: 15996416,
+    max: 15996672,
+    load: types.DICTUSET.load,
+  },
+  {
+    min: 15996672,
+    max: 15996928,
+    load: types.DICTUSETREF.load,
+  },
+  {
+    min: 15997440,
+    max: 15997696,
+    load: types.DICTSETGET.load,
+  },
+  {
+    min: 15997696,
+    max: 15997952,
+    load: types.DICTSETGETREF.load,
+  },
+  {
+    min: 15997952,
+    max: 15998208,
+    load: types.DICTISETGET.load,
+  },
+  {
+    min: 15998208,
+    max: 15998464,
+    load: types.DICTISETGETREF.load,
+  },
+  {
+    min: 15998464,
+    max: 15998720,
+    load: types.DICTUSETGET.load,
+  },
+  {
+    min: 15998720,
+    max: 15998976,
+    load: types.DICTUSETGETREF.load,
+  },
+  {
+    min: 15999488,
+    max: 15999744,
+    load: types.DICTREPLACE.load,
+  },
+  {
+    min: 15999744,
+    max: 16000000,
+    load: types.DICTREPLACEREF.load,
+  },
+  {
+    min: 16000000,
+    max: 16000256,
+    load: types.DICTIREPLACE.load,
+  },
+  {
+    min: 16000256,
+    max: 16000512,
+    load: types.DICTIREPLACEREF.load,
+  },
+  {
+    min: 16000512,
+    max: 16000768,
+    load: types.DICTUREPLACE.load,
+  },
+  {
+    min: 16000768,
+    max: 16001024,
+    load: types.DICTUREPLACEREF.load,
+  },
+  {
+    min: 16001536,
+    max: 16001792,
+    load: types.DICTREPLACEGET.load,
+  },
+  {
+    min: 16001792,
+    max: 16002048,
+    load: types.DICTREPLACEGETREF.load,
+  },
+  {
+    min: 16002048,
+    max: 16002304,
+    load: types.DICTIREPLACEGET.load,
+  },
+  {
+    min: 16002304,
+    max: 16002560,
+    load: types.DICTIREPLACEGETREF.load,
+  },
+  {
+    min: 16002560,
+    max: 16002816,
+    load: types.DICTUREPLACEGET.load,
+  },
+  {
+    min: 16002816,
+    max: 16003072,
+    load: types.DICTUREPLACEGETREF.load,
+  },
+  {
+    min: 16003584,
+    max: 16003840,
+    load: types.DICTADD.load,
+  },
+  {
+    min: 16003840,
+    max: 16004096,
+    load: types.DICTADDREF.load,
+  },
+  {
+    min: 16004096,
+    max: 16004352,
+    load: types.DICTIADD.load,
+  },
+  {
+    min: 16004352,
+    max: 16004608,
+    load: types.DICTIADDREF.load,
+  },
+  {
+    min: 16004608,
+    max: 16004864,
+    load: types.DICTUADD.load,
+  },
+  {
+    min: 16004864,
+    max: 16005120,
+    load: types.DICTUADDREF.load,
+  },
+  {
+    min: 16005632,
+    max: 16005888,
+    load: types.DICTADDGET.load,
+  },
+  {
+    min: 16005888,
+    max: 16006144,
+    load: types.DICTADDGETREF.load,
+  },
+  {
+    min: 16006144,
+    max: 16006400,
+    load: types.DICTIADDGET.load,
+  },
+  {
+    min: 16006400,
+    max: 16006656,
+    load: types.DICTIADDGETREF.load,
+  },
+  {
+    min: 16006656,
+    max: 16006912,
+    load: types.DICTUADDGET.load,
+  },
+  {
+    min: 16006912,
+    max: 16007168,
+    load: types.DICTUADDGETREF.load,
+  },
+  {
+    min: 16015872,
+    max: 16016128,
+    load: types.DICTDELGET.load,
+  },
+  {
+    min: 16016128,
+    max: 16016384,
+    load: types.DICTDELGETREF.load,
+  },
+  {
+    min: 16016384,
+    max: 16016640,
+    load: types.DICTIDELGET.load,
+  },
+  {
+    min: 16016640,
+    max: 16016896,
+    load: types.DICTIDELGETREF.load,
+  },
+  {
+    min: 16016896,
+    max: 16017152,
+    load: types.DICTUDELGET.load,
+  },
+  {
+    min: 16017152,
+    max: 16017408,
+    load: types.DICTUDELGETREF.load,
+  },
+  {
+    min: 16024064,
+    max: 16024320,
+    load: types.DICTMIN.load,
+  },
+  {
+    min: 16024320,
+    max: 16024576,
+    load: types.DICTMINREF.load,
+  },
+  {
+    min: 16024576,
+    max: 16024832,
+    load: types.DICTIMIN.load,
+  },
+  {
+    min: 16024832,
+    max: 16025088,
+    load: types.DICTIMINREF.load,
+  },
+  {
+    min: 16025088,
+    max: 16025344,
+    load: types.DICTUMIN.load,
+  },
+  {
+    min: 16025344,
+    max: 16025600,
+    load: types.DICTUMINREF.load,
+  },
+  {
+    min: 16026112,
+    max: 16026368,
+    load: types.DICTMAX.load,
+  },
+  {
+    min: 16026368,
+    max: 16026624,
+    load: types.DICTMAXREF.load,
+  },
+  {
+    min: 16026624,
+    max: 16026880,
+    load: types.DICTIMAX.load,
+  },
+  {
+    min: 16026880,
+    max: 16027136,
+    load: types.DICTIMAXREF.load,
+  },
+  {
+    min: 16027136,
+    max: 16027392,
+    load: types.DICTUMAX.load,
+  },
+  {
+    min: 16027392,
+    max: 16027648,
+    load: types.DICTUMAXREF.load,
+  },
+  {
+    min: 16028160,
+    max: 16028416,
+    load: types.DICTREMMIN.load,
+  },
+  {
+    min: 16028416,
+    max: 16028672,
+    load: types.DICTREMMINREF.load,
+  },
+  {
+    min: 16028672,
+    max: 16028928,
+    load: types.DICTIREMMIN.load,
+  },
+  {
+    min: 16028928,
+    max: 16029184,
+    load: types.DICTIREMMINREF.load,
+  },
+  {
+    min: 16029184,
+    max: 16029440,
+    load: types.DICTUREMMIN.load,
+  },
+  {
+    min: 16029440,
+    max: 16029696,
+    load: types.DICTUREMMINREF.load,
+  },
+  {
+    min: 16030208,
+    max: 16030464,
+    load: types.DICTREMMAX.load,
+  },
+  {
+    min: 16030464,
+    max: 16030720,
+    load: types.DICTREMMAXREF.load,
+  },
+  {
+    min: 16030720,
+    max: 16030976,
+    load: types.DICTIREMMAX.load,
+  },
+  {
+    min: 16030976,
+    max: 16031232,
+    load: types.DICTIREMMAXREF.load,
+  },
+  {
+    min: 16031232,
+    max: 16031488,
+    load: types.DICTUREMMAX.load,
+  },
+  {
+    min: 16031488,
+    max: 16031744,
+    load: types.DICTUREMMAXREF.load,
+  },
+  {
+    min: 16007424,
+    max: 16007680,
+    load: types.DICTSETB.load,
+  },
+  {
+    min: 16007680,
+    max: 16007936,
+    load: types.DICTISETB.load,
+  },
+  {
+    min: 16007936,
+    max: 16008192,
+    load: types.DICTUSETB.load,
+  },
+  {
+    min: 16008448,
+    max: 16008704,
+    load: types.DICTSETGETB.load,
+  },
+  {
+    min: 16008704,
+    max: 16008960,
+    load: types.DICTISETGETB.load,
+  },
+  {
+    min: 16008960,
+    max: 16009216,
+    load: types.DICTUSETGETB.load,
+  },
+  {
+    min: 16009472,
+    max: 16009728,
+    load: types.DICTREPLACEB.load,
+  },
+  {
+    min: 16009728,
+    max: 16009984,
+    load: types.DICTIREPLACEB.load,
+  },
+  {
+    min: 16009984,
+    max: 16010240,
+    load: types.DICTUREPLACEB.load,
+  },
+  {
+    min: 16010496,
+    max: 16010752,
+    load: types.DICTREPLACEGETB.load,
+  },
+  {
+    min: 16010752,
+    max: 16011008,
+    load: types.DICTIREPLACEGETB.load,
+  },
+  {
+    min: 16011008,
+    max: 16011264,
+    load: types.DICTUREPLACEGETB.load,
+  },
+  {
+    min: 16011520,
+    max: 16011776,
+    load: types.DICTADDB.load,
+  },
+  {
+    min: 16011776,
+    max: 16012032,
+    load: types.DICTIADDB.load,
+  },
+  {
+    min: 16012032,
+    max: 16012288,
+    load: types.DICTUADDB.load,
+  },
+  {
+    min: 16012544,
+    max: 16012800,
+    load: types.DICTADDGETB.load,
+  },
+  {
+    min: 16012800,
+    max: 16013056,
+    load: types.DICTIADDGETB.load,
+  },
+  {
+    min: 16013056,
+    max: 16013312,
+    load: types.DICTUADDGETB.load,
+  },
+  {
+    min: 16013568,
+    max: 16013824,
+    load: types.DICTDEL.load,
+  },
+  {
+    min: 16013824,
+    max: 16014080,
+    load: types.DICTIDEL.load,
+  },
+  {
+    min: 16014080,
+    max: 16014336,
+    load: types.DICTUDEL.load,
+  },
+  {
+    min: 16017664,
+    max: 16017920,
+    load: types.DICTGETOPTREF.load,
+  },
+  {
+    min: 16017920,
+    max: 16018176,
+    load: types.DICTIGETOPTREF.load,
+  },
+  {
+    min: 16018176,
+    max: 16018432,
+    load: types.DICTUGETOPTREF.load,
+  },
+  {
+    min: 16018688,
+    max: 16018944,
+    load: types.DICTSETGETOPTREF.load,
+  },
+  {
+    min: 16018944,
+    max: 16019200,
+    load: types.DICTISETGETOPTREF.load,
+  },
+  {
+    min: 16019200,
+    max: 16019456,
+    load: types.DICTUSETGETOPTREF.load,
+  },
+  {
+    min: 16036096,
+    max: 16036352,
+    load: types.SUBDICTGET.load,
+  },
+  {
+    min: 16036352,
+    max: 16036608,
+    load: types.SUBDICTIGET.load,
+  },
+  {
+    min: 16036608,
+    max: 16036864,
+    load: types.SUBDICTUGET.load,
+  },
+  {
+    min: 16037120,
+    max: 16037376,
+    load: types.SUBDICTRPGET.load,
+  },
+  {
+    min: 16037376,
+    max: 16037632,
+    load: types.SUBDICTIRPGET.load,
+  },
+  {
+    min: 16037632,
+    max: 16037888,
+    load: types.SUBDICTURPGET.load,
+  },
+  {
+    min: 15921152,
+    max: 15921408,
+    load: types.THROWANY.load,
+  },
+  {
+    min: 15921408,
+    max: 15921664,
+    load: types.THROWARGANY.load,
+  },
+  {
+    min: 15922176,
+    max: 15922432,
+    load: types.THROWANYIFNOT.load,
+  },
+  {
+    min: 15922432,
+    max: 15922688,
+    load: types.THROWARGANYIFNOT.load,
+  },
+  {
+    min: 16020480,
+    max: 16020736,
+    load: types.DICTGETNEXT.load,
+  },
+  {
+    min: 16020736,
+    max: 16020992,
+    load: types.DICTGETNEXTEQ.load,
+  },
+  {
+    min: 16020992,
+    max: 16021248,
+    load: types.DICTGETPREV.load,
+  },
+  {
+    min: 16021248,
+    max: 16021504,
+    load: types.DICTGETPREVEQ.load,
+  },
+  {
+    min: 16021504,
+    max: 16021760,
+    load: types.DICTIGETNEXT.load,
+  },
+  {
+    min: 16021760,
+    max: 16022016,
+    load: types.DICTIGETNEXTEQ.load,
+  },
+  {
+    min: 16022016,
+    max: 16022272,
+    load: types.DICTIGETPREV.load,
+  },
+  {
+    min: 16022272,
+    max: 16022528,
+    load: types.DICTIGETPREVEQ.load,
+  },
+  {
+    min: 16022528,
+    max: 16022784,
+    load: types.DICTUGETNEXT.load,
+  },
+  {
+    min: 16022784,
+    max: 16023040,
+    load: types.DICTUGETNEXTEQ.load,
+  },
+  {
+    min: 16023040,
+    max: 16023296,
+    load: types.DICTUGETPREV.load,
+  },
+  {
+    min: 16023296,
+    max: 16023552,
+    load: types.DICTUGETPREVEQ.load,
+  },
+  {
+    min: 10878976,
+    max: 10944512,
+    load: types.ADDINT.load,
+  },
+  {
+    min: 10944512,
+    max: 11010048,
+    load: types.MULINT.load,
+  },
+  {
+    min: 12035584,
+    max: 12035840,
+    load: types.QADDINT.load,
+  },
+  {
+    min: 12035840,
+    max: 12036096,
+    load: types.QMULINT.load,
+  },
+  {
+    min: 12582912,
+    max: 12648448,
+    load: types.EQINT.load,
+  },
+  {
+    min: 12648448,
+    max: 12713984,
+    load: types.LESSINT.load,
+  },
+  {
+    min: 12713984,
+    max: 12779520,
+    load: types.GTINT.load,
+  },
+  {
+    min: 12779520,
+    max: 12845056,
+    load: types.NEQINT.load,
+  },
+  {
+    min: 12042240,
+    max: 12042496,
+    load: types.QEQINT.load,
+  },
+  {
+    min: 12042496,
+    max: 12042752,
+    load: types.QLESSINT.load,
+  },
+  {
+    min: 12042752,
+    max: 12043008,
+    load: types.QGTINT.load,
+  },
+  {
+    min: 12043008,
+    max: 12043264,
+    load: types.QNEQINT.load,
+  },
+  {
+    min: 8650752,
+    max: 8716288,
+    load: types.PUSHPOW2DEC.load,
+  },
+  {
+    min: 8716288,
+    max: 8781824,
+    load: types.PUSHNEGPOW2.load,
+  },
+  {
+    min: 11796480,
+    max: 11862016,
+    load: types.FITS.load,
+  },
+  {
+    min: 11862016,
+    max: 11927552,
+    load: types.UFITS.load,
+  },
+  {
+    min: 12039168,
+    max: 12039424,
+    load: types.QFITS.load,
+  },
+  {
+    min: 12039424,
+    max: 12039680,
+    load: types.QUFITS.load,
+  },
+  {
+    min: 15590144,
+    max: 15590400,
+    load: types.SETCONTCTRMANY.load,
+  },
+  {
+    min: 14366208,
+    max: 14366464,
+    load: types.CALLCCARGS.load,
+  },
+  {
+    min: 15925248,
+    max: 15990784,
+    load: types.TRYARGS.load,
+  },
+  {
+    min: 14109696,
+    max: 14110720,
+    load: types.PLDREFIDX.load,
+  },
+  {
+    min: 14116864,
+    max: 14117888,
+    load: types.CHASHI.load,
+  },
+  {
+    min: 14117888,
+    max: 14118912,
+    load: types.CDEPTHI.load,
+  },
+  {
+    min: 15810560,
+    max: 15826944,
+    load: types.JMPDICT.load,
+  },
+  {
+    min: 15826944,
+    max: 15843328,
+    load: types.PREPAREDICT.load,
+  },
+  {
+    min: 15910912,
+    max: 15912960,
+    load: types.THROWARG.load,
+  },
+  {
+    min: 15915008,
+    max: 15917056,
+    load: types.THROWARGIF.load,
+  },
+  {
+    min: 15919104,
+    max: 15921152,
+    load: types.THROWARGIFNOT.load,
+  },
+  {
+    min: 14356480,
+    max: 14360576,
+    load: types.JMPXARGS.load,
+  },
+  {
+    min: 14360576,
+    max: 14364672,
+    load: types.RETARGS.load,
+  },
+  {
+    min: 15532032,
+    max: 15536128,
+    load: types.RETURNARGS.load,
+  },
+  {
+    min: 6225920,
+    max: 6230016,
+    load: types.BLKDROP.load,
+  },
+  {
+    min: 7274496,
+    max: 7278592,
+    load: types.TUPLE.load,
+  },
+  {
+    min: 7278592,
+    max: 7282688,
+    load: types.INDEX.load,
+  },
+  {
+    min: 7282688,
+    max: 7286784,
+    load: types.UNTUPLE.load,
+  },
+  {
+    min: 7286784,
+    max: 7290880,
+    load: types.UNPACKFIRST.load,
+  },
+  {
+    min: 7290880,
+    max: 7294976,
+    load: types.EXPLODE.load,
+  },
+  {
+    min: 7294976,
+    max: 7299072,
+    load: types.SETINDEX.load,
+  },
+  {
+    min: 7299072,
+    max: 7303168,
+    load: types.INDEXQ.load,
+  },
+  {
+    min: 7303168,
+    max: 7307264,
+    load: types.SETINDEXQ.load,
+  },
+  {
+    min: 5509120,
+    max: 5513216,
+    load: types.XC2PU.load,
+  },
+  {
+    min: 5517312,
+    max: 5521408,
+    load: types.XCPU2.load,
+  },
+  {
+    min: 5533696,
+    max: 5537792,
+    load: types.PUSH3.load,
+  },
+  {
+    min: 5242880,
+    max: 5308416,
+    load: types.XCHG2.load,
+  },
+  {
+    min: 5308416,
+    max: 5373952,
+    load: types.XCPU.load,
+  },
+  {
+    min: 5439488,
+    max: 5505024,
+    load: types.PUSH2.load,
+  },
+  {
+    min: 5373952,
+    max: 5439488,
+    load: types.PUXC.load,
+  },
+  {
+    min: 5513216,
+    max: 5517312,
+    load: types.XCPUXC.load,
+  },
+  {
+    min: 5521408,
+    max: 5525504,
+    load: types.PUXC2.load,
+  },
+  {
+    min: 5525504,
+    max: 5529600,
+    load: types.PUXCPU.load,
+  },
+  {
+    min: 5529600,
+    max: 5533696,
+    load: types.PU2XC.load,
+  },
+  {
+    min: 5570560,
+    max: 5636096,
+    load: types.BLKSWAP.load,
+  },
+  {
+    min: 6160384,
+    max: 6225920,
+    load: types.REVERSE.load,
+  },
+  {
+    min: 15466496,
+    max: 15532032,
+    load: types.SETCONTARGS.load,
+  },
+  {
+    min: 15597568,
+    max: 15663104,
+    load: types.BLESSARGS.load,
+  },
+  {
+    min: 13568512,
+    max: 13568768,
+    load: types.STIR.load,
+  },
+  {
+    min: 13568768,
+    max: 13569024,
+    load: types.STUR.load,
+  },
+  {
+    min: 13569024,
+    max: 13569280,
+    load: types.STIQ.load,
+  },
+  {
+    min: 13569280,
+    max: 13569536,
+    load: types.STUQ.load,
+  },
+  {
+    min: 13569536,
+    max: 13569792,
+    load: types.STIRQ.load,
+  },
+  {
+    min: 13569792,
+    max: 13570048,
+    load: types.STURQ.load,
+  },
+  {
+    min: 14092800,
+    max: 14093056,
+    load: types.PLDI.load,
+  },
+  {
+    min: 14093056,
+    max: 14093312,
+    load: types.PLDU.load,
+  },
+  {
+    min: 14093312,
+    max: 14093568,
+    load: types.LDIQ.load,
+  },
+  {
+    min: 14093568,
+    max: 14093824,
+    load: types.LDUQ.load,
+  },
+  {
+    min: 14093824,
+    max: 14094080,
+    load: types.PLDIQ.load,
+  },
+  {
+    min: 14094080,
+    max: 14094336,
+    load: types.PLDUQ.load,
+  },
+  {
+    min: 14094336,
+    max: 14096384,
+    load: types.PLDUZ.load,
+  },
+  {
+    min: 14097664,
+    max: 14097920,
+    load: types.PLDSLICE.load,
+  },
+  {
+    min: 14097920,
+    max: 14098176,
+    load: types.LDSLICEQ.load,
+  },
+  {
+    min: 14098176,
+    max: 14098432,
+    load: types.PLDSLICEQ.load,
+  },
+  {
+    min: 14909440,
+    max: 14917632,
+    load: types.IFBITJMP.load,
+  },
+  {
+    min: 14917632,
+    max: 14925824,
+    load: types.IFNBITJMP.load,
+  },
+  {
+    min: 7319552,
+    max: 7323648,
+    load: types.INDEX2.load,
+  },
+  {
+    min: 7323648,
+    max: 7340032,
+    load: types.INDEX3.load,
+  },
+  {
+    min: 8585216,
+    max: 8650496,
+    load: types.PUSHPOW2.load,
+  },
+  {
+    min: 6230016,
+    max: 6291456,
+    load: types.BLKPUSH.load,
+  },
+  {
+    min: 7081984,
+    max: 7143424,
+    load: types.BLKDROP2.load,
+  },
+  {
+    min: 16269568,
+    max: 16277504,
+    load: types.GETGLOB.load,
+  },
+  {
+    min: 16277760,
+    max: 16285696,
+    load: types.SETGLOB.load,
+  },
+  {
+    min: 16261120,
+    max: 16261888,
+    load: types.GETPARAM.load,
+  },
+  {
+    min: 8912896,
+    max: 8978432,
+    load: types.PUSHREF.load,
+  },
+  {
+    min: 8978432,
+    max: 9043968,
+    load: types.PUSHREFSLICE.load,
+  },
+  {
+    min: 9043968,
+    max: 9109504,
+    load: types.PUSHREFCONT.load,
+  },
+  {
+    min: 14367744,
+    max: 14368000,
+    load: types.CALLREF.load,
+  },
+  {
+    min: 14368000,
+    max: 14368256,
+    load: types.JMPREF.load,
+  },
+  {
+    min: 14368256,
+    max: 14368512,
+    load: types.JMPREFDATA.load,
+  },
+  {
+    min: 14876672,
+    max: 14876928,
+    load: types.IFREF.load,
+  },
+  {
+    min: 14876928,
+    max: 14877184,
+    load: types.IFNOTREF.load,
+  },
+  {
+    min: 14877184,
+    max: 14877440,
+    load: types.IFJMPREF.load,
+  },
+  {
+    min: 14877440,
+    max: 14877696,
+    load: types.IFNOTJMPREF.load,
+  },
+  {
+    min: 14880000,
+    max: 14880256,
+    load: types.IFREFELSE.load,
+  },
+  {
+    min: 14880256,
+    max: 14880512,
+    load: types.IFELSEREF.load,
+  },
+  {
+    min: 14880512,
+    max: 14880768,
+    load: types.IFREFELSEREF.load,
+  },
+  {
+    min: 14925824,
+    max: 14934016,
+    load: types.IFBITJMPREF.load,
+  },
+  {
+    min: 14934016,
+    max: 14942208,
+    load: types.IFNBITJMPREF.load,
+  },
+  {
+    min: 16032768,
+    max: 16033792,
+    load: types.DICTPUSHCONST.load,
+  },
+  {
+    min: 16034816,
+    max: 16035840,
+    load: types.PFXDICTSWITCH.load,
+  },
+  {
+    min: 14099968,
+    max: 14100224,
+    load: types.SDBEGINSX.load,
+  },
+  {
+    min: 14100224,
+    max: 14100480,
+    load: types.SDBEGINSXQ.load,
+  },
+  {
+    min: 14100480,
+    max: 14101504,
+    load: types.SDBEGINS.load,
+  },
+  {
+    min: 14101504,
+    max: 14102528,
+    load: types.SDBEGINSQ.load,
+  },
+  {
+    min: 13574144,
+    max: 13574400,
+    load: types.STREFCONST.load,
+  },
+  {
+    min: 13574400,
+    max: 13574656,
+    load: types.STREF2CONST.load,
+  },
+  {
+    min: 15921664,
+    max: 15921920,
+    load: types.THROWANYIF.load,
+  },
+  {
+    min: 15921920,
+    max: 15922176,
+    load: types.THROWARGANYIF.load,
+  },
+  {
+    min: 16707584,
+    max: 16711680,
+    load: types.DEBUGSTR.load,
+  },
+  {
+    min: 15556608,
+    max: 15558656,
+    load: types.SETCONTCTR.load,
+  },
+  {
+    min: 15560704,
+    max: 15562752,
+    load: types.SETRETCTR.load,
+  },
+  {
+    min: 15564800,
+    max: 15566848,
+    load: types.SETALTCTR.load,
+  },
+  {
+    min: 15568896,
+    max: 15570944,
+    load: types.POPSAVE.load,
+  },
+  {
+    min: 15572992,
+    max: 15575040,
+    load: types.SAVECTR.load,
+  },
+  {
+    min: 15577088,
+    max: 15579136,
+    load: types.SAVEALTCTR.load,
+  },
+  {
+    min: 15581184,
+    max: 15583232,
+    load: types.SAVEBOTHCTR.load,
+  },
+  {
+    min: 14368768,
+    max: 14372864,
+    load: types.RUNVM.load,
+  },
+  {
+    min: 5898240,
+    max: 5963776,
+    load: types.SWAP2.load,
+  },
+  {
+    min: 5963776,
+    max: 6029312,
+    load: types.DROP2.load,
+  },
+  {
+    min: 6029312,
+    max: 6094848,
+    load: types.DUP2.load,
+  },
+  {
+    min: 6094848,
+    max: 6160384,
+    load: types.OVER2.load,
+  },
+  {
+    min: 11087872,
+    max: 11088128,
+    load: types.ADDRSHIFT_MOD.load,
+  },
+  {
+    min: 11088128,
+    max: 11088384,
+    load: types.ADDRSHIFTR_MOD.load,
+  },
+  {
+    min: 11088384,
+    max: 11088640,
+    load: types.ADDRSHIFTC_MOD.load,
+  },
+  {
+    min: 11088896,
+    max: 11089152,
+    load: types.RSHIFT_.load,
+  },
+  {
+    min: 11089152,
+    max: 11089408,
+    load: types.RSHIFTR_.load,
+  },
+  {
+    min: 11089408,
+    max: 11089664,
+    load: types.RSHIFTC_.load,
+  },
+  {
+    min: 11089920,
+    max: 11090176,
+    load: types.MODPOW2_.load,
+  },
+  {
+    min: 11090176,
+    max: 11090432,
+    load: types.MODPOW2R_.load,
+  },
+  {
+    min: 11090432,
+    max: 11090688,
+    load: types.MODPOW2C_.load,
+  },
+  {
+    min: 11090944,
+    max: 11091200,
+    load: types.RSHIFT_MOD.load,
+  },
+  {
+    min: 11091200,
+    max: 11091456,
+    load: types.RSHIFTR_MOD.load,
+  },
+  {
+    min: 11091456,
+    max: 11091712,
+    load: types.RSHIFTC_MOD.load,
+  },
+  {
+    min: 11120640,
+    max: 11120896,
+    load: types.MULADDRSHIFT_MOD.load,
+  },
+  {
+    min: 11120896,
+    max: 11121152,
+    load: types.MULADDRSHIFTR_MOD.load,
+  },
+  {
+    min: 11121152,
+    max: 11121408,
+    load: types.MULADDRSHIFTC_MOD.load,
+  },
+  {
+    min: 11121664,
+    max: 11121920,
+    load: types.MULRSHIFT_.load,
+  },
+  {
+    min: 11121920,
+    max: 11122176,
+    load: types.MULRSHIFTR_.load,
+  },
+  {
+    min: 11122176,
+    max: 11122432,
+    load: types.MULRSHIFTC_.load,
+  },
+  {
+    min: 11122688,
+    max: 11122944,
+    load: types.MULMODPOW2_.load,
+  },
+  {
+    min: 11122944,
+    max: 11123200,
+    load: types.MULMODPOW2R_.load,
+  },
+  {
+    min: 11123200,
+    max: 11123456,
+    load: types.MULMODPOW2C_.load,
+  },
+  {
+    min: 11123712,
+    max: 11123968,
+    load: types.MULRSHIFT_MOD.load,
+  },
+  {
+    min: 11123968,
+    max: 11124224,
+    load: types.MULRSHIFTR_MOD.load,
+  },
+  {
+    min: 11124224,
+    max: 11124480,
+    load: types.MULRSHIFTC_MOD.load,
+  },
+  {
+    min: 11128832,
+    max: 11129088,
+    load: types.LSHIFT_ADDDIVMOD.load,
+  },
+  {
+    min: 11129088,
+    max: 11129344,
+    load: types.LSHIFT_ADDDIVMODR.load,
+  },
+  {
+    min: 11129344,
+    max: 11129600,
+    load: types.LSHIFT_ADDDIVMODC.load,
+  },
+  {
+    min: 11129856,
+    max: 11130112,
+    load: types.LSHIFT_DIV.load,
+  },
+  {
+    min: 11130112,
+    max: 11130368,
+    load: types.LSHIFT_DIVR.load,
+  },
+  {
+    min: 11130368,
+    max: 11130624,
+    load: types.LSHIFT_DIVC.load,
+  },
+  {
+    min: 11130880,
+    max: 11131136,
+    load: types.LSHIFT_MOD.load,
+  },
+  {
+    min: 11131136,
+    max: 11131392,
+    load: types.LSHIFT_MODR.load,
+  },
+  {
+    min: 11131392,
+    max: 11131648,
+    load: types.LSHIFT_MODC.load,
+  },
+  {
+    min: 11131904,
+    max: 11132160,
+    load: types.LSHIFT_DIVMOD.load,
+  },
+  {
+    min: 11132160,
+    max: 11132416,
+    load: types.LSHIFT_DIVMODR.load,
+  },
+  {
+    min: 11132416,
+    max: 11132672,
+    load: types.LSHIFT_DIVMODC.load,
+  },
+  {
+    min: 16319488,
+    max: 16319744,
+    load: types.HASHEXT.load,
+  },
+  {
+    min: 16319744,
+    max: 16320000,
+    load: types.HASHEXTR.load,
+  },
+  {
+    min: 16320000,
+    max: 16320256,
+    load: types.HASHEXTA.load,
+  },
+  {
+    min: 16320256,
+    max: 16320512,
+    load: types.HASHEXTAR.load,
+  },
+  {
+    min: 13369344,
+    max: 13434880,
+    load: types.STREF.load,
+  },
+  {
+    min: 13570048,
+    max: 13570304,
+    load: types.STREF_ALT.load,
+  },
+  {
+    min: 13500416,
+    max: 13565952,
+    load: types.STSLICE.load,
+  },
+  {
+    min: 13570560,
+    max: 13570816,
+    load: types.STSLICE_ALT.load,
+  },
+  {
+    min: 4194304,
+    max: 5242880,
+    load: types.XCHG3.load,
+  },
+  {
+    min: 5505024,
+    max: 5509120,
+    load: types.XCHG3_ALT.load,
+  },
+  {
+    min: 13238272,
+    max: 13303808,
+    load: types.STI.load,
+  },
+  {
+    min: 13568000,
+    max: 13568256,
+    load: types.STI_ALT.load,
+  },
+  {
+    min: 13303808,
+    max: 13369344,
+    load: types.STU.load,
+  },
+  {
+    min: 13568256,
+    max: 13568512,
+    load: types.STU_ALT.load,
+  },
+  {
+    min: 13762560,
+    max: 13828096,
+    load: types.LDI.load,
+  },
+  {
+    min: 14092288,
+    max: 14092544,
+    load: types.LDI_ALT.load,
+  },
+  {
+    min: 13828096,
+    max: 13893632,
+    load: types.LDU.load,
+  },
+  {
+    min: 14092544,
+    max: 14092800,
+    load: types.LDU_ALT.load,
+  },
+  {
+    min: 14024704,
+    max: 14090240,
+    load: types.LDSLICE.load,
+  },
+  {
+    min: 14097408,
+    max: 14097664,
+    load: types.LDSLICE_ALT.load,
+  },
+  {
+    min: 11272192,
+    max: 11337728,
+    load: types.LSHIFT_VAR.load,
+  },
+  {
+    min: 11141120,
+    max: 11206656,
+    load: types.LSHIFT.load,
+  },
+  {
+    min: 12037120,
+    max: 12037376,
+    load: types.QLSHIFT_VAR.load,
+  },
+  {
+    min: 12036608,
+    max: 12036864,
+    load: types.QLSHIFT.load,
+  },
+  {
+    min: 13580544,
+    max: 13580800,
+    load: types.BCHKBITS_VAR.load,
+  },
+  {
+    min: 13580288,
+    max: 13580544,
+    load: types.BCHKBITS.load,
+  },
+  {
+    min: 13581568,
+    max: 13581824,
+    load: types.BCHKBITSQ_VAR.load,
+  },
+  {
+    min: 13581312,
+    max: 13581568,
+    load: types.BCHKBITSQ.load,
+  },
+  {
+    min: 11337728,
+    max: 11403264,
+    load: types.RSHIFT_VAR.load,
+  },
+  {
+    min: 11206656,
+    max: 11272192,
+    load: types.RSHIFT.load,
+  },
+  {
+    min: 11084800,
+    max: 11085056,
+    load: types.RSHIFT_ALT.load,
+  },
+  {
+    min: 12037376,
+    max: 12037632,
+    load: types.QRSHIFT_VAR.load,
+  },
+  {
+    min: 12036864,
+    max: 12037120,
+    load: types.QRSHIFT.load,
+  },
+  {
+    min: 12036388,
+    max: 12036389,
+    load: types.QRSHIFT_ALT.load,
+  },
+  {
+    min: 15728640,
+    max: 15794176,
+    load: types.CALLDICT.load,
+  },
+  {
+    min: 15794176,
+    max: 15810560,
+    load: types.CALLDICT_LONG.load,
+  },
+  {
+    min: 15859712,
+    max: 15876096,
+    load: types.THROW_SHORT.load,
+  },
+  {
+    min: 15908864,
+    max: 15910912,
+    load: types.THROW.load,
+  },
+  {
+    min: 15876096,
+    max: 15892480,
+    load: types.THROWIF_SHORT.load,
+  },
+  {
+    min: 15912960,
+    max: 15915008,
+    load: types.THROWIF.load,
+  },
+  {
+    min: 15892480,
+    max: 15908864,
+    load: types.THROWIFNOT_SHORT.load,
+  },
+  {
+    min: 15917056,
+    max: 15919104,
+    load: types.THROWIFNOT.load,
+  },
+  {
+    min: 7340032,
+    max: 8388608,
+    load: types.PUSHINT_4.load,
+  },
+  {
+    min: 8388608,
+    max: 8454144,
+    load: types.PUSHINT_8.load,
+  },
+  {
+    min: 8454144,
+    max: 8519680,
+    load: types.PUSHINT_16.load,
+  },
+  {
+    min: 8519680,
+    max: 8583168,
+    load: types.PUSHINT_LONG.load,
+  },
+  {
+    min: 1114112,
+    max: 1179648,
+    load: types.XCHG_0I_LONG.load,
+  },
+  {
+    min: 131072,
+    max: 1048576,
+    load: types.XCHG_0I.load,
+  },
+  {
+    min: 1048576,
+    max: 1114112,
+    load: types.XCHG_IJ.load,
+  },
+  {
+    min: 1179648,
+    max: 2097152,
+    load: types.XCHG_1I.load,
+  },
+  {
+    min: 16646144,
+    max: 16646400,
+    load: types.DUMPSTK.load,
+  },
+  {
+    min: 16646400,
+    max: 16651264,
+    load: types.DEBUG.load,
+  },
+  {
+    min: 16651264,
+    max: 16651520,
+    load: types.STRDUMP.load,
+  },
+  {
+    min: 16651520,
+    max: 16654336,
+    load: types.DEBUG_1.load,
+  },
+  {
+    min: 16654336,
+    max: 16658432,
+    load: types.DUMP.load,
+  },
+  {
+    min: 16658432,
+    max: 16707584,
+    load: types.DEBUG_2.load,
+  },
+  {
+    min: 15548416,
+    max: 15550464,
+    load: types.PUSHCTR.load,
+  },
+  {
+    min: 2228224,
+    max: 3145728,
+    load: types.PUSH.load,
+  },
+  {
+    min: 5636096,
+    max: 5701632,
+    load: types.PUSH_LONG.load,
+  },
+  {
+    min: 15552512,
+    max: 15554560,
+    load: types.POPCTR.load,
+  },
+  {
+    min: 3276800,
+    max: 4194304,
+    load: types.POP.load,
+  },
+  {
+    min: 5701632,
+    max: 5767168,
+    load: types.POP_LONG.load,
+  },
+  {
+    min: 14352384,
+    max: 14356480,
+    load: types.CALLXARGS.load,
+  },
+  {
+    min: 14286848,
+    max: 14352384,
+    load: types.CALLXARGS_1.load,
+  },
+  {
+    min: 9109504,
+    max: 9175040,
+    load: types.PUSHSLICE.load,
+  },
+  {
+    min: 9175040,
+    max: 9240576,
+    load: types.PUSHSLICE_REFS.load,
+  },
+  {
+    min: 9240576,
+    max: 9281536,
+    load: types.PUSHSLICE_LONG.load,
+  },
+  {
+    min: 9306112,
+    max: 9437184,
+    load: types.PUSHCONT.load,
+  },
+  {
+    min: 9437184,
+    max: 10485760,
+    load: types.PUSHCONT_SHORT.load,
+  },
+  {
+    min: 13598720,
+    max: 13631488,
+    load: types.STSLICECONST.load,
+  },
+  {
+    min: 16711680,
+    max: 16773120,
+    load: types.SETCP.load,
+  },
+  {
+    min: 16773120,
+    max: 16773376,
+    load: types.SETCPX.load,
+  },
+  {
+    min: 16773376,
+    max: 16777216,
+    load: types.SETCP_SHORT.load,
+  },
+  {
+    min: 16285952,
+    max: 16285969,
+    load: types.GETPARAMLONG.load,
+  },
+  {
+    min: 16285969,
+    max: 16285970,
+    load: types.INMSGPARAMS.load,
+  },
+  {
+    min: 16285970,
+    max: 16286207,
+    load: types.GETPARAMLONG2.load,
+  },
+  {
+    min: 16289792,
+    max: 16290048,
+    load: types.INMSG_BOUNCE.load,
+  },
+  {
+    min: 16290048,
+    max: 16290304,
+    load: types.INMSG_BOUNCED.load,
+  },
+  {
+    min: 16290304,
+    max: 16290560,
+    load: types.INMSG_SRC.load,
+  },
+  {
+    min: 16290560,
+    max: 16290816,
+    load: types.INMSG_FWDFEE.load,
+  },
+  {
+    min: 16290816,
+    max: 16291072,
+    load: types.INMSG_LT.load,
+  },
+  {
+    min: 16291072,
+    max: 16291328,
+    load: types.INMSG_UTIME.load,
+  },
+  {
+    min: 16291328,
+    max: 16291584,
+    load: types.INMSG_ORIGVALUE.load,
+  },
+  {
+    min: 16291584,
+    max: 16291840,
+    load: types.INMSG_VALUE.load,
+  },
+  {
+    min: 16291840,
+    max: 16292096,
+    load: types.INMSG_VALUEEXTRA.load,
+  },
+  {
+    min: 16292096,
+    max: 16292352,
+    load: types.INMSG_STATEINIT.load,
+  },
+  {
+    min: 16292352,
+    max: 16293888,
+    load: types.INMSGPARAM.load,
+  },
+  {
+    min: 13586432,
+    max: 13586688,
+    load: types.BTOS.load,
+  },
+  {
+    min: 16324096,
+    max: 16324352,
+    load: types.HASHBU.load,
+  },
+  {
+    min: 16402432,
+    max: 16402688,
+    load: types.LDSTDADDR.load,
+  },
+  {
+    min: 16402688,
+    max: 16402944,
+    load: types.LDSTDADDRQ.load,
+  },
+  {
+    min: 16404480,
+    max: 16404736,
+    load: types.LDOPTSTDADDR.load,
+  },
+  {
+    min: 16404736,
+    max: 16404992,
+    load: types.LDOPTSTDADDRQ.load,
+  },
+  {
+    min: 16404992,
+    max: 16405248,
+    load: types.STSTDADDR.load,
+  },
+  {
+    min: 16405248,
+    max: 16405504,
+    load: types.STSTDADDRQ.load,
+  },
+  {
+    min: 16405504,
+    max: 16405760,
+    load: types.STOPTSTDADDR.load,
+  },
+  {
+    min: 16405760,
+    max: 16406016,
+    load: types.STOPTSTDADDRQ.load,
+  },
+  {
+    min: 16340224,
+    max: 16340480,
+    load: types.DEBUGMARK.load,
+  },
 ]
 export const storeMapping: Map<string, $.Store<any>> = new Map()
 storeMapping.set("PUSHNAN", types.PUSHNAN.store)

@@ -2,8 +2,8 @@ import {parse} from "../parse"
 import * as fs from "node:fs"
 
 describe("Fift Parser", () => {
-    it("should parse basic program", () => {
-        const code = `"Asm.fif" include
+  it("should parse basic program", () => {
+    const code = `"Asm.fif" include
         PROGRAM{
             DECLPROC test
             test PROC:<{
@@ -11,23 +11,23 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        if (result.$ === "ParseFailure") {
-            console.log("Parse error:", result.error.message)
-        }
+    if (result.$ === "ParseFailure") {
+      console.log("Parse error:", result.error.message)
+    }
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast.program.declarations).toHaveLength(1)
-            expect(result.ast.program.definitions).toHaveLength(1)
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast.program.declarations).toHaveLength(1)
+      expect(result.ast.program.definitions).toHaveLength(1)
 
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse 2DROP", () => {
-        const code = `"Asm.fif" include
+  it("should parse 2DROP", () => {
+    const code = `"Asm.fif" include
         PROGRAM{
             DECLPROC test
             test PROC:<{
@@ -35,23 +35,23 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        if (result.$ === "ParseFailure") {
-            console.log("Parse error:", result.error.message)
-        }
+    if (result.$ === "ParseFailure") {
+      console.log("Parse error:", result.error.message)
+    }
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast.program.declarations).toHaveLength(1)
-            expect(result.ast.program.definitions).toHaveLength(1)
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast.program.declarations).toHaveLength(1)
+      expect(result.ast.program.definitions).toHaveLength(1)
 
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse Foo.bar() CALLDICT", () => {
-        const code = `"Asm.fif" include
+  it("should parse Foo.bar() CALLDICT", () => {
+    const code = `"Asm.fif" include
         PROGRAM{
             DECLPROC test
             DECLPROC Foo.bar()
@@ -60,23 +60,23 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        if (result.$ === "ParseFailure") {
-            console.log("Parse error:", result.error.message)
-        }
+    if (result.$ === "ParseFailure") {
+      console.log("Parse error:", result.error.message)
+    }
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast.program.declarations).toHaveLength(2)
-            expect(result.ast.program.definitions).toHaveLength(1)
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast.program.declarations).toHaveLength(2)
+      expect(result.ast.program.definitions).toHaveLength(1)
 
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse PLDREF", () => {
-        const code = `"Asm.fif" include
+  it("should parse PLDREF", () => {
+    const code = `"Asm.fif" include
         PROGRAM{
             DECLPROC test
             test PROC:<{
@@ -84,23 +84,23 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        if (result.$ === "ParseFailure") {
-            console.log("Parse error:", result.error.message)
-        }
+    if (result.$ === "ParseFailure") {
+      console.log("Parse error:", result.error.message)
+    }
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast.program.declarations).toHaveLength(1)
-            expect(result.ast.program.definitions).toHaveLength(1)
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast.program.declarations).toHaveLength(1)
+      expect(result.ast.program.definitions).toHaveLength(1)
 
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse program with include", () => {
-        const code = `"Asm.fif" include
+  it("should parse program with include", () => {
+    const code = `"Asm.fif" include
             PROGRAM{
                 DECLPROC test
                 test PROC:<{
@@ -108,59 +108,59 @@ describe("Fift Parser", () => {
                 }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast.include).toBeDefined()
-            expect(result.ast.include?.path).toBe("Asm.fif")
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast.include).toBeDefined()
+      expect(result.ast.include?.path).toBe("Asm.fif")
 
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse method declaration", () => {
-        const code = `PROGRAM{
+  it("should parse method declaration", () => {
+    const code = `PROGRAM{
             85143 DECLMETHOD seqno
             seqno METHOD:<{
                 1 GETPARAM
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast.program.declarations).toHaveLength(1)
-            const decl = result.ast.program.declarations[0]
-            expect(decl?.decl.$).toBe("MethodDeclaration")
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast.program.declarations).toHaveLength(1)
+      const decl = result.ast.program.declarations[0]
+      expect(decl?.decl.$).toBe("MethodDeclaration")
 
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse method declaration with name with ()", () => {
-        const code = `PROGRAM{
+  it("should parse method declaration with name with ()", () => {
+    const code = `PROGRAM{
             85143 DECLMETHOD seqno()
             seqno() METHOD:<{
                 1 GETPARAM
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast.program.declarations).toHaveLength(1)
-            const decl = result.ast.program.declarations[0]
-            expect(decl?.decl.$).toBe("MethodDeclaration")
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast.program.declarations).toHaveLength(1)
+      const decl = result.ast.program.declarations[0]
+      expect(decl?.decl.$).toBe("MethodDeclaration")
 
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse if statement", () => {
-        const code = `PROGRAM{
+  it("should parse if statement", () => {
+    const code = `PROGRAM{
             DECLPROC test
             test PROC:<{
                 IF:<{
@@ -171,16 +171,16 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse while statement", () => {
-        const code = `PROGRAM{
+  it("should parse while statement", () => {
+    const code = `PROGRAM{
             DECLPROC test
             test PROC:<{
                 WHILE:<{
@@ -191,16 +191,16 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse slice literals", () => {
-        const code = `PROGRAM{
+  it("should parse slice literals", () => {
+    const code = `PROGRAM{
             DECLPROC test
             test PROC:<{
                 b{010101} PUSHSLICE
@@ -209,16 +209,16 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse fift address none", () => {
-        const code = `PROGRAM{
+  it("should parse fift address none", () => {
+    const code = `PROGRAM{
             DECLPROC test
             test PROC:<{
                 <b 0 2 u, b> <s PUSHSLICE
@@ -226,16 +226,16 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse stack operations", () => {
-        const code = `PROGRAM{
+  it("should parse stack operations", () => {
+    const code = `PROGRAM{
             DECLPROC test
             test PROC:<{
                 s(-1) XCHG
@@ -244,16 +244,16 @@ describe("Fift Parser", () => {
             }>
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse complex example", () => {
-        const code = `"Asm.fif" include
+  it("should parse complex example", () => {
+    const code = `"Asm.fif" include
         
         PROGRAM{
             DECLPROC recv_internal
@@ -293,16 +293,16 @@ describe("Fift Parser", () => {
             }>
         }END>c `
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse real world example", () => {
-        const code = `PROGRAM{
+  it("should parse real world example", () => {
+    const code = `PROGRAM{
   DECLPROC $Foo$_contract_init
   DECLPROC $Foo$_contract_load
   83229 DECLMETHOD $SampleTactContract$_fun_owner
@@ -359,52 +359,52 @@ describe("Fift Parser", () => {
   }>
 }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse real world FunC example", () => {
-        const code = fs.readFileSync(`${__dirname}/testdata/JettonWallet.00-FunC.fif`, "utf8")
+  it("should parse real world FunC example", () => {
+    const code = fs.readFileSync(`${__dirname}/testdata/JettonWallet.00-FunC.fif`, "utf8")
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        if (result.$ === "ParseFailure") {
-            console.log(result.error)
-        }
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    if (result.$ === "ParseFailure") {
+      console.log(result.error)
+    }
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should parse real world Tolk example", () => {
-        const code = fs.readFileSync(`${__dirname}/testdata/JettonWallet.00-Tolk.fif`, "utf8")
+  it("should parse real world Tolk example", () => {
+    const code = fs.readFileSync(`${__dirname}/testdata/JettonWallet.00-Tolk.fif`, "utf8")
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        if (result.$ === "ParseFailure") {
-            console.log(result.error)
-        }
-        expect(result.$).toBe("ParseSuccess")
-        if (result.$ === "ParseSuccess") {
-            expect(result.ast).toMatchSnapshot()
-        }
-    })
+    if (result.$ === "ParseFailure") {
+      console.log(result.error)
+    }
+    expect(result.$).toBe("ParseSuccess")
+    if (result.$ === "ParseSuccess") {
+      expect(result.ast).toMatchSnapshot()
+    }
+  })
 
-    it("should handle parse errors", () => {
-        const code = `PROGRAM{
+  it("should handle parse errors", () => {
+    const code = `PROGRAM{
             INVALID SYNTAX
         }END>c`
 
-        const result = parse("test.fift", code)
+    const result = parse("test.fift", code)
 
-        expect(result.$).toBe("ParseFailure")
-        if (result.$ === "ParseFailure") {
-            expect(result.error.message).toContain("Expected")
-        }
-    })
+    expect(result.$).toBe("ParseFailure")
+    if (result.$ === "ParseFailure") {
+      expect(result.error.message).toContain("Expected")
+    }
+  })
 })

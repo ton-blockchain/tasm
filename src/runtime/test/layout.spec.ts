@@ -5,17 +5,17 @@ import {Cell} from "@ton/core"
 import {runTolkCompiler} from "@ton/tolk-js"
 
 const test = (code: string, expected: string, skipRefs?: boolean): (() => void) => {
-    return () => {
-        const res = parse("asm.tasm", normalizeIndentation(code))
-        if (res.$ === "ParseFailure") {
-            throw new Error(res.error.message)
-        }
-        const compiled = compileCell(res.instructions, {skipRefs: skipRefs ?? false})
-        const disasn = decompileCell(compiled)
-        const disasnRes = print(disasn)
-        const normalizedExpected = normalizeIndentation(expected)
-        expect(disasnRes).toEqual(normalizedExpected)
+  return () => {
+    const res = parse("asm.tasm", normalizeIndentation(code))
+    if (res.$ === "ParseFailure") {
+      throw new Error(res.error.message)
     }
+    const compiled = compileCell(res.instructions, {skipRefs: skipRefs ?? false})
+    const disasn = decompileCell(compiled)
+    const disasnRes = print(disasn)
+    const normalizedExpected = normalizeIndentation(expected)
+    expect(disasnRes).toEqual(normalizedExpected)
+  }
 }
 
 const PUSHSLICES = `PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
@@ -23,82 +23,82 @@ const PUSHSLICES = `PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
                     PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}`
 
 describe("tests auto layout", () => {
-    it(
-        "IF -> IFREF",
-        test(
-            `
+  it(
+    "IF -> IFREF",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
                 }
                 IF
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 IFREF {
                     ${PUSHSLICES}
                 }
             `,
-        ),
-    )
-    it(
-        "IFNOT -> IFNOTREF",
-        test(
-            `
+    ),
+  )
+  it(
+    "IFNOT -> IFNOTREF",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
                 }
                 IFNOT
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 IFNOTREF {
                     ${PUSHSLICES}
                 }
             `,
-        ),
-    )
-    it(
-        "IFJMP -> IFJMPREF",
-        test(
-            `
+    ),
+  )
+  it(
+    "IFJMP -> IFJMPREF",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
                 }
                 IFJMP
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 IFJMPREF {
                     ${PUSHSLICES}
                 }
             `,
-        ),
-    )
-    it(
-        "IFNOTJMP -> IFNOTJMPREF",
-        test(
-            `
+    ),
+  )
+  it(
+    "IFNOTJMP -> IFNOTJMPREF",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
                 }
                 IFNOTJMP
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 IFNOTJMPREF {
                     ${PUSHSLICES}
                 }
             `,
-        ),
-    )
-    it(
-        "IFELSE -> IFELSEREF",
-        test(
-            `
+    ),
+  )
+  it(
+    "IFELSE -> IFELSEREF",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ADD
@@ -108,7 +108,7 @@ describe("tests auto layout", () => {
                 }
                 IFELSE
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ADD
@@ -117,13 +117,13 @@ describe("tests auto layout", () => {
                     ${PUSHSLICES}
                 }
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "5 IF in row",
-        test(
-            `
+  it(
+    "5 IF in row",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHCONT {
                     ${PUSHSLICES}
@@ -154,7 +154,7 @@ describe("tests auto layout", () => {
                 }
                 IF
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 IFREF {
                     PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
@@ -188,12 +188,12 @@ describe("tests auto layout", () => {
                     }
                 }
             `,
-        ),
-    )
-    it(
-        "Too much references",
-        test(
-            `
+    ),
+  )
+  it(
+    "Too much references",
+    test(
+      `
                 PUSHREF {}
                 PUSHREF {}
                 PUSHREF {}
@@ -202,7 +202,7 @@ describe("tests auto layout", () => {
                 PUSHREF {}
                 PUSHREF {}
             `,
-            `
+      `
                 PUSHREF {}
                 PUSHREF {}
                 PUSHREF {}
@@ -213,68 +213,68 @@ describe("tests auto layout", () => {
                     PUSHREF {}
                 }
             `,
-        ),
-    )
+    ),
+  )
 
-    it(
-        "IFREF -> IF",
-        test(
-            `
+  it(
+    "IFREF -> IF",
+    test(
+      `
                 IFREF {
                     PUSHINT_4 5
                 }
             `,
-            `
+      `
                 PUSHCONT_SHORT {
                     PUSHINT_4 5
                 }
                 IF
             `,
-            true,
-        ),
-    )
+      true,
+    ),
+  )
 
-    it(
-        "IFJMPREF -> IFJMP",
-        test(
-            `
+  it(
+    "IFJMPREF -> IFJMP",
+    test(
+      `
                 IFJMPREF {
                     PUSHINT_4 5
                 }
             `,
-            `
+      `
                 PUSHCONT_SHORT {
                     PUSHINT_4 5
                 }
                 IFJMP
             `,
-            true,
-        ),
-    )
+      true,
+    ),
+  )
 
-    it(
-        "IFREF -> IF 2",
-        test(
-            `
+  it(
+    "IFREF -> IF 2",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 IFREF {
                     ${PUSHSLICES}
                 }
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 IFREF {
                     ${PUSHSLICES}
                 }
             `,
-            true,
-        ),
-    )
+      true,
+    ),
+  )
 
-    it(
-        "Real word DEBUGMARK code",
-        test(
-            `
+  it(
+    "Real word DEBUGMARK code",
+    test(
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -473,7 +473,7 @@ describe("tests auto layout", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-            `
+      `
                 SETCP 0
                 DICTPUSHCONST 19 [
                     0 => {
@@ -561,12 +561,12 @@ describe("tests auto layout", () => {
                 DICTIGETJMPZ
                 THROWARG 11
             `,
-            true,
-        ),
-    )
+      true,
+    ),
+  )
 
-    it("should compile", async () => {
-        const code = `
+  it("should compile", async () => {
+    const code = `
             SETCP 0
             DICTPUSHCONST 19 [
                 0 => {
@@ -764,7 +764,7 @@ describe("tests auto layout", () => {
             THROWARG 11
         `
 
-        const originalCode = `
+    const originalCode = `
             tolk 1.0
             
             // this struct defines storage layout of the contract
@@ -853,26 +853,26 @@ describe("tests auto layout", () => {
             }
         `
 
-        const res = parse("asm.tasm", normalizeIndentation(code))
-        if (res.$ === "ParseFailure") {
-            throw new Error(res.error.message)
-        }
-        const compiled = compileCell(res.instructions, {skipRefs: true})
-        const disasn = decompileCell(compiled)
-        const disasmText = print(disasn)
+    const res = parse("asm.tasm", normalizeIndentation(code))
+    if (res.$ === "ParseFailure") {
+      throw new Error(res.error.message)
+    }
+    const compiled = compileCell(res.instructions, {skipRefs: true})
+    const disasn = decompileCell(compiled)
+    const disasmText = print(disasn)
 
-        const originalInstructions = decompileCell(await compile(originalCode))
-        const originalText = print(originalInstructions)
+    const originalInstructions = decompileCell(await compile(originalCode))
+    const originalText = print(originalInstructions)
 
-        expect(disasmText).toEqual(originalText)
-    })
+    expect(disasmText).toEqual(originalText)
+  })
 })
 
 describe("skipRef", () => {
-    it(
-        "should skip explicit refs in skipRef mode",
-        test(
-            `
+  it(
+    "should skip explicit refs in skipRef mode",
+    test(
+      `
                 ref { PUSHINT_4 1 }
                 ref { PUSHINT_4 1 }
                 ref { PUSHINT_4 1 }
@@ -880,7 +880,7 @@ describe("skipRef", () => {
                 ref { PUSHINT_4 1 }
                 ref { PUSHINT_4 1 }
             `,
-            `
+      `
                 PUSHINT_4 1
                 PUSHINT_4 1
                 PUSHINT_4 1
@@ -888,14 +888,14 @@ describe("skipRef", () => {
                 PUSHINT_4 1
                 PUSHINT_4 1
             `,
-            true,
-        ),
-    )
+      true,
+    ),
+  )
 
-    it(
-        "should skip explicit refs in skipRef mode but add new one if needed",
-        test(
-            `
+  it(
+    "should skip explicit refs in skipRef mode but add new one if needed",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
@@ -903,7 +903,7 @@ describe("skipRef", () => {
                 
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
@@ -911,14 +911,14 @@ describe("skipRef", () => {
                     PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 }
             `,
-            true,
-        ),
-    )
+      true,
+    ),
+  )
 
-    it(
-        "should skip explicit refs in skipRef mode but add new one if needed 2",
-        test(
-            `
+  it(
+    "should skip explicit refs in skipRef mode but add new one if needed 2",
+    test(
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 
                 ref { PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF} }
@@ -929,7 +929,7 @@ describe("skipRef", () => {
                     PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 }
             `,
-            `
+      `
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
@@ -938,20 +938,20 @@ describe("skipRef", () => {
                     PUSHSLICE_LONG x{FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
                 }
             `,
-            true,
-        ),
-    )
+      true,
+    ),
+  )
 })
 
 const compile = async (code: string): Promise<Cell> => {
-    const res = await runTolkCompiler({
-        entrypointFileName: "main.tolk",
-        fsReadCallback: () => code,
-        withStackComments: true,
-        withSrcLineComments: true,
-    })
-    if (res.status === "error") {
-        throw new Error(res.message)
-    }
-    return Cell.fromBase64(res.codeBoc64)
+  const res = await runTolkCompiler({
+    entrypointFileName: "main.tolk",
+    fsReadCallback: () => code,
+    withStackComments: true,
+    withSrcLineComments: true,
+  })
+  if (res.status === "error") {
+    throw new Error(res.message)
+  }
+  return Cell.fromBase64(res.codeBoc64)
 }
