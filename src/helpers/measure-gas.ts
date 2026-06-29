@@ -41,7 +41,7 @@ export const measureGas = async (code: i.Instr[]): Promise<number> => {
       19,
       i.util.dictMap(
         new Map([
-          // biome-ignore format
+          // biome-ignore format: generate
           [0, [
                     ...measureGas2(code),
                     i.SWAP(),

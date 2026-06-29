@@ -58,7 +58,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // biome-ignore format
+              // biome-ignore format: generate
               [0, [
                             NEWC(),
                             STSLICECONST(beginCell().storeUint(0b0, 1).asSlice()),
@@ -134,7 +134,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // biome-ignore format
+              // biome-ignore format: generate
               [0, [
                                 PUSHCONT_SHORT(code([THROW_SHORT(1)])),
                                 PUSHCONT_SHORT(code([THROW_SHORT(2)])),
@@ -186,7 +186,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // biome-ignore format
+              // biome-ignore format: generate
               [0, [
                                 SDBEGINS(beginCell().storeUint(0n, 4).asSlice()), SBITS(), THROWANY(),
                             ]],
@@ -235,7 +235,7 @@ describe("tests", () => {
           19,
           dictMap(
             new Map([
-              // biome-ignore format
+              // biome-ignore format: generate
               [0, [
                                 PUSHSLICE_LONG(
                                     hex(
