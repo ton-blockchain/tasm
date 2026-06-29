@@ -1,22 +1,15 @@
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+# IDE files
+.vscode
+.idea
 
-# Swap the comments on the following lines if you wish to use zero-installs
-# In that case, don't forget to run `yarn config set enableGlobalCache false`!
-# Documentation here: https://yarnpkg.com/features/caching#zero-installs
+# OS
+.DS_Store
 
-#!.yarn/cache
-.pnp.*
+# Coverage
+/coverage
+*.lcov
+
+# Node
 node_modules
+dist
 
-.idea/
-.eslintcache
-
-src/testing/out/
-
-dist/
-output/
