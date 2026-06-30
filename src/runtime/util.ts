@@ -1,15 +1,15 @@
 import type {Slice} from "@ton/core"
 import {Cell} from "@ton/core"
-import type {Instr} from "./instr-gen"
-import * as c from "./constructors"
-import {codeType, compileCellWithMapping} from "./instr"
-import type {InstructionWithOffset, Mapping} from "./builder"
-import {CodeBuilder} from "./builder"
 import type {DictionaryValue} from "../dict/Dictionary"
 import {Dictionary} from "../dict/Dictionary"
-import {JMPREF} from "./constructors"
-import {rangeToName} from "./instr-mapping-gen"
+import type {InstructionWithOffset, Mapping} from "./builder"
+import {CodeBuilder} from "./builder"
 import {compileInstructions} from "./compile"
+import * as c from "./constructors"
+import {JMPREF} from "./constructors"
+import {codeType, compileCellWithMapping} from "./instr"
+import type {Instr} from "./instr-gen"
+import {rangeToName} from "./instr-mapping-gen"
 
 // TODO: split:
 // 1. like `constructors.ts`

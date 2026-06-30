@@ -1,6 +1,6 @@
-import {parse} from "../parse"
-import * as $ from "../grammar.gen.pegjs"
 import type * as G from "../grammar"
+import * as $ from "../grammar.gen.pegjs"
+import {parse} from "../parse"
 
 describe("Grammar Rules Compliance", () => {
   describe("vmLine rules", () => {

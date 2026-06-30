@@ -1,10 +1,10 @@
+import {readFileSync} from "node:fs"
 import type {Cell} from "@ton/core"
 import type {Mapping} from "../runtime"
 import {compileCellWithMapping, decompileCell} from "../runtime"
-import {print, parse} from "../text"
+import {parse, print} from "../text"
 import {createMappingInfo, createTraceInfoPerTransaction} from "../trace"
 import {buildFuncLineInfo, buildLineInfo, generateCoverageSummary} from "./data"
-import {readFileSync} from "node:fs"
 
 export function collectAsmCoverage(cell: Cell, logs: string) {
   const [cleanCell, mapping] = recompileCell(cell, false)
@@ -55,6 +55,6 @@ export const recompileCell = (cell: Cell, forFunC: boolean): [Cell, Mapping] => 
   return compileCellWithMapping(parseResult.instructions)
 }
 
+export * from "./data"
 export {generateHtml} from "./html"
 export {generateTextReport} from "./text"
-export * from "./data"

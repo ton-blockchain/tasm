@@ -1,7 +1,7 @@
-import {compileCell, decompileCell} from "../index"
 import {Cell} from "@ton/core"
-import {parse, print} from "../../text"
 import {runTolkCompiler} from "@ton/tolk-js"
+import {parse, print} from "../../text"
+import {compileCell, decompileCell} from "../index"
 
 const test =
   (tolkCode: string, expectedAssembly: string): (() => Promise<void>) =>
@@ -39,16 +39,16 @@ describe("TVM11 opcodes", () => {
                     queryId: uint64
                     increaseBy: uint32
                 }
-                
+
                 struct (0x3a752f06) ResetCounter {
                     queryId: uint64
                 }
-            
+
                 type AllowedMessage = IncreaseCounter | ResetCounter
-            
+
                 fun onInternalMessage(in: InMessage) {
                     val msg = lazy AllowedMessage.fromSlice(in.body);
-                    
+
                     match (msg) {
                         IncreaseCounter => {}
                         ResetCounter => {}
@@ -96,16 +96,16 @@ describe("TVM11 opcodes", () => {
                     queryId: uint64
                     increaseBy: uint32
                 }
-                
+
                 struct (0x3a752f06) ResetCounter {
                     queryId: uint64
                 }
-            
+
                 type AllowedMessage = IncreaseCounter | ResetCounter
-            
+
                 fun onInternalMessage(in: InMessage) {
                     val msg = lazy AllowedMessage.fromSlice(in.body);
-                    
+
                     match (msg) {
                         IncreaseCounter => {
                             if ((in.senderAddress as any_address).isNone()) {
@@ -214,7 +214,7 @@ describe("TVM11 opcodes", () => {
                 fun getParamLong1(): int asm "1 GETPARAMLONG"
                 fun getParamLong253(): int asm "253 GETPARAMLONG"
                 fun getParamLong254(): int asm "254 GETPARAMLONG"
-            
+
                 fun onInternalMessage(in: InMessage) {
                     debug.print(getParamLong0());
                     debug.print(getParamLong1());
@@ -254,7 +254,7 @@ describe("TVM11 opcodes", () => {
     test(
       `
                 fun inMsgParams(): tuple asm "INMSGPARAMS"
-            
+
                 fun onInternalMessage(in: InMessage) {
                     debug.print(inMsgParams());
                 }
@@ -281,7 +281,7 @@ describe("TVM11 opcodes", () => {
     test(
       `
                 fun inMsgParam(): tuple asm "1 INMSGPARAM"
-            
+
                 fun onInternalMessage(in: InMessage) {
                     debug.print(inMsgParam());
                 }
@@ -310,7 +310,7 @@ describe("TVM11 opcodes", () => {
                 struct Foo {
                     addr: address
                 }
-            
+
                 fun onInternalMessage(in: InMessage) {
                     val cell = Foo{addr: in.senderAddress}.toCell();
                     debug.print(cell.depth());

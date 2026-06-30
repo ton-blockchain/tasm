@@ -1,9 +1,9 @@
-import * as i from "../runtime"
 import type {Address, Contract, ContractProvider, Sender, StateInit, TupleReader} from "@ton/core"
-import {Cell, contractAddress, toNano, TupleBuilder} from "@ton/core"
+import {Cell, contractAddress, TupleBuilder, toNano} from "@ton/core"
+import type {ContractGetMethodResult} from "@ton/core/dist/contract/ContractProvider"
 import type {SandboxContract, TreasuryContract} from "@ton/sandbox"
 import {Blockchain} from "@ton/sandbox"
-import type {ContractGetMethodResult} from "@ton/core/dist/contract/ContractProvider"
+import * as i from "../runtime"
 
 export type ExtendedGetResult = ContractGetMethodResult & {vmLogs: string}
 

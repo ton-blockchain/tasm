@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import {cac} from "cac"
 import * as fs from "node:fs/promises"
 import {Cell} from "@ton/core"
+import {cac} from "cac"
 import {decompileCell} from "../runtime"
 import {print} from "../text"
 

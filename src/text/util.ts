@@ -1,20 +1,20 @@
-import type * as $ from "@tonstudio/parser-runtime"
-import type {Code, DecompiledMethod, Dict, Loc} from "../runtime/util"
-import {
-  boc,
-  decompiledCode,
-  DefaultExoticCell,
-  hex,
-  bin,
-  LibraryCell,
-  rawCode,
-  code,
-} from "../runtime/util"
-import type {$ast} from "./grammar"
-import * as i from "../runtime"
-import {convertInstruction} from "./convert"
 import type {Slice} from "@ton/core"
 import {beginCell} from "@ton/core"
+import type * as $ from "@tonstudio/parser-runtime"
+import * as i from "../runtime"
+import type {Code, DecompiledMethod, Dict, Loc} from "../runtime/util"
+import {
+  bin,
+  boc,
+  code,
+  DefaultExoticCell,
+  decompiledCode,
+  hex,
+  LibraryCell,
+  rawCode,
+} from "../runtime/util"
+import {convertInstruction} from "./convert"
+import type {$ast} from "./grammar"
 
 export type Ctx = {
   readonly lines: readonly string[]

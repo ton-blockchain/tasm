@@ -1,7 +1,7 @@
-import {compileCellWithMapping, decompileCell} from "../instr"
-import {parse, print} from "../../text"
 import * as fs from "node:fs"
 import {diffLines} from "diff"
+import {parse, print} from "../../text"
+import {compileCellWithMapping, decompileCell} from "../instr"
 
 const test = (text: string): (() => void) => {
   return () => {

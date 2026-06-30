@@ -1,5 +1,5 @@
-import type * as $ from "./util"
 import type {Slice} from "@ton/core"
+import type * as $ from "./util"
 
 export const fPUSHINT = (arg0: bigint, loc?: $.Loc): fPUSHINT => ({
   $: "fPUSHINT",

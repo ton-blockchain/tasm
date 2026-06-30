@@ -1,8 +1,8 @@
-import * as i from "../runtime"
 import type {Address, Contract, ContractProvider, Sender, StateInit, TupleReader} from "@ton/core"
-import {contractAddress, toNano, TupleBuilder, Cell} from "@ton/core"
+import {Cell, contractAddress, TupleBuilder, toNano} from "@ton/core"
 import type {SandboxContract, TreasuryContract} from "@ton/sandbox"
 import {Blockchain} from "@ton/sandbox"
+import * as i from "../runtime"
 import {measureGas2} from "./helpers"
 
 export const measureGas = async (code: i.Instr[]): Promise<number> => {

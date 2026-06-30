@@ -1,5 +1,5 @@
 import type {Instr} from "../runtime"
-import {PUSHINT_4, THROWIF, CHKDEPTH, CALLDICT, CALLDICT_LONG} from "../runtime"
+import {CALLDICT, CALLDICT_LONG, CHKDEPTH, PUSHINT_4, THROWIF} from "../runtime"
 import {measureGas} from "./measure-gas"
 
 interface TestCase {

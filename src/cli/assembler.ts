@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import {cac} from "cac"
 import * as fs from "node:fs/promises"
-import {parse} from "../text"
+import {cac} from "cac"
 import {compileCell} from "../runtime"
+import {parse} from "../text"
 
 interface Options {
   output: string

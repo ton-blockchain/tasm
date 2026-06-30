@@ -1,11 +1,29 @@
-import type * as $ from "./util"
+import {CodeBuilder} from "./builder"
+import {compileInstructions} from "./compile"
 import type * as c from "./fift-instr-constructors"
+import {instr} from "./instr"
 import {
   CALLDICT,
   CALLDICT_LONG,
   CALLXARGS,
   CALLXARGS_1,
+  EXECUTE,
+  IF,
+  IFELSE,
+  IFELSEREF,
+  IFJMP,
+  IFJMPREF,
+  IFNOT,
+  IFNOTJMP,
+  IFNOTJMPREF,
+  IFNOTREF,
+  IFNOTRET,
+  IFREF,
+  IFREFELSE,
+  IFREFELSEREF,
+  IFRET,
   JMPDICT,
+  JMPX,
   LSHIFT,
   POP,
   POP_LONG,
@@ -16,9 +34,9 @@ import {
   PUSHCONT,
   PUSHCONT_SHORT,
   PUSHCTR,
-  PUSHINT_16,
   PUSHINT_4,
   PUSHINT_8,
+  PUSHINT_16,
   PUSHINT_LONG,
   PUSHNEGPOW2,
   PUSHPOW2,
@@ -28,6 +46,8 @@ import {
   PUSHSLICE,
   PUSHSLICE_LONG,
   PUSHSLICE_REFS,
+  SDBEGINS,
+  SDBEGINSQ,
   SDBEGINSX,
   SDBEGINSXQ,
   STSLICECONST,
@@ -40,32 +60,12 @@ import {
   THROWIFNOT_SHORT,
   XCHG_0I,
   XCHG_0I_LONG,
-  XCHG_IJ,
-  SDBEGINS,
-  SDBEGINSQ,
-  EXECUTE,
-  JMPX,
   XCHG_1I,
-  IF,
-  IFNOT,
-  IFJMP,
-  IFNOTJMP,
-  IFELSE,
-  IFREF,
-  IFNOTREF,
-  IFJMPREF,
-  IFNOTJMPREF,
-  IFREFELSE,
-  IFELSEREF,
-  IFREFELSEREF,
-  IFRET,
-  IFNOTRET,
+  XCHG_IJ,
 } from "./types"
-import {instr} from "./instr"
+import type * as $ from "./util"
 import type {StoreOptions} from "./util"
 import {codeSlice, rawCode, uint} from "./util"
-import {CodeBuilder} from "./builder"
-import {compileInstructions} from "./compile"
 
 const fits = (val: bigint, bits: number) =>
   val >= BigInt(-Math.pow(2, bits - 1)) && val <= BigInt(Math.pow(2, bits - 1) - 1)

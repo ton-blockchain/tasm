@@ -6,15 +6,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {Address} from "@ton/core"
-import {beginCell} from "@ton/core"
-import {Slice, Cell} from "@ton/core"
-import {BitString} from "@ton/core"
-import {serializeDict} from "./serializeDict"
+import {Address, BitString, beginCell, Cell, Slice} from "@ton/core"
 import {Maybe} from "@ton/core/src/utils/maybe"
 import {CodeBuilder} from "../runtime/builder"
-import {parseDict} from "./parseDict"
 import {deserializeInternalKey, serializeInternalKey} from "./internalKeySerializer"
+import {parseDict} from "./parseDict"
+import {serializeDict} from "./serializeDict"
 
 export type DictionaryKeyTypes = Address | number | bigint | Buffer | BitString
 

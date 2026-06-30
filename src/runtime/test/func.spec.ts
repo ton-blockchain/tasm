@@ -1,29 +1,29 @@
-import type {Instr} from "../index"
-import {
-  compileCell,
-  BBITS,
-  NEWC,
-  STSLICECONST,
-  THROWANY,
-  THROWARG,
-  SETCP,
-  PUSHINT_LONG,
-  DICTIGETJMPZ,
-  IFELSE,
-  PUSHCONT_SHORT,
-  THROW_SHORT,
-  SDBEGINSX,
-  SBITS,
-  SDBEGINS,
-  PUSHSLICE,
-  DICTPUSHCONST,
-  PUSHSLICE_LONG,
-  decompileCell,
-} from "../index"
 import {beginCell, Cell} from "@ton/core"
 import {compileFunc} from "@ton-community/func-js"
-import {code, dictMap, hex} from "../util"
 import {print} from "../../text"
+import type {Instr} from "../index"
+import {
+  BBITS,
+  compileCell,
+  DICTIGETJMPZ,
+  DICTPUSHCONST,
+  decompileCell,
+  IFELSE,
+  NEWC,
+  PUSHCONT_SHORT,
+  PUSHINT_LONG,
+  PUSHSLICE,
+  PUSHSLICE_LONG,
+  SBITS,
+  SDBEGINS,
+  SDBEGINSX,
+  SETCP,
+  STSLICECONST,
+  THROW_SHORT,
+  THROWANY,
+  THROWARG,
+} from "../index"
+import {code, dictMap, hex} from "../util"
 
 const test =
   (instructions: Instr[], funcCode: string): (() => Promise<void>) =>

@@ -1,6 +1,6 @@
 import * as $ from "@tonstudio/parser-runtime"
-import * as G from "./grammar"
 import type {Instr} from "../runtime"
+import * as G from "./grammar"
 import type {Ctx} from "./util"
 import {createLoc, ParseError, processInstructions} from "./util"
 

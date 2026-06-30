@@ -1,11 +1,11 @@
-import * as c from "./constructors"
-import * as $ from "./util"
-import type {Instr} from "./instr-gen"
 import {CodeBuilder, MAX_CELL_BITS} from "./builder"
+import * as c from "./constructors"
 import {instr} from "./instr"
+import type {Instr} from "./instr-gen"
 import {matchingRule} from "./layout"
 import {IF, IFELSE, IFJMP, IFNOT, IFNOTJMP, PUSHCONT, PUSHCONT_SHORT} from "./types"
 import type {StoreOptions} from "./util"
+import * as $ from "./util"
 
 function isLastInstruction(index: number, instructions: Instr[]) {
   if (index === instructions.length - 1) {

@@ -3581,4 +3581,4 @@ function peg$parse(input, options) {
 
 const peg$allowedStartRules = ["SourceFile"]
 
-export {peg$allowedStartRules as StartRules, peg$SyntaxError as SyntaxError, peg$parse as parse}
+export {peg$allowedStartRules as StartRules, peg$parse as parse, peg$SyntaxError as SyntaxError}

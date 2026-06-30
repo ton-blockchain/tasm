@@ -1,5 +1,3 @@
-import type {DictionaryInfo, Mapping} from "../runtime"
-import type {Loc as InstrLoc} from "../runtime/util"
 import type {
   AssemblyMapping,
   CellHash,
@@ -7,6 +5,8 @@ import type {
   InstructionInfo,
   Loc,
 } from "ton-source-map"
+import type {DictionaryInfo, Mapping} from "../runtime"
+import type {Loc as InstrLoc} from "../runtime/util"
 
 export const fromParserLoc = (loc: InstrLoc): Loc => ({
   file: loc.file,

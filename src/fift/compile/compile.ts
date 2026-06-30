@@ -1,15 +1,16 @@
 import Instruction = $ast.Instruction
-import type * as G from "../parse/grammar"
-import {$ast} from "../parse/grammar"
-import type {$ast as $astT} from "../../text/grammar"
+
 import * as $ from "@tonstudio/parser-runtime"
-import type {Ctx} from "../../text"
-import {processInstructions} from "../../text"
-import type {DecompiledDict, DecompiledMethod} from "../../runtime/util"
-import {Hash} from "../../runtime/util"
-import {parse} from "../parse/parse"
 import type {Instr} from "../../runtime"
 import {DICTIGETJMPZ, DICTPUSHCONST, SETCP, THROWARG} from "../../runtime"
+import type {DecompiledDict, DecompiledMethod} from "../../runtime/util"
+import {Hash} from "../../runtime/util"
+import type {Ctx} from "../../text"
+import {processInstructions} from "../../text"
+import type {$ast as $astT} from "../../text/grammar"
+import type * as G from "../parse/grammar"
+import {$ast} from "../parse/grammar"
+import {parse} from "../parse/parse"
 
 export function compile(sourceName: string, content: string) {
   const result = parse(sourceName, content)

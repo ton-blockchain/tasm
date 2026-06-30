@@ -1,6 +1,6 @@
 import {writeFileSync} from "node:fs"
-import * as t from "@babel/types"
 import generateTs from "@babel/generator"
+import * as t from "@babel/types"
 import {instructionList, pseudoInstructions} from "./instructions"
 
 const main = () => {

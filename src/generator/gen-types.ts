@@ -1,8 +1,8 @@
 import {writeFileSync} from "node:fs"
+import generateTs from "@babel/generator"
 import * as t from "@babel/types"
 import type * as $ from "./instructions"
 import {instructionList, pseudoInstructions} from "./instructions"
-import generateTs from "@babel/generator"
 
 const CONSTRUCTORS_QUALIFIER = t.identifier("c")
 const UTIL_QUALIFIER = t.identifier("$")

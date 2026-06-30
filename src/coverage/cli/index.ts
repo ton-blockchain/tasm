@@ -1,10 +1,10 @@
-import {Cell} from "@ton/core"
-import {readFileSync, writeFileSync} from "node:fs"
-import {generateHtml} from "../html"
-import * as path from "node:path"
 import * as fs from "node:fs"
-import {collectAsmCoverage, collectFuncCoverage} from "../index"
+import {readFileSync, writeFileSync} from "node:fs"
+import * as path from "node:path"
+import {Cell} from "@ton/core"
 import type {CoverageSummary} from "../data"
+import {generateHtml} from "../html"
+import {collectAsmCoverage, collectFuncCoverage} from "../index"
 
 const USAGE =
   "Usage: coverage <boc-file-path> <log-file-path> [<func-source-path> <func-mapping-path>]"

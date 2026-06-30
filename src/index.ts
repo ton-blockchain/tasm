@@ -1,4 +1,4 @@
-export {Cell, Slice, Builder} from "@ton/core"
+export {Builder, Cell, Slice} from "@ton/core"
 export type {Dictionary, DictionaryKeyTypes, DictionaryValue} from "./dict/Dictionary"
 export * as logs from "./logs"
 export * as runtime from "./runtime"

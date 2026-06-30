@@ -1,0 +1,62 @@
+{
+  "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["**"]
+  },
+  "formatter": {
+    "enabled": true,
+    "includes": ["**", "!src/instructions/asm.ts", "!src/generator/instructions.ts"],
+    "bracketSpacing": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "asNeeded",
+      "quoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "includes": ["**", "!src/runtime/index.ts"],
+    "actions": {
+      "preset": "recommended",
+      "source": {
+        "preset": "recommended",
+        "useSortedPackageJson": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "includes": [
+      "!src/runtime/constructors.ts",
+      "!src/runtime/instr-gen.ts",
+      "!src/runtime/types.ts",
+      "!src/text/grammar.ts",
+      "!src/text/convert.ts",
+      "!src/text/printer-gen.ts",
+      "!src/logs/grammar.ts",
+      "!src/logs/grammar.gen.pegjs.d.ts",
+      "!src/logs/grammar.gen.pegjs.ts",
+      "!src/fift/parse/grammar.gen.pegjs.d.ts",
+      "!src/fift/parse/grammar.gen.pegjs.ts",
+      "!src/fift/parse/grammar.ts",
+      "!src/debugger/cli/debugger.ts",
+      "!src/dict/**"
+    ],
+    "rules": {
+      "preset": "recommended"
+    }
+  }
+}

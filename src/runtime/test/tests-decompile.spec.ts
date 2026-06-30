@@ -1,31 +1,31 @@
+import {call, execute} from "../../helpers"
+import {print} from "../../text"
 import type {Instr} from "../index"
 import {
+  ADD,
+  BTOS,
   compileCell,
-  THROWARG,
-  SETCP,
+  DEBUGSTR,
   DICTIGETJMPZ,
   DICTPUSHCONST,
+  decompileCell,
+  ENDC,
+  HASHBU,
   IFBITJMPREF,
-  PUSHINT_4,
-  ADD,
   IFNBITJMPREF,
   MUL,
+  NEWC,
+  PUSHINT_4,
+  PUSHINT_LONG,
   PUSHSLICE,
   PUSHSLICE_LONG,
-  DEBUGSTR,
-  PUSHINT_LONG,
-  decompileCell,
-  NEWC,
-  STREFCONST,
-  ENDC,
+  SETCP,
   STREF2CONST,
+  STREFCONST,
   SUB,
-  BTOS,
-  HASHBU,
+  THROWARG,
 } from "../index"
-import {call, execute} from "../../helpers"
 import {bin, code, dictMap, hex} from "../util"
-import {print} from "../../text"
 
 const someFunction = (): Instr[] => [MUL(), ADD()]
 

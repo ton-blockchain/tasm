@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import {cac} from "cac"
 import * as fs from "node:fs/promises"
+import {cac} from "cac"
 import {compile} from "../fift/compile/compile"
 import {compileCell} from "../runtime"
 
